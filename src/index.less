@@ -1,0 +1,82 @@
+.re-mind{
+	position: absolute;
+	overflow: hidden;
+	*{
+		box-sizing: border-box;
+		// transition: left,top,width,height 200ms ease-in-out;
+	}
+	ul,li {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		li{
+			list-style: none;
+		}
+	}
+	@import "./style/menu.less" ;
+	@import "./style/item.less";
+	.status {
+		font-size: 150%;
+		line-height: 0.8;
+	}
+
+	.status.yes:after {
+		content: "✔";
+		color: #0f0;
+	}
+
+	.status.no:after {
+		content: "✘";
+		color: #f00;
+	}
+
+	canvas {
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+
+	.toggle {
+		position: absolute;
+		width: 12px;
+		height: 12px;
+		line-height: 12px;
+		cursor: pointer;
+		border-radius: 50%;
+		border: 1px solid #00f;
+		background-color: #88f;
+		text-align: center;
+		font-weight: bold;
+		font-family: sans-serif;
+		color: #fff;
+		opacity: 0.7;
+	}
+
+	.toggle:hover {
+		opacity: 1;
+	}
+
+	.toggle:before {
+		content: "−";
+		line-height: 8px;
+		margin-top: -2px;
+		position: absolute;
+		left: 1px;
+		top: 3px;
+		font-size: 12px;
+	}
+
+	.collapsed > .toggle:before {
+		content: "+";
+		line-height: 8px;
+		margin-top: -2px;
+		position: absolute;
+		left: 1px;
+		top: 2px;
+		font-size: 12px;
+	}
+
+	
+
+	
+}
