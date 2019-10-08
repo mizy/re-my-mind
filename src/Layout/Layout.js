@@ -116,7 +116,7 @@ MM.Layout._getChildAnchor = function(item, side) {
 
 MM.Layout._computeChildrenBBox = function(children, childIndex) {
 	var bbox = [0, 0];
-	var rankIndex = (childIndex+1) % 2;
+	var rankIndex = childIndex?0:1;
 
 	children.forEach(function(child, index) {
 		var node = child.getDOM().node;

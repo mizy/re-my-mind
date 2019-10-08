@@ -1,6 +1,7 @@
 MM.Layout.Graph = Object.create(MM.Layout, {
 	SPACING_RANK: {value: 64},
-	childDirection: {value: ""}
+	childDirection: {value: ""},
+	thirdChildOffsetTop:{value:-13}
 });
 
 MM.Layout.Graph.getChildDirection = function(child) {
@@ -40,15 +41,18 @@ MM.Layout.Graph.update = function(item) {
  * Generic graph child layout routine. Updates item's orthogonal size according to the sum of its children.
  */
 MM.Layout.Graph._layoutItem = function(item, rankDirection) {
+	const shape = item.getShape().id;
+	const spacingRank = this.SPACING_RANK;
 	var sizeProps = ["width", "height"];
 	var posProps = ["left", "top"];
+	
 	var rankIndex = (rankDirection == "left" || rankDirection == "right" ? 0 : 1);
-	var childIndex = (rankIndex+1) % 2;
+	var childIndex = !rankIndex?1:0
 
-	var rankPosProp = posProps[rankIndex];
-	var childPosProp = posProps[childIndex];
-	var rankSizeProp = sizeProps[rankIndex];
-	var childSizeProp = sizeProps[childIndex];
+	var rankPosProp = posProps[rankIndex];// 排列属性， ["left", "top"]
+	var childPosProp = posProps[childIndex];// 
+	var rankSizeProp = sizeProps[rankIndex]; //  
+	var childSizeProp = sizeProps[childIndex];// 宽高
 
 	var dom = item.getDOM();
 
@@ -60,25 +64,58 @@ MM.Layout.Graph._layoutItem = function(item, rankDirection) {
 
 	/* node size */
 	var rankSize = contentSize[rankIndex];
-	if (bbox[rankIndex]) { rankSize += bbox[rankIndex] + this.SPACING_RANK; }
+	if (bbox[rankIndex]) { rankSize += bbox[rankIndex] + spacingRank; }
 	var childSize = Math.max(bbox[childIndex], contentSize[childIndex]);
 	dom.node.style[rankSizeProp] = rankSize + "px";
 	dom.node.style[childSizeProp] = childSize + "px";
 
 	var offset = [0, 0];
-	if (rankDirection == "right") { offset[0] = contentSize[0] + this.SPACING_RANK; }
-	if (rankDirection == "bottom") { offset[1] = contentSize[1] + this.SPACING_RANK; }
+	if (rankDirection == "right") { offset[0] = contentSize[0] + spacingRank; }
+	if (rankDirection == "bottom") { offset[1] = contentSize[1] + spacingRank; }
 	offset[childIndex] = Math.round((childSize - bbox[childIndex])/2);
-	this._layoutChildren(item.getChildren(), rankDirection, offset, bbox);
+	if(shape==='box'){
+		this._layoutBoxChildren(item.getChildren(), rankDirection, offset, bbox);
+	}else{
+		this._layoutChildren(item.getChildren(), rankDirection, offset, bbox);
+	}
 
 	/* label position */
 	var labelPos = 0;
 	if (rankDirection == "left") { labelPos = rankSize - contentSize[0]; }
 	if (rankDirection == "top") { labelPos = rankSize - contentSize[1]; }
-	dom.content.style[childPosProp] = Math.round((childSize - contentSize[childIndex])/2) + "px";
+	
+	dom.content.style[childPosProp] = Math.round((childSize - contentSize[childIndex])/2 ) + "px";
 	dom.content.style[rankPosProp] = labelPos + "px";
 
 	return this;
+}
+
+MM.Layout.Graph._layoutBoxChildren = function(children, rankDirection, offset, bbox){
+	var posProps = ["left", "top"];
+
+	var rankIndex = (rankDirection == "left" || rankDirection == "right" ? 0 : 1);
+	var childIndex = (rankIndex+1) % 2;
+	var rankPosProp = posProps[rankIndex];
+	var childPosProp = posProps[childIndex];
+
+	children.forEach(function(child, index) {
+		var node = child.getDOM().node;
+		var childSize = [node.offsetWidth, node.offsetHeight];
+
+		if (rankDirection == "left") { 
+			offset[0] = bbox[0] - childSize[0]; 
+		}
+		if (rankDirection == "top") { 
+			offset[1] = bbox[1] - childSize[1] -10;
+		}
+		// 这个常量会被css修改，要注意修改
+		node.style[childPosProp] = offset[childIndex] + (childPosProp==='top'?this.thirdChildOffsetTop:0) + "px";
+		node.style[rankPosProp] = offset[rankIndex] + "px";
+
+		offset[childIndex] += childSize[childIndex] + this.SPACING_CHILD; /* offset for next child */
+	}, this);
+
+	return bbox;
 }
 
 MM.Layout.Graph._layoutChildren = function(children, rankDirection, offset, bbox) {
@@ -93,8 +130,12 @@ MM.Layout.Graph._layoutChildren = function(children, rankDirection, offset, bbox
 		var node = child.getDOM().node;
 		var childSize = [node.offsetWidth, node.offsetHeight];
 
-		if (rankDirection == "left") { offset[0] = bbox[0] - childSize[0]; }
-		if (rankDirection == "top") { offset[1] = bbox[1] - childSize[1]; }
+		if (rankDirection == "left") { 
+			offset[0] = bbox[0] - childSize[0]; 
+		}
+		if (rankDirection == "top") { 
+			offset[1] = bbox[1] - childSize[1];
+		}
 
 		node.style[childPosProp] = offset[childIndex] + "px";
 		node.style[rankPosProp] = offset[rankIndex] + "px";
@@ -174,7 +215,7 @@ MM.Layout.Graph._drawHorizontalConnectors = function(item, side, children) {
 	ctx.beginPath();
 	// 重构这部分逻辑，写死倒角大小
 	// 三级节点的直线部分
-	const r = 15;
+	const r = 12;
 	ctx.moveTo(x1, y1);
 	ctx.lineTo(xx, y1);
 	ctx.lineTo(x+sideVal*(r-1),y1);
@@ -183,7 +224,10 @@ MM.Layout.Graph._drawHorizontalConnectors = function(item, side, children) {
 	ctx.arcTo(x,y2,x+sideVal*r,y2,r);
 	ctx.moveTo(x+sideVal*(r-1),y2)
 	ctx.lineTo(x2,y2)
-
+	// ctx.moveTo(x,y);
+	// ctx.lineTo(x1,y1);
+	// ctx.moveTo(x,y);
+	// ctx.lineTo(x2,y2);
 	
 	for (var i=1; i<children.length-1; i++) {
 		var c = children[i];

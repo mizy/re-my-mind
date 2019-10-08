@@ -1,6 +1,7 @@
 MM.Layout.Map = Object.create(MM.Layout.Graph, {
 	id: {value:"map"},
 	label: {value:"Map"},
+	ROOT_SPACE:{value:64},
 	LINE_THICKNESS: {value:8}
 });
 MM.Layout.ALL.push(MM.Layout.Map);
@@ -82,16 +83,15 @@ MM.Layout.Map._layoutRoot = function(item) {
 	var bboxLeft = this._computeChildrenBBox(childrenLeft, 1);
 	var bboxRight = this._computeChildrenBBox(childrenRight, 1);
 	var height = Math.max(bboxLeft[1], bboxRight[1], dom.content.offsetHeight);
-
 	var left = 0;
 	this._layoutChildren(childrenLeft, "left", [left, Math.round((height-bboxLeft[1])/2)], bboxLeft);
 	left += bboxLeft[0];
 
-	if (childrenLeft.length) { left += this.SPACING_RANK; }
+	if (childrenLeft.length) { left += this.ROOT_SPACE; }
 	dom.content.style.left = left + "px";
 	left += dom.content.offsetWidth;
 
-	if (childrenRight.length) { left += this.SPACING_RANK; }
+	if (childrenRight.length) { left += this.ROOT_SPACE; }
 	this._layoutChildren(childrenRight, "right", [left, Math.round((height-bboxRight[1])/2)], bboxRight);
 	left += bboxRight[0];
 

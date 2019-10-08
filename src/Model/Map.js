@@ -1,4 +1,4 @@
-MM.Map = function(options) {
+MM.Map = function(options={}) {
 	var o = {
 		root: options.rootName||"Root",
 		layout: MM.Layout.Map
@@ -7,8 +7,11 @@ MM.Map = function(options) {
 	this._root = null;
 	this._visible = false;
 	this._position = [0, 0];
-
-	this._setRoot(new MM.Item().setText(o.root).setLayout(o.layout));
+	if(options.data){
+		this.fromJSON(options.data)
+	}else{
+		this._setRoot(new MM.Item().setText(o.root).setLayout(o.layout));
+	}
 }
 
 MM.Map.fromJSON = function(data) {

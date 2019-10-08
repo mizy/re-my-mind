@@ -6,6 +6,8 @@ MM.App = {
 	keyboard: null,
 	current: null,
 	editing: false,
+	zoomRatio:0.2,//每次缩放递进比例
+	scale:1,//原始比例
 	history: [],
 	historyIndex: 0,
 	portSize: [0, 0],
@@ -56,6 +58,13 @@ MM.App = {
 		this.map.update();
 		this.map.ensureItemVisibility(this.current);
 	},
+
+	zoom: val => {
+		val = val*this.zoomRatio;
+		this.scale = this.scale * val;
+		const node = this.map.getRoot().getDOM().node;
+		node.style.transform = `scale(${this.scale})`;
+	},
 	
 	handleMessage: function(message, publisher) {
 		switch (message) {
@@ -97,7 +106,6 @@ MM.App = {
 			<button data-command="Delete">删除</button>
 			<span></span>
 			<button data-command="Edit">编辑</button>
-			<button data-command="Value">查看值</button>
 			<span></span>
 			<button data-command="Undo">撤销</button>
 			<button data-command="Redo">重置</button>
@@ -122,6 +130,7 @@ MM.App = {
 		MM.subscribe("ui-change", this);
 		MM.subscribe("item-change", this);
 		this._syncPort();
+		
 		this.setMap(new MM.Map(options||{}));
 		return this;
 	},
