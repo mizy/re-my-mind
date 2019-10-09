@@ -1,9 +1,9 @@
 {
-		"name": "re-mind",
-		"version": "1.0.1",
+		"name": "re-my-mind",
+		"version": "1.0.2",
 		"description":"脑图编辑器",
   		"keywords": ["脑图","流程图"],
-		"main": "index.js",
+		"main": "dist/re-mind.js",
 		"scripts": {
 				"start": "webpack-dev-server",
 				"build": "webpack -p --config webpack.config.build.js"
@@ -16,7 +16,7 @@
 			"type": "block",
 			"preview": true
 		},
-		"author": "",
+		"author": "mizy",
 		"license": "ISC",
 		"devDependencies": {
 				"@babel/core": "^7.4.5",

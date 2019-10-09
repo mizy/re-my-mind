@@ -11,7 +11,7 @@ MM.Item = function(options) {
 	this._value = null;
 	this._status = null;
 	this._side = null; /* side preference */
-	this._icon = null;
+	this._icon = {};
 	this._id = MM.generateId();
 	this._oldText = "";
 
@@ -24,7 +24,7 @@ MM.Item = function(options) {
 		node: document.createElement("li"),
 		content: document.createElement("div"),
 		status: document.createElement("span"),
-		icon: document.createElement("span"),
+		icon: document.createElement("ul"),
 		value: document.createElement("span"),
 		text: document.createElement("div"),
 		children: document.createElement("ul"),
@@ -289,8 +289,8 @@ MM.Item.prototype.getStatus = function() {
 	return this._status;
 }
 
-MM.Item.prototype.setIcon = function(icon) {
-	this._icon = icon;
+MM.Item.prototype.setIcon = function(icon,type='default') {
+	this._icon[type] = icon;
 	return this.update();
 }
 
@@ -529,14 +529,17 @@ MM.Item.prototype._updateStatus = function() {
 	}
 }
 MM.Item.prototype._updateIcon = function() {
-    this._dom.icon.className = "icon";
+    this._dom.icon.className = "re-mind-icon";
     this._dom.icon.style.display = "";
 
     var icon = this._icon;
-    if (icon)
+    if (JSON.stringify("icon")!=='{}')
 	{
-        this._dom.icon.classList.add('fa');
-        this._dom.icon.classList.add(icon);
+		let iconList = '';
+		for(let key in icon){
+			iconList+=`<li class="${icon[key]}"></li>`;
+		}
+		this._dom.icon.innerHTML = iconList; 
         this._computed.icon = true;
 	} else {
         this._computed.icon = null;

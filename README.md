@@ -8,6 +8,7 @@ a mind-map editor base on my-mind
 * 工程化改造
 * 去除UI依赖
 * 放大缩小改为transform方式
+* 具体效果请查看dist下index.html的demo
 
 # 调用
 ```
