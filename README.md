@@ -20,7 +20,7 @@ npm i re-my-mind --save
 ```
 # 直接引用
 ```html
-<script src="https://unpkg.com/re-my-mind@${version}/dist/re-mind.js"></script>
+<script src="https://unpkg.com/re-my-mind@${version}/dist/re-my-mind.js"></script>
 ```
 
 # 调用

@@ -3,7 +3,7 @@
 		"version": "1.0.2",
 		"description":"脑图编辑器",
   		"keywords": ["脑图","流程图"],
-		"main": "dist/re-mind.js",
+		"main": "dist/re-my-mind.js",
 		"scripts": {
 				"start": "webpack-dev-server",
 				"build": "webpack -p --config webpack.config.build.js"
