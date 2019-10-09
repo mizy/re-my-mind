@@ -1,6 +1,8 @@
 # re-mind
+基于my-mind改造的脑图编辑器框架
 
-a mind-map editor base on my-mind
+# demo
+[basic](https://mizy.github.io/re-mind/dist/index.html)
 
 # 基于My-Mind改造部分
 * 部分css样式改造
