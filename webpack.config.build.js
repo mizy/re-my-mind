@@ -1,7 +1,7 @@
 let webpackConfig = {
 	entry: "./src/index.js",
 	output: {
-		filename: "re-mind.js",
+		filename: "re-my-mind.js",
 		library: "MM",
 		libraryTarget: "umd",
 		libraryExport: "default" // 默认导出
