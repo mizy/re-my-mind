@@ -2,9 +2,9 @@
 基于my-mind改造的脑图编辑器框架
 
 # demo
-[basic](https://mizy.github.io/re-mind/dist/index.html)
+[basic](https://mizy.github.io/re-my-mind/dist/index.html)
 
-[<img src="https://github.com/mizy/re-mind/blob/master/snapshot.png?raw=true" alt="Koni" width="800">](https://mizy.github.io/re-mind/dist/index.html)
+[<img src="https://github.com/mizy/re-my-mind/blob/master/snapshot.png?raw=true" alt="Koni" width="800">](https://mizy.github.io/re-my-mind/dist/index.html)
 
 # 基于My-Mind改造部分
 * 部分css样式改造
