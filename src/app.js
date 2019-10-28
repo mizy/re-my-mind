@@ -23,6 +23,20 @@ MM.App = {
 		ghost: null
 	},
 	_fontSize: 100,
+
+	destroy(){
+		this._port.innerHTML = null;
+		this.map = null;
+		this.current = null;
+		this.scale = null;
+		this.history = [];
+		this._drag = {
+			pos: [0, 0],
+			item: null,
+			ghost: null
+		}
+		MM.clear();
+	},
 	
 	action: function(action) {
 		if (this.historyIndex < this.history.length) { /* remove undoed actions */

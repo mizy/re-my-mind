@@ -113,7 +113,6 @@ MM.Item.prototype.fromJSON = function(data) {
 
 MM.Item.prototype.mergeWith = function(data) {
 	var dirty = 0;
-
 	if (this.getText() != data.text && !this._dom.text.contentEditable) { this.setText(data.text); }
 
 	if (this._side != data.side) { 

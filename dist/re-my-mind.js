@@ -115,6 +115,9 @@ __webpack_require__.r(__webpack_exports__);
 
 window.MM = {
   _subscribers: {},
+  clear: function clear() {
+    MM._subscribers = {};
+  },
   publish: function publish(message, publisher, data) {
     var subscribers = this._subscribers[message] || [];
     subscribers.forEach(function (subscriber) {
@@ -133,6 +136,10 @@ window.MM = {
     }
   },
   unsubscribe: function unsubscribe(message, subscriber) {
+    if (!subscriber) {
+      return this._subscribers[message] = [];
+    }
+
     var index = this._subscribers[message].indexOf(subscriber);
 
     if (index > -1) {
@@ -187,7 +194,7 @@ if(false) {}
 
 exports = module.exports = __webpack_require__(4)(false);
 // Module
-exports.push([module.i, ".re-mind {\n  position: relative;\n  overflow: hidden;\n  /* root */\n  /* 1st children */\n}\n.re-mind * {\n  box-sizing: border-box;\n}\n.re-mind ul,\n.re-mind li {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n}\n.re-mind ul li,\n.re-mind li li {\n  list-style: none;\n}\n.re-mind .menu {\n  position: absolute;\n  z-index: 1;\n  /* border: 1px solid #666; */\n  background-color: #fff;\n  box-shadow: 0 0 5px 0px #666;\n  border-radius: 2px;\n  padding: 10px 0;\n}\n.re-mind .menu button {\n  display: block;\n  background-color: transparent;\n  border: none;\n  margin: 0;\n  padding: 3px 6px;\n  font-size: 15px;\n  width: 130px;\n  text-align: left;\n  cursor: pointer;\n}\n.re-mind .menu button:hover {\n  background: #0ae;\n  color: #fff;\n}\n.re-mind .menu span {\n  display: block;\n  border-top: 1px solid #eee;\n  margin-top: 4px;\n  padding-top: 4px;\n}\n.re-mind .item {\n  position: absolute;\n}\n.re-mind .item .re-mind-icon {\n  display: inline-block;\n}\n.re-mind .item.cut {\n  opacity: 0.5;\n}\n.re-mind .item.collapsed .children {\n  display: none;\n}\n.re-mind > .item > .content {\n  font-weight: bold;\n  border-width: 2px;\n  font-size: 140%;\n  color: #fff;\n  border: 0;\n  padding: 10px 20px;\n  background-color: #50c28b;\n}\n.re-mind > .item > .toggle {\n  display: none;\n}\n.re-mind > .item > .children > .item > .content {\n  border-width: 2px;\n  font-size: 120%;\n}\n.re-mind > .item .icon {\n  margin: 0 0.5em 0 0;\n  font-size: x-large;\n}\n.re-mind .content {\n  position: relative;\n  display: inline-block;\n  white-space: nowrap;\n  cursor: pointer;\n  padding: 5px;\n  border-radius: 5px;\n}\n.re-mind .content > * {\n  vertical-align: middle;\n}\n.re-mind .content .text {\n  display: inline-block;\n  text-align: center;\n  min-width: 0.5em;\n  min-height: 1.3em;\n  font-weight: normal;\n  outline: none;\n}\n.re-mind .content .value,\n.re-mind .content .status {\n  margin-right: 0.2em;\n}\n.re-mind .content .text ~ .value,\n.re-mind .content .text ~ .status {\n  margin-left: 0.2em;\n  margin-right: 0;\n}\n.re-mind .content .value {\n  opacity: 0.7;\n  display: none;\n}\n.re-mind .content .value:not(:empty):before {\n  content: \"(\";\n}\n.re-mind .content .value:not(:empty):after {\n  content: \")\";\n}\n.re-mind .shape-box > .content {\n  padding: 0.15em 0.4em;\n  background-color: #06B9D1;\n  color: #fff;\n  border-radius: 3px;\n}\n.re-mind .shape-ellipse > .content {\n  border: 1px solid transparent;\n}\n.re-mind .current > .content:before {\n  content: \" \";\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: -6px;\n  top: -6px;\n  box-sizing: content-box;\n  border: 2px solid #7bbfea;\n  padding: 4px;\n}\n.re-mind > .item > .children > .item > .children .current > .content:before {\n  left: -2px;\n  top: -2px;\n  padding: 0px;\n}\n.re-mind :not(.current):not(.collapsed) > .toggle {\n  /* NOT display:none - we need to have non-zero dimensions for layouting */\n  visibility: hidden;\n}\n.re-mind .status {\n  font-size: 150%;\n  line-height: 0.8;\n}\n.re-mind .status.yes:after {\n  content: \"✔\";\n  color: #0f0;\n}\n.re-mind .status.no:after {\n  content: \"✘\";\n  color: #f00;\n}\n.re-mind canvas {\n  position: absolute;\n  left: 0;\n  top: 0;\n}\n.re-mind .toggle {\n  position: absolute;\n  width: 12px;\n  height: 12px;\n  line-height: 12px;\n  cursor: pointer;\n  border-radius: 50%;\n  border: 1px solid #00f;\n  background-color: #88f;\n  text-align: center;\n  font-weight: bold;\n  font-family: sans-serif;\n  color: #fff;\n  opacity: 0.7;\n}\n.re-mind .toggle:hover {\n  opacity: 1;\n}\n.re-mind .toggle:before {\n  content: \"−\";\n  line-height: 8px;\n  margin-top: -2px;\n  position: absolute;\n  left: 1px;\n  top: 3px;\n  font-size: 12px;\n}\n.re-mind .collapsed > .toggle:before {\n  content: \"+\";\n  line-height: 8px;\n  margin-top: -2px;\n  position: absolute;\n  left: 1px;\n  top: 2px;\n  font-size: 12px;\n}\n", ""]);
+exports.push([module.i, ".re-mind {\n  position: relative;\n  overflow: hidden;\n  /* root */\n  /* 1st children */\n}\n.re-mind * {\n  box-sizing: border-box;\n}\n.re-mind ul,\n.re-mind li {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n}\n.re-mind ul li,\n.re-mind li li {\n  list-style: none;\n}\n.re-mind .menu {\n  position: absolute;\n  z-index: 1;\n  /* border: 1px solid #666; */\n  background-color: #fff;\n  box-shadow: 0 0 5px 0px #666;\n  border-radius: 2px;\n  padding: 10px 0;\n}\n.re-mind .menu button {\n  display: block;\n  background-color: transparent;\n  border: none;\n  margin: 0;\n  padding: 3px 6px;\n  font-size: 15px;\n  width: 130px;\n  text-align: left;\n  cursor: pointer;\n}\n.re-mind .menu button:hover {\n  background: #0ae;\n  color: #fff;\n}\n.re-mind .menu span {\n  display: block;\n  border-top: 1px solid #eee;\n  margin-top: 4px;\n  padding-top: 4px;\n}\n.re-mind .item {\n  position: absolute;\n}\n.re-mind .item .re-mind-icon {\n  display: inline-block;\n}\n.re-mind .item.cut {\n  opacity: 0.5;\n}\n.re-mind .item.collapsed .children {\n  display: none;\n}\n.re-mind > .item > .content {\n  font-weight: bold;\n  border-width: 2px;\n  font-size: 140%;\n  color: #fff;\n  border: 0;\n  padding: 10px 20px;\n  background-color: #50c28b;\n}\n.re-mind > .item > .toggle {\n  display: none;\n}\n.re-mind > .item > .children > .item > .content {\n  border-width: 2px;\n  font-size: 120%;\n}\n.re-mind > .item .icon {\n  margin: 0 0.5em 0 0;\n  font-size: x-large;\n}\n.re-mind .content {\n  position: relative;\n  display: inline-block;\n  white-space: nowrap;\n  cursor: pointer;\n  padding: 5px;\n  border-radius: 5px;\n}\n.re-mind .content > * {\n  vertical-align: middle;\n}\n.re-mind .content .text {\n  display: inline-block;\n  text-align: center;\n  min-width: 0.5em;\n  min-height: 1.3em;\n  font-weight: normal;\n  outline: none;\n}\n.re-mind .content .value,\n.re-mind .content .status {\n  margin-right: 0.2em;\n}\n.re-mind .content .text ~ .value,\n.re-mind .content .text ~ .status {\n  margin-left: 0.2em;\n  margin-right: 0;\n}\n.re-mind .content .value {\n  opacity: 0.7;\n  display: none;\n}\n.re-mind .content .value:not(:empty):before {\n  content: \"(\";\n}\n.re-mind .content .value:not(:empty):after {\n  content: \")\";\n}\n.re-mind .shape-box > .content {\n  padding: 0.15em 0.4em;\n  background-color: #06B9D1;\n  color: #fff;\n  border-radius: 3px;\n}\n.re-mind .shape-ellipse > .content {\n  border: 1px solid transparent;\n}\n.re-mind .current > .content:before {\n  content: \" \";\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: -6px;\n  top: -6px;\n  box-sizing: content-box;\n  border: 2px solid #7cb9ff;\n  padding: 4px;\n}\n.re-mind > .item > .children > .item > .children .current > .content:before {\n  left: -2px;\n  top: -2px;\n  padding: 0px;\n}\n.re-mind :not(.current):not(.collapsed) > .toggle {\n  /* NOT display:none - we need to have non-zero dimensions for layouting */\n  visibility: hidden;\n}\n.re-mind .status {\n  font-size: 150%;\n  line-height: 0.8;\n}\n.re-mind .status.yes:after {\n  content: \"✔\";\n  color: #0f0;\n}\n.re-mind .status.no:after {\n  content: \"✘\";\n  color: #f00;\n}\n.re-mind canvas {\n  position: absolute;\n  left: 0;\n  top: 0;\n}\n.re-mind .toggle {\n  position: absolute;\n  width: 12px;\n  height: 12px;\n  line-height: 12px;\n  cursor: pointer;\n  border-radius: 50%;\n  border: 1px solid #00f;\n  background-color: #88f;\n  text-align: center;\n  font-weight: bold;\n  font-family: sans-serif;\n  color: #fff;\n  opacity: 0.7;\n}\n.re-mind .toggle:hover {\n  opacity: 1;\n}\n.re-mind .toggle:before {\n  content: \"−\";\n  line-height: 8px;\n  margin-top: -2px;\n  position: absolute;\n  left: 1px;\n  top: 3px;\n  font-size: 12px;\n}\n.re-mind .collapsed > .toggle:before {\n  content: \"+\";\n  line-height: 8px;\n  margin-top: -2px;\n  position: absolute;\n  left: 1px;\n  top: 2px;\n  font-size: 12px;\n}\n.re-mind .re-mind-icon {\n  display: inline-flex !important;\n  flex-direction: row-reverse;\n}\n.re-mind .re-mind-icon > li {\n  font-size: 18px;\n  display: inline-block;\n  margin-left: -5px;\n}\n.re-mind .re-mind-icon > li:last-child {\n  margin-left: 0px;\n}\n.re-mind .re-mind-icon > li:first-child {\n  margin-right: 5px;\n}\n", ""]);
 
 
 /***/ }),
@@ -3644,17 +3651,17 @@ MM.Layout._computeChildrenBBox = function (children, childIndex) {
 };
 
 MM.Layout._alignItem = function (item, side) {
-  var dom = item.getDOM();
+  var dom = item.getDOM(); // 所有情况都插入
+
+  dom.content.insertBefore(dom.icon, dom.content.firstChild);
 
   switch (side) {
     case "left":
-      dom.content.insertBefore(dom.icon, dom.content.firstChild);
       dom.content.appendChild(dom.value);
       dom.content.appendChild(dom.status);
       break;
 
     case "right":
-      dom.content.insertBefore(dom.icon, dom.content.firstChild);
       dom.content.insertBefore(dom.value, dom.content.firstChild);
       dom.content.insertBefore(dom.status, dom.content.firstChild);
       break;
@@ -4941,6 +4948,19 @@ MM.App = {
     ghost: null
   },
   _fontSize: 100,
+  destroy: function destroy() {
+    this._port.innerHTML = null;
+    this.map = null;
+    this.current = null;
+    this.scale = null;
+    this.history = [];
+    this._drag = {
+      pos: [0, 0],
+      item: null,
+      ghost: null
+    };
+    MM.clear();
+  },
   action: function action(_action) {
     if (this.historyIndex < this.history.length) {
       /* remove undoed actions */

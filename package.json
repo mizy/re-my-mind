@@ -1,41 +1,43 @@
 {
-		"name": "re-my-mind",
-		"version": "1.0.2",
-		"description":"脑图编辑器",
-  		"keywords": ["脑图","流程图"],
-		"main": "dist/re-my-mind.js",
-		"scripts": {
-				"start": "webpack-dev-server",
-				"build": "webpack -p --config webpack.config.build.js"
-		},
-		"files":[
-			"dist",
-			"src"
-		],
-		"td": {
-			"type": "block",
-			"preview": true
-		},
-		"author": "mizy",
-		"license": "ISC",
-		"devDependencies": {
-				"@babel/core": "^7.4.5",
-				"@babel/plugin-proposal-class-properties": "^7.4.4",
-				"@babel/plugin-proposal-decorators": "^7.4.4",
-				"@babel/plugin-syntax-dynamic-import": "^7.2.0",
-				"@babel/plugin-transform-runtime": "^7.4.4",
-				"@babel/preset-env": "^7.4.5",
-				"@babel/preset-react": "^7.0.0",
-				"@babel/types": "^7.4.4",
-				"babel-loader": "^8.0.6",
-				"babel-plugin-import": "^1.12.0",
-				"css-loader": "^3.0.0",
-				"file-loader": "^4.2.0",
-				"less": "^3.9.0",
-				"less-loader": "^5.0.0",
-				"style-loader": "^0.23.1",
-				"webpack": "^4.35.2",
-				"webpack-cli": "^3.3.5",
-				"webpack-dev-server": "^3.7.2"
-		}
+	"name": "re-my-mind",
+	"version": "1.0.9",
+	"description": "脑图编辑器",
+	"keywords": [
+		"脑图",
+		"流程图"
+	],
+	"main": "dist/re-my-mind.js",
+	"scripts": {
+		"start": "webpack-dev-server",
+		"build": "webpack -p --config webpack.config.build.js"
+	},
+	"files": [
+		"dist"
+	],
+	"td": {
+		"type": "block",
+		"preview": true
+	},
+	"author": "mizy",
+	"license": "ISC",
+	"devDependencies": {
+		"@babel/core": "^7.4.5",
+		"@babel/plugin-proposal-class-properties": "^7.4.4",
+		"@babel/plugin-proposal-decorators": "^7.4.4",
+		"@babel/plugin-syntax-dynamic-import": "^7.2.0",
+		"@babel/plugin-transform-runtime": "^7.4.4",
+		"@babel/preset-env": "^7.4.5",
+		"@babel/preset-react": "^7.0.0",
+		"@babel/types": "^7.4.4",
+		"babel-loader": "^8.0.6",
+		"babel-plugin-import": "^1.12.0",
+		"css-loader": "^3.0.0",
+		"file-loader": "^4.2.0",
+		"less": "^3.9.0",
+		"less-loader": "^5.0.0",
+		"style-loader": "^0.23.1",
+		"webpack": "^4.35.2",
+		"webpack-cli": "^3.3.5",
+		"webpack-dev-server": "^3.7.2"
+	}
 }
