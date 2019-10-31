@@ -1,5 +1,5 @@
-MM.Item = function(options) {
-	options = options||{};
+MM.Item = function (options) {
+	options = options || {};
 	this._parent = null;
 	this._children = [];
 	this._collapsed = false;
@@ -7,7 +7,7 @@ MM.Item = function(options) {
 	this._layout = null;
 	this._shape = null;
 	this._autoShape = true;
-	this._color = options.color||null;
+	this._color = options.color || null;
 	this._value = null;
 	this._status = null;
 	this._side = null; /* side preference */
@@ -44,33 +44,33 @@ MM.Item = function(options) {
 	this._dom.node.appendChild(this._dom.canvas);
 	this._dom.node.appendChild(this._dom.content);
 	/* toggle+children are appended when children exist */
-	this.setText(options.name||"")
+	this.setText(options.name || "")
 	this._dom.toggle.addEventListener("click", this);
 }
 
 MM.Item.COLOR = "#999999";
 
-    /* RE explanation:
-     *          _________________________________________________________________________ One of the three possible variants
-     *           ____________________ scheme://x
-     *                                ___________________________ aa.bb.cc
-     *                                                            _______________________ aa.bb/
-     *                                                                                    ______ path, search
-     *                                                                                          __________________________ end with a non-forbidden char
-     *                                                                                                                    ______ end of word or end of string
-     */                                                                                                                           
+/* RE explanation:
+ *          _________________________________________________________________________ One of the three possible variants
+ *           ____________________ scheme://x
+ *                                ___________________________ aa.bb.cc
+ *                                                            _______________________ aa.bb/
+ *                                                                                    ______ path, search
+ *                                                                                          __________________________ end with a non-forbidden char
+ *                                                                                                                    ______ end of word or end of string
+ */
 MM.Item.RE = /\b(([a-z][\w-]+:\/\/\w)|(([\w-]+\.){2,}[a-z][\w-]+)|([\w-]+\.[a-z][\w-]+\/))[^\s]*([^\s,.;:?!<>\(\)\[\]'"])?($|\b)/i;
 
-MM.Item.fromJSON = function(data) {
+MM.Item.fromJSON = function (data) {
 	return new this().fromJSON(data);
 }
 
-MM.Item.prototype.toJSON = function() {
+MM.Item.prototype.toJSON = function () {
 	var data = {
 		id: this._id,
 		text: this.getText()
 	}
-	
+
 	if (this._side) { data.side = this._side; }
 	if (this._color) { data.color = this._color; }
 	if (this._icon) { data.icon = this._icon; }
@@ -80,7 +80,11 @@ MM.Item.prototype.toJSON = function() {
 	if (!this._autoShape) { data.shape = this._shape.id; }
 	if (this._collapsed) { data.collapsed = 1; }
 	if (this._children.length) {
-		data.children = this._children.map(function(child) { return child.toJSON(); });
+		data.children = this._children.map(function (child) { return child.toJSON(); });
+	}
+	const content = this.getDOM().content;
+	if (content.style.backgroundColor) {
+		data.backgroundColor = content.style.backgroundColor;
 	}
 	this._data = data;
 	return data;
@@ -89,7 +93,7 @@ MM.Item.prototype.toJSON = function() {
 /**
  * Only when creating a new item. To merge existing items, use .mergeWith().
  */
-MM.Item.prototype.fromJSON = function(data) {
+MM.Item.prototype.fromJSON = function (data) {
 	this.setText(data.text);
 	if (data.id) { this._id = data.id; }
 	if (data.side) { this._side = data.side; }
@@ -104,23 +108,23 @@ MM.Item.prototype.fromJSON = function(data) {
 	if (data.layout) { this._layout = MM.Layout.getById(data.layout); }
 	if (data.shape) { this.setShape(MM.Shape.getById(data.shape)); }
 
-	(data.children || []).forEach(function(child) {
+	(data.children || []).forEach(function (child) {
 		this.insertChild(MM.Item.fromJSON(child));
 	}, this);
 	this._data = data;
 	return this;
 }
 
-MM.Item.prototype.mergeWith = function(data) {
+MM.Item.prototype.mergeWith = function (data) {
 	var dirty = 0;
 	if (this.getText() != data.text && !this._dom.text.contentEditable) { this.setText(data.text); }
 
-	if (this._side != data.side) { 
+	if (this._side != data.side) {
 		this._side = data.side;
 		dirty = 1;
 	}
 
-	if (this._color != data.color) { 
+	if (this._color != data.color) {
 		this._color = data.color;
 		dirty = 2;
 	}
@@ -130,12 +134,12 @@ MM.Item.prototype.mergeWith = function(data) {
 		dirty = 1;
 	}
 
-	if (this._value != data.value) { 
+	if (this._value != data.value) {
 		this._value = data.value;
 		dirty = 1;
 	}
 
-	if (this._status != data.status) { 
+	if (this._status != data.status) {
 		this._status = data.status;
 		dirty = 1;
 	}
@@ -150,7 +154,7 @@ MM.Item.prototype.mergeWith = function(data) {
 	var s = (this._autoShape ? null : this._shape.id);
 	if (s != data.shape) { this.setShape(MM.Shape.getById(data.shape)); }
 
-	(data.children || []).forEach(function(child, index) {
+	(data.children || []).forEach(function (child, index) {
 		if (index >= this._children.length) { /* new child */
 			this.insertChild(MM.Item.fromJSON(child));
 		} else { /* existing child */
@@ -166,16 +170,16 @@ MM.Item.prototype.mergeWith = function(data) {
 
 	/* remove dead children */
 	var newLength = (data.children || []).length;
-	while (this._children.length > newLength) { this.removeChild(this._children[this._children.length-1]); }
+	while (this._children.length > newLength) { this.removeChild(this._children[this._children.length - 1]); }
 
 	if (dirty == 1) { this.update(); }
 	if (dirty == 2) { this.updateSubtree(); }
 }
 
-MM.Item.prototype.clone = function() {
+MM.Item.prototype.clone = function () {
 	var data = this.toJSON();
 
-	var removeId = function(obj) {
+	var removeId = function (obj) {
 		delete obj.id;
 		obj.children && obj.children.forEach(removeId);
 	}
@@ -184,20 +188,20 @@ MM.Item.prototype.clone = function() {
 	return this.constructor.fromJSON(data);
 }
 
-MM.Item.prototype.select = function() {
+MM.Item.prototype.select = function () {
 	this._dom.node.classList.add("current");
 	this.getMap().ensureItemVisibility(this);
 	MM.Clipboard.focus(); /* going to mode 2c */
 	MM.publish("item-select", this);
 }
 
-MM.Item.prototype.deselect = function() {
+MM.Item.prototype.deselect = function () {
 	/* we were in 2b; finish that via 3b */
 	if (MM.App.editing) { MM.Command.Finish.execute(); }
 	this._dom.node.classList.remove("current");
 }
 
-MM.Item.prototype.update = function(doNotRecurse) {
+MM.Item.prototype.update = function (doNotRecurse) {
 	var map = this.getMap();
 	if (!map || !map.isVisible()) { return this; }
 
@@ -211,13 +215,12 @@ MM.Item.prototype.update = function(doNotRecurse) {
 			this._shape.set(this);
 		}
 	}
-	
+
 	this._updateStatus();
 	this._updateIcon();
 	this._updateValue();
-
+	this.updateBackground();
 	this._dom.node.classList[this._collapsed ? "add" : "remove"]("collapsed");
-
 	this.getLayout().update(this);
 	this.getShape().update(this);
 	console.log(this._dom.node.className)
@@ -225,132 +228,142 @@ MM.Item.prototype.update = function(doNotRecurse) {
 
 	return this;
 }
+
+MM.Item.prototype.updateBackground = function () {
+	var data = this._data;
+	var content = this.getDOM().content;
+	if (data.backgroundColor)
+		content.style.backgroundColor = data.backgroundColor;
+	if (data.border) {
+		content.style.border = data.border;
+	}
+}
 /**
  * 更新子节点
  */
-MM.Item.prototype.updateSubtree = function(isSubChild) {
-	this._children.forEach(function(child) {
+MM.Item.prototype.updateSubtree = function (isSubChild) {
+	this._children.forEach(function (child) {
 		child.updateSubtree(true);
 	});
 	return this.update(isSubChild);
 }
 
-MM.Item.prototype.setText = function(text) {
+MM.Item.prototype.setText = function (text) {
 	this._dom.text.innerHTML = text;
 	this._findLinks(this._dom.text);
 	return this.update();
 }
 
-MM.Item.prototype.getId = function() {
+MM.Item.prototype.getId = function () {
 	return this._id;
 }
 
-MM.Item.prototype.getText = function() {
+MM.Item.prototype.getText = function () {
 	return this._dom.text.innerHTML;
 }
 
-MM.Item.prototype.collapse = function() {
+MM.Item.prototype.collapse = function () {
 	if (this._collapsed) { return; }
 	this._collapsed = true;
 	return this.update();
 }
 
-MM.Item.prototype.expand = function() {
+MM.Item.prototype.expand = function () {
 	if (!this._collapsed) { return; }
 	this._collapsed = false;
 	this.update();
 	return this.updateSubtree();
 }
 
-MM.Item.prototype.isCollapsed = function() {
+MM.Item.prototype.isCollapsed = function () {
 	return this._collapsed;
 }
 
-MM.Item.prototype.setValue = function(value) {
+MM.Item.prototype.setValue = function (value) {
 	this._value = value;
 	return this.update();
 }
 
-MM.Item.prototype.getValue = function() {
+MM.Item.prototype.getValue = function () {
 	return this._value;
 }
 
-MM.Item.prototype.getComputedValue = function() {
+MM.Item.prototype.getComputedValue = function () {
 	return this._computed.value;
 }
 
-MM.Item.prototype.setStatus = function(status) {
+MM.Item.prototype.setStatus = function (status) {
 	this._status = status;
 	return this.update();
 }
 
-MM.Item.prototype.getStatus = function() {
+MM.Item.prototype.getStatus = function () {
 	return this._status;
 }
 
-MM.Item.prototype.setIcon = function(icon,type='default') {
+MM.Item.prototype.setIcon = function (icon, type = 'default') {
 	this._icon[type] = icon;
 	return this.update();
 }
 
-MM.Item.prototype.getIcon = function() {
+MM.Item.prototype.getIcon = function () {
 	return this._icon;
 }
 
-MM.Item.prototype.getComputedStatus = function() {
+MM.Item.prototype.getComputedStatus = function () {
 	return this._computed.status;
 }
 
-MM.Item.prototype.setSide = function(side) {
+MM.Item.prototype.setSide = function (side) {
 	this._side = side;
 	return this;
 }
 
-MM.Item.prototype.getSide = function() {
+MM.Item.prototype.getSide = function () {
 	return this._side;
 }
 
-MM.Item.prototype.getChildren = function() {
+MM.Item.prototype.getChildren = function () {
 	return this._children;
 }
 
-MM.Item.prototype.setColor = function(color) {
+MM.Item.prototype.setColor = function (color) {
 	this._color = color;
 	return this.updateSubtree();
 }
 
-MM.Item.prototype.getColor = function() {
+MM.Item.prototype.getColor = function () {
 	return this._color || (this.isRoot() ? MM.Item.COLOR : this._parent.getColor());
 }
 
-MM.Item.prototype.getOwnColor = function() {
+MM.Item.prototype.getOwnColor = function () {
 	return this._color;
 }
 
-MM.Item.prototype.getLayout = function() {
+MM.Item.prototype.getLayout = function () {
 	return this._layout || this._parent.getLayout();
 }
 
-MM.Item.prototype.getOwnLayout = function() {
+MM.Item.prototype.getOwnLayout = function () {
 	return this._layout;
 }
 /**
  * 设置layut
  */
-MM.Item.prototype.setLayout = function(layout) {
+MM.Item.prototype.setLayout = function (layout) {
 	this._layout = layout;
-	return this.updateSubtree();	
+	return this.updateSubtree();
 }
 
-MM.Item.prototype.getShape = function() {
+MM.Item.prototype.getShape = function () {
 	return this._shape;
 }
 
-MM.Item.prototype.getOwnShape = function() {
+MM.Item.prototype.getOwnShape = function () {
 	return (this._autoShape ? null : this._shape);
 }
 
-MM.Item.prototype.setShape = function(shape) {
+MM.Item.prototype.setShape = function (shape) {
 	if (this._shape) { this._shape.unset(this); }
 
 	if (shape) {
@@ -365,11 +378,11 @@ MM.Item.prototype.setShape = function(shape) {
 	return this.update();
 }
 
-MM.Item.prototype.getDOM = function() {
+MM.Item.prototype.getDOM = function () {
 	return this._dom;
 }
 
-MM.Item.prototype.getMap = function() {
+MM.Item.prototype.getMap = function () {
 	var item = this._parent;
 	while (item) {
 		if (item instanceof MM.Map) { return item; }
@@ -378,23 +391,23 @@ MM.Item.prototype.getMap = function() {
 	return null;
 }
 
-MM.Item.prototype.getParent = function() {
+MM.Item.prototype.getParent = function () {
 	return this._parent;
 }
 
-MM.Item.prototype.isRoot = function() {
+MM.Item.prototype.isRoot = function () {
 	return (this._parent instanceof MM.Map);
 }
 
-MM.Item.prototype.setParent = function(parent) {
+MM.Item.prototype.setParent = function (parent) {
 	this._parent = parent;
 	return this.updateSubtree();
 }
 
-MM.Item.prototype.insertChild = function(child, index) {
+MM.Item.prototype.insertChild = function (child, index) {
 	/* Create or remove child as necessary. This must be done before computing the index (inserting own child) */
 	var newChild = false;
-	if (!child) { 
+	if (!child) {
 		child = new MM.Item();
 		newChild = true;
 	} else if (child.getParent() && child.getParent().removeChild) { /* only when the child has non-map parent */
@@ -407,32 +420,32 @@ MM.Item.prototype.insertChild = function(child, index) {
 	}
 
 	if (arguments.length < 2) { index = this._children.length; }
-	
+
 	var next = null;
 	if (index < this._children.length) { next = this._children[index].getDOM().node; }
 	this._dom.children.insertBefore(child.getDOM().node, next);
 	this._children.splice(index, 0, child);
-	
+
 	return child.setParent(this);
 }
 
-MM.Item.prototype.removeChild = function(child) {
+MM.Item.prototype.removeChild = function (child) {
 	var index = this._children.indexOf(child);
 	this._children.splice(index, 1);
 	var node = child.getDOM().node;
 	node.parentNode.removeChild(node);
-	
+
 	child.setParent(null);
-	
+
 	if (!this._children.length) {
 		this._dom.toggle.parentNode.removeChild(this._dom.toggle);
 		this._dom.children.parentNode.removeChild(this._dom.children);
 	}
-	
+
 	return this.update();
 }
 
-MM.Item.prototype.startEditing = function() {
+MM.Item.prototype.startEditing = function () {
 	this._oldText = this.getText();
 	this._dom.text.contentEditable = true;
 	this._dom.text.focus(); /* switch to 2b */
@@ -444,7 +457,7 @@ MM.Item.prototype.startEditing = function() {
 	return this;
 }
 
-MM.Item.prototype.stopEditing = function() {
+MM.Item.prototype.stopEditing = function () {
 	this._dom.text.removeEventListener("input", this);
 	this._dom.text.removeEventListener("keydown", this);
 	this._dom.text.removeEventListener("blur", this);
@@ -462,29 +475,29 @@ MM.Item.prototype.stopEditing = function() {
 	return result;
 }
 
-MM.Item.prototype.handleEvent = function(e) {
+MM.Item.prototype.handleEvent = function (e) {
 	switch (e.type) {
 		case "input":
 			this.update();
 			this.getMap().ensureItemVisibility(this);
-		break;
+			break;
 
 		case "keydown":
 			if (e.keyCode == 9) { e.preventDefault(); } /* TAB has a special meaning in this app, do not use it to change focus */
-		break;
+			break;
 
 		case "blur": /* 3d */
 			MM.Command.Finish.execute();
-		break;
+			break;
 
 		case "click":
 			if (this._collapsed) { this.expand(); } else { this.collapse(); }
 			MM.App.select(this);
-		break;
+			break;
 	}
 }
 
-MM.Item.prototype._getAutoShape = function() {
+MM.Item.prototype._getAutoShape = function () {
 	var depth = 0;
 	var node = this;
 	while (!node.isRoot()) {
@@ -498,13 +511,13 @@ MM.Item.prototype._getAutoShape = function() {
 	}
 }
 
-MM.Item.prototype._updateStatus = function() {
+MM.Item.prototype._updateStatus = function () {
 	this._dom.status.className = "status";
 	this._dom.status.style.display = "";
 
 	var status = this._status;
 	if (this._status == "computed") {
-		var childrenStatus = this._children.every(function(child) {
+		var childrenStatus = this._children.every(function (child) {
 			return (child.getComputedStatus() !== false);
 		});
 		status = (childrenStatus ? "yes" : "no");
@@ -514,97 +527,96 @@ MM.Item.prototype._updateStatus = function() {
 		case "yes":
 			this._dom.status.classList.add("yes");
 			this._computed.status = true;
-		break;
+			break;
 
 		case "no":
 			this._dom.status.classList.add("no");
 			this._computed.status = false;
-		break;
+			break;
 
 		default:
 			this._computed.status = null;
 			this._dom.status.style.display = "none";
-		break;
+			break;
 	}
 }
-MM.Item.prototype._updateIcon = function() {
-    this._dom.icon.className = "re-mind-icon";
-    this._dom.icon.style.display = "";
+MM.Item.prototype._updateIcon = function () {
+	this._dom.icon.className = "re-mind-icon";
+	this._dom.icon.style.display = "";
 
-    var icon = this._icon;
-    if (JSON.stringify("icon")!=='{}')
-	{
+	var icon = this._icon;
+	if (JSON.stringify("icon") !== '{}') {
 		let iconList = '';
-		for(let key in icon){
-			iconList+=`<li class="${icon[key]}"></li>`;
+		for (let key in icon) {
+			iconList += `<li class="${icon[key]}"></li>`;
 		}
-		this._dom.icon.innerHTML = iconList; 
-        this._computed.icon = true;
+		this._dom.icon.innerHTML = iconList;
+		this._computed.icon = true;
 	} else {
-        this._computed.icon = null;
-        this._dom.icon.style.display = "none";
+		this._computed.icon = null;
+		this._dom.icon.style.display = "none";
 	}
 }
 
-MM.Item.prototype._updateValue = function() {
+MM.Item.prototype._updateValue = function () {
 	this._dom.value.style.display = "";
 
-	if (typeof(this._value) == "number") {
+	if (typeof (this._value) == "number") {
 		this._computed.value = this._value;
 		this._dom.value.innerHTML = this._value;
 		return;
 	}
-	
-	var childValues = this._children.map(function(child) {
+
+	var childValues = this._children.map(function (child) {
 		return child.getComputedValue();
 	});
-	
+
 	var result = 0;
 	switch (this._value) {
 		case "sum":
-			result = childValues.reduce(function(prev, cur) {
-				return prev+cur;
+			result = childValues.reduce(function (prev, cur) {
+				return prev + cur;
 			}, 0);
-		break;
-		
+			break;
+
 		case "avg":
-			var sum = childValues.reduce(function(prev, cur) {
-				return prev+cur;
+			var sum = childValues.reduce(function (prev, cur) {
+				return prev + cur;
 			}, 0);
-			result = (childValues.length ? sum/childValues.length : 0);
-		break;
-		
+			result = (childValues.length ? sum / childValues.length : 0);
+			break;
+
 		case "max":
 			result = Math.max.apply(Math, childValues);
-		break;
-		
+			break;
+
 		case "min":
 			result = Math.min.apply(Math, childValues);
-		break;
-		
+			break;
+
 		default:
 			this._computed.value = 0;
 			this._dom.value.innerHTML = "";
 			this._dom.value.style.display = "none";
 			return;
-		break;
+			break;
 	}
-	
+
 	this._computed.value = result;
 	this._dom.value.innerHTML = (Math.round(result) == result ? result : result.toFixed(3));
 }
 
-MM.Item.prototype._findLinks = function(node) {
+MM.Item.prototype._findLinks = function (node) {
 
 	var children = [].slice.call(node.childNodes);
-	for (var i=0;i<children.length;i++) {
+	for (var i = 0; i < children.length; i++) {
 		var child = children[i];
 		switch (child.nodeType) {
 			case 1: /* element */
 				if (child.nodeName.toLowerCase() == "a") { continue; }
 				this._findLinks(child);
-			break;
-			
+				break;
+
 			case 3: /* text */
 				var result = child.nodeValue.match(this.constructor.RE);
 				if (result) {
@@ -612,13 +624,13 @@ MM.Item.prototype._findLinks = function(node) {
 					var after = child.nodeValue.substring(result.index + result[0].length);
 					var link = document.createElement("a");
 					link.innerHTML = link.href = result[0];
-					
+
 					if (before) {
 						node.insertBefore(document.createTextNode(before), child);
 					}
 
 					node.insertBefore(link, child);
-					
+
 					if (after) {
 						child.nodeValue = after;
 						i--; /* re-try with the aftertext */
@@ -626,7 +638,7 @@ MM.Item.prototype._findLinks = function(node) {
 						node.removeChild(child);
 					}
 				}
-			break;
+				break;
 		}
 	}
 }

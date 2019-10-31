@@ -1,6 +1,6 @@
 .item {
 	position: absolute;
-	.re-mind-icon{
+	.re-mind-icon {
 		display: inline-block;
 	}
 }
@@ -13,15 +13,25 @@
 	display: none;
 }
 
-/* root */
+.shape-box > .content {
+	padding: 0.15em 0.4em;
+	background-color: #06b9d1;
+	color: #fff;
+	border-radius: 3px;
+}
 
->.item > .content {
+.shape-ellipse > .content {
+	border: 1px solid transparent;
+	padding: 10px 20px;
+}
+
+/* root */
+> .item > .content {
 	font-weight: bold;
 	border-width: 2px;
 	font-size: 140%;
 	color: #fff;
 	border: 0;
-	padding:10px 20px;
 	background-color: rgb(80, 194, 139);
 }
 
@@ -31,7 +41,7 @@
 
 /* 1st children */
 
->.item > .children > .item > .content {
+> .item > .children > .item > .content {
 	border-width: 2px;
 	font-size: 120%;
 }
@@ -48,7 +58,7 @@
 	cursor: pointer;
 	padding: 5px;
 	border-radius: 5px;
-	 > * {
+	> * {
 		vertical-align: middle;
 	}
 	.text {
@@ -61,11 +71,13 @@
 		outline: none;
 	}
 
-	.value, .status {
+	.value,
+	.status {
 		margin-right: 0.2em;
 	}
 
-	.text ~ .value, .text ~ .status {
+	.text ~ .value,
+	.text ~ .status {
 		margin-left: 0.2em;
 		margin-right: 0;
 	}
@@ -83,35 +95,24 @@
 		content: ")";
 	}
 }
-.shape-box > .content {
-	padding: 0.15em 0.4em;
-	background-color: #06B9D1;
-	color:#fff;
-	border-radius: 3px;
-}
-
-.shape-ellipse > .content {
-	border: 1px solid transparent;
-}
-
-.current >.content{
-	&:before{
-		content:" ";
+.current > .content {
+	&:before {
+		content: " ";
 		position: absolute;
-		width:100%;
-		height:100%;
-		left:-6px;
-		top:-6px;
+		width: 100%;
+		height: 100%;
+		left: -6px;
+		top: -6px;
 		box-sizing: content-box;
-		border:2px solid #7cb9ff;
-		padding:4px;
+		border: 2px solid #7cb9ff;
+		padding: 4px;
 	}
 }
 // 第三级以后的节点外壳hover
->.item>.children>.item>.children .current>.content:before{
-	left:-2px;
-	top:-2px;
-	padding:0px;
+> .item > .children > .item > .children .current > .content:before {
+	left: -2px;
+	top: -2px;
+	padding: 0px;
 }
 
 :not(.current):not(.collapsed) > .toggle {
