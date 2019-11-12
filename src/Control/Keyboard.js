@@ -1,3 +1,6 @@
+/**
+ * @class
+ */
 MM.Keyboard = {};
 MM.Keyboard.init = function () {
 	window.addEventListener("keydown", this);

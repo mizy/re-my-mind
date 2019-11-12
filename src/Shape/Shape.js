@@ -1,3 +1,6 @@
+/**
+ * @class
+ */
 MM.Shape = Object.create(MM.Repo, {
 	VERTICAL_OFFSET: { value: 0.5 },
 });
@@ -30,6 +33,13 @@ MM.Shape.Box = Object.create(MM.Shape, {
 	id: { value: "box" },
 	label: { value: "Box" }
 });
+MM.Shape.Box.update = function (item) {
+	const data = item._data;
+	if (data.backgroundColor) {
+		item.getDOM().content.style.backgroundColor = data.backgroundColor;
+	}
+	return this;
+}
 MM.Shape.Ellipse = Object.create(MM.Shape, {
 	id: { value: "ellipse" },
 	label: { value: "Ellipse" }

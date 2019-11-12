@@ -111,7 +111,7 @@ window.MM = {
   publish: function publish(message, publisher, data) {
     var subscribers = this._subscribers[message] || [];
     subscribers.forEach(function (subscriber) {
-      subscriber.handleMessage ? subscriber.handleMessage(message, publisher, data) : subscriber(message, publisher, data);
+      subscriber.handleMessage ? subscriber.handleMessage(message, publisher, data) : subscriber(publisher, data);
     });
   },
   subscribe: function subscribe(message, subscriber) {
@@ -4447,6 +4447,17 @@ MM.Shape.Box = Object.create(MM.Shape, {
     value: "Box"
   }
 });
+
+MM.Shape.Box.update = function (item) {
+  var data = item._data;
+
+  if (data.backgroundColor) {
+    item.getDOM().content.style.backgroundColor = data.backgroundColor;
+  }
+
+  return this;
+};
+
 MM.Shape.Ellipse = Object.create(MM.Shape, {
   id: {
     value: "ellipse"
@@ -4709,8 +4720,10 @@ MM.Mouse.handleEvent = function (e) {
         }
       }
 
-      if (dir) {// 暂时去掉缩放
+      if (dir) {
+        // 暂时去掉缩放
         // MM.App.adjustFontSize(dir);
+        MM.publish("mousewheel", e);
       }
 
       break;
@@ -4959,6 +4972,7 @@ var _this = undefined;
 
 MM.App = {
   options: {
+    headTitle: " - 脑图",
     colors: ['#f17c67', '#495A80', '#9966CC', '#EEE8AB', '#FD5B78', '#228fbd', '#fdb933', '#7fb80e', '#7bbfea', '#6f599c', '#fedcbd', '#00EBC0', '#FF84BA']
   },
   keyboard: null,
@@ -5041,21 +5055,6 @@ MM.App = {
 
     node.style.transform = "scale(".concat(_this.scale, ")");
   },
-  handleMessage: function handleMessage(message, publisher) {
-    switch (message) {
-      case "ui-change":
-        this._syncPort();
-
-        break;
-
-      case "item-change":
-        if (publisher.isRoot() && publisher.getMap() == this.map) {
-          document.title = this.map.getName() + " :: My Mind";
-        }
-
-        break;
-    }
-  },
   handleEvent: function handleEvent(e) {
     switch (e.type) {
       case "resize":
@@ -5083,6 +5082,8 @@ MM.App = {
     return _menu;
   },
   init: function init(dom) {
+    var _this2 = this;
+
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     this._port = dom;
     this._port.className += " re-mind";
@@ -5094,8 +5095,12 @@ MM.App = {
     MM.Clipboard.init();
     window.addEventListener("resize", this);
     window.addEventListener("beforeunload", this);
-    MM.subscribe("ui-change", this);
-    MM.subscribe("item-change", this);
+    MM.subscribe("ui-change", this._syncPort);
+    MM.subscribe("item-change", function (publisher) {
+      if (publisher.isRoot() && publisher.getMap() == _this2.map) {
+        document.title = _this2.map.getName() + _this2.options.headTitle;
+      }
+    });
 
     this._syncPort();
 

@@ -1,4 +1,7 @@
 import "./index.less";
+/**
+ * @namespace
+ */
 window.MM = {
 
 	_subscribers: {},
@@ -10,7 +13,7 @@ window.MM = {
 	publish: function (message, publisher, data) {
 		var subscribers = this._subscribers[message] || [];
 		subscribers.forEach(function (subscriber) {
-			subscriber.handleMessage ? subscriber.handleMessage(message, publisher, data) : subscriber(message, publisher, data);
+			subscriber.handleMessage ? subscriber.handleMessage(message, publisher, data) : subscriber(publisher, data);
 		});
 	},
 

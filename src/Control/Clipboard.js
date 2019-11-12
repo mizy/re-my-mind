@@ -1,3 +1,6 @@
+/**
+ * @class
+ */
 MM.Clipboard = {
 	_item: null,
 	_mode: "",

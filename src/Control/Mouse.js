@@ -1,3 +1,6 @@
+/**
+ * @class
+ */
 MM.Mouse = {
 	TOUCH_DELAY: 500,
 	_port: null,
@@ -10,7 +13,7 @@ MM.Mouse = {
 	_touchTimeout: null
 }
 
-MM.Mouse.init = function(port) {
+MM.Mouse.init = function (port) {
 	this._port = port;
 	this._port.addEventListener("touchstart", this);
 	this._port.addEventListener("mousedown", this);
@@ -21,18 +24,18 @@ MM.Mouse.init = function(port) {
 	this._port.addEventListener("contextmenu", this);
 }
 
-MM.Mouse.handleEvent = function(e) {
+MM.Mouse.handleEvent = function (e) {
 	switch (e.type) {
 		case "click":
 			var item = MM.App.map.getItemFor(e.target);
 			if (MM.App.editing && item == MM.App.current) { return; } /* ignore on edited node */
 			if (item) { MM.App.select(item); }
-		break;
+			break;
 
 		case "dblclick":
 			var item = MM.App.map.getItemFor(e.target);
 			if (item) { MM.Command.Edit.execute(); }
-		break;
+			break;
 
 		case "contextmenu":
 			this._endDrag();
@@ -42,7 +45,7 @@ MM.Mouse.handleEvent = function(e) {
 			item && MM.App.select(item);
 
 			MM.Menu.open(e.clientX, e.clientY);
-		break;
+			break;
 
 		case "touchstart":
 			if (e.touches.length > 1) { return; }
@@ -58,14 +61,14 @@ MM.Mouse.handleEvent = function(e) {
 			if (e.type == "mousedown") { e.preventDefault(); } /* to prevent blurring the clipboard node */
 
 			if (e.type == "touchstart") { /* context menu here, after we have the item */
-				this._touchTimeout = setTimeout(function() {
+				this._touchTimeout = setTimeout(function () {
 					item && MM.App.select(item);
 					MM.Menu.open(e.clientX, e.clientY);
 				}, this.TOUCH_DELAY);
 			}
 
 			this._startDrag(e, item);
-		break;
+			break;
 
 		case "touchmove":
 			if (e.touches.length > 1) { return; }
@@ -74,13 +77,13 @@ MM.Mouse.handleEvent = function(e) {
 			clearTimeout(this._touchTimeout);
 		case "mousemove":
 			this._processDrag(e);
-		break;
+			break;
 
 		case "touchend":
 			clearTimeout(this._touchTimeout);
 		case "mouseup":
 			this._endDrag();
-		break;
+			break;
 
 		case "wheel":
 		case "mousewheel":
@@ -102,12 +105,13 @@ MM.Mouse.handleEvent = function(e) {
 			if (dir) {
 				// 暂时去掉缩放
 				// MM.App.adjustFontSize(dir);
+				MM.publish("mousewheel", e)
 			}
-		break;
+			break;
 	}
 }
 
-MM.Mouse._startDrag = function(e, item) {
+MM.Mouse._startDrag = function (e, item) {
 
 	if (e.type == "mousedown") {
 		e.preventDefault(); /* no selections allowed. only for mouse; preventing touchstart would prevent Safari from emulating clicks */
@@ -130,7 +134,7 @@ MM.Mouse._startDrag = function(e, item) {
 	}
 }
 
-MM.Mouse._processDrag = function(e) {
+MM.Mouse._processDrag = function (e) {
 	e.preventDefault();
 	var dx = e.clientX - this._cursor[0];
 	var dy = e.clientY - this._cursor[1];
@@ -146,15 +150,15 @@ MM.Mouse._processDrag = function(e) {
 			this._moveGhost(dx, dy);
 			var state = this._computeDragState();
 			this._visualizeDragState(state);
-		break;
+			break;
 
 		case "pan":
 			MM.App.map.moveBy(dx, dy);
-		break;
+			break;
 	}
 }
 
-MM.Mouse._endDrag = function() {
+MM.Mouse._endDrag = function () {
 	this._port.style.cursor = "";
 	this._port.removeEventListener("mousemove", this);
 	this._port.removeEventListener("mouseup", this);
@@ -172,7 +176,7 @@ MM.Mouse._endDrag = function() {
 	this._item = null;
 }
 
-MM.Mouse._buildGhost = function() {
+MM.Mouse._buildGhost = function () {
 	var content = this._item.getDOM().content;
 	this._ghost = content.cloneNode(true);
 	this._ghost.classList.add("ghost");
@@ -181,7 +185,7 @@ MM.Mouse._buildGhost = function() {
 	content.parentNode.appendChild(this._ghost);
 }
 
-MM.Mouse._moveGhost = function(dx, dy) {
+MM.Mouse._moveGhost = function (dx, dy) {
 	this._pos[0] += dx;
 	this._pos[1] += dy;
 	this._ghost.style.left = this._pos[0] + "px";
@@ -190,24 +194,24 @@ MM.Mouse._moveGhost = function(dx, dy) {
 	var state = this._computeDragState();
 }
 
-MM.Mouse._finishDragDrop = function(state) {
+MM.Mouse._finishDragDrop = function (state) {
 	this._visualizeDragState(null);
 
 	var target = state.item;
 	switch (state.result) {
 		case "append":
 			var action = new MM.Action.MoveItem(this._item, target);
-		break;
+			break;
 
 		case "sibling":
 			var index = target.getParent().getChildren().indexOf(target);
 			var targetIndex = index + (state.direction == "right" || state.direction == "bottom" ? 1 : 0);
 			var action = new MM.Action.MoveItem(this._item, target.getParent(), targetIndex, target.getSide());
-		break;
+			break;
 
 		default:
 			return;
-		break;
+			break;
 	}
 
 	MM.App.action(action);
@@ -216,9 +220,9 @@ MM.Mouse._finishDragDrop = function(state) {
 /**
  * Compute a state object for a drag: current result (""/"append"/"sibling"), parent/sibling, direction
  */
-MM.Mouse._computeDragState = function() {
+MM.Mouse._computeDragState = function () {
 	var rect = this._ghost.getBoundingClientRect();
-	var closest = MM.App.map.getClosestItem(rect.left + rect.width/2, rect.top + rect.height/2);
+	var closest = MM.App.map.getClosestItem(rect.left + rect.width / 2, rect.top + rect.height / 2);
 	var target = closest.item;
 
 	var state = {
@@ -259,7 +263,7 @@ MM.Mouse._computeDragState = function() {
 	return state;
 }
 
-MM.Mouse._visualizeDragState = function(state) {
+MM.Mouse._visualizeDragState = function (state) {
 	if (this._oldState && state && this._oldState.item == state.item && this._oldState.result == state.result) { return; } /* nothing changed */
 
 	if (this._oldDragState) { /* remove old vis */
@@ -284,7 +288,7 @@ MM.Mouse._visualizeDragState = function(state) {
 			if (state.direction == "bottom") { y = +1; }
 		}
 		var spread = (x || y ? -2 : 2);
-		node.style.boxShadow = (x*offset) + "px " + (y*offset) + "px 2px " + spread + "px #000";
+		node.style.boxShadow = (x * offset) + "px " + (y * offset) + "px 2px " + spread + "px #000";
 	}
 }
 export default MM.Mouse;
