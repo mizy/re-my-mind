@@ -7,7 +7,7 @@
 
 [basic](https://mizy.github.io/re-my-mind/dist/index.html)
 
-![snapshot](https://mizy.github.io/re-my-mind/snapshow.png)
+![snapshot](https://mizy.github.io/re-my-mind/snapshot.png)
 
 
 # Install
