@@ -1,4 +1,4 @@
-# [re-my-mind](https://mizy.github.io/re/)
+# [re-my-mind](https://mizy.github.io/re-my-mind/)
 
 * 基于 my-mind 改造的脑图编辑器框架
 * base on my-mind
