@@ -545,10 +545,11 @@ MM.Item.prototype._updateIcon = function () {
 	this._dom.icon.style.display = "";
 
 	var icon = this._icon;
-	if (JSON.stringify("icon") !== '{}') {
+	if (JSON.stringify(icon) !== '{}') {
 		let iconList = '';
 		for (let key in icon) {
-			iconList += `<li class="${icon[key]}"></li>`;
+			if (icon[key])
+				iconList += `<li class="${icon[key]}"></li>`;
 		}
 		this._dom.icon.innerHTML = iconList;
 		this._computed.icon = true;

@@ -103,6 +103,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _index_less__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var _index_less__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_index_less__WEBPACK_IMPORTED_MODULE_0__);
 
+/**
+ * @namespace
+ */
+
 window.MM = {
   _subscribers: {},
   clear: function clear() {
@@ -1563,11 +1567,11 @@ MM.Item.prototype._updateIcon = function () {
   this._dom.icon.style.display = "";
   var icon = this._icon;
 
-  if (JSON.stringify("icon") !== '{}') {
+  if (JSON.stringify(icon) !== '{}') {
     var iconList = '';
 
     for (var key in icon) {
-      iconList += "<li class=\"".concat(icon[key], "\"></li>");
+      if (icon[key]) iconList += "<li class=\"".concat(icon[key], "\"></li>");
     }
 
     this._dom.icon.innerHTML = iconList;
@@ -2049,6 +2053,9 @@ MM.Map.prototype._setRoot = function (item) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/**
+ * @class
+ */
 MM.Keyboard = {};
 
 MM.Keyboard.init = function () {
@@ -2414,6 +2421,9 @@ MM.Action.SetSide.prototype.undo = function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/**
+ * @class
+ */
 MM.Clipboard = {
   _item: null,
   _mode: "",
@@ -4408,6 +4418,9 @@ MM.Layout.Map._drawRootConnectors = function (item, side, children) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/**
+ * @class
+ */
 MM.Shape = Object.create(MM.Repo, {
   VERTICAL_OFFSET: {
     value: 0.5
@@ -4571,6 +4584,9 @@ MM.Format.JSON.from = function (data) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/**
+ * @class
+ */
 MM.Mouse = {
   TOUCH_DELAY: 500,
   _port: null,
@@ -4970,6 +4986,9 @@ MM.Mouse._visualizeDragState = function (state) {
 __webpack_require__.r(__webpack_exports__);
 var _this = undefined;
 
+/**
+ * @namespace
+ */
 MM.App = {
   options: {
     headTitle: " - 脑图",
