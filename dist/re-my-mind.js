@@ -2165,8 +2165,6 @@ MM.Action.InsertNewItem.prototype = Object.create(MM.Action.prototype);
 
 MM.Action.InsertNewItem.prototype.perform = function () {
   this._parent.expand();
-  /* FIXME remember? */
-
 
   this._item = this._parent.insertChild(this._item, this._index);
   MM.App.select(this._item);
@@ -4466,6 +4464,8 @@ MM.Shape.Box.update = function (item) {
 
   if (data.backgroundColor) {
     item.getDOM().content.style.backgroundColor = data.backgroundColor;
+  } else {
+    item.getDOM().content.style.backgroundColor = "#4a90e2";
   }
 
   return this;
@@ -4479,6 +4479,19 @@ MM.Shape.Ellipse = Object.create(MM.Shape, {
     value: "Ellipse"
   }
 });
+
+MM.Shape.Ellipse.update = function (item) {
+  var data = item._data;
+
+  if (data.backgroundColor) {
+    item.getDOM().content.style.backgroundColor = data.backgroundColor;
+  } else {
+    item.getDOM().content.style.backgroundColor = "#50c28b";
+  }
+
+  return this;
+};
+
 MM.Shape.Underline = Object.create(MM.Shape, {
   id: {
     value: "underline"
@@ -4688,6 +4701,10 @@ MM.Mouse.handleEvent = function (e) {
           item && MM.App.select(item);
           MM.Menu.open(e.clientX, e.clientY);
         }, this.TOUCH_DELAY);
+      }
+
+      if (!item) {
+        MM.App.current.deselect();
       }
 
       this._startDrag(e, item);
@@ -5081,6 +5098,9 @@ MM.App = {
 
         break;
 
+      case "click":
+        break;
+
       case "beforeunload":
         e.preventDefault();
         return "";
@@ -5113,6 +5133,7 @@ MM.App = {
     MM.Mouse.init(this._port);
     MM.Clipboard.init();
     window.addEventListener("resize", this);
+    window.addEventListener("click", this);
     window.addEventListener("beforeunload", this);
     MM.subscribe("ui-change", this._syncPort);
     MM.subscribe("item-change", function (publisher) {

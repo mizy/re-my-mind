@@ -90,7 +90,8 @@ MM.App = {
 			case "resize":
 				this._syncPort();
 				break;
-
+			case "click":
+				break;
 			case "beforeunload":
 				e.preventDefault();
 				return "";
@@ -131,6 +132,7 @@ MM.App = {
 		MM.Clipboard.init();
 
 		window.addEventListener("resize", this);
+		window.addEventListener("click", this);
 		window.addEventListener("beforeunload", this);
 		MM.subscribe("ui-change", this._syncPort);
 		MM.subscribe("item-change", (publisher) => {

@@ -66,7 +66,10 @@ MM.Mouse.handleEvent = function (e) {
 					MM.Menu.open(e.clientX, e.clientY);
 				}, this.TOUCH_DELAY);
 			}
+			if (!item) {
+				MM.App.current.deselect();
 
+			}
 			this._startDrag(e, item);
 			break;
 

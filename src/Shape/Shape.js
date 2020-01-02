@@ -17,6 +17,7 @@ MM.Shape.unset = function (item) {
 
 MM.Shape.update = function (item) {
 	const data = item._data;
+
 	return this;
 }
 
@@ -37,6 +38,8 @@ MM.Shape.Box.update = function (item) {
 	const data = item._data;
 	if (data.backgroundColor) {
 		item.getDOM().content.style.backgroundColor = data.backgroundColor;
+	} else {
+		item.getDOM().content.style.backgroundColor = "#4a90e2"
 	}
 	return this;
 }
@@ -44,6 +47,15 @@ MM.Shape.Ellipse = Object.create(MM.Shape, {
 	id: { value: "ellipse" },
 	label: { value: "Ellipse" }
 });
+MM.Shape.Ellipse.update = function (item) {
+	const data = item._data;
+	if (data.backgroundColor) {
+		item.getDOM().content.style.backgroundColor = data.backgroundColor;
+	} else {
+		item.getDOM().content.style.backgroundColor = "#50c28b"
+	}
+	return this;
+}
 MM.Shape.Underline = Object.create(MM.Shape, {
 	id: { value: "underline" },
 	label: { value: "Underline" },
