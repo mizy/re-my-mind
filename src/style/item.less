@@ -23,6 +23,7 @@
 .shape-ellipse > .content {
 	border: 1px solid transparent;
 	padding: 10px 20px;
+	color: #fff;
 }
 
 /* root */
@@ -52,9 +53,8 @@
 }
 
 .content {
-	position: relative;
-	display: inline-block;
-	white-space: nowrap;
+	display: flex;
+	position: absolute;
 	cursor: pointer;
 	padding: 5px;
 	border-radius: 5px;
@@ -62,10 +62,13 @@
 		vertical-align: middle;
 	}
 	.text {
+		text-align: left;
 		display: inline-block;
 		text-align: center;
-		min-width: 0.5em;
 		min-height: 1.3em;
+		word-wrap: break-word;
+		white-space: nowrap;
+		word-break: break-all;
 		// line-height: 1.3em;
 		font-weight: normal;
 		outline: none;

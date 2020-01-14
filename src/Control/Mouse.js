@@ -30,6 +30,9 @@ MM.Mouse.handleEvent = function (e) {
 			var item = MM.App.map.getItemFor(e.target);
 			if (MM.App.editing && item == MM.App.current) { return; } /* ignore on edited node */
 			if (item) { MM.App.select(item); }
+			if (!item) {
+				MM.App.current.deselect();
+			}
 			break;
 
 		case "dblclick":
@@ -44,7 +47,7 @@ MM.Mouse.handleEvent = function (e) {
 			var item = MM.App.map.getItemFor(e.target);
 			item && MM.App.select(item);
 
-			MM.Menu.open(e.clientX, e.clientY);
+			MM.Menu.open(e.clientX, e.clientY, e.target);
 			break;
 
 		case "touchstart":
@@ -66,10 +69,7 @@ MM.Mouse.handleEvent = function (e) {
 					MM.Menu.open(e.clientX, e.clientY);
 				}, this.TOUCH_DELAY);
 			}
-			if (!item) {
-				MM.App.current.deselect();
 
-			}
 			this._startDrag(e, item);
 			break;
 

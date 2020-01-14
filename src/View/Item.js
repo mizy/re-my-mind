@@ -201,6 +201,7 @@ MM.Item.prototype.deselect = function () {
 	this._dom.node.classList.remove("current");
 }
 
+
 MM.Item.prototype.update = function (doNotRecurse) {
 	var map = this.getMap();
 	if (!map || !map.isVisible()) { return this; }
@@ -215,7 +216,14 @@ MM.Item.prototype.update = function (doNotRecurse) {
 			this._shape.set(this);
 		}
 	}
-
+	if (this.getDOM().text.clientWidth > 301) {
+		console.log(this.getDOM().text.clientWidth)
+		this.getDOM().text.style.width = "300px";
+		this.getDOM().text.style.whiteSpace = "normal"
+	} else if (this.getDOM().text.clientHeight < 40) {
+		this.getDOM().text.style.whiteSpace = "nowrap"
+		this.getDOM().text.style.width = "auto";
+	}
 	this._updateStatus();
 	this._updateIcon();
 	this._updateValue();
@@ -223,7 +231,6 @@ MM.Item.prototype.update = function (doNotRecurse) {
 	this._dom.node.classList[this._collapsed ? "add" : "remove"]("collapsed");
 	this.getLayout().update(this);
 	this.getShape().update(this);
-	console.log(this._dom.node.className)
 	if (!this.isRoot() && !doNotRecurse) { this._parent.update(); }
 
 	return this;
@@ -303,6 +310,11 @@ MM.Item.prototype.getStatus = function () {
 
 MM.Item.prototype.setIcon = function (icon, type = 'default') {
 	this._icon[type] = icon;
+	return this.update();
+}
+
+MM.Item.prototype.deleteIcon = function (type = 'default') {
+	delete this._icon[type];
 	return this.update();
 }
 
@@ -493,6 +505,7 @@ MM.Item.prototype.handleEvent = function (e) {
 		case "click":
 			if (this._collapsed) { this.expand(); } else { this.collapse(); }
 			MM.App.select(this);
+			e.stopPropagation();
 			break;
 	}
 }
@@ -549,7 +562,7 @@ MM.Item.prototype._updateIcon = function () {
 		let iconList = '';
 		for (let key in icon) {
 			if (icon[key])
-				iconList += `<li class="${icon[key]}"></li>`;
+				iconList += `<li class="${icon[key]}" data-key="${key}"></li>`;
 		}
 		this._dom.icon.innerHTML = iconList;
 		this._computed.icon = true;

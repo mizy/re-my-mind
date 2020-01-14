@@ -188,7 +188,7 @@ if(false) {}
 
 exports = module.exports = __webpack_require__(3)(false);
 // Module
-exports.push([module.i, ".re-mind {\n  position: relative;\n  overflow: hidden;\n  /* root */\n  /* 1st children */\n}\n.re-mind * {\n  box-sizing: border-box;\n}\n.re-mind ul,\n.re-mind li {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n}\n.re-mind ul li,\n.re-mind li li {\n  list-style: none;\n}\n.re-mind .menu {\n  position: absolute;\n  z-index: 1;\n  /* border: 1px solid #666; */\n  background-color: #fff;\n  box-shadow: 0 0 5px 0px #666;\n  border-radius: 2px;\n  padding: 10px 0;\n}\n.re-mind .menu button {\n  display: block;\n  background-color: transparent;\n  border: none;\n  margin: 0;\n  padding: 3px 6px;\n  font-size: 15px;\n  width: 130px;\n  text-align: left;\n  cursor: pointer;\n}\n.re-mind .menu button:hover {\n  background: #0ae;\n  color: #fff;\n}\n.re-mind .menu span {\n  display: block;\n  border-top: 1px solid #eee;\n  margin-top: 4px;\n  padding-top: 4px;\n}\n.re-mind .item {\n  position: absolute;\n}\n.re-mind .item .re-mind-icon {\n  display: inline-block;\n}\n.re-mind .item.cut {\n  opacity: 0.5;\n}\n.re-mind .item.collapsed .children {\n  display: none;\n}\n.re-mind .shape-box > .content {\n  padding: 0.15em 0.4em;\n  background-color: #4a90e2;\n  color: #fff;\n  border-radius: 3px;\n}\n.re-mind .shape-ellipse > .content {\n  border: 1px solid transparent;\n  padding: 10px 20px;\n}\n.re-mind > .item > .content {\n  font-weight: bold;\n  border-width: 2px;\n  font-size: 140%;\n  color: #fff;\n  border: 0;\n  background-color: #50c28b;\n}\n.re-mind > .item > .toggle {\n  display: none;\n}\n.re-mind > .item > .children > .item > .content {\n  border-width: 2px;\n  font-size: 120%;\n}\n.re-mind > .item .icon {\n  margin: 0 0.5em 0 0;\n  font-size: x-large;\n}\n.re-mind .content {\n  position: relative;\n  display: inline-block;\n  white-space: nowrap;\n  cursor: pointer;\n  padding: 5px;\n  border-radius: 5px;\n}\n.re-mind .content > * {\n  vertical-align: middle;\n}\n.re-mind .content .text {\n  display: inline-block;\n  text-align: center;\n  min-width: 0.5em;\n  min-height: 1.3em;\n  font-weight: normal;\n  outline: none;\n}\n.re-mind .content .value,\n.re-mind .content .status {\n  margin-right: 0.2em;\n}\n.re-mind .content .text ~ .value,\n.re-mind .content .text ~ .status {\n  margin-left: 0.2em;\n  margin-right: 0;\n}\n.re-mind .content .value {\n  opacity: 0.7;\n  display: none;\n}\n.re-mind .content .value:not(:empty):before {\n  content: \"(\";\n}\n.re-mind .content .value:not(:empty):after {\n  content: \")\";\n}\n.re-mind .current > .content:before {\n  content: \" \";\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: -6px;\n  top: -6px;\n  box-sizing: content-box;\n  border: 2px solid #7cb9ff;\n  padding: 4px;\n}\n.re-mind > .item > .children > .item > .children .current > .content:before {\n  left: -2px;\n  top: -2px;\n  padding: 0px;\n}\n.re-mind :not(.current):not(.collapsed) > .toggle {\n  /* NOT display:none - we need to have non-zero dimensions for layouting */\n  visibility: hidden;\n}\n.re-mind .status {\n  font-size: 150%;\n  line-height: 0.8;\n}\n.re-mind .status.yes:after {\n  content: \"✔\";\n  color: #0f0;\n}\n.re-mind .status.no:after {\n  content: \"✘\";\n  color: #f00;\n}\n.re-mind canvas {\n  position: absolute;\n  left: 0;\n  top: 0;\n}\n.re-mind .toggle {\n  position: absolute;\n  width: 12px;\n  height: 12px;\n  line-height: 12px;\n  cursor: pointer;\n  border-radius: 50%;\n  border: 1px solid #00f;\n  background-color: #88f;\n  text-align: center;\n  font-weight: bold;\n  font-family: sans-serif;\n  color: #fff;\n  opacity: 0.7;\n}\n.re-mind .toggle:hover {\n  opacity: 1;\n}\n.re-mind .toggle:before {\n  content: \"−\";\n  line-height: 8px;\n  margin-top: -2px;\n  position: absolute;\n  left: 1px;\n  top: 3px;\n  font-size: 12px;\n}\n.re-mind .collapsed > .toggle:before {\n  content: \"+\";\n  line-height: 8px;\n  margin-top: -2px;\n  position: absolute;\n  left: 1px;\n  top: 2px;\n  font-size: 12px;\n}\n.re-mind .re-mind-icon {\n  display: inline-flex !important;\n  flex-direction: row-reverse;\n}\n.re-mind .re-mind-icon > li {\n  font-size: 18px;\n  display: inline-block;\n  margin-left: -5px;\n}\n.re-mind .re-mind-icon > li:last-child {\n  margin-left: 0px;\n}\n.re-mind .re-mind-icon > li:first-child {\n  margin-right: 5px;\n}\n", ""]);
+exports.push([module.i, ".re-mind {\n  position: relative;\n  overflow: hidden;\n  /* root */\n  /* 1st children */\n}\n.re-mind * {\n  box-sizing: border-box;\n}\n.re-mind ul,\n.re-mind li {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n}\n.re-mind ul li,\n.re-mind li li {\n  list-style: none;\n}\n.re-mind .menu {\n  position: absolute;\n  z-index: 1;\n  /* border: 1px solid #666; */\n  background-color: #fff;\n  box-shadow: 0 0 5px 0px #666;\n  border-radius: 2px;\n  padding: 10px 0;\n}\n.re-mind .menu button {\n  display: block;\n  background-color: transparent;\n  border: none;\n  margin: 0;\n  padding: 3px 6px;\n  font-size: 15px;\n  width: 130px;\n  text-align: left;\n  cursor: pointer;\n}\n.re-mind .menu button:hover {\n  background: #0ae;\n  color: #fff;\n}\n.re-mind .menu span {\n  display: block;\n  border-top: 1px solid #eee;\n  margin-top: 4px;\n  padding-top: 4px;\n}\n.re-mind .item {\n  position: absolute;\n}\n.re-mind .item .re-mind-icon {\n  display: inline-block;\n}\n.re-mind .item.cut {\n  opacity: 0.5;\n}\n.re-mind .item.collapsed .children {\n  display: none;\n}\n.re-mind .shape-box > .content {\n  padding: 0.15em 0.4em;\n  background-color: #4a90e2;\n  color: #fff;\n  border-radius: 3px;\n}\n.re-mind .shape-ellipse > .content {\n  border: 1px solid transparent;\n  padding: 10px 20px;\n  color: #fff;\n}\n.re-mind > .item > .content {\n  font-weight: bold;\n  border-width: 2px;\n  font-size: 140%;\n  color: #fff;\n  border: 0;\n  background-color: #50c28b;\n}\n.re-mind > .item > .toggle {\n  display: none;\n}\n.re-mind > .item > .children > .item > .content {\n  border-width: 2px;\n  font-size: 120%;\n}\n.re-mind > .item .icon {\n  margin: 0 0.5em 0 0;\n  font-size: x-large;\n}\n.re-mind .content {\n  display: flex;\n  position: absolute;\n  cursor: pointer;\n  padding: 5px;\n  border-radius: 5px;\n}\n.re-mind .content > * {\n  vertical-align: middle;\n}\n.re-mind .content .text {\n  text-align: left;\n  display: inline-block;\n  text-align: center;\n  min-height: 1.3em;\n  word-wrap: break-word;\n  white-space: nowrap;\n  word-break: break-all;\n  font-weight: normal;\n  outline: none;\n}\n.re-mind .content .value,\n.re-mind .content .status {\n  margin-right: 0.2em;\n}\n.re-mind .content .text ~ .value,\n.re-mind .content .text ~ .status {\n  margin-left: 0.2em;\n  margin-right: 0;\n}\n.re-mind .content .value {\n  opacity: 0.7;\n  display: none;\n}\n.re-mind .content .value:not(:empty):before {\n  content: \"(\";\n}\n.re-mind .content .value:not(:empty):after {\n  content: \")\";\n}\n.re-mind .current > .content:before {\n  content: \" \";\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: -6px;\n  top: -6px;\n  box-sizing: content-box;\n  border: 2px solid #7cb9ff;\n  padding: 4px;\n}\n.re-mind > .item > .children > .item > .children .current > .content:before {\n  left: -2px;\n  top: -2px;\n  padding: 0px;\n}\n.re-mind :not(.current):not(.collapsed) > .toggle {\n  /* NOT display:none - we need to have non-zero dimensions for layouting */\n  visibility: hidden;\n}\n.re-mind .status {\n  font-size: 150%;\n  line-height: 0.8;\n}\n.re-mind .status.yes:after {\n  content: \"✔\";\n  color: #0f0;\n}\n.re-mind .status.no:after {\n  content: \"✘\";\n  color: #f00;\n}\n.re-mind canvas {\n  position: absolute;\n  left: 0;\n  top: 0;\n}\n.re-mind .toggle {\n  position: absolute;\n  width: 12px;\n  height: 12px;\n  line-height: 12px;\n  cursor: pointer;\n  border-radius: 50%;\n  border: 1px solid #00f;\n  background-color: #88f;\n  text-align: center;\n  font-weight: bold;\n  font-family: sans-serif;\n  color: #fff;\n  opacity: 0.7;\n}\n.re-mind .toggle:hover {\n  opacity: 1;\n}\n.re-mind .toggle:before {\n  content: \"−\";\n  line-height: 8px;\n  margin-top: -2px;\n  position: absolute;\n  left: 1px;\n  top: 3px;\n  font-size: 12px;\n}\n.re-mind .collapsed > .toggle:before {\n  content: \"+\";\n  line-height: 8px;\n  margin-top: -2px;\n  position: absolute;\n  left: 1px;\n  top: 2px;\n  font-size: 12px;\n}\n.re-mind .re-mind-icon {\n  display: inline-flex !important;\n  align-items: center;\n  flex-direction: row-reverse;\n}\n.re-mind .re-mind-icon > li {\n  font-size: 18px;\n  display: inline-block;\n  margin-left: -5px;\n}\n.re-mind .re-mind-icon > li:last-child {\n  margin-left: 0px;\n}\n.re-mind .re-mind-icon > li:first-child {\n  margin-right: 5px;\n}\n", ""]);
 
 
 /***/ }),
@@ -1165,6 +1165,15 @@ MM.Item.prototype.update = function (doNotRecurse) {
     }
   }
 
+  if (this.getDOM().text.clientWidth > 301) {
+    console.log(this.getDOM().text.clientWidth);
+    this.getDOM().text.style.width = "300px";
+    this.getDOM().text.style.whiteSpace = "normal";
+  } else if (this.getDOM().text.clientHeight < 40) {
+    this.getDOM().text.style.whiteSpace = "nowrap";
+    this.getDOM().text.style.width = "auto";
+  }
+
   this._updateStatus();
 
   this._updateIcon();
@@ -1177,7 +1186,6 @@ MM.Item.prototype.update = function (doNotRecurse) {
 
   this.getLayout().update(this);
   this.getShape().update(this);
-  console.log(this._dom.node.className);
 
   if (!this.isRoot() && !doNotRecurse) {
     this._parent.update();
@@ -1272,6 +1280,12 @@ MM.Item.prototype.getStatus = function () {
 MM.Item.prototype.setIcon = function (icon) {
   var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'default';
   this._icon[type] = icon;
+  return this.update();
+};
+
+MM.Item.prototype.deleteIcon = function () {
+  var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'default';
+  delete this._icon[type];
   return this.update();
 };
 
@@ -1504,6 +1518,7 @@ MM.Item.prototype.handleEvent = function (e) {
       }
 
       MM.App.select(this);
+      e.stopPropagation();
       break;
   }
 };
@@ -1571,7 +1586,7 @@ MM.Item.prototype._updateIcon = function () {
     var iconList = '';
 
     for (var key in icon) {
-      if (icon[key]) iconList += "<li class=\"".concat(icon[key], "\"></li>");
+      if (icon[key]) iconList += "<li class=\"".concat(icon[key], "\" data-key=\"").concat(key, "\"></li>");
     }
 
     this._dom.icon.innerHTML = iconList;
@@ -2590,7 +2605,7 @@ __webpack_require__.r(__webpack_exports__);
 MM.Menu = {
   _dom: {},
   _port: null,
-  open: function open(x, y) {
+  open: function open(x, y, target) {
     this._dom.node.style.display = "";
     var w = this._dom.node.offsetWidth;
     var h = this._dom.node.offsetHeight;
@@ -2605,8 +2620,19 @@ MM.Menu = {
       top -= h;
     }
 
+    this.nowTarget = target;
     this._dom.node.style.left = left + "px";
     this._dom.node.style.top = top + "px";
+
+    var iconCommand = this._dom.node.querySelector("[data-command=DeleteIcon]");
+
+    if (!iconCommand) return;
+
+    if (target.getAttribute("data-key")) {
+      iconCommand.style.display = 'block';
+    } else {
+      iconCommand.style.display = 'none';
+    }
   },
   close: function close() {
     this._dom.node.style.display = "none";
@@ -2635,7 +2661,7 @@ MM.Menu = {
       return;
     }
 
-    command.execute();
+    command.execute(this.nowTarget);
     this.close();
   },
   init: function init(port) {
@@ -2689,7 +2715,12 @@ MM.Command.Undo = Object.create(MM.Command, {
   keys: {
     value: [{
       keyCode: "Z".charCodeAt(0),
-      ctrlKey: true
+      metaKey: true,
+      shiftKey: false
+    }, {
+      keyCode: "Z".charCodeAt(0),
+      ctrlKey: true,
+      shiftKey: false
     }]
   }
 });
@@ -2701,6 +2732,7 @@ MM.Command.Undo.isValid = function () {
 MM.Command.Undo.execute = function () {
   MM.App.history[MM.App.historyIndex - 1].undo();
   MM.App.historyIndex--;
+  MM.publish("undo", MM.App.historyIndex);
 };
 
 MM.Command.Redo = Object.create(MM.Command, {
@@ -2709,8 +2741,13 @@ MM.Command.Redo = Object.create(MM.Command, {
   },
   keys: {
     value: [{
-      keyCode: "Y".charCodeAt(0),
-      ctrlKey: true
+      keyCode: "Z".charCodeAt(0),
+      metaKey: true,
+      shiftKey: true
+    }, {
+      keyCode: "Z".charCodeAt(0),
+      ctrlKey: true,
+      shiftKey: true
     }]
   }
 });
@@ -2722,6 +2759,7 @@ MM.Command.Redo.isValid = function () {
 MM.Command.Redo.execute = function () {
   MM.App.history[MM.App.historyIndex].perform();
   MM.App.historyIndex++;
+  MM.publish("redo", MM.App.historyIndex);
 };
 
 MM.Command.InsertSibling = Object.create(MM.Command, {
@@ -2858,11 +2896,17 @@ MM.Command.Save = Object.create(MM.Command, {
       keyCode: "S".charCodeAt(0),
       ctrlKey: true,
       shiftKey: false
+    }, {
+      keyCode: "S".charCodeAt(0),
+      metaKey: true,
+      shiftKey: false
     }]
   }
 });
 
-MM.Command.Save.execute = function () {// MM.App.io.quickSave();
+MM.Command.Save.execute = function (e) {
+  e.preventDefault();
+  MM.publish("save", "command");
 };
 
 MM.Command.SaveAs = Object.create(MM.Command, {
@@ -3485,6 +3529,26 @@ MM.Command.SelectParent.execute = function () {
   }
 
   MM.App.select(MM.App.current.getParent());
+};
+
+MM.Command.DeleteIcon = Object.create(MM.Command, {
+  label: {
+    value: "Delete Icon"
+  },
+  keys: {
+    value: [{
+      keyCode: "I".charCodeAt(0)
+    }]
+  }
+});
+
+MM.Command.DeleteIcon.execute = function (target) {
+  var key = target.getAttribute("data-key");
+
+  if (key) {
+    var item = MM.App.current;
+    item.deleteIcon(key);
+  }
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (MM.Command);
@@ -4647,6 +4711,10 @@ MM.Mouse.handleEvent = function (e) {
         MM.App.select(item);
       }
 
+      if (!item) {
+        MM.App.current.deselect();
+      }
+
       break;
 
     case "dblclick":
@@ -4664,7 +4732,7 @@ MM.Mouse.handleEvent = function (e) {
       e.preventDefault();
       var item = MM.App.map.getItemFor(e.target);
       item && MM.App.select(item);
-      MM.Menu.open(e.clientX, e.clientY);
+      MM.Menu.open(e.clientX, e.clientY, e.target);
       break;
 
     case "touchstart":
@@ -4701,10 +4769,6 @@ MM.Mouse.handleEvent = function (e) {
           item && MM.App.select(item);
           MM.Menu.open(e.clientX, e.clientY);
         }, this.TOUCH_DELAY);
-      }
-
-      if (!item) {
-        MM.App.current.deselect();
       }
 
       this._startDrag(e, item);
@@ -5114,7 +5178,7 @@ MM.App = {
     var _menu = document.createElement("div");
 
     _menu.className = "menu";
-    _menu.innerHTML = "\n\t\t\t<button data-command=\"InsertChild\">\u63D2\u5165\u8282\u70B9</button>\n\t\t\t<button data-command=\"InsertSibling\">\u63D2\u5165\u540C\u7EA7</button>\n\t\t\t<button data-command=\"Delete\">\u5220\u9664</button>\n\t\t\t<span></span>\n\t\t\t<button data-command=\"Edit\">\u7F16\u8F91</button>\n\t\t\t<span></span>\n\t\t\t<button data-command=\"Undo\">\u64A4\u9500</button>\n\t\t\t<button data-command=\"Redo\">\u91CD\u7F6E</button>\n\t\t\t<button data-command=\"Center\">\u8C03\u6574\u5E03\u5C40</button>\n\t\t";
+    _menu.innerHTML = "\n\t\t\t<button data-command=\"InsertChild\">\u63D2\u5165\u8282\u70B9</button>\n\t\t\t<button data-command=\"InsertSibling\">\u63D2\u5165\u540C\u7EA7</button>\n\t\t\t<button data-command=\"Delete\">\u5220\u9664</button>\n\t\t\t<button data-command=\"DeleteIcon\" style=\"display:none\">\u5220\u9664\u56FE\u6807</button>\n\t\t\t<span></span>\n\t\t\t<button data-command=\"Edit\">\u7F16\u8F91</button>\n\t\t\t<span></span>\n\t\t\t<button data-command=\"Undo\">\u64A4\u9500</button>\n\t\t\t<button data-command=\"Redo\">\u91CD\u7F6E</button>\n\t\t\t<button data-command=\"Center\">\u8C03\u6574\u5E03\u5C40</button>\n\t\t";
 
     this._port.appendChild(_menu);
 

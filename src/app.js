@@ -84,7 +84,6 @@ MM.App = {
 		node.style.transform = `scale(${this.scale})`;
 	},
 
-
 	handleEvent: function (e) {
 		switch (e.type) {
 			case "resize":
@@ -110,6 +109,7 @@ MM.App = {
 			<button data-command="InsertChild">插入节点</button>
 			<button data-command="InsertSibling">插入同级</button>
 			<button data-command="Delete">删除</button>
+			<button data-command="DeleteIcon" style="display:none">删除图标</button>
 			<span></span>
 			<button data-command="Edit">编辑</button>
 			<span></span>

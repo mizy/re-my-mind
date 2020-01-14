@@ -12,7 +12,11 @@ MM.Command.execute = function () { }
 
 MM.Command.Undo = Object.create(MM.Command, {
 	label: { value: "Undo" },
-	keys: { value: [{ keyCode: "Z".charCodeAt(0), ctrlKey: true }] }
+	keys: {
+		value: [
+			{ keyCode: "Z".charCodeAt(0), metaKey: true, shiftKey: false },
+			{ keyCode: "Z".charCodeAt(0), ctrlKey: true, shiftKey: false }]
+	}
 });
 MM.Command.Undo.isValid = function () {
 	return MM.Command.isValid.call(this) && !!MM.App.historyIndex;
@@ -20,11 +24,16 @@ MM.Command.Undo.isValid = function () {
 MM.Command.Undo.execute = function () {
 	MM.App.history[MM.App.historyIndex - 1].undo();
 	MM.App.historyIndex--;
+	MM.publish("undo", MM.App.historyIndex)
 }
 
 MM.Command.Redo = Object.create(MM.Command, {
 	label: { value: "Redo" },
-	keys: { value: [{ keyCode: "Y".charCodeAt(0), ctrlKey: true }] },
+	keys: {
+		value: [
+			{ keyCode: "Z".charCodeAt(0), metaKey: true, shiftKey: true },
+			{ keyCode: "Z".charCodeAt(0), ctrlKey: true, shiftKey: true }]
+	},
 });
 MM.Command.Redo.isValid = function () {
 	return (MM.Command.isValid.call(this) && MM.App.historyIndex != MM.App.history.length);
@@ -32,6 +41,7 @@ MM.Command.Redo.isValid = function () {
 MM.Command.Redo.execute = function () {
 	MM.App.history[MM.App.historyIndex].perform();
 	MM.App.historyIndex++;
+	MM.publish("redo", MM.App.historyIndex)
 }
 
 MM.Command.InsertSibling = Object.create(MM.Command, {
@@ -123,10 +133,15 @@ MM.Command.Side.execute = function (e) {
 
 MM.Command.Save = Object.create(MM.Command, {
 	label: { value: "Save map" },
-	keys: { value: [{ keyCode: "S".charCodeAt(0), ctrlKey: true, shiftKey: false }] }
+	keys: {
+		value: [
+			{ keyCode: "S".charCodeAt(0), ctrlKey: true, shiftKey: false },
+			{ keyCode: "S".charCodeAt(0), metaKey: true, shiftKey: false }]
+	}
 });
-MM.Command.Save.execute = function () {
-	// MM.App.io.quickSave();
+MM.Command.Save.execute = function (e) {
+	e.preventDefault();
+	MM.publish("save", "command")
 }
 
 MM.Command.SaveAs = Object.create(MM.Command, {
@@ -499,5 +514,20 @@ MM.Command.SelectParent.execute = function () {
 	if (MM.App.current.isRoot()) { return; }
 	MM.App.select(MM.App.current.getParent());
 }
+
+
+MM.Command.DeleteIcon = Object.create(MM.Command, {
+	label: { value: "Delete Icon" },
+	keys: { value: [{ keyCode: "I".charCodeAt(0) }] }
+});
+MM.Command.DeleteIcon.execute = function (target) {
+	const key = target.getAttribute("data-key")
+	if (key) {
+		var item = MM.App.current;
+		item.deleteIcon(key)
+	}
+
+}
+
 
 export default MM.Command;
