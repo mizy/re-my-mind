@@ -81,6 +81,16 @@ MM.Action.MoveItem = function (item, newParent, newIndex, newSide) {
 	this._oldParent = item.getParent();
 	this._oldIndex = this._oldParent.getChildren().indexOf(item);
 	this._oldSide = item.getSide();
+	if (newParent.isRoot()) {
+		let color = MM.App.options.colors[newIndex];
+		if (!color) {
+			const r = Math.floor(Math.random() * 256);
+			const g = Math.floor(Math.random() * 256);
+			const b = Math.floor(Math.random() * 256);
+			color = '#' + r.toString(16) + g.toString(16) + b.toString(16);
+		}
+		this._item.setColor(color);
+	}
 }
 MM.Action.MoveItem.prototype = Object.create(MM.Action.prototype);
 MM.Action.MoveItem.prototype.perform = function () {

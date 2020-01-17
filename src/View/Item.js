@@ -313,7 +313,11 @@ MM.Item.prototype.setIcon = function (icon, type = 'default') {
 	return this.update();
 }
 
-MM.Item.prototype.deleteIcon = function (type = 'default') {
+MM.Item.prototype.deleteIcon = function (type) {
+	if (!type) {
+		this._icon = {};
+		return this.update;
+	}
 	delete this._icon[type];
 	return this.update();
 }

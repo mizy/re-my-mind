@@ -20,6 +20,7 @@ MM.Mouse.init = function (port) {
 	this._port.addEventListener("click", this);
 	this._port.addEventListener("dblclick", this);
 	this._port.addEventListener("wheel", this);
+	this._port.addEventListener("mouseout", this);
 	this._port.addEventListener("mousewheel", this);
 	this._port.addEventListener("contextmenu", this);
 }
@@ -28,7 +29,10 @@ MM.Mouse.handleEvent = function (e) {
 	switch (e.type) {
 		case "click":
 			var item = MM.App.map.getItemFor(e.target);
-			if (MM.App.editing && item == MM.App.current) { return; } /* ignore on edited node */
+			if (MM.App.editing && item._id == MM.App.current._id) {
+
+				return;
+			} /* ignore on edited node */
 			if (item) { MM.App.select(item); }
 			if (!item) {
 				MM.App.current.deselect();
@@ -85,8 +89,10 @@ MM.Mouse.handleEvent = function (e) {
 		case "touchend":
 			clearTimeout(this._touchTimeout);
 		case "mouseup":
+		case "mouseout":
 			this._endDrag();
 			break;
+
 
 		case "wheel":
 		case "mousewheel":

@@ -12,13 +12,13 @@ var rightLayout = Object.create(MM.Layout.Map, {
 	LINE_THICKNESS: { value: 8 }
 });
 MM.Layout.ALL.push(rightLayout);
-var rightLayout = Object.create(MM.Layout.Map, {
+var leftLayout = Object.create(MM.Layout.Map, {
 	id: { value: "map-left" },
 	label: { value: "Map-Left" },
 	ROOT_SPACE: { value: 64 },
 	LINE_THICKNESS: { value: 8 }
 });
-MM.Layout.ALL.push(rightLayout);
+MM.Layout.ALL.push(leftLayout);
 
 MM.Layout.Map.update = function (item) {
 	if (item.isRoot()) {

@@ -3,27 +3,82 @@
 	.re-mind-icon {
 		display: inline-block;
 	}
+	.cut {
+		opacity: 0.5;
+	}
+	.collapsed .children {
+		display: none;
+	}
+
+	.content {
+		display: flex;
+		position: absolute;
+		cursor: pointer;
+		padding: 5px;
+		border-radius: 5px;
+		> * {
+			vertical-align: middle;
+		}
+		.text {
+			z-index:1;
+			text-align: left;
+			display: inline-block;
+			min-height: 22px;
+			word-wrap: break-word;
+			white-space: nowrap;
+			word-break: break-all;
+			// line-height: 1.3em;
+			font-weight: normal;
+			outline: none;
+		}
+
+		.value,.status {
+			margin-right: 0.2em;
+		}
+
+		.text ~ .value,.text ~ .status {
+			margin-left: 0.2em;
+			margin-right: 0;
+		}
+
+		.value {
+			opacity: 0.7;
+			display: none;
+		}
+
+		.value:not(:empty):before {
+			content: "(";
+		}
+
+		.value:not(:empty):after {
+			content: ")";
+		}
+	}
 }
 
-.item.cut {
-	opacity: 0.5;
-}
 
-.item.collapsed .children {
-	display: none;
+.shape-box{
+	> .content {
+		padding: 4px 10px;
+		background-color: #4a90e2;
+		color: #fff;
+		border-radius: 3px;
+		.text{
+			min-height: 25px;
+			font-size: 18px;
+		}
+	}
 }
-
-.shape-box > .content {
-	padding: 0.15em 0.4em;
-	background-color: #4a90e2;
-	color: #fff;
-	border-radius: 3px;
-}
-
-.shape-ellipse > .content {
-	border: 1px solid transparent;
-	padding: 10px 20px;
-	color: #fff;
+.shape-ellipse {
+	> .content {
+		border: 1px solid transparent;
+		padding: 10px 20px;
+		color: #fff;
+		.text{
+			min-height: 33px;
+			font-size: 24px;
+		}
+	}
 }
 
 /* root */
@@ -36,68 +91,6 @@
 	background-color: rgb(80, 194, 139);
 }
 
-> .item > .toggle {
-	display: none;
-}
-
-/* 1st children */
-
-> .item > .children > .item > .content {
-	border-width: 2px;
-	font-size: 120%;
-}
-
-> .item .icon {
-	margin: 0 0.5em 0 0;
-	font-size: x-large;
-}
-
-.content {
-	display: flex;
-	position: absolute;
-	cursor: pointer;
-	padding: 5px;
-	border-radius: 5px;
-	> * {
-		vertical-align: middle;
-	}
-	.text {
-		text-align: left;
-		display: inline-block;
-		text-align: center;
-		min-height: 1.3em;
-		word-wrap: break-word;
-		white-space: nowrap;
-		word-break: break-all;
-		// line-height: 1.3em;
-		font-weight: normal;
-		outline: none;
-	}
-
-	.value,
-	.status {
-		margin-right: 0.2em;
-	}
-
-	.text ~ .value,
-	.text ~ .status {
-		margin-left: 0.2em;
-		margin-right: 0;
-	}
-
-	.value {
-		opacity: 0.7;
-		display: none;
-	}
-
-	.value:not(:empty):before {
-		content: "(";
-	}
-
-	.value:not(:empty):after {
-		content: ")";
-	}
-}
 .current > .content {
 	&:before {
 		content: " ";

@@ -28,7 +28,7 @@ MM.Shape.getHorizontalAnchor = function (item) {
 
 MM.Shape.getVerticalAnchor = function (item) {
 	var node = item.getDOM().content;
-	return node.offsetTop + Math.round(node.offsetHeight * this.VERTICAL_OFFSET) + 0.5;
+	return node.offsetTop + Math.round(node.offsetHeight * this.VERTICAL_OFFSET);
 }
 MM.Shape.Box = Object.create(MM.Shape, {
 	id: { value: "box" },
@@ -81,6 +81,6 @@ MM.Shape.Underline.update = function (item) {
 
 MM.Shape.Underline.getVerticalAnchor = function (item) {
 	var node = item.getDOM().content;
-	return node.offsetTop + node.offsetHeight + this.VERTICAL_OFFSET + 0.5;
+	return node.offsetTop + node.offsetHeight + this.VERTICAL_OFFSET;
 }
 export default MM.Shape;

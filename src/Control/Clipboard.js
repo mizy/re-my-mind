@@ -37,7 +37,7 @@ MM.Clipboard.paste = function (targetItem) {
 		this._empty();
 		if (!pasted) { return; } /* nothing */
 
-		if (this._item && pasted == MM.Format.Plaintext.to(this._item.toJSON())) { /* pasted a previously copied/cut item */
+		if (!MM.App.editing) { /* pasted a previously copied/cut item */
 			this._pasteItem(this._item, targetItem);
 		} else { /* pasted some external data */
 			this._pastePlaintext(pasted, targetItem);

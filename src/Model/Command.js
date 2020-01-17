@@ -162,22 +162,26 @@ MM.Command.Load.execute = function () {
 
 MM.Command.Center = Object.create(MM.Command, {
 	label: { value: "Center map" },
-	keys: { value: [{ keyCode: 35 }] }
+	keys: {
+		value: [
+			{ keyCode: "C".charCodeAt(0), ctrlKey: false, metaKey: false, shiftKey: false },
+		]
+	}
 });
 MM.Command.Center.execute = function () {
 	MM.App.map.center();
 }
 
-MM.Command.New = Object.create(MM.Command, {
-	label: { value: "New map" },
-	keys: { value: [{ keyCode: "N".charCodeAt(0), ctrlKey: true }] }
-});
-MM.Command.New.execute = function () {
-	if (!confirm("Throw away your current map and start a new one?")) { return; }
-	var map = new MM.Map();
-	MM.App.setMap(map);
-	MM.publish("map-new", this);
-}
+// MM.Command.New = Object.create(MM.Command, {
+// 	label: { value: "New map" },
+// 	keys: { value: [{ keyCode: "N".charCodeAt(0), ctrlKey: true }] }
+// });
+// MM.Command.New.execute = function () {
+// 	if (!confirm("Throw away your current map and start a new one?")) { return; }
+// 	var map = new MM.Map();
+// 	MM.App.setMap(map);
+// 	MM.publish("map-new", this);
+// }
 
 MM.Command.ZoomIn = Object.create(MM.Command, {
 	label: { value: "Zoom in" },
@@ -195,30 +199,15 @@ MM.Command.ZoomOut.execute = function () {
 	MM.App.zoom(-1);
 }
 
-MM.Command.Help = Object.create(MM.Command, {
-	label: { value: "Show/hide help" },
-	keys: { value: [{ charCode: "?".charCodeAt(0) }] }
-});
-MM.Command.Help.execute = function () {
-	MM.App.help.toggle();
-}
-
-MM.Command.UI = Object.create(MM.Command, {
-	label: { value: "Show/hide UI" },
-	keys: { value: [{ charCode: "*".charCodeAt(0) }] }
-});
-MM.Command.UI.execute = function () {
-	MM.App.ui.toggle();
-}
 
 MM.Command.Pan = Object.create(MM.Command, {
 	label: { value: "Pan the map" },
 	keys: {
 		value: [
-			// {keyCode: "W".charCodeAt(0), ctrlKey:false, altKey:false, metaKey:false},
-			// {keyCode: "A".charCodeAt(0), ctrlKey:false, altKey:false, metaKey:false},
-			// {keyCode: "S".charCodeAt(0), ctrlKey:false, altKey:false, metaKey:false},
-			// {keyCode: "D".charCodeAt(0), ctrlKey:false, altKey:false, metaKey:false}
+			{ keyCode: "W".charCodeAt(0), ctrlKey: false, altKey: false, metaKey: false },
+			{ keyCode: "A".charCodeAt(0), ctrlKey: false, altKey: false, metaKey: false },
+			{ keyCode: "S".charCodeAt(0), ctrlKey: false, altKey: false, metaKey: false },
+			{ keyCode: "D".charCodeAt(0), ctrlKey: false, altKey: false, metaKey: false }
 		]
 	},
 	chars: { value: [] }
@@ -240,9 +229,9 @@ MM.Command.Pan.execute = function (e) {
 MM.Command.Pan._step = function () {
 	var dirs = {
 		"W": [0, 1],
-		"A": [1, 0],
+		"A": [-1, 0],
 		"S": [0, -1],
-		"D": [-1, 0]
+		"D": [1, 0]
 	}
 	var offset = [0, 0];
 
@@ -329,6 +318,11 @@ MM.Command.Edit = Object.create(MM.Command, {
 MM.Command.Edit.execute = function () {
 	MM.App.current.startEditing();
 	MM.App.editing = true;
+	const range = document.createRange();
+	range.selectNodeContents(MM.App.current._dom.text);
+	const selection = window.getSelection();
+	selection.removeAllRanges();
+	selection.addRange(range)
 }
 
 MM.Command.Finish = Object.create(MM.Command, {
@@ -419,7 +413,7 @@ MM.Command.Italic = Object.create(MM.Command.Style, {
 MM.Command.Strikethrough = Object.create(MM.Command.Style, {
 	command: { value: "strikeThrough" },
 	label: { value: "Strike-through" },
-	keys: { value: [{ keyCode: "S".charCodeAt(0), ctrlKey: true }] }
+	keys: { value: [{ keyCode: "S".charCodeAt(0), ctrlKey: true, shiftKey: true }] }
 });
 
 MM.Command.Value = Object.create(MM.Command, {
@@ -461,16 +455,16 @@ MM.Command.No.execute = function () {
 	MM.App.action(action);
 }
 
-MM.Command.Computed = Object.create(MM.Command, {
-	label: { value: "Computed" },
-	keys: { value: [{ charCode: "c".charCodeAt(0), ctrlKey: false, metaKey: false }] }
-});
-MM.Command.Computed.execute = function () {
-	var item = MM.App.current;
-	var status = (item.getStatus() == "computed" ? null : "computed");
-	var action = new MM.Action.SetStatus(item, status);
-	MM.App.action(action);
-}
+// MM.Command.Computed = Object.create(MM.Command, {
+// 	label: { value: "Computed" },
+// 	keys: { value: [{ charCode: "c".charCodeAt(0), ctrlKey: false, metaKey: false }] }
+// });
+// MM.Command.Computed.execute = function () {
+// 	var item = MM.App.current;
+// 	var status = (item.getStatus() == "computed" ? null : "computed");
+// 	var action = new MM.Action.SetStatus(item, status);
+// 	MM.App.action(action);
+// }
 MM.Command.Select = Object.create(MM.Command, {
 	label: { value: "Move selection" },
 	keys: {

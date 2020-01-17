@@ -77,7 +77,7 @@ MM.App = {
 		this.map.ensureItemVisibility(this.current);
 	},
 
-	zoom: val => {
+	zoom(val) {
 		val = val * this.zoomRatio;
 		this.scale = this.scale * val;
 		const node = this.map.getRoot().getDOM().node;

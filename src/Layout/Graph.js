@@ -44,14 +44,19 @@ MM.Layout.Graph._layoutItem = function (item, rankDirection) {
 	var sizeProps = ["width", "height"];
 	var posProps = ["left", "top"];
 
-	var rankIndex = (rankDirection == "left" || rankDirection == "right" ? 0 : 1);
-	var childIndex = !rankIndex ? 1 : 0
-
-	var rankPosProp = posProps[rankIndex];// 排列属性， ["left", "top"]
-	var childPosProp = posProps[childIndex];// 
-	var rankSizeProp = sizeProps[rankIndex]; //  
-	var childSizeProp = sizeProps[childIndex];// 宽高
-
+	var rankIndex = (rankDirection == "left" || rankDirection == "right") ? 0 : 1;
+	var childIndex = rankIndex === 0 ? 1 : 0;
+	var rankPosProp;// 左右排是css的left,上下是以top为基准 
+	var childPosProp;// 排列方式的的另一个css属性
+	var rankSizeProp; //  
+	var childSizeProp;// 宽高
+	if (rankDirection == "left" || rankDirection == "right") {
+		rankPosProp = "left", childPosProp = "top";
+		rankSizeProp = "width"; childSizeProp = "height";
+	} else {
+		rankPosProp = "top", childPosProp = "left";
+		rankSizeProp = "height"; childSizeProp = "width";
+	}
 	var dom = item.getDOM();
 
 	/* content size */
@@ -64,8 +69,8 @@ MM.Layout.Graph._layoutItem = function (item, rankDirection) {
 	var rankSize = contentSize[rankIndex];
 	if (bbox[rankIndex]) { rankSize += bbox[rankIndex] + spacingRank; }
 	var childSize = Math.max(bbox[childIndex], contentSize[childIndex]);
-	dom.node.style[rankSizeProp] = rankSize + "px";
-	dom.node.style[childSizeProp] = childSize + "px";
+	dom.node.style[rankSizeProp] = rankSize + "px"; // 父元素的宽度为文字的宽度
+	dom.node.style[childSizeProp] = childSize + "px";// 子元素撑开的高度就是父元素的高度
 
 	var offset = [0, 0];
 	if (rankDirection == "right") { offset[0] = contentSize[0] + spacingRank; }
@@ -91,13 +96,14 @@ MM.Layout.Graph._layoutItem = function (item, rankDirection) {
 MM.Layout.Graph._layoutBoxChildren = function (children, rankDirection, offset, bbox) {
 	var posProps = ["left", "top"];
 
-	var rankIndex = (rankDirection == "left" || rankDirection == "right" ? 0 : 1);
+	var rankIndex = (rankDirection == "left" || rankDirection == "right") ? 0 : 1;
 	var childIndex = (rankIndex + 1) % 2;
 	var rankPosProp = posProps[rankIndex];
 	var childPosProp = posProps[childIndex];
-
 	children.forEach(function (child, index) {
 		var node = child.getDOM().node;
+		// 下划线的Y
+		const offsetY = (node.offsetHeight + child.getShape().VERTICAL_OFFSET) - node.offsetHeight / 2 - 1;//线高度1px
 		var childSize = [node.offsetWidth, node.offsetHeight];
 
 		if (rankDirection == "left") {
@@ -106,10 +112,13 @@ MM.Layout.Graph._layoutBoxChildren = function (children, rankDirection, offset, 
 		if (rankDirection == "top") {
 			offset[1] = bbox[1] - childSize[1] - 10;
 		}
+		//横向情况
+		if (rankIndex === 0 && index === 0) {
+			offset[1] -= offsetY;
+		}
 		// 这个常量会被css修改，要注意修改
-		node.style[childPosProp] = offset[childIndex] + (childPosProp === 'top' ? this.thirdChildOffsetTop : 0) + "px";
+		node.style[childPosProp] = offset[childIndex] + "px";
 		node.style[rankPosProp] = offset[rankIndex] + "px";
-
 		offset[childIndex] += childSize[childIndex] + this.SPACING_CHILD; /* offset for next child */
 	}, this);
 
@@ -181,7 +190,7 @@ MM.Layout.Graph._drawHorizontalConnectors = function (item, side, children) {
 		var x2 = this._getChildAnchor(child, side);
 		ctx.beginPath();
 		ctx.moveTo(x1, y1);
-		// ctx.lineTo(x2,y2);
+		// ctx.lineTo(x2, y1);
 		ctx.bezierCurveTo((x1 + x2) / 2, y1, (x1 + x2) / 2, y2, x2, y2);
 		ctx.stroke();
 		return;
@@ -222,17 +231,22 @@ MM.Layout.Graph._drawHorizontalConnectors = function (item, side, children) {
 	ctx.arcTo(x, y2, x + sideVal * r, y2, r);
 	ctx.moveTo(x + sideVal * (r - 1), y2)
 	ctx.lineTo(x2, y2)
-	// ctx.moveTo(x,y);
-	// ctx.lineTo(x1,y1);
-	// ctx.moveTo(x,y);
-	// ctx.lineTo(x2,y2);
 
 	for (var i = 1; i < children.length - 1; i++) {
 		var c = children[i];
+		const x1 = this._getChildAnchor(c, side)
 		var y = c.getShape().getVerticalAnchor(c) + c.getDOM().node.offsetTop;
 		// 节点下的下划线
-		ctx.moveTo(x, y);
-		ctx.lineTo(this._getChildAnchor(c, side), y);
+		ctx.moveTo(x1, y);
+		if (Math.abs(y - canvas.height / 2) <= 1) {
+			ctx.lineTo(x, y);
+			continue;
+		}
+		const offsetX = (x1 - x) ? 5 : -5;
+		const offsetY = (y > canvas.height / 2) ? -5 : 5;
+		ctx.lineTo(x + offsetX, y);
+		ctx.quadraticCurveTo(x, y, x, y + offsetY);
+
 	}
 	ctx.stroke();
 }
@@ -293,6 +307,7 @@ MM.Layout.Graph._drawVerticalConnectors = function (item, side, children) {
 		var c = children[i];
 		var x = c.getShape().getHorizontalAnchor(c) + c.getDOM().node.offsetLeft;
 		ctx.moveTo(x, y);
+
 		ctx.lineTo(x, this._getChildAnchor(c, side));
 	}
 	ctx.stroke();
