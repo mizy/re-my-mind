@@ -262,7 +262,7 @@ MM.Layout.Graph._drawHorizontalConnectors = function (item, side, children) {
 			ctx.lineTo(x, y);
 			continue;
 		}
-		const offsetX = (x1 - x) ? 5 : -5;
+		const offsetX = (side === "right") ? 5 : -5;
 		const offsetY = (y > offsetTop) ? -5 : 5;
 		ctx.lineTo(x + offsetX, y);
 		ctx.quadraticCurveTo(x, y, x, y + offsetY);
