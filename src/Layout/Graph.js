@@ -63,6 +63,7 @@ MM.Layout.Graph._layoutItem = function (item, rankDirection) {
 	var contentSize = [dom.content.offsetWidth, dom.content.offsetHeight];
 
 	/* children size */
+	// 撑开孩子节点的属性
 	var bbox = this._computeChildrenBBox(item.getChildren(), childIndex);
 
 	/* node size */
@@ -86,8 +87,21 @@ MM.Layout.Graph._layoutItem = function (item, rankDirection) {
 	var labelPos = 0;
 	if (rankDirection == "left") { labelPos = rankSize - contentSize[0]; }
 	if (rankDirection == "top") { labelPos = rankSize - contentSize[1]; }
-
-	dom.content.style[childPosProp] = Math.round((childSize - contentSize[childIndex]) / 2) + "px";
+	let offsetY = 0
+	if (item.getChildren().length) {
+		const child = item.getChildren()[0];
+		// 父子节点都为Underline的情况不用偏移
+		if (child.getShape().id === "underline" && shape !== "underline") {
+			const childNode = child.getDOM().text;
+			offsetY = childNode.offsetHeight / 2 + 1;//线高度1px
+		} else if (item.getChildren().length) {
+			//TODO: 当只有一个children时，兼容多行文本
+			offsetY = (child.getDOM().text.offsetHeight - dom.content.offsetHeight) / 2;
+			offsetY = offsetY < 0 ? 0 : offsetY;
+			console.log(offsetY)
+		}
+	}
+	dom.content.style[childPosProp] = Math.round((childSize - contentSize[childIndex]) / 2) + offsetY + "px";
 	dom.content.style[rankPosProp] = labelPos + "px";
 
 	return this;
@@ -112,10 +126,10 @@ MM.Layout.Graph._layoutBoxChildren = function (children, rankDirection, offset, 
 		if (rankDirection == "top") {
 			offset[1] = bbox[1] - childSize[1] - 10;
 		}
-		//横向情况
-		if (rankIndex === 0 && index === 0) {
-			offset[1] -= offsetY;
-		}
+		// //横向情况
+		// if (rankIndex === 0 && index === 0) {
+		// 	offset[1] -= offsetY;
+		// }
 		// 这个常量会被css修改，要注意修改
 		node.style[childPosProp] = offset[childIndex] + "px";
 		node.style[rankPosProp] = offset[rankIndex] + "px";
@@ -238,12 +252,18 @@ MM.Layout.Graph._drawHorizontalConnectors = function (item, side, children) {
 		var y = c.getShape().getVerticalAnchor(c) + c.getDOM().node.offsetTop;
 		// 节点下的下划线
 		ctx.moveTo(x1, y);
-		if (Math.abs(y - canvas.height / 2) <= 1) {
+		let offsetTop = 0;
+		if (item.getShape().id === "underline") {
+			offsetTop = dom.content.offsetTop + item.getShape().VERTICAL_OFFSET + dom.content.offsetHeight;
+		} else {
+			offsetTop = dom.content.offsetTop + dom.content.offsetHeight / 2;
+		}
+		if (Math.abs(y - offsetTop) <= 1) {
 			ctx.lineTo(x, y);
 			continue;
 		}
 		const offsetX = (x1 - x) ? 5 : -5;
-		const offsetY = (y > canvas.height / 2) ? -5 : 5;
+		const offsetY = (y > offsetTop) ? -5 : 5;
 		ctx.lineTo(x + offsetX, y);
 		ctx.quadraticCurveTo(x, y, x, y + offsetY);
 

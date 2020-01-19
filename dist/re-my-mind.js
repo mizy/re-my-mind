@@ -188,7 +188,7 @@ if(false) {}
 
 exports = module.exports = __webpack_require__(3)(false);
 // Module
-exports.push([module.i, ".re-mind {\n  position: relative;\n  overflow: hidden;\n  /* root */\n}\n.re-mind * {\n  box-sizing: border-box;\n}\n.re-mind ul,\n.re-mind li {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n}\n.re-mind ul li,\n.re-mind li li {\n  list-style: none;\n}\n.re-mind .menu {\n  position: absolute;\n  z-index: 1;\n  /* border: 1px solid #666; */\n  background-color: #fff;\n  box-shadow: 0 0 5px 0px #666;\n  border-radius: 2px;\n  padding: 10px 0;\n}\n.re-mind .menu button {\n  display: block;\n  background-color: transparent;\n  border: none;\n  margin: 0;\n  padding: 3px 6px;\n  font-size: 15px;\n  width: 130px;\n  text-align: left;\n  cursor: pointer;\n}\n.re-mind .menu button:hover {\n  background: #0ae;\n  color: #fff;\n}\n.re-mind .menu span {\n  display: block;\n  border-top: 1px solid #eee;\n  margin-top: 4px;\n  padding-top: 4px;\n}\n.re-mind .item {\n  position: absolute;\n}\n.re-mind .item .re-mind-icon {\n  display: inline-block;\n}\n.re-mind .item .cut {\n  opacity: 0.5;\n}\n.re-mind .item .collapsed .children {\n  display: none;\n}\n.re-mind .item .content {\n  display: flex;\n  position: absolute;\n  cursor: pointer;\n  padding: 5px;\n  border-radius: 5px;\n}\n.re-mind .item .content > * {\n  vertical-align: middle;\n}\n.re-mind .item .content .text {\n  z-index: 1;\n  text-align: left;\n  display: inline-block;\n  min-height: 22px;\n  word-wrap: break-word;\n  white-space: nowrap;\n  word-break: break-all;\n  font-weight: normal;\n  outline: none;\n}\n.re-mind .item .content .value,\n.re-mind .item .content .status {\n  margin-right: 0.2em;\n}\n.re-mind .item .content .text ~ .value,\n.re-mind .item .content .text ~ .status {\n  margin-left: 0.2em;\n  margin-right: 0;\n}\n.re-mind .item .content .value {\n  opacity: 0.7;\n  display: none;\n}\n.re-mind .item .content .value:not(:empty):before {\n  content: \"(\";\n}\n.re-mind .item .content .value:not(:empty):after {\n  content: \")\";\n}\n.re-mind .shape-box > .content {\n  padding: 4px 10px;\n  background-color: #4a90e2;\n  color: #fff;\n  border-radius: 3px;\n}\n.re-mind .shape-box > .content .text {\n  min-height: 25px;\n  font-size: 18px;\n}\n.re-mind .shape-ellipse > .content {\n  border: 1px solid transparent;\n  padding: 10px 20px;\n  color: #fff;\n}\n.re-mind .shape-ellipse > .content .text {\n  min-height: 33px;\n  font-size: 24px;\n}\n.re-mind > .item > .content {\n  font-weight: bold;\n  border-width: 2px;\n  font-size: 140%;\n  color: #fff;\n  border: 0;\n  background-color: #50c28b;\n}\n.re-mind .current > .content:before {\n  content: \" \";\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: -6px;\n  top: -6px;\n  box-sizing: content-box;\n  border: 2px solid #7cb9ff;\n  padding: 4px;\n}\n.re-mind > .item > .children > .item > .children .current > .content:before {\n  left: -2px;\n  top: -2px;\n  padding: 0px;\n}\n.re-mind :not(.current):not(.collapsed) > .toggle {\n  /* NOT display:none - we need to have non-zero dimensions for layouting */\n  visibility: hidden;\n}\n.re-mind .status {\n  font-size: 150%;\n  line-height: 0.8;\n}\n.re-mind .status.yes:after {\n  content: \"✔\";\n  color: #0f0;\n}\n.re-mind .status.no:after {\n  content: \"✘\";\n  color: #f00;\n}\n.re-mind canvas {\n  position: absolute;\n  left: 0;\n  top: 0;\n}\n.re-mind .toggle {\n  position: absolute;\n  width: 12px;\n  height: 12px;\n  line-height: 12px;\n  cursor: pointer;\n  border-radius: 50%;\n  border: 1px solid #00f;\n  background-color: #88f;\n  text-align: center;\n  font-weight: bold;\n  font-family: sans-serif;\n  color: #fff;\n  opacity: 0.7;\n}\n.re-mind .toggle:hover {\n  opacity: 1;\n}\n.re-mind .toggle:before {\n  content: \"−\";\n  line-height: 8px;\n  margin-top: -2px;\n  position: absolute;\n  left: 1px;\n  top: 3px;\n  font-size: 12px;\n}\n.re-mind .collapsed > .toggle:before {\n  content: \"+\";\n  line-height: 8px;\n  margin-top: -2px;\n  position: absolute;\n  left: 1px;\n  top: 2px;\n  font-size: 12px;\n}\n.re-mind .re-mind-icon {\n  display: inline-flex !important;\n  align-items: center;\n  flex-direction: row-reverse;\n}\n.re-mind .re-mind-icon > li {\n  font-size: 18px;\n  display: inline-block;\n  margin-left: -5px;\n}\n.re-mind .re-mind-icon > li:last-child {\n  margin-left: 0px;\n}\n.re-mind .re-mind-icon > li:first-child {\n  margin-right: 5px;\n}\n", ""]);
+exports.push([module.i, ".re-mind {\n  position: relative;\n  overflow: hidden;\n  /* root */\n}\n.re-mind * {\n  box-sizing: border-box;\n}\n.re-mind ul,\n.re-mind li {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n}\n.re-mind ul li,\n.re-mind li li {\n  list-style: none;\n}\n.re-mind .menu {\n  position: absolute;\n  z-index: 1;\n  /* border: 1px solid #666; */\n  background-color: #fff;\n  box-shadow: 0 0 5px 0px #666;\n  border-radius: 2px;\n  padding: 10px 0;\n}\n.re-mind .menu button {\n  display: block;\n  background-color: transparent;\n  border: none;\n  margin: 0;\n  padding: 3px 6px;\n  font-size: 15px;\n  width: 130px;\n  text-align: left;\n  cursor: pointer;\n}\n.re-mind .menu button:hover {\n  background: #0ae;\n  color: #fff;\n}\n.re-mind .menu span {\n  display: block;\n  border-top: 1px solid #eee;\n  margin-top: 4px;\n  padding-top: 4px;\n}\n.re-mind .item {\n  position: absolute;\n}\n.re-mind .item .re-mind-icon {\n  display: inline-block;\n}\n.re-mind .item .cut {\n  opacity: 0.5;\n}\n.re-mind .item.collapsed .children {\n  display: none;\n}\n.re-mind .item .content {\n  display: flex;\n  position: absolute;\n  cursor: pointer;\n  padding: 5px;\n  border-radius: 5px;\n}\n.re-mind .item .content > * {\n  vertical-align: middle;\n}\n.re-mind .item .content .text {\n  z-index: 1;\n  text-align: left;\n  display: inline-block;\n  min-height: 22px;\n  word-wrap: break-word;\n  white-space: nowrap;\n  word-break: break-all;\n  font-weight: normal;\n  outline: none;\n}\n.re-mind .item .content .value,\n.re-mind .item .content .status {\n  margin-right: 0.2em;\n}\n.re-mind .item .content .text ~ .value,\n.re-mind .item .content .text ~ .status {\n  margin-left: 0.2em;\n  margin-right: 0;\n}\n.re-mind .item .content .value {\n  opacity: 0.7;\n  display: none;\n}\n.re-mind .item .content .value:not(:empty):before {\n  content: \"(\";\n}\n.re-mind .item .content .value:not(:empty):after {\n  content: \")\";\n}\n.re-mind .shape-box > .content {\n  padding: 4px 10px;\n  background-color: #4a90e2;\n  color: #fff;\n  border-radius: 3px;\n}\n.re-mind .shape-box > .content .text {\n  min-height: 25px;\n  font-size: 18px;\n}\n.re-mind .shape-ellipse > .content {\n  border: 1px solid transparent;\n  padding: 10px 20px;\n  color: #fff;\n}\n.re-mind .shape-ellipse > .content .text {\n  min-height: 33px;\n  font-size: 24px;\n}\n.re-mind > .item > .content {\n  font-weight: bold;\n  border-width: 2px;\n  font-size: 140%;\n  color: #fff;\n  border: 0;\n  background-color: #50c28b;\n}\n.re-mind > .item > .toggle {\n  display: none;\n}\n.re-mind .current > .content:before {\n  content: \" \";\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: -6px;\n  top: -6px;\n  box-sizing: content-box;\n  border: 2px solid #7cb9ff;\n  padding: 4px;\n}\n.re-mind > .item > .children > .item > .children .current > .content:before {\n  left: -2px;\n  top: -2px;\n  padding: 0px;\n}\n.re-mind :not(.current):not(.collapsed) > .toggle {\n  /* NOT display:none - we need to have non-zero dimensions for layouting */\n  visibility: hidden;\n}\n.re-mind .status {\n  font-size: 150%;\n  line-height: 0.8;\n}\n.re-mind .status.yes:after {\n  content: \"✔\";\n  color: #0f0;\n}\n.re-mind .status.no:after {\n  content: \"✘\";\n  color: #f00;\n}\n.re-mind canvas {\n  position: absolute;\n  left: 0;\n  top: 0;\n}\n.re-mind .toggle {\n  position: absolute;\n  width: 12px;\n  height: 12px;\n  line-height: 12px;\n  cursor: pointer;\n  border-radius: 50%;\n  border: 1px solid #00f;\n  background-color: #88f;\n  text-align: center;\n  font-weight: bold;\n  font-family: sans-serif;\n  color: #fff;\n  opacity: 0.7;\n}\n.re-mind .toggle:hover {\n  opacity: 1;\n}\n.re-mind .toggle:before {\n  content: \"−\";\n  line-height: 8px;\n  margin-top: -2px;\n  position: absolute;\n  left: 1px;\n  top: 3px;\n  font-size: 12px;\n}\n.re-mind .collapsed > .toggle:before {\n  content: \"+\";\n  line-height: 8px;\n  margin-top: -2px;\n  position: absolute;\n  left: 1px;\n  top: 2px;\n  font-size: 12px;\n}\n.re-mind .re-mind-icon {\n  display: inline-flex !important;\n  align-items: center;\n  flex-direction: row-reverse;\n}\n.re-mind .re-mind-icon > li {\n  font-size: 18px;\n  display: inline-block;\n  margin-left: -5px;\n}\n.re-mind .re-mind-icon > li:last-child {\n  margin-left: 0px;\n}\n.re-mind .re-mind-icon > li:first-child {\n  margin-right: 5px;\n}\n", ""]);
 
 
 /***/ }),
@@ -3703,7 +3703,8 @@ MM.Layout._computeChildrenBBox = function (children, childIndex) {
   }, this);
 
   if (children.length > 1) {
-    bbox[childIndex] += this.SPACING_CHILD * (children.length - 1);
+    bbox[childIndex] += this.SPACING_CHILD * (children.length - 1); // const offsetY = children[0].getDOM().node.offsetTop;//线高度1px
+    // bbox[1] -= offsetY
   }
   /* child separation */
 
@@ -3821,6 +3822,7 @@ MM.Layout.Graph._layoutItem = function (item, rankDirection) {
 
   var contentSize = [dom.content.offsetWidth, dom.content.offsetHeight];
   /* children size */
+  // 撑开孩子节点的属性
 
   var bbox = this._computeChildrenBBox(item.getChildren(), childIndex);
   /* node size */
@@ -3867,7 +3869,23 @@ MM.Layout.Graph._layoutItem = function (item, rankDirection) {
     labelPos = rankSize - contentSize[1];
   }
 
-  dom.content.style[childPosProp] = Math.round((childSize - contentSize[childIndex]) / 2) + "px";
+  var offsetY = 0;
+
+  if (item.getChildren().length) {
+    var child = item.getChildren()[0]; // 父子节点都为Underline的情况不用偏移
+
+    if (child.getShape().id === "underline" && shape !== "underline") {
+      var childNode = child.getDOM().text;
+      offsetY = childNode.offsetHeight / 2 + 1; //线高度1px
+    } else if (item.getChildren().length) {
+      //TODO: 当只有一个children时，兼容多行文本
+      offsetY = (child.getDOM().text.offsetHeight - dom.content.offsetHeight) / 2;
+      offsetY = offsetY < 0 ? 0 : offsetY;
+      console.log(offsetY);
+    }
+  }
+
+  dom.content.style[childPosProp] = Math.round((childSize - contentSize[childIndex]) / 2) + offsetY + "px";
   dom.content.style[rankPosProp] = labelPos + "px";
   return this;
 };
@@ -3891,12 +3909,11 @@ MM.Layout.Graph._layoutBoxChildren = function (children, rankDirection, offset, 
 
     if (rankDirection == "top") {
       offset[1] = bbox[1] - childSize[1] - 10;
-    } //横向情况
-
-
-    if (rankIndex === 0 && index === 0) {
-      offset[1] -= offsetY;
-    } // 这个常量会被css修改，要注意修改
+    } // //横向情况
+    // if (rankIndex === 0 && index === 0) {
+    // 	offset[1] -= offsetY;
+    // }
+    // 这个常量会被css修改，要注意修改
 
 
     node.style[childPosProp] = offset[childIndex] + "px";
@@ -4033,14 +4050,21 @@ MM.Layout.Graph._drawHorizontalConnectors = function (item, side, children) {
     var y = c.getShape().getVerticalAnchor(c) + c.getDOM().node.offsetTop; // 节点下的下划线
 
     ctx.moveTo(_x, y);
+    var offsetTop = 0;
 
-    if (Math.abs(y - canvas.height / 2) <= 1) {
+    if (item.getShape().id === "underline") {
+      offsetTop = dom.content.offsetTop + item.getShape().VERTICAL_OFFSET + dom.content.offsetHeight;
+    } else {
+      offsetTop = dom.content.offsetTop + dom.content.offsetHeight / 2;
+    }
+
+    if (Math.abs(y - offsetTop) <= 1) {
       ctx.lineTo(x, y);
       continue;
     }
 
     var offsetX = _x - x ? 5 : -5;
-    var offsetY = y > canvas.height / 2 ? -5 : 5;
+    var offsetY = y > offsetTop ? -5 : 5;
     ctx.lineTo(x + offsetX, y);
     ctx.quadraticCurveTo(x, y, x, y + offsetY);
   }

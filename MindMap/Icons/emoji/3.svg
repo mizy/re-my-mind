@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50px" height="50px" viewBox="0 0 50 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 57.1 (83088) - https://sketch.com -->
+    <title>表情-哭</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="25" cy="25" r="25"></circle>
+    </defs>
+    <g id="xmind-图标" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon" transform="translate(-217.000000, -241.000000)">
+            <g id="表情" transform="translate(97.000000, 209.000000)">
+                <g id="表情-哭" transform="translate(120.000000, 32.000000)">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <use id="蒙版" fill="#FFBF2C" xlink:href="#path-1"></use>
+                    <rect id="矩形" fill="#4C4022" mask="url(#mask-2)" x="9.05172414" y="13.7931034" width="14.6551724" height="3.44827586" rx="1.72413793"></rect>
+                    <rect id="矩形备份" fill="#4C4022" mask="url(#mask-2)" x="31.0344828" y="13.7931034" width="14.6551724" height="3.44827586" rx="1.72413793"></rect>
+                    <rect id="矩形" fill="#75E7E7" mask="url(#mask-2)" x="12.9310345" y="17.2413793" width="7.32758621" height="32.7586207"></rect>
+                    <rect id="矩形备份-2" fill="#75E7E7" mask="url(#mask-2)" x="34.4827586" y="17.2413793" width="7.32758621" height="32.7586207"></rect>
+                    <circle id="椭圆形" fill="#4C4022" mask="url(#mask-2)" cx="27.3706897" cy="35.9913793" r="3.6637931"></circle>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

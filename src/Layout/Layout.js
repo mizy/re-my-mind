@@ -128,6 +128,8 @@ MM.Layout._computeChildrenBBox = function (children, childIndex) {
 
 	if (children.length > 1) {
 		bbox[childIndex] += this.SPACING_CHILD * (children.length - 1);
+		// const offsetY = children[0].getDOM().node.offsetTop;//线高度1px
+		// bbox[1] -= offsetY
 	} /* child separation */
 
 	return bbox;

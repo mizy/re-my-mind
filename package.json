@@ -10,7 +10,8 @@
 	"scripts": {
 		"start": "webpack-dev-server",
 		"build": "webpack -p --config webpack.config.build.js",
-		"doc":"jsdoc -d doc src/**/*.js"
+		"build:demo": "webpack -p --config webpack.config.js",
+		"doc": "jsdoc -d doc src/**/*.js"
 	},
 	"files": [
 		"dist"
@@ -37,8 +38,17 @@
 		"less": "^3.9.0",
 		"less-loader": "^5.0.0",
 		"style-loader": "^0.23.1",
+		"url-loader": "^3.0.0",
 		"webpack": "^4.35.2",
 		"webpack-cli": "^3.3.5",
 		"webpack-dev-server": "^3.7.2"
+	},
+	"dependencies": {
+		"antd": "^3.26.7",
+		"file-saver": "^2.0.2",
+		"html2canvas": "^1.0.0-rc.5",
+		"react": "^16.12.0",
+		"react-color": "^2.18.0",
+		"react-dom": "^16.12.0"
 	}
 }

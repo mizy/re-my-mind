@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50px" height="50px" viewBox="0 0 50 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 57.1 (83088) - https://sketch.com -->
+    <title>编组 45</title>
+    <desc>Created with Sketch.</desc>
+    <g id="xmind-图标" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon" transform="translate(-457.000000, -971.000000)">
+            <g id="符号" transform="translate(97.000000, 879.000000)">
+                <g id="line2" transform="translate(0.000000, 92.000000)">
+                    <g id="编组-45" transform="translate(360.000000, 0.000000)">
+                        <circle id="椭圆" fill="#FC984F" cx="25" cy="25" r="25"></circle>
+                        <path d="M25,9 C16.1992188,9 9,16.1992188 9,25 C9,33.8007812 16.1992188,41 25,41 C33.8007812,41 41,33.8007813 41,25 C41,16.1992188 33.796875,9 25,9 Z M37,25 C37,27.6015625 36.1992188,30 34.8007812,32 L18,15.1992187 C20,13.8007812 22.3984375,13 25,13 C31.5976562,13 37,18.3984375 37,25 Z M13,25 C13,22.3984375 13.8007812,20 15.1992188,18 L32,34.8007813 C30,36.1992188 27.5976562,37 25,37 C18.3984375,37 13,31.5976563 13,25 Z" id="形状" fill="#FFFFFF" fill-rule="nonzero"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

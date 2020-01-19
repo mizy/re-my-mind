@@ -571,6 +571,7 @@ MM.Item.prototype._updateIcon = function () {
 		this._dom.icon.innerHTML = iconList;
 		this._computed.icon = true;
 	} else {
+		this._dom.icon.innerHTML = null;
 		this._computed.icon = null;
 		this._dom.icon.style.display = "none";
 	}

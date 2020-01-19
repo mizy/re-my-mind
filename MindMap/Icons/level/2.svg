@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50px" height="50px" viewBox="0 0 50 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 57.1 (83088) - https://sketch.com -->
+    <title>编组备份</title>
+    <desc>Created with Sketch.</desc>
+    <g id="xmind-图标" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon" transform="translate(-157.000000, -131.000000)">
+            <g id="优先级" transform="translate(97.000000, 99.000000)">
+                <g id="编组备份" transform="translate(60.000000, 32.000000)">
+                    <circle id="椭圆形" fill="#FFB30A" cx="25" cy="25" r="25"></circle>
+                    <path d="M16.836,38 L16.836,33.32 C25.62,26.264 28.32,23.384 28.32,20.54 C28.32,17.804 26.7,16.976 23.964,16.976 C22.344,16.976 20.508,17.228 18.348,17.912 L18.348,13.556 C20.256,12.944 22.56,12.656 24.972,12.656 C30.48,12.656 33.72,14.96 33.72,19.748 C33.72,23.78 32.28,26.372 24.972,32.132 L23.388,33.392 L23.388,33.68 L34.296,33.68 L34.296,38 L16.836,38 Z" id="2" fill="#FFFFFF" fill-rule="nonzero"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

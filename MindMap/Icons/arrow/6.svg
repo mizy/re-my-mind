@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50px" height="50px" viewBox="0 0 50 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 57.1 (83088) - https://sketch.com -->
+    <title>编组 3备份 5</title>
+    <desc>Created with Sketch.</desc>
+    <g id="xmind-图标" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon" transform="translate(-397.000000, -801.000000)">
+            <g id="箭头" transform="translate(97.000000, 769.000000)">
+                <g id="编组-3备份-5" transform="translate(300.000000, 32.000000)">
+                    <circle id="椭圆形备份-2" fill="#FC984F" cx="25" cy="25" r="25"></circle>
+                    <g id="编组-4" transform="translate(26.026327, 25.014115) rotate(90.000000) translate(-26.026327, -25.014115) translate(12.526327, 6.514115)" fill="#FFFFFF" fill-rule="nonzero">
+                        <polygon id="路径" transform="translate(13.006820, 23.493610) rotate(-180.000000) translate(-13.006820, -23.493610) " points="13.0145455 10 -4.5923355e-16 23.9986567 7.99325033 23.9986567 7.99325033 36.9872205 18.0177379 36.9872205 18.0177379 23.9986567 26.0136408 23.9986567"></polygon>
+                        <polygon id="路径备份-3" transform="translate(13.006820, 13.493610) scale(1, -1) rotate(-180.000000) translate(-13.006820, -13.493610) " points="13.0145455 -3.92548038e-12 -8.89389967e-15 13.9986567 7.99325033 13.9986567 7.99325033 26.9872205 18.0177379 26.9872205 18.0177379 13.9986567 26.0136408 13.9986567"></polygon>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

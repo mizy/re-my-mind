@@ -1,0 +1,4933 @@
+{
+	"root": {
+		"id": "4q9genala54l1sca52hc3hr3iu",
+		"icon": {},
+		"text": "salaxy2.0",
+		"children": [
+			{
+				"id": "4us109m05m0t4mk6lppaddfcvf",
+				"icon": {},
+				"text": "指标",
+				"children": [
+					{
+						"id": "3arlpsl4857onrb0lisrhpidq9",
+						"icon": {},
+						"text": "计算公式指标",
+						"children": [
+							{
+								"id": "68pqsvb9vv9qh7ug82202aav8e",
+								"icon": {},
+								"text": "增加函数",
+								"children": [
+									{
+										"id": "6plt59dojesijvpetli7lorv5q",
+										"icon": {},
+										"text": "单个函数测试",
+										"children": [
+											{
+												"id": "4naj7s101estcvpctckkb7ur4u",
+												"icon": {},
+												"text": "通用函数",
+												"children": [
+													{
+														"id": "56gpr29jlaib311qlaf91vj6tk",
+														"icon": {},
+														"text": "sum",
+														"children": []
+													},
+													{
+														"id": "5v4cfmdrblqetovf721q5gdql7",
+														"icon": {},
+														"text": "max",
+														"children": []
+													},
+													{
+														"id": "00r8rlttul9nunemvlfndukpqd",
+														"icon": {},
+														"text": "min",
+														"children": []
+													},
+													{
+														"id": "03p5mfe36vcmesht0u1ceco82b",
+														"icon": {},
+														"text": "avg",
+														"children": [
+															{
+																"id": "5ehk75omdrm75lo5rdgu4d0pdv",
+																"icon": {},
+																"text": "其中一个参数＝0",
+																"children": []
+															},
+															{
+																"id": "0jsnof1sc446aedc9ccdju3qnk",
+																"icon": {},
+																"text": "其中一个参数为null",
+																"children": []
+															}
+														]
+													},
+													{
+														"id": "33cjuepsoinof70u9a8lp2lucs",
+														"icon": {},
+														"text": "nvl",
+														"children": [
+															{
+																"id": "5jshqma34em4to7q04r0vh2lt9",
+																"icon": {},
+																"text": "只有两个参数",
+																"children": [
+																	{
+																		"id": "02q7qq0tvmbv4k0fmtbno1s14p",
+																		"icon": {},
+																		"text": "参数a\\b均为null",
+																		"children": [
+																			{
+																				"id": "4ke1mv6iudnvbjunmraef430bh",
+																				"icon": {},
+																				"text": "返回b",
+																				"children": []
+																			}
+																		]
+																	},
+																	{
+																		"id": "3jriip0crvnlacvd5e4kfofa91",
+																		"icon": {},
+																		"text": "参数a为null，b不为null",
+																		"children": [
+																			{
+																				"id": "19gmp2nlv1946tq5b7bhsbu5f4",
+																				"icon": {},
+																				"text": "返回b",
+																				"children": []
+																			}
+																		]
+																	},
+																	{
+																		"id": "5phss0vgju6q59ut9nqe28ma0l",
+																		"icon": {},
+																		"text": "参数a\\b均不为null",
+																		"children": [
+																			{
+																				"id": "4phd6s86jm1s0urnu43oigvdqk",
+																				"icon": {},
+																				"text": "返回a",
+																				"children": []
+																			}
+																		]
+																	},
+																	{
+																		"id": "5k5kom63cr8af56287i0hehv5n",
+																		"icon": {},
+																		"text": "参数a不为null，b为null",
+																		"children": [
+																			{
+																				"id": "7e3nlpdidc0phed0r7dlmg479t",
+																				"icon": {},
+																				"text": "返回a",
+																				"children": []
+																			}
+																		]
+																	}
+																]
+															}
+														]
+													},
+													{
+														"id": "2162b7jhlgcafd2n5cqms2e79o",
+														"icon": {},
+														"text": "计算时会把null的值去掉",
+														"children": []
+													}
+												]
+											},
+											{
+												"id": "1jt8bq99utel3sg4o69bakb5bn",
+												"icon": {},
+												"text": "参数注意测试为正数、负数、整数、0、指标取值、null",
+												"children": []
+											}
+										]
+									},
+									{
+										"id": "1gkpns8krt4rie6n5iggsfsll7",
+										"icon": {},
+										"text": "多个函数混合使用",
+										"children": [
+											{
+												"id": "3rhp2qds8oj3efrumic9nvoqcn",
+												"icon": {},
+												"text": "函数的参数为其他函数的计算结果",
+												"children": [
+													{
+														"id": "2b7a8f5bj60s483b4ggmc1pqfo",
+														"icon": {},
+														"text": {
+															"_": "eg.#min(a,#sum(b,c))\n",
+															"$": {
+																"svg:width": "500"
+															}
+														},
+														"children": []
+													}
+												]
+											},
+											{
+												"id": "0slqap2spor12fd052rn2utse4",
+												"icon": {},
+												"text": "函数的参数为其他操作符的结果",
+												"children": [
+													{
+														"id": "4eqvcmg5m4q4iql9iadpklmbrl",
+														"icon": {},
+														"text": {
+															"_": "eg.#min((a+b),b/c)\n",
+															"$": {
+																"svg:width": "500"
+															}
+														},
+														"children": []
+													}
+												]
+											},
+											{
+												"id": "0ua0qiraobh4k0oc755n244p7q",
+												"icon": {},
+												"text": "函数结果与其他操作符的结果",
+												"children": [
+													{
+														"id": "2h9p329nr2g5tqlva96p90ch9c",
+														"icon": {},
+														"text": {
+															"_": "eg.#min(a,#sum(b,c))+d",
+															"$": {
+																"svg:width": "500"
+															}
+														},
+														"children": []
+													}
+												]
+											}
+										]
+									},
+									{
+										"id": "3oqirgpg8s7ohe09akvt3anj1v",
+										"icon": {},
+										"text": "配置异常检查",
+										"children": [
+											{
+												"id": "44939h03g9rthsi1ni9jshhe2d",
+												"icon": {},
+												"text": "#和函数名之间有空格",
+												"children": []
+											},
+											{
+												"id": "1l7voa2f4qssvsvhjoft2ea1fd",
+												"icon": {},
+												"text": "括号没有配对",
+												"children": []
+											},
+											{
+												"id": "6klduqlao944lqftdbd20d8mr0",
+												"icon": {},
+												"text": "函数的逗号中间没有参数",
+												"children": [
+													{
+														"id": "3ts5tqg3id3nsvvcqli58ps60l",
+														"icon": {},
+														"text": "eg.sum(a,b,,)",
+														"children": []
+													}
+												]
+											},
+											{
+												"id": "7ci7di6hn796dgtqj3jif3saef",
+												"icon": {},
+												"text": "参数应只能选择数值类型的系统字段，不能选择string类型系统字段",
+												"children": []
+											}
+										]
+									}
+								]
+							},
+							{
+								"id": "5bdknh6s1tt6888amdpprq1etk",
+								"icon": {},
+								"text": "指标被公式指标引用详情",
+								"children": [
+									{
+										"id": "56kl62b5jaq20okfrnegq5i1ft",
+										"icon": {},
+										"text": "修复BUG",
+										"children": [
+											{
+												"id": "0qt289ierl2ui6iauf6hfmmul5",
+												"icon": {},
+												"text": "指标引用详情里展示所属应用、所属策略集为空",
+												"children": []
+											}
+										]
+									},
+									{
+										"id": "6qnsq0q55vmscji6ti1i34pmph",
+										"icon": {},
+										"text": "查看不同状态指标被公式指标引用",
+										"children": [
+											{
+												"id": "2ars0bqk80ldf8bodgkgo9ar7b",
+												"icon": {},
+												"text": "已发布的指标被公式指标引用",
+												"children": []
+											},
+											{
+												"id": "0v8s339i07c7hcvo68evdhrfgq",
+												"icon": {},
+												"text": "待提交／待审核状态的指标存在在线版本被公式指标引用",
+												"children": []
+											},
+											{
+												"id": "3obk11fc647bo67f3npgscc79s",
+												"icon": {},
+												"text": "导入的指标被导入的公式指标引用",
+												"children": [
+													{
+														"id": "5r3batigsc7uhoduqu71tka0u5",
+														"icon": {},
+														"text": "应看到",
+														"children": []
+													}
+												]
+											}
+										]
+									},
+									{
+										"id": "33jsag7orm0fv1p0ibe8qb1em8",
+										"icon": {},
+										"text": "查看被不同状态的公式指标引用",
+										"children": []
+									},
+									{
+										"id": "32bf61rfg7ttrlbnmlrevl18ug",
+										"icon": {},
+										"text": {
+											"_": "检查：查看编辑区指标引用详情，展示引用该指标的公式指标信息",
+											"$": {
+												"svg:width": "500"
+											}
+										},
+										"children": []
+									},
+									{
+										"id": "22f84crvtr9m9hqjts4etqg9ok",
+										"icon": {},
+										"text": "区分引用的公式指标是在编辑区还是运行区",
+										"children": []
+									}
+								]
+							},
+							{
+								"id": "2fg4blhrmu3brndik1ohf9hcrr",
+								"icon": {},
+								"text": "增加操作权限控制",
+								"children": [
+									{
+										"id": "699ms3d2t1782r8hdbkoi6a65g",
+										"icon": {},
+										"text": "待讨论",
+										"children": []
+									},
+									{
+										"id": "5tbr11sv0ira6prjr1d09qc5mo",
+										"icon": {},
+										"text": "无方案",
+										"children": []
+									}
+								]
+							}
+						]
+					},
+					{
+						"id": "549fknvdk3gubh0e4fho8tje0d",
+						"icon": {},
+						"text": "指标配置",
+						"children": [
+							{
+								"id": "0vf0960kc9k5cai8q2afkrg6e1",
+								"icon": {},
+								"text": "指标从属性取值",
+								"children": [
+									{
+										"id": "5s3h0vaobvlk0cfp9oi4ppvo2a",
+										"icon": {},
+										"text": "正常流",
+										"children": [
+											{
+												"id": "63j700g62unejrlkoenkn6b20o",
+												"icon": {},
+												"text": "单独从属性",
+												"children": [
+													{
+														"id": "5pcfqbosen9nb2s56upb10euvj",
+														"icon": {},
+														"text": "指标配置有单独1个从属性",
+														"children": []
+													},
+													{
+														"id": "0qfjhs1bt03qn806oj1ubu4nk1",
+														"icon": {},
+														"text": "指标配置有2个从属性",
+														"children": []
+													},
+													{
+														"id": "07i1327v04cht8eq008p5a3no1",
+														"icon": {},
+														"text": "指标配置有3个从属性",
+														"children": []
+													}
+												]
+											},
+											{
+												"id": "6i8svgu0a9i02vsfdhequt57r2",
+												"icon": {},
+												"text": "从属性取值",
+												"children": [
+													{
+														"id": "7jpd4gel293sb4jchh6irn2qu4",
+														"icon": {},
+														"text": "指标配置1个从属性取值",
+														"children": [
+															{
+																"id": "4j3a7ksjdcb76ecgmm4oido5k7",
+																"icon": {},
+																"text": "从属性取值字段不为从属性系统字段",
+																"children": []
+															}
+														]
+													},
+													{
+														"id": "4bo9rdm1e9l6iqg579uhd30pjd",
+														"icon": {},
+														"text": "指标配置2个从属性取值",
+														"children": []
+													},
+													{
+														"id": "1o5ldm3pe5vgorh6st4taqvbvr",
+														"icon": {},
+														"text": "指标配置3个从属性取值",
+														"children": []
+													}
+												]
+											},
+											{
+												"id": "2m5k79krgh5674hr3fqfe642dc",
+												"icon": {},
+												"text": "单独从属性＋从属性取值混合",
+												"children": [
+													{
+														"id": "1ijonkirdgpvcvv64a4coa66hm",
+														"icon": {},
+														"text": "1个单独从属性＋1个从属性取值",
+														"children": []
+													}
+												]
+											},
+											{
+												"id": "2qltvota5dkcm0814fuhlk892j",
+												"icon": {},
+												"text": "以上，均需要测试指标在该配置下计算正确",
+												"children": []
+											}
+										]
+									},
+									{
+										"id": "04jj3pcio7lugrq86durcnt216",
+										"icon": {},
+										"text": "校验",
+										"children": [
+											{
+												"id": "1daicov61p93539krn32sqgv5a",
+												"icon": {},
+												"text": "从属性个数<=3",
+												"children": []
+											},
+											{
+												"id": "10ttkrh2jvvv905ftt75pjpipg",
+												"icon": {},
+												"text": "不能有两条一摸一样的从属性配置",
+												"children": []
+											}
+										]
+									},
+									{
+										"id": "5hjok372glql3gf4edu6c0b3sg",
+										"icon": {},
+										"text": "页面检查",
+										"children": [
+											{
+												"id": "34ajv0lvns17ma9s9ti4681i3v",
+												"icon": {},
+												"text": "从属性下拉框为string类型的系统字段",
+												"children": []
+											},
+											{
+												"id": "1oq9mnks88gmpflbmnr0kc3tbp",
+												"icon": {},
+												"text": "所有指标模版都需要加（除去公式指标模版）",
+												"children": []
+											}
+										]
+									},
+									{
+										"id": "68e6ergj2h74932svjq20v8jup",
+										"icon": {},
+										"text": "多个指标模版内配置从属性取值测试指标计算正确性",
+										"children": [
+											{
+												"id": "39r0p0i06t68a2f5s5529qrsla",
+												"icon": {},
+												"text": "典型指标模版",
+												"children": [
+													{
+														"id": "5iiros59i3o9iknkuj8lm69f1k",
+														"icon": {},
+														"text": "求和",
+														"children": []
+													},
+													{
+														"id": "0gb3g19boaku7u6gqur7jr1p0s",
+														"icon": {},
+														"text": "次数统计",
+														"children": []
+													}
+												]
+											},
+											{
+												"id": "2bjjq2kntmgcm0cmcglphuq63t",
+												"icon": {},
+												"text": "实际业务场景测试",
+												"children": [
+													{
+														"id": "59c4t27qa4pvcv13b66s9c71b9",
+														"icon": {},
+														"text": {
+															"_": "业务场景：统计当日付款帐号给收款方转账笔数／统计当日该收款方给付款方的转账金额",
+															"$": {
+																"svg:width": "500"
+															}
+														},
+														"children": []
+													}
+												]
+											}
+										]
+									}
+								]
+							},
+							{
+								"id": "4f1m427bh4rivvne4p0orib28b",
+								"icon": {},
+								"text": "过滤条件增加“变量”",
+								"children": [
+									{
+										"id": "1ltnsg01fms8b4mtklcr6u4525",
+										"icon": {},
+										"text": "页面检查",
+										"children": [
+											{
+												"id": "4ceci3e7vt8a8b2fvcflpndris",
+												"icon": {},
+												"text": "存在于／不存在于操作符后面可以选择变量，用逗号分隔",
+												"children": []
+											},
+											{
+												"id": "6quaocrs5cunllu0sg9es4c77f",
+												"icon": {},
+												"text": "枚举、日期、布尔类型的系统字段选择变量可以么？？？？",
+												"children": [
+													{
+														"id": "4hirbuh5ihukq2ntqp9kqujfji",
+														"icon": {},
+														"text": "枚举不需要选择变量",
+														"children": []
+													},
+													{
+														"id": "05d0r5mm0siat9tfccpd7s6a6d",
+														"icon": {},
+														"text": "其他都可以选择",
+														"children": []
+													}
+												]
+											},
+											{
+												"id": "1rcgp05q80jgjmnu6ehs73jfop",
+												"icon": {},
+												"text": "选择‘变量’后面的系统字段需要增加“当前”表示",
+												"children": []
+											}
+										]
+									},
+									{
+										"id": "56bkj0fgp3uqe43oqsb8jq9li6",
+										"icon": {},
+										"text": "正常流",
+										"children": [
+											{
+												"id": "7t28bfcmhsebftna186g5ju3bt",
+												"icon": {},
+												"text": "字符型类型系统字段配置包含变量",
+												"children": []
+											},
+											{
+												"id": "45k9shjtmsm2ivc4um7vcq647q",
+												"icon": {},
+												"text": "字符型类型系统字段配置等于变量",
+												"children": []
+											},
+											{
+												"id": "71o7fcfjdiegandosgiphqoocn",
+												"icon": {},
+												"text": "数值型系统字段配置大于变量",
+												"children": []
+											},
+											{
+												"id": "71kaepaer98hiqb1u7hk1kootd",
+												"icon": {},
+												"text": "多个条件（混合）",
+												"children": [
+													{
+														"id": "642ftqkj3p7fqdjq648i0pr50g",
+														"icon": {},
+														"text": "有变量条件的配置＋有常量条件的配置",
+														"children": []
+													}
+												]
+											},
+											{
+												"id": "6hfs5j42jaeu9eqqhv7asdc7cj",
+												"icon": {},
+												"text": "回归测试：字符型类型系统字段等于常量",
+												"children": []
+											}
+										]
+									}
+								]
+							},
+							{
+								"id": "33l1n9i8s12htb847b8l2tms2t",
+								"icon": {},
+								"text": "编辑区未提交版本的指标可以修改部分配置",
+								"children": [
+									{
+										"id": "1p4e64am86usv4omh9pkrgcs1p",
+										"icon": {},
+										"text": "待提交状态／导入待提交状态＋无版本信息",
+										"children": [
+											{
+												"id": "1qbc2set4346tf3g0ng1cd9k32",
+												"icon": {},
+												"text": "来源",
+												"children": [
+													{
+														"id": "1hkcq3kfsdc1jh4t51p33l20k5",
+														"icon": {},
+														"text": "初次创建的指标",
+														"children": []
+													},
+													{
+														"id": "2ols5jbobu3vbgsv4er5krpsqs",
+														"icon": {},
+														"text": "复制的指标",
+														"children": []
+													},
+													{
+														"id": "0hp4h7vbcfaedbknruga361i4e",
+														"icon": {},
+														"text": "初次导入的指标未提交过",
+														"children": []
+													},
+													{
+														"id": "2l7tctk725fv8ungr0t1p9etlc",
+														"icon": {},
+														"text": "初次创建走审批被拒绝的指标",
+														"children": []
+													}
+												]
+											}
+										]
+									},
+									{
+										"id": "23jkrblhnidevnsbf1q42ffkeh",
+										"icon": {},
+										"text": "页面检查（可以修改提交）",
+										"children": [
+											{
+												"id": "0qtabu9jl06kugpliceqra9a67",
+												"icon": {},
+												"text": "时间片",
+												"children": []
+											},
+											{
+												"id": "4blcp6f7fnfpfq8pepol6o9ppd",
+												"icon": {},
+												"text": "计算字段",
+												"children": []
+											},
+											{
+												"id": "3l9fpbj272m4ijm3vv473i0hnv",
+												"icon": {},
+												"text": "主属性",
+												"children": []
+											},
+											{
+												"id": "7a85a18kuf83qhjk3hu5q0br91",
+												"icon": {},
+												"text": "从属性",
+												"children": []
+											},
+											{
+												"id": "5ng8tn6pqs5s2cn51f680s4090",
+												"icon": {},
+												"text": "场景",
+												"children": []
+											},
+											{
+												"id": "58e5vnrlhs4dbs3hmv93mv2p7c",
+												"icon": {},
+												"text": "过滤条件的常量和变量",
+												"children": []
+											},
+											{
+												"id": "19kontbvkorp43ehns6gcvuiuk",
+												"icon": {},
+												"text": "时间间隔的‘时间字段’",
+												"children": []
+											},
+											{
+												"id": "552nkfhrn50gh06240u84ps97f",
+												"icon": {},
+												"text": "移动距离的字段",
+												"children": []
+											},
+											{
+												"id": "6pgabhupm92q3glpml5mgumorf",
+												"icon": {},
+												"text": "字段排行的字段",
+												"children": []
+											},
+											{
+												"id": "4a06icbur9ck92qjc93m5ifjfh",
+												"icon": {},
+												"text": "历史取值的字段",
+												"children": []
+											},
+											{
+												"id": "7o39sdtbikllk03b9l3g1iim1a",
+												"icon": {},
+												"text": "小时集中度",
+												"children": []
+											},
+											{
+												"id": "37t90ri16hia48ujte3d7vpj0s",
+												"icon": {},
+												"text": "事件时间差",
+												"children": []
+											}
+										]
+									}
+								]
+							},
+							{
+								"id": "2vp0a7lcmp71fd8rcf1kekufi5",
+								"icon": {},
+								"text": "事件时间差指标，增加“主属性取值非同一字段”",
+								"children": [
+									{
+										"id": "6tsnp42uliid4v2jncekfkb5rt",
+										"icon": {},
+										"text": "主流程",
+										"children": [
+											{
+												"id": "5sgug71sclbbhcm3fvfrb5r1lf",
+												"icon": {},
+												"text": "配置主属性取值非同一字段测试指标计算正确",
+												"children": []
+											},
+											{
+												"id": "4ar5ohdjddp3m9cpo5rju25j9f",
+												"icon": {},
+												"text": "回归只配置主属性的指标计算正确",
+												"children": []
+											}
+										]
+									}
+								]
+							}
+						]
+					},
+					{
+						"id": "36c3if94cpth7fder2fv68epv9",
+						"icon": {},
+						"text": "集中度模版大类",
+						"children": [
+							{
+								"id": "6i1vgsf62tl7c4t0qr2g378p9p",
+								"icon": {},
+								"text": "集中度天数",
+								"children": [
+									{
+										"id": "5hg9g8in21n57gbdk5fuspf1m7",
+										"icon": {},
+										"text": "时间片",
+										"children": [
+											{
+												"id": "2t47ucf3b9d5lj61kdqfbi1q84",
+												"icon": {},
+												"text": "只能配置前N天",
+												"children": []
+											}
+										]
+									},
+									{
+										"id": "0m4vikcq7o66aj4be06ad4up9d",
+										"icon": {},
+										"text": "时间窗口",
+										"children": [
+											{
+												"id": "6kjiukaumf9684oesep6el47h0",
+												"icon": {},
+												"text": "任意",
+												"children": [
+													{
+														"id": "6hn179064fs58qiegmii8bjh12",
+														"icon": {},
+														"text": "不连续（默认）",
+														"children": [
+															{
+																"id": "25mbjmnkvssnk23jdld6su47av",
+																"icon": {},
+																"text": "任意1个小时",
+																"children": [
+																	{
+																		"id": "1k8olq3grq5ec02neq4qiq4jnc",
+																		"icon": {},
+																		"text": "回归原有小时集中度天数",
+																		"children": []
+																	},
+																	{
+																		"id": "7mke3osbiu2oa3ao7l4b8ndh76",
+																		"icon": {},
+																		"text": "测试加不加“连续”都不影响",
+																		"children": []
+																	}
+																]
+															},
+															{
+																"id": "0r3ervuetfunlh8i7sau73k6fl",
+																"icon": {},
+																"text": "任意M个小时",
+																"children": [
+																	{
+																		"id": "3fi5ufo84ni1vggjl31kda70c6",
+																		"icon": {},
+																		"text": "前N天内不存在任意M小时集中度>阈值的天数，指标返回0",
+																		"children": []
+																	},
+																	{
+																		"id": "61aid0afue9i6me4jtpq1cgiog",
+																		"icon": {},
+																		"text": "前N天存在有几天任意M小时集中度>阈值，指标返回天数",
+																		"children": []
+																	}
+																]
+															}
+														]
+													},
+													{
+														"id": "0vkf3m198ce6g1af30ea47j3jq",
+														"icon": {},
+														"text": "连续",
+														"children": [
+															{
+																"id": "2h41obtvbk06mmcerqnc9qam8d",
+																"icon": {},
+																"text": "连续M个小时",
+																"children": [
+																	{
+																		"id": "0ni2et922k9b3t4vset8o3el3p",
+																		"icon": {},
+																		"text": "前N天内不存在连续M小时集中度>阈值的天数，指标返回0",
+																		"children": []
+																	},
+																	{
+																		"id": "6tmv6u6hnav99nd26828kv28qp",
+																		"icon": {},
+																		"text": {
+																			"_": "前N天内只存在某天有多个连续的M小时的集中度>阈值，该指标值返回1",
+																			"$": {
+																				"svg:width": "500"
+																			}
+																		},
+																		"children": []
+																	},
+																	{
+																		"id": "21rp0maej6vt0j13fsq4iuu2jr",
+																		"icon": {},
+																		"text": {
+																			"_": "前N天存在多天有连续的M小时的集中度>阈值，正确返回指标值",
+																			"$": {
+																				"svg:width": "500"
+																			}
+																		},
+																		"children": []
+																	},
+																	{
+																		"id": "7up5g837r0pdfnc9l5fbkts01g",
+																		"icon": {},
+																		"text": {
+																			"_": "前N天内某天不存在连续的M小时的集中度>阈值，但是存在间隔的小时集中度>阈值，该指标值返回0",
+																			"$": {
+																				"svg:width": "500"
+																			}
+																		},
+																		"children": []
+																	}
+																]
+															}
+														]
+													},
+													{
+														"id": "4e6ues2tnoiklbogevvha5psrr",
+														"icon": {},
+														"text": {
+															"_": "如果存在某天内某个小时内的交易数已经>阈值了，但是其他连续／不连续的小时交易数都是0，如何处理？？？",
+															"$": {
+																"svg:width": "500"
+															}
+														},
+														"children": [
+															{
+																"id": "65gae716c9l3hr019cqj4s9584",
+																"icon": {},
+																"text": "不影响，正常处理",
+																"children": []
+															}
+														]
+													}
+												]
+											},
+											{
+												"id": "7042vbeqbndcnn2lqlvbku1r0e",
+												"icon": {},
+												"text": "指定",
+												"children": [
+													{
+														"id": "6cug7anuedcdv7sbu10otn60ch",
+														"icon": {},
+														"text": "指定多个不重复时间段（时分秒－时分秒）",
+														"children": [
+															{
+																"id": "19mv0k1p0aij66pu97un5pr6kl",
+																"icon": {},
+																"text": {
+																	"_": "前N天内只存在某天在配置的时间段的总交易／当天总交易数>阈值，该指标值返回1",
+																	"$": {
+																		"svg:width": "500"
+																	}
+																},
+																"children": []
+															},
+															{
+																"id": "5bildfj03r4c99ahu99kgqbjij",
+																"icon": {},
+																"text": {
+																	"_": "前N天内不存在一天在配置的时间段的总交易／当天总交易数>阈值，该指标值返回0",
+																	"$": {
+																		"svg:width": "500"
+																	}
+																},
+																"children": []
+															},
+															{
+																"id": "4imksqvcmdqj1jd9mj6e0fkuof",
+																"icon": {},
+																"text": {
+																	"_": "前N天内存在多天在配置的时间段的总交易／当天总交易数>阈值，该指标值正确返回",
+																	"$": {
+																		"svg:width": "500"
+																	}
+																},
+																"children": []
+															}
+														]
+													},
+													{
+														"id": "4h9jk4v873m9ik3ej0180nmauf",
+														"icon": {},
+														"text": "指定有重复的时间段",
+														"children": [
+															{
+																"id": "11ltpoav73h16hqjpgmp83hgm1",
+																"icon": {},
+																"text": "需不需要做时间段重复校验？？？",
+																"children": []
+															},
+															{
+																"id": "4q1n9kg6uss5a7rmgroiito3ul",
+																"icon": {},
+																"text": "目前可以",
+																"children": []
+															}
+														]
+													}
+												]
+											}
+										]
+									},
+									{
+										"id": "35vtsksu3cnebu7no5qj224gic",
+										"icon": {},
+										"text": "页面检查",
+										"children": [
+											{
+												"id": "1ssku3846gslmt4qoa3atuo9nl",
+												"icon": {},
+												"text": "任意时的时间段必填",
+												"children": []
+											},
+											{
+												"id": "2m37v05jlri8on8hdofnps04rp",
+												"icon": {},
+												"text": "指定时的时间段必填",
+												"children": []
+											},
+											{
+												"id": "7luht2uddnlit9q6npdckblt9e",
+												"icon": {},
+												"text": "阈值必填",
+												"children": []
+											},
+											{
+												"id": "6v4j792lft1cneqnf65fp6p9m7",
+												"icon": {},
+												"text": "正整数",
+												"children": [
+													{
+														"id": "5trsgi4en8os6ql1c249f4tlp1",
+														"icon": {},
+														"text": "时间片",
+														"children": []
+													},
+													{
+														"id": "3lorhb7hijcltguimgnm2rminf",
+														"icon": {},
+														"text": "任意时间段",
+														"children": []
+													}
+												]
+											},
+											{
+												"id": "2u9rki7jj6v132baim5ts5st5k",
+												"icon": {},
+												"text": "集中度阈值需要提示如何输入，百分还是小数？？",
+												"children": []
+											}
+										]
+									},
+									{
+										"id": "6nkqppbsrc591v3m4ubbe4ntaa",
+										"icon": {},
+										"text": "其他",
+										"children": [
+											{
+												"id": "32cklvq45brs21em9cf6u5a2s7",
+												"icon": {},
+												"text": "主属性取值非同一字段",
+												"children": []
+											},
+											{
+												"id": "2173hvj44a9k21l3b2ja1q0d0v",
+												"icon": {},
+												"text": "从属性（多个），取值非同一字段",
+												"children": []
+											},
+											{
+												"id": "078jl0st0guhcjpeou6iud581q",
+												"icon": {},
+												"text": "过滤条件",
+												"children": []
+											}
+										]
+									}
+								]
+							},
+							{
+								"id": "3gke3fth4deeovmf64rq02dugv",
+								"icon": {},
+								"text": "是否满足集中度指标",
+								"children": [
+									{
+										"id": "7hqprsr45vvivmqusjb7r1hu1v",
+										"icon": {},
+										"text": "页面检查",
+										"children": [
+											{
+												"id": "7s56ad3rf7gbkfjstb0dl8ch0d",
+												"icon": {},
+												"text": "注意：时间片的选择单位>=集中度粒度的单位",
+												"children": [
+													{
+														"id": "19g1t4gae63ocr95h4r7lv1lol",
+														"icon": {},
+														"text": "不考虑",
+														"children": []
+													}
+												]
+											},
+											{
+												"id": "2ense4pceesid1kkr0nc48c0f5",
+												"icon": {},
+												"text": {
+													"_": "需不需要对任意时间段配置根据单位，月（12）／周（4）／日（31），否则，配置了前1月集中在任意10周，怎么办？？？",
+													"$": {
+														"svg:width": "500"
+													}
+												},
+												"children": [
+													{
+														"id": "6gfs1lnp0qbarq5pcvbv83n31e",
+														"icon": {},
+														"text": "不考虑",
+														"children": []
+													}
+												]
+											},
+											{
+												"id": "4abomchhdp58birg0ls06an9ja",
+												"icon": {},
+												"text": "加时间片和任意时间段最大120校验",
+												"children": []
+											}
+										]
+									},
+									{
+										"id": "6r0h33o6qqkjc94ujq76ukcboa",
+										"icon": {},
+										"text": "任意",
+										"children": [
+											{
+												"id": "64cf7vnbq1q001bign7pnu90a0",
+												"icon": {},
+												"text": "不连续（默认）",
+												"children": [
+													{
+														"id": "1h06vub2rtotdr7497r2dcoeaa",
+														"icon": {},
+														"text": "任意M个时间粒度",
+														"children": [
+															{
+																"id": "5et9se0289bcsr4rmjr0q6mjn8",
+																"icon": {},
+																"text": {
+																	"_": "前N时间粒度内不存在任意M时间粒度的交易总数／前N时间粒度交易总数>阈值，指标返回0",
+																	"$": {
+																		"svg:width": "500"
+																	}
+																},
+																"children": []
+															},
+															{
+																"id": "4hbnssbe00vm45bhnrcc451qtr",
+																"icon": {},
+																"text": {
+																	"_": "前N时间粒度内存在任意M时间粒度的交易总数／前N时间粒度交易总数>阈值，指标返回1",
+																	"$": {
+																		"svg:width": "500"
+																	}
+																},
+																"children": []
+															}
+														]
+													}
+												]
+											},
+											{
+												"id": "2rh3ealekst8di06a8nsr0jgjc",
+												"icon": {},
+												"text": "连续",
+												"children": [
+													{
+														"id": "5agjpq3e3118ng1buvom06eu19",
+														"icon": {},
+														"text": "连续M个时间粒度",
+														"children": [
+															{
+																"id": "4tbdoh0ng5h1gl3slfca1ljm1o",
+																"icon": {},
+																"text": "不存在连续集中度>阈值，指标返回0",
+																"children": []
+															},
+															{
+																"id": "09238t12f7774ivl4qk8q5kga5",
+																"icon": {},
+																"text": {
+																	"_": "存在多个连续集中度>阈值，指标返回1",
+																	"$": {
+																		"svg:width": "500"
+																	}
+																},
+																"children": []
+															},
+															{
+																"id": "3s5ubs3fcrmolmv1rfvmi9p948",
+																"icon": {},
+																"text": {
+																	"_": "存在间隔的集中度>阈值，不存在连续集中度>阈值，指标返回0",
+																	"$": {
+																		"svg:width": "500"
+																	}
+																},
+																"children": []
+															}
+														]
+													}
+												]
+											},
+											{
+												"id": "627ikbs54dt380m4rcb6sbtuut",
+												"icon": {},
+												"text": {
+													"_": "如果存在某个单位时间粒度内的交易数已经>阈值了，但是其他连续／不连续的时间粒度内的交易数都是0，如何处理？？？",
+													"$": {
+														"svg:width": "500"
+													}
+												},
+												"children": [
+													{
+														"id": "2bldfkebbe24u2g9tnps6l584u",
+														"icon": {},
+														"text": "正常计算",
+														"children": []
+													}
+												]
+											},
+											{
+												"id": "3f8vt1f09u73bnh9847l5aklqc",
+												"icon": {},
+												"text": "集中度粒度",
+												"children": [
+													{
+														"id": "7cg0eio69eb4ct9ciptn83jho1",
+														"icon": {},
+														"text": "年／月／周／天",
+														"children": []
+													}
+												]
+											}
+										]
+									},
+									{
+										"id": "55uqu9pethutad3ccjp3glbkfn",
+										"icon": {},
+										"text": "指定",
+										"children": [
+											{
+												"id": "7a1tttv75fj0fq8d0892te3cq6",
+												"icon": {},
+												"text": "集中度粒度",
+												"children": [
+													{
+														"id": "5h6hkpjcbgvhobithtq0j3ofae",
+														"icon": {},
+														"text": "月",
+														"children": []
+													},
+													{
+														"id": "4b4cejenbn2tb5ukodv1qj4ri9",
+														"icon": {},
+														"text": "周",
+														"children": []
+													},
+													{
+														"id": "2c499all3tnhscomc0pu0bv2t6",
+														"icon": {},
+														"text": "号",
+														"children": []
+													},
+													{
+														"id": "3ib9rihqhf7oqmts3uhqu1fi4j",
+														"icon": {},
+														"text": "小时段",
+														"children": []
+													}
+												]
+											},
+											{
+												"id": "4fv81lqg6ivag6lagqv0rdo688",
+												"icon": {},
+												"text": "多个不重复的时间段",
+												"children": [
+													{
+														"id": "70mlhpoo5u03ceav7u13fdk8md",
+														"icon": {},
+														"text": {
+															"_": "存在自定义时间区间内的交易总数／前N时间粒度交易总数>阈值，指标返回1",
+															"$": {
+																"svg:width": "500"
+															}
+														},
+														"children": []
+													},
+													{
+														"id": "2rmaiklkacif4bpl3ibt8mqika",
+														"icon": {},
+														"text": {
+															"_": "不存在自定义时间区间内的交易总数／前N时间粒度交易总数>阈值，指标返0",
+															"$": {
+																"svg:width": "500"
+															}
+														},
+														"children": []
+													}
+												]
+											},
+											{
+												"id": "0b9sr5j842fu1a46mpni4smm42",
+												"icon": {},
+												"text": "指定有重复的时间段",
+												"children": [
+													{
+														"id": "5a6fgqufj1n16kkutpdfsiq9m0",
+														"icon": {},
+														"text": "需不需要做时间段重复校验？？？",
+														"children": []
+													},
+													{
+														"id": "5u17t8p7ioqjr74l3avcb03nhp",
+														"icon": {},
+														"text": "不考虑",
+														"children": []
+													}
+												]
+											},
+											{
+												"id": "7ahif5q2u7st270ecjolgvnm5h",
+												"icon": {},
+												"text": "实际场景测试",
+												"children": [
+													{
+														"id": "49k0toub2la88ithlh9vfdkasj",
+														"icon": {},
+														"text": "前90天%90交易集中在周一～周三",
+														"children": []
+													},
+													{
+														"id": "1athqf4b6o2mesqt9ebia1j9af",
+														"icon": {},
+														"text": "前90天%90交易集中在每个月1号",
+														"children": []
+													},
+													{
+														"id": "551rf0moi9u0kfiehbpj3g18uh",
+														"icon": {},
+														"text": "前90天%90交易集中在每个月1号－5号，10-15号",
+														"children": []
+													}
+												]
+											},
+											{
+												"id": "4fqknd1lkci9tuao8bb39vhpt7",
+												"icon": {},
+												"text": "问题",
+												"children": [
+													{
+														"id": "6u0bjiogihp411mabqgvq98cbv",
+														"icon": {},
+														"text": {
+															"_": "若选择对时间片长度前后不够切分为一个完整对配置的粒度区间，则抛弃掉该部分，实际计算的均为完整的粒度区间",
+															"$": {
+																"svg:width": "500"
+															}
+														},
+														"children": []
+													},
+													{
+														"id": "1cuur8btt03v2onpia30s9dakd",
+														"icon": {},
+														"text": "后面会计算",
+														"children": []
+													}
+												]
+											}
+										]
+									}
+								]
+							}
+						]
+					},
+					{
+						"id": "316t9hkibij892g0nfiq6du12t",
+						"icon": {},
+						"text": "指标操作",
+						"children": [
+							{
+								"id": "2prgp8i2vsomk7fobd9l413f6d",
+								"icon": {},
+								"text": "运行区",
+								"children": [
+									{
+										"id": "1295cq8rrlr8ti6731sqrosrls",
+										"icon": {},
+										"text": "批量下线",
+										"children": [
+											{
+												"id": "23kkvrj04uq5cqcjqcn7kufht0",
+												"icon": {},
+												"text": "主流程",
+												"children": [
+													{
+														"id": "69aae8uhpisdlvo7qclvvjgiku",
+														"icon": {},
+														"text": "选择单个指标下线",
+														"children": [
+															{
+																"id": "58lc0olo270sjos4uc69ocjngh",
+																"icon": {},
+																"text": "编辑区待提交状态指标",
+																"children": []
+															},
+															{
+																"id": "1kt7kou7hseqf0chr27bfc52jh",
+																"icon": {},
+																"text": "编辑区审批状态指标，",
+																"children": []
+															},
+															{
+																"id": "11jr3daca481lj8c7k394k1l18",
+																"icon": {},
+																"text": "编辑区与运行区指标相同，即编辑区为已上线状态",
+																"children": []
+															}
+														]
+													},
+													{
+														"id": "0ic2ph51nc1b787snntg030dl6",
+														"icon": {},
+														"text": "选择多个指标下线",
+														"children": [
+															{
+																"id": "48m63bjdtj43ras4pt95p3s70s",
+																"icon": {},
+																"text": "多个指标包含以上场景混合",
+																"children": []
+															}
+														]
+													}
+												]
+											},
+											{
+												"id": "72k4jgke45ib79b01e1sqk0u0m",
+												"icon": {},
+												"text": "下线成功检查",
+												"children": [
+													{
+														"id": "6jb66cue8287vmink7jsihj5ps",
+														"icon": {},
+														"text": "该指标在运行区删除",
+														"children": []
+													},
+													{
+														"id": "67c3g01l2sir5m3uklldfjsgg5",
+														"icon": {},
+														"text": "编辑区：待提交、审核中状态的指标的状态不变，已上线状态的指标变为已下线",
+														"children": []
+													}
+												]
+											},
+											{
+												"id": "3pqucm0lusjf8eck1ul2m74bdf",
+												"icon": {},
+												"text": "校验",
+												"children": [
+													{
+														"id": "79sv8pbe1h021lhbjukc7rqh0a",
+														"icon": {},
+														"text": "指标引用校验",
+														"children": [
+															{
+																"id": "798ud020hlkl222mploscb0ak5",
+																"icon": {},
+																"text": "被规则引用",
+																"children": []
+															},
+															{
+																"id": "47d4r1vjetorg2me0a8qh4hbo3",
+																"icon": {},
+																"text": "被各种状态的公式指标引用",
+																"children": []
+															}
+														]
+													}
+												]
+											}
+										]
+									}
+								]
+							},
+							{
+								"id": "6bn84bgg5ifasc4ecbkkrr51qb",
+								"icon": {},
+								"text": "编辑区",
+								"children": [
+									{
+										"id": "3ehuega8lja7u26ikl51dq235v",
+										"icon": {},
+										"text": "批量提交",
+										"children": [
+											{
+												"id": "5ma3lt7keth1ka3lvvve0chb7t",
+												"icon": {},
+												"text": "页面检查",
+												"children": [
+													{
+														"id": "5sr2g4tkij4pgdpfclk10jeprh",
+														"icon": {},
+														"text": "指标状态列去掉（编辑区&运行区）",
+														"children": []
+													},
+													{
+														"id": "0b3abb3fdq8q3nc628ave5a72a",
+														"icon": {},
+														"text": "指标状态",
+														"children": [
+															{
+																"id": "3t386up49ppurpihsn3r89aogg",
+																"icon": {},
+																"text": "待提交",
+																"children": []
+															},
+															{
+																"id": "7memueu16ssb4fbc29cp361mhj",
+																"icon": {},
+																"text": "导入待提交",
+																"children": []
+															},
+															{
+																"id": "19tdtc9aoad7tt9nt6tniohkil",
+																"icon": {},
+																"text": "待审核",
+																"children": []
+															},
+															{
+																"id": "6fajlojsujsiidr8j5uvhbqbkg",
+																"icon": {},
+																"text": "已上线",
+																"children": []
+															},
+															{
+																"id": "4tmvlpjapf8fmr3dlqevp16ita",
+																"icon": {},
+																"text": "已下线",
+																"children": []
+															}
+														]
+													}
+												]
+											},
+											{
+												"id": "7tjrmcf52pa41okol6pnvlrkbt",
+												"icon": {},
+												"text": "校验",
+												"children": [
+													{
+														"id": "0lf8c4grn9e2pgbr4jritnu050",
+														"icon": {},
+														"text": "已上线、待审核、已上线、已下线状态的指标不能提交上线",
+														"children": []
+													},
+													{
+														"id": "61cfpm1ju6843k63md4haulvdn",
+														"icon": {},
+														"text": "导入待提交状态各种异常",
+														"children": [
+															{
+																"id": "5hak65kekti14kvd1hteg15fp7",
+																"icon": {},
+																"text": "缺少系统字段",
+																"children": []
+															},
+															{
+																"id": "3hpjcqe1udasvgc2to8tgvgjob",
+																"icon": {},
+																"text": "缺少场景配置",
+																"children": []
+															},
+															{
+																"id": "1898c1lka4fojfitp0bg8vflda",
+																"icon": {},
+																"text": "公式指标引用的普通指标不存在??",
+																"children": [
+																	{
+																		"id": "1pgm4ci2g5ba0kljrqbpp70aiv",
+																		"icon": {},
+																		"text": "目前普通指标被公式指标引用可删除",
+																		"children": []
+																	}
+																]
+															}
+														]
+													}
+												]
+											},
+											{
+												"id": "0k4s4330lj5231s9evjlgkomo6",
+												"icon": {},
+												"text": "主流程",
+												"children": [
+													{
+														"id": "5qbdhbdt99dsb1mgbpkvv10p92",
+														"icon": {},
+														"text": "单个指标提交成功",
+														"children": [
+															{
+																"id": "4de3jtfkvs4p85jflvshns7qof",
+																"icon": {},
+																"text": "此前无发布版本，则运行区新增一条该指标的已发布记录",
+																"children": []
+															},
+															{
+																"id": "041ji4fn1rg0npvfd253t52itd",
+																"icon": {},
+																"text": "存在已发布版本，则运行区已发布的内容修改为提交的指标版本",
+																"children": []
+															},
+															{
+																"id": "5gqqgv0bpmcq73rti1ug29ml43",
+																"icon": {},
+																"text": "编辑区指标状态变为已发布",
+																"children": []
+															}
+														]
+													},
+													{
+														"id": "3ged8gkg24nt1em0oinum0jkii",
+														"icon": {},
+														"text": "多个指标提交成功",
+														"children": []
+													},
+													{
+														"id": "2g3gd9bo9jm0untqi3gvha3q7o",
+														"icon": {},
+														"text": "多个指标中存在部分异常指标提交？？？？",
+														"children": [
+															{
+																"id": "6mti0lfjpc6dim09lm2pcc63md",
+																"icon": {},
+																"text": "如何处理？？",
+																"children": []
+															},
+															{
+																"id": "3shr5mpitq6916tbv3g9rkuvo1",
+																"icon": {},
+																"text": "公式指标特殊处理？？？",
+																"children": [
+																	{
+																		"id": "3timi8bsatogr2vsmssqpng1gk",
+																		"icon": {},
+																		"text": "只有所有引用指标提交成功才能成功",
+																		"children": []
+																	}
+																]
+															},
+															{
+																"id": "7gdeu11t2a9b8ctg9asi7s9g01",
+																"icon": {},
+																"text": "部分成功、部分失败，且有页面提示",
+																"children": []
+															}
+														]
+													},
+													{
+														"id": "4cdtogggi7ds1m9dnjf5o3vng5",
+														"icon": {},
+														"text": "是否开启指标审批",
+														"children": [
+															{
+																"id": "3f3mesikkdsi7lvmu6o7gmsra4",
+																"icon": {},
+																"text": "是",
+																"children": [
+																	{
+																		"id": "6ook68dbb98a0jj403kojdqh55",
+																		"icon": {},
+																		"text": "编辑区指标状态变为待审核",
+																		"children": []
+																	},
+																	{
+																		"id": "7o35poe0q2pbe54pq97prmpp6n",
+																		"icon": {},
+																		"text": "查看指标审批任务中出现批量提交的多条指标记录",
+																		"children": []
+																	}
+																]
+															},
+															{
+																"id": "064pg5t919hfssdk5mbitkj8bl",
+																"icon": {},
+																"text": "否",
+																"children": []
+															}
+														]
+													}
+												]
+											}
+										]
+									},
+									{
+										"id": "3csu1cdv0qvf3jjnv40r6augvo",
+										"icon": {},
+										"text": "新建指标",
+										"children": [
+											{
+												"id": "5ij5he3r27icgfrp2hddci6i06",
+												"icon": {},
+												"text": "指标名称，校验<=80个字符长度",
+												"children": []
+											},
+											{
+												"id": "1ul2klauk7ffsp74s7rd8qa3cl",
+												"icon": {},
+												"text": "公式指标引用的指标名称有%（等数学符号），无法保存公式指标问题。",
+												"children": []
+											}
+										]
+									},
+									{
+										"id": "50r9pb1eu1sat5afte0l14uoa0",
+										"icon": {},
+										"text": "指标导入",
+										"children": [
+											{
+												"id": "21qit7tb9u4drklk410jv2jqqf",
+												"icon": {},
+												"text": "导入文件与系统现存指标无相同指标",
+												"children": [
+													{
+														"id": "4h35p0tacmbit0iukdn0qibos2",
+														"icon": {},
+														"text": "导入文件有异常数据",
+														"children": [
+															{
+																"id": "6g6ckqbh4rb77tjdgae7nqcqcd",
+																"icon": {},
+																"text": "系统字段在当前系统中不存在",
+																"children": []
+															},
+															{
+																"id": "2hfhq585gnk3lgi10enkb04oua",
+																"icon": {},
+																"text": "忽略异常不处理",
+																"children": [
+																	{
+																		"id": "7r70ufeksirj0l9q62un55sie3",
+																		"icon": {},
+																		"text": "个别场景缺失",
+																		"children": [
+																			{
+																				"id": "1iehcqf4a8vu7pi4ano4f2nh27",
+																				"icon": {},
+																				"text": "导入成功后只能查看到系统中存在的场景，缺失的场景移除",
+																				"children": []
+																			}
+																		]
+																	},
+																	{
+																		"id": "1qpd5j4ffg68otjpu3r1303cv7",
+																		"icon": {},
+																		"text": "全部场景缺失",
+																		"children": [
+																			{
+																				"id": "3q3fv5t3pqnagh1e90l0cjkcmn",
+																				"icon": {},
+																				"text": "导入成功后的指标场景为空",
+																				"children": []
+																			}
+																		]
+																	},
+																	{
+																		"id": "29cn5ho7j237q7ks9cm1a0n4jb",
+																		"icon": {},
+																		"text": "全部场景存在",
+																		"children": [
+																			{
+																				"id": "7lo2s6ljiu6kstap37jrfl0e4r",
+																				"icon": {},
+																				"text": "导入成功后展示导入的所有场景",
+																				"children": []
+																			}
+																		]
+																	}
+																]
+															},
+															{
+																"id": "7r5kos4flf66fejnho6djhaj67",
+																"icon": {},
+																"text": "选择场景（只针对全部场景缺失做处理）",
+																"children": [
+																	{
+																		"id": "77cq680rh155k25vkehga2v6l8",
+																		"icon": {},
+																		"text": "个别场景缺失",
+																		"children": [
+																			{
+																				"id": "1f8iq2sh57khs7lluv2abtm407",
+																				"icon": {},
+																				"text": "导入成功后只能查看到系统中存在的场景，缺失的场景移除",
+																				"children": []
+																			}
+																		]
+																	},
+																	{
+																		"id": "7il65ig27rvkcqv41eugp9gbjk",
+																		"icon": {},
+																		"text": "全部场景缺失",
+																		"children": [
+																			{
+																				"id": "7khp881mel57r5q2mrhb27jkku",
+																				"icon": {},
+																				"text": "导入成功后展示选择缺失场景的补充场景",
+																				"children": []
+																			}
+																		]
+																	},
+																	{
+																		"id": "5hsu6g2lne9a6la2sclkmh9b0i",
+																		"icon": {},
+																		"text": "全部场景存在",
+																		"children": [
+																			{
+																				"id": "71fq348e333fqhajgpc7pkutb0",
+																				"icon": {},
+																				"text": "导入成功后展示导入的所有场景",
+																				"children": []
+																			}
+																		]
+																	}
+																]
+															}
+														]
+													},
+													{
+														"id": "6gpb93f9p7dlt3ouenh482fgjm",
+														"icon": {},
+														"text": "导入文件无异常数据",
+														"children": [
+															{
+																"id": "5a6dn0h6t04h41vl4ha86mnd8g",
+																"icon": {},
+																"text": "相同指标跳过",
+																"children": []
+															},
+															{
+																"id": "3p4d88kb9s154oed3nml0q7arb",
+																"icon": {},
+																"text": "相同指标中断",
+																"children": []
+															},
+															{
+																"id": "215ho0krk55iul63616ikk4bbp",
+																"icon": {},
+																"text": "相同指标覆盖",
+																"children": []
+															}
+														]
+													}
+												]
+											},
+											{
+												"id": "4ia6e09s572odfaf6cu3425kg4",
+												"icon": {},
+												"text": "导入文件存在与系统中的指标相同的指标",
+												"children": [
+													{
+														"id": "7efv3u6s49b75kfa6n91g44a8b",
+														"icon": {},
+														"text": "针对其他不相同的指标",
+														"children": [
+															{
+																"id": "72l9nbahae3gprvf6igbqr7t15",
+																"icon": {},
+																"text": "存在异常数据的指标",
+																"children": [
+																	{
+																		"id": "6shh9erkolul8rut0h3r2qpv43",
+																		"icon": {},
+																		"text": "同上",
+																		"children": []
+																	}
+																]
+															},
+															{
+																"id": "3pgcpioillpbuju4ooh162fc80",
+																"icon": {},
+																"text": "不存在异常数据指标",
+																"children": [
+																	{
+																		"id": "5fbi1b5p0mt4onsekm13ghchgc",
+																		"icon": {},
+																		"text": "同上",
+																		"children": []
+																	}
+																]
+															}
+														]
+													},
+													{
+														"id": "3ggn8ltn6eagn61pgpiotg5iq2",
+														"icon": {},
+														"text": "相同的指标",
+														"children": [
+															{
+																"id": "6rj62gvnifg6a2guldkj56a2sa",
+																"icon": {},
+																"text": "跳过",
+																"children": []
+															},
+															{
+																"id": "35avndng6q0afm0h7qid8llrn2",
+																"icon": {},
+																"text": "中断",
+																"children": []
+															},
+															{
+																"id": "1dvcv52sq0rsrrm024fb47k207",
+																"icon": {},
+																"text": "覆盖",
+																"children": [
+																	{
+																		"id": "2io3afj3iojgjhe1ceolv1v243",
+																		"icon": {},
+																		"text": "为异常指标（是否全场景缺失）",
+																		"children": [
+																			{
+																				"id": "7kan7jjffc1ps97qo6d5qtvk76",
+																				"icon": {},
+																				"text": "忽略异常",
+																				"children": [
+																					{
+																						"id": "5i98cvifkg1k5c0bv2p78dhsln",
+																						"icon": {},
+																						"text": "导入成功后的指标场景为空",
+																						"children": []
+																					}
+																				]
+																			},
+																			{
+																				"id": "573kc79qmqjof44lrt4l17bmib",
+																				"icon": {},
+																				"text": "选择场景",
+																				"children": [
+																					{
+																						"id": "16ch6l5pn9nh65btd7at1mnr21",
+																						"icon": {},
+																						"text": "导入成功后展示选择缺失场景的补充场景",
+																						"children": []
+																					}
+																				]
+																			},
+																			{
+																				"id": "67geto5jpkc27blvs57ovin8re",
+																				"icon": {},
+																				"text": "导入的指标的系统字段在当前系统中不存在",
+																				"children": [
+																					{
+																						"id": "3qpckk5jsfe0tc80i5pdpdf3i7",
+																						"icon": {},
+																						"text": "导入成功后展示系统字段展示为空",
+																						"children": []
+																					}
+																				]
+																			}
+																		]
+																	},
+																	{
+																		"id": "1jggcicge4gmv97tlv3cjnrajk",
+																		"icon": {},
+																		"text": "为正常指标（非全场景缺失）",
+																		"children": [
+																			{
+																				"id": "4unom283vd8923cq0e7anha3jt",
+																				"icon": {},
+																				"text": "个别场景存在",
+																				"children": []
+																			},
+																			{
+																				"id": "4asvk6vkpsosrfr8guj4vefcq2",
+																				"icon": {},
+																				"text": "全场景存在",
+																				"children": []
+																			}
+																		]
+																	},
+																	{
+																		"id": "3ep1673ak5fv70l4dksvo2tsk1",
+																		"icon": {},
+																		"text": "系统中的指标为待审核状态",
+																		"children": [
+																			{
+																				"id": "0kf4ssqfk90vkksb72k0mitl7g",
+																				"icon": {},
+																				"text": "会跳过，列为导入失败",
+																				"children": []
+																			}
+																		]
+																	}
+																]
+															}
+														]
+													}
+												]
+											},
+											{
+												"id": "69pimp2pni1sr9rsopkea3sc8v",
+												"icon": {},
+												"text": "检查",
+												"children": [
+													{
+														"id": "7tedfitenbpshc8f3rasj68jse",
+														"icon": {},
+														"text": "导入成功后的指标（新增，被覆盖）的状态均为“导入待提交”状态",
+														"children": []
+													}
+												]
+											},
+											{
+												"id": "5ob9f0clr8iujur3vr1udkc9c4",
+												"icon": {},
+												"text": "导入成功提示框",
+												"children": [
+													{
+														"id": "2kle05k7bt4d9ikui0jl4v0gvk",
+														"icon": {},
+														"text": "导入成功条数",
+														"children": [
+															{
+																"id": "4j5o5rh8ssogsasasqhu21d01h",
+																"icon": {},
+																"text": {
+																	"_": "测试跳过、中断、覆盖、覆盖的指标为待审核状态的条数计算情况",
+																	"$": {
+																		"svg:width": "500"
+																	}
+																},
+																"children": []
+															}
+														]
+													},
+													{
+														"id": "7jevs255crv5i0up1aibj8g9ob",
+														"icon": {},
+														"text": "系统字段缺失详情",
+														"children": [
+															{
+																"id": "4abekqc3vqdnut0ir2vthgpcm0",
+																"icon": {},
+																"text": "导入成功条数中，系统字段在当前系统中缺失的条数",
+																"children": []
+															},
+															{
+																"id": "7j35u63uaa1ceiijvgj195atng",
+																"icon": {},
+																"text": {
+																	"_": "测试导入指标使用多个系统字段在当前系统中均不存在的场景，展示仍是1个指标计数值",
+																	"$": {
+																		"svg:width": "500"
+																	}
+																},
+																"children": []
+															},
+															{
+																"id": "3nqg7v5g17jtb87qmaiicgseho",
+																"icon": {},
+																"text": {
+																	"_": "测试导入指标系统字段缺失且部分／全部场景缺失的情况，系统字段缺失和场景缺失均展示计算",
+																	"$": {
+																		"svg:width": "500"
+																	}
+																},
+																"children": []
+															}
+														]
+													},
+													{
+														"id": "7hcu76kcfvj9il6sopn2qmi2qg",
+														"icon": {},
+														"text": "部分场景缺失详情",
+														"children": [
+															{
+																"id": "0a5h3cn005biskq0ivalcms8qr",
+																"icon": {},
+																"text": "导入成功条数中，场景部分缺失的指标详情",
+																"children": []
+															}
+														]
+													},
+													{
+														"id": "5tk6kh2f7kg26qqvfene87rhmc",
+														"icon": {},
+														"text": "全场景缺失（补全）详情",
+														"children": [
+															{
+																"id": "0popj5p8f6jd5dkcto7oqmc0nj",
+																"icon": {},
+																"text": "导入成功条数中，场景全部缺失的指标详情",
+																"children": []
+															}
+														]
+													},
+													{
+														"id": "2tslck8hil755se9ecvs5u7qhc",
+														"icon": {},
+														"text": "下载异常详情文件",
+														"children": [
+															{
+																"id": "0nv7c22ds6568cn0pk34e92j5b",
+																"icon": {},
+																"text": "格式",
+																"children": [
+																	{
+																		"id": "6qfp7cll09va6kln6oqu3knehe",
+																		"icon": {},
+																		"text": "csv",
+																		"children": []
+																	}
+																]
+															},
+															{
+																"id": "1bv0kli6bki5vafcnl87hmpb8n",
+																"icon": {},
+																"text": {
+																	"_": "展示缺失类型（系统字段缺失、部分场景缺失、全场景缺失）、指标编号、指标名称",
+																	"$": {
+																		"svg:width": "500"
+																	}
+																},
+																"children": []
+															},
+															{
+																"id": "06icchiojrpbid6knh9k3ct9bi",
+																"icon": {},
+																"text": "测试其中一类缺失没有，打开导出csv文件应不存在该类缺失",
+																"children": []
+															},
+															{
+																"id": "1o8a9jvk72f9p8aagcq21c8n5s",
+																"icon": {},
+																"text": "修改",
+																"children": []
+															}
+														]
+													},
+													{
+														"id": "4h0qv23qn727o8668foptaiv7t",
+														"icon": {},
+														"text": "页面检查",
+														"children": [
+															{
+																"id": "33s2v0ml45p6s3blfo3dpmuths",
+																"icon": {},
+																"text": "页面最多展示10条异常数据",
+																"children": []
+															}
+														]
+													}
+												]
+											}
+										]
+									}
+								]
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "1booiipgbs6vvi8noppkf6gutt",
+				"icon": {},
+				"text": "其他",
+				"children": [
+					{
+						"id": "29elumigcfdjo3l1p8hpeaa07n",
+						"icon": {},
+						"text": "决策结果免打扰",
+						"children": [
+							{
+								"id": "3sk9tnlv9ab80b9v273luhalm1",
+								"icon": {},
+								"text": "创建",
+								"children": [
+									{
+										"id": "0raugjf7vmbq5hchi7ftji7t3q",
+										"icon": {},
+										"text": "校验",
+										"children": [
+											{
+												"id": "2h9glict4kh8mnnh5pbn4vu26d",
+												"icon": {},
+												"text": "必填",
+												"children": [
+													{
+														"id": "0dmv5ab2q3e7khdgf3vkobctcr",
+														"icon": {},
+														"text": "应用",
+														"children": []
+													},
+													{
+														"id": "56refjdhsd0gdfeeu6n9o3f2m5",
+														"icon": {},
+														"text": "策略集",
+														"children": []
+													},
+													{
+														"id": "5usi4k4jnjflal4uu5ddnhdsfc",
+														"icon": {},
+														"text": "免疫时间",
+														"children": []
+													},
+													{
+														"id": "432uqnkvi3i0m5s8s7ncvopplp",
+														"icon": {},
+														"text": "免疫纬度",
+														"children": []
+													}
+												]
+											},
+											{
+												"id": "39ji5odtko99tvnc4jod89dn84",
+												"icon": {},
+												"text": "长度",
+												"children": [
+													{
+														"id": "74rv43k9ddjonr5c2234245tie",
+														"icon": {},
+														"text": "免疫说明最长500个字符",
+														"children": []
+													}
+												]
+											},
+											{
+												"id": "7n8o13v1lvura5s6ag3k7ofldf",
+												"icon": {},
+												"text": "重复",
+												"children": [
+													{
+														"id": "4mae9d5n615gpb1imhtsl2f4gj",
+														"icon": {},
+														"text": "同一个策略集只能有一个免打扰配置",
+														"children": []
+													}
+												]
+											}
+										]
+									},
+									{
+										"id": "2krnaphn5815478bpob9b9kmaf",
+										"icon": {},
+										"text": "主流程",
+										"children": [
+											{
+												"id": "6e99h54hi6kplc0p0j43abjnlv",
+												"icon": {},
+												"text": "不添加条件，只配置免打扰纬度，测试该免打扰记录生效",
+												"children": []
+											},
+											{
+												"id": "4con2pfdh8fegthuvic9a9cjnt",
+												"icon": {},
+												"text": "添加条件",
+												"children": [
+													{
+														"id": "3oh7hj7484mbu27pours1mt5vr",
+														"icon": {},
+														"text": "满足以下所有条件",
+														"children": [
+															{
+																"id": "4a5hn54njhd9mmk0a1d5s4aeig",
+																"icon": {},
+																"text": "单个记录配置",
+																"children": [
+																	{
+																		"id": "000dmvgefhp1peaomenacajbhf",
+																		"icon": {},
+																		"text": "字符类型（条件）常量",
+																		"children": []
+																	},
+																	{
+																		"id": "5f8p3d42li803cdjua32m2b6f7",
+																		"icon": {},
+																		"text": "数值类型（条件）变量",
+																		"children": []
+																	},
+																	{
+																		"id": "11eq3il1svj2hq37ri2k33ehn3",
+																		"icon": {},
+																		"text": "日期类型（条件）变量",
+																		"children": []
+																	},
+																	{
+																		"id": "3skig1s022daa1uhjvpvcoqgrv",
+																		"icon": {},
+																		"text": "枚举类型（条件）常量",
+																		"children": []
+																	},
+																	{
+																		"id": "64l9f8td3m8bp245argcglf9f1",
+																		"icon": {},
+																		"text": "条件组",
+																		"children": [
+																			{
+																				"id": "5hv6g0lv7ajs482fumpuqfliqo",
+																				"icon": {},
+																				"text": "与",
+																				"children": [
+																					{
+																						"id": "0ee29ait89d1sv3bcrcjmst2q1",
+																						"icon": {},
+																						"text": "上面四种选择N个配置",
+																						"children": []
+																					}
+																				]
+																			},
+																			{
+																				"id": "7f88g6pt0hf7pbnvnjvuopm055",
+																				"icon": {},
+																				"text": "或",
+																				"children": [
+																					{
+																						"id": "6ngoh0bc5h50v5t14kghl71hko",
+																						"icon": {},
+																						"text": "上面四种选择N个配置",
+																						"children": []
+																					}
+																				]
+																			}
+																		]
+																	}
+																]
+															},
+															{
+																"id": "65ol6r2csksldrrh5nv69uujtt",
+																"icon": {},
+																"text": "多个记录配置",
+																"children": [
+																	{
+																		"id": "6ca3uhtjoh040ts6u22dmpqtra",
+																		"icon": {},
+																		"text": "从单个记录6种可能中选取两个配置（可重复选取）",
+																		"children": [
+																			{
+																				"id": "0asg5lg38hha57p7bp3b92ac9b",
+																				"icon": {},
+																				"text": "建议着重测试或条件组＋单个条件（变量）的配置",
+																				"children": []
+																			}
+																		]
+																	}
+																]
+															}
+														]
+													},
+													{
+														"id": "4bmchfqu4rjtl4an974k6qutsv",
+														"icon": {},
+														"text": "满足以下任意条件",
+														"children": [
+															{
+																"id": "32trdce2s7ov4avkbacbgrgm7o",
+																"icon": {},
+																"text": "单个记录配置",
+																"children": [
+																	{
+																		"id": "4bsjpqkobpr2363au8fci33pit",
+																		"icon": {},
+																		"text": "字符类型（条件）常量",
+																		"children": []
+																	},
+																	{
+																		"id": "1ribv2rmg1q064tdn9glclbb3f",
+																		"icon": {},
+																		"text": "数值类型（条件）变量",
+																		"children": []
+																	},
+																	{
+																		"id": "2j35fb2egdr0bko4jb8mdm3o7g",
+																		"icon": {},
+																		"text": "日期类型（条件）变量",
+																		"children": []
+																	},
+																	{
+																		"id": "57bc04lgtk9rots97alupcl4io",
+																		"icon": {},
+																		"text": "枚举类型（条件）常量",
+																		"children": []
+																	},
+																	{
+																		"id": "02jo0cvqhu5cdth7cnpvn8v8qc",
+																		"icon": {},
+																		"text": "条件组",
+																		"children": [
+																			{
+																				"id": "3dquhfojfnsk44j8n3eor5di8i",
+																				"icon": {},
+																				"text": "与",
+																				"children": [
+																					{
+																						"id": "5g60f4boohu7sp8g87dpga11l8",
+																						"icon": {},
+																						"text": "上面四种选择N个配置",
+																						"children": []
+																					}
+																				]
+																			},
+																			{
+																				"id": "0pf08hkt0d028u166db71bhi8k",
+																				"icon": {},
+																				"text": "或",
+																				"children": [
+																					{
+																						"id": "3rhni0aj297oqr4i218g421a8s",
+																						"icon": {},
+																						"text": "上面四种选择N个配置",
+																						"children": []
+																					}
+																				]
+																			}
+																		]
+																	}
+																]
+															},
+															{
+																"id": "370bju3cm9gq3m7jq4b8g1kq84",
+																"icon": {},
+																"text": "多个记录配置",
+																"children": [
+																	{
+																		"id": "390iesnlupkuge2t9e1b7i6a06",
+																		"icon": {},
+																		"text": "从单个记录6中可能中选取两个配置（可重复选取）",
+																		"children": [
+																			{
+																				"id": "4n9pe03r6jea64ovjqgafbrro5",
+																				"icon": {},
+																				"text": "建议着重测试与条件组＋单个条件（常量）的配置",
+																				"children": []
+																			}
+																		]
+																	}
+																]
+															}
+														]
+													}
+												]
+											},
+											{
+												"id": "51kda2sf07l3t6fnicteg0mnhu",
+												"icon": {},
+												"text": "测试生失效场景",
+												"children": [
+													{
+														"id": "544tmcs3raen6sco9288mrjl14",
+														"icon": {},
+														"text": "生效",
+														"children": [
+															{
+																"id": "5vh3b3skh5ev9ec259amt8se1f",
+																"icon": {},
+																"text": "当前事件满足免打扰配置且在免疫期间内",
+																"children": [
+																	{
+																		"id": "7nlpbfobo1r60bcrc37mmv3490",
+																		"icon": {},
+																		"text": "返回处置方式级别比该策略集该纬度上最高处置方式高，正常返回",
+																		"children": []
+																	},
+																	{
+																		"id": "0savua2j2jqbenvrm6ure235ug",
+																		"icon": {},
+																		"text": "返回处置方式级别比该策略集该纬度上最高处置方式相同，正常返回",
+																		"children": []
+																	},
+																	{
+																		"id": "1hltp8ti4gp64pmcb4e4qrmep3",
+																		"icon": {},
+																		"text": {
+																			"_": "返回处置方式级别比该策略集该纬度上最高处置方式低，返回accept",
+																			"$": {
+																				"svg:width": "500"
+																			}
+																		},
+																		"children": []
+																	}
+																]
+															}
+														]
+													},
+													{
+														"id": "0ois93m1b4sq3lotsr0v67d1h9",
+														"icon": {},
+														"text": "失效",
+														"children": [
+															{
+																"id": "671ckjqp05iii1j9o6e4brbf0l",
+																"icon": {},
+																"text": {
+																	"_": "在免疫期间内，当前事件不满足免打扰配置条件，即该纬度配置针对当前事件不生效，事件处置方式正常返回",
+																	"$": {
+																		"svg:width": "500"
+																	}
+																},
+																"children": []
+															},
+															{
+																"id": "5sq84id8cfcski9rf2qifjoa7g",
+																"icon": {},
+																"text": {
+																	"_": "不在免疫期间内，当前事件满足免打扰配置，即该免打扰配置已失效，事件处置方式正常返回",
+																	"$": {
+																		"svg:width": "500"
+																	}
+																},
+																"children": []
+															}
+														]
+													}
+												]
+											}
+										]
+									}
+								]
+							},
+							{
+								"id": "448h0c3pbc4rm2j4p23gl66d8v",
+								"icon": {},
+								"text": "修改",
+								"children": [
+									{
+										"id": "68d99p0iurl46i9b8hblgkrf8u",
+										"icon": {},
+										"text": "页面检查",
+										"children": [
+											{
+												"id": "0jgvq0v8aeko2rsq14fnn13vph",
+												"icon": {},
+												"text": "应用、策略集、纬度不可编辑",
+												"children": []
+											},
+											{
+												"id": "01q8aj6briqlqnudhenp5fqugs",
+												"icon": {},
+												"text": "免打扰时间、执行条件配置、免疫说明可以修改",
+												"children": []
+											},
+											{
+												"id": "1usqq1gr18vttlj9c7bpab5tg5",
+												"icon": {},
+												"text": "长度",
+												"children": [
+													{
+														"id": "26u0rgj6eldo4q46pdgjli0f0p",
+														"icon": {},
+														"text": "免疫说明最长500个字符",
+														"children": []
+													}
+												]
+											}
+										]
+									},
+									{
+										"id": "28gkhvssd8q29odn8q9oakl8es",
+										"icon": {},
+										"text": "测试修改生效场景",
+										"children": [
+											{
+												"id": "607qletidietfg0051liknero8",
+												"icon": {},
+												"text": "修改配置同新建",
+												"children": [
+													{
+														"id": "0m5c5kro0m8jd5oh17451as5f6",
+														"icon": {},
+														"text": "检查修改前配置失效",
+														"children": []
+													},
+													{
+														"id": "5f3gfg0kur4mv2uq457te2tn6p",
+														"icon": {},
+														"text": "检查修改后的配置生效",
+														"children": []
+													}
+												]
+											}
+										]
+									}
+								]
+							},
+							{
+								"id": "65f326rcheddmdft01g71strt7",
+								"icon": {},
+								"text": "删除",
+								"children": [
+									{
+										"id": "16km9crs36s3mou1n878l3nv5r",
+										"icon": {},
+										"text": "测试删除免打扰配置后，测试原免打扰配置失效",
+										"children": []
+									}
+								]
+							},
+							{
+								"id": "14nt54m1611ukvnm43c225lb1m",
+								"icon": {},
+								"text": "前端页面检查（“免疫”字样改成“免打扰”）",
+								"children": [
+									{
+										"id": "2nfoce9alajung47ton5de6qmc",
+										"icon": {},
+										"text": "新建决策触发方式的类型",
+										"children": []
+									},
+									{
+										"id": "2ug6oqb5r0d9k2psgjjr5sevmg",
+										"icon": {},
+										"text": "新建风险决策免打扰页面",
+										"children": [
+											{
+												"id": "5coimaoqii9qisekg5ej66jl6k",
+												"icon": {},
+												"text": "要不要改？？？？？",
+												"children": []
+											}
+										]
+									},
+									{
+										"id": "0nrahdsc6jbk0ks7mc617u10pa",
+										"icon": {},
+										"text": "决策触发列表页面根据触发方式查询列表",
+										"children": []
+									},
+									{
+										"id": "2qqt6u4eusv4n0bepq28399cta",
+										"icon": {},
+										"text": "向下兼容，老版本数据的应用无法展示",
+										"children": [
+											{
+												"id": "5vjpf26cr47d6rs3bhdmaf4dlq",
+												"icon": {},
+												"text": "写脚本兼容老数据",
+												"children": []
+											}
+										]
+									}
+								]
+							}
+						]
+					},
+					{
+						"id": "1vdh5h3r4n5ie2ouf0un9j84pj",
+						"icon": {},
+						"text": "风险决策管理",
+						"children": [
+							{
+								"id": "6d5aeeb8hdmvvvu86f2smnedhj",
+								"icon": {},
+								"text": "新建",
+								"children": [
+									{
+										"id": "7nf01k6psouc884latnna3tugq",
+										"icon": {},
+										"text": "校验",
+										"children": [
+											{
+												"id": "11flruglvth7quo4ctueaonn99",
+												"icon": {},
+												"text": "颜色值必选",
+												"children": []
+											}
+										]
+									},
+									{
+										"id": "06t1n2fqnb5qlqfknp810ls316",
+										"icon": {},
+										"text": "主流程",
+										"children": [
+											{
+												"id": "2ijnt58ojmj2bt6evnn4ukuvh3",
+												"icon": {},
+												"text": "选择颜色值新建风险决策管理",
+												"children": []
+											},
+											{
+												"id": "7vjt7pduk3otml7glqijbfhpcb",
+												"icon": {},
+												"text": "新建成功检查",
+												"children": [
+													{
+														"id": "6naa0tq5n1vc8feibl36aq9rb0",
+														"icon": {},
+														"text": {
+															"_": "风险决策列表展示新建记录，且增加颜色值列，展示新建时选择的颜色",
+															"$": {
+																"svg:width": "500"
+															}
+														},
+														"children": []
+													}
+												]
+											}
+										]
+									}
+								]
+							},
+							{
+								"id": "50i5fb2e3b4ebtov57d7001uvb",
+								"icon": {},
+								"text": "修改",
+								"children": [
+									{
+										"id": "1nnm045esurgmtq0a6mncfi07t",
+										"icon": {},
+										"text": "修改风险决策颜色值确定，然后查看风险决策列表颜色列展示修改后的颜色值",
+										"children": []
+									}
+								]
+							},
+							{
+								"id": "5pk6g3s0tepmfa44ku13tvvfgk",
+								"icon": {},
+								"text": "删除",
+								"children": [
+									{
+										"id": "7k49k9rp6pkv6gdfq132ko0bkr",
+										"icon": {},
+										"text": "删除未被规则／策略引用的处置方式，删除成功",
+										"children": []
+									}
+								]
+							}
+						]
+					},
+					{
+						"id": "7c8ik00lelt4sc4vde5og519uo",
+						"icon": {},
+						"text": "BUG优化",
+						"children": [
+							{
+								"id": "0qh0q0if839lrcmbp6ijau32o8",
+								"icon": {},
+								"text": "已发布策略的多版本切换",
+								"children": [
+									{
+										"id": "682kcuuonmk4142bec0b93fve8",
+										"icon": {},
+										"text": "运行区／编辑区的存在已发版的策略版本切换去掉",
+										"children": []
+									}
+								]
+							},
+							{
+								"id": "61b5gjigbotmlkn5iccn9n9cf6",
+								"icon": {},
+								"text": "指标详情展示，截取半截",
+								"children": [
+									{
+										"id": "66n7s03jb0g1mnshr3s1u9a8gp",
+										"icon": {},
+										"text": "偶发性指标配置详情在点击后只能查看展开半截",
+										"children": []
+									}
+								]
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "1nten1med5v79q69v4gqp2r1eq",
+				"icon": {},
+				"text": "策略管理",
+				"children": [
+					{
+						"id": "7kssg6opdvanch7pl1jr6mp59v",
+						"icon": {},
+						"text": "编辑区",
+						"children": [
+							{
+								"id": "5vlu8m5dojbuco08fphri1im43",
+								"icon": {},
+								"text": "规则导出",
+								"children": [
+									{
+										"id": "3v21ois3iq49ovanvj25lgg6na",
+										"icon": {},
+										"text": "与规则导入一起测试，注意导出内容为规则、指标信息",
+										"children": []
+									}
+								]
+							},
+							{
+								"id": "10a0kvc2pmd3c5f4gruf2o8k64",
+								"icon": {},
+								"text": "导出策略集（修改）",
+								"children": [
+									{
+										"id": "795v52vofdagusd77kkcf61snn",
+										"icon": {},
+										"text": "场景测试",
+										"children": [
+											{
+												"id": "45f891r0joq7d4f095ib5p27r8",
+												"icon": {},
+												"text": "策略集下不存在策略，为空，系统提示“没有可以导出的数据”",
+												"children": []
+											},
+											{
+												"id": "1bkkainttb8gmihaf4jkvckp21",
+												"icon": {},
+												"text": "策略集下存在裸的策略，即策略下不存在规则",
+												"children": []
+											},
+											{
+												"id": "6gkglfpd08g4puh04dq2l2o804",
+												"icon": {},
+												"text": "策略集下存在策略，策略下存在规则",
+												"children": [
+													{
+														"id": "6aaflc8hk2jjqe0cg9fmvmouj4",
+														"icon": {},
+														"text": "规则的不同配置和状态",
+														"children": [
+															{
+																"id": "3f0skj9bvius64n5l58g1o3d37",
+																"icon": {},
+																"text": "开关状态",
+																"children": [
+																	{
+																		"id": "39qqskgjhm969n462j926h3fbe",
+																		"icon": {},
+																		"text": "开",
+																		"children": []
+																	},
+																	{
+																		"id": "5qu59vv65ates50ptgkbd7f9pf",
+																		"icon": {},
+																		"text": "关",
+																		"children": []
+																	},
+																	{
+																		"id": "001a3261r45n0nh8ijcvg6fsnj",
+																		"icon": {},
+																		"text": "模拟",
+																		"children": []
+																	}
+																]
+															},
+															{
+																"id": "7q8gi8ckafcn33cdnr49i9cpqf",
+																"icon": {},
+																"text": "规则中引用了系统字段",
+																"children": []
+															},
+															{
+																"id": "5omu1qtm3aqjl45fo5t7mbld9u",
+																"icon": {},
+																"text": "规则中引用了正常的已发布的普通指标",
+																"children": []
+															},
+															{
+																"id": "4eh308pi7r9mejev0d9afi3q9b",
+																"icon": {},
+																"text": "规则中引用了公式指标",
+																"children": [
+																	{
+																		"id": "55dutu36klb9koet54k6krgm9j",
+																		"icon": {},
+																		"text": "公式指标使用了系统字段",
+																		"children": []
+																	},
+																	{
+																		"id": "2dh3bdgbn0ve05t08qtc3prpo0",
+																		"icon": {},
+																		"text": "公式指标使用了别的通用指标",
+																		"children": []
+																	}
+																]
+															},
+															{
+																"id": "2agtgvfndhlnjvbh2esq4f07n6",
+																"icon": {},
+																"text": "规则中配置了规则模版",
+																"children": []
+															},
+															{
+																"id": "3s2q6gsslts63tvgjq5ijjhh8t",
+																"icon": {},
+																"text": "规则列表存在IF－terminate规则",
+																"children": [
+																	{
+																		"id": "606b8bs4i4bth3eb6usofv4h34",
+																		"icon": {},
+																		"text": "子规则",
+																		"children": []
+																	}
+																]
+															},
+															{
+																"id": "0jovsvtf1nrt1k8giogoichk92",
+																"icon": {},
+																"text": "规则中有添加到名单的配置？？？？",
+																"children": [
+																	{
+																		"id": "0l6d6356slnngtm7l8ngadqlbq",
+																		"icon": {},
+																		"text": "不会导入",
+																		"children": []
+																	}
+																]
+															},
+															{
+																"id": "15b54tp87d26cfn2lmlv4br2qm",
+																"icon": {},
+																"text": "名单规则？？？？？需要与名单联通",
+																"children": [
+																	{
+																		"id": "2rau2sl73docu6fjj7oa93q83k",
+																		"icon": {},
+																		"text": "判断系统中是否存在名单",
+																		"children": [
+																			{
+																				"id": "7i44bdi9gq7s9sjaq2g6pml69h",
+																				"icon": {},
+																				"text": "没有的话置空",
+																				"children": []
+																			}
+																		]
+																	}
+																]
+															}
+														]
+													},
+													{
+														"id": "36shd5uj60qtbejnkjmnaudu9s",
+														"icon": {},
+														"text": "导出数据特殊场景",
+														"children": [
+															{
+																"id": "5ukptq4r33jgn279o9logskcv9",
+																"icon": {},
+																"text": "使用了未发版、发版未开启或处于审批状态的指标",
+																"children": []
+															},
+															{
+																"id": "3g83uane05iocuo6s7a62f8gv2",
+																"icon": {},
+																"text": "系统字段在导入环境不存在",
+																"children": []
+															},
+															{
+																"id": "5rq29096r2h3te2ea5r3pohu55",
+																"icon": {},
+																"text": "指标的场景在导入环境不存在",
+																"children": []
+															}
+														]
+													}
+												]
+											},
+											{
+												"id": "3jiekisnu715pedrckc1b6tnlk",
+												"icon": {},
+												"text": "策略集下存在不同状态的策略",
+												"children": [
+													{
+														"id": "4sjev6qo2hql3n4o63qc8jfmit",
+														"icon": {},
+														"text": "待提交",
+														"children": []
+													},
+													{
+														"id": "6v5siqnok6rvn6vq5j1sg1ab59",
+														"icon": {},
+														"text": "审核中",
+														"children": [
+															{
+																"id": "771a2a78ci3vknkppg3jnh47cv",
+																"icon": {},
+																"text": "可以",
+																"children": []
+															}
+														]
+													},
+													{
+														"id": "1k9jonu5hk4vsrs3i20nm3j0rh",
+														"icon": {},
+														"text": "已发布",
+														"children": []
+													}
+												]
+											},
+											{
+												"id": "3if612ll97ojqesambrdj3923c",
+												"icon": {},
+												"text": "策略集下存在不同策略模式的策略",
+												"children": [
+													{
+														"id": "5ipejtso4jo652vt9qviub2hen",
+														"icon": {},
+														"text": "首次匹配",
+														"children": []
+													},
+													{
+														"id": "5jup647shpjrc2hl1phhomhj3q",
+														"icon": {},
+														"text": "权重模式",
+														"children": []
+													},
+													{
+														"id": "0l58fbqdcm3u09pth4ljqc7qev",
+														"icon": {},
+														"text": "最坏匹配",
+														"children": []
+													}
+												]
+											},
+											{
+												"id": "1p7j1q7u3a5piqiv17q4q16ioh",
+												"icon": {},
+												"text": "导出失败场景？？？？？",
+												"children": [
+													{
+														"id": "6bqh1abnj19578ff774pjlmdh2",
+														"icon": {},
+														"text": "依赖数据缺失，全部导出失败",
+														"children": []
+													}
+												]
+											}
+										]
+									},
+									{
+										"id": "6r415ns2s21jlu5rg2sjdgil8g",
+										"icon": {},
+										"text": "检查",
+										"children": [
+											{
+												"id": "55enc31q4jc839jv175mb82c24",
+												"icon": {},
+												"text": "策略集导出文案需要修改“导出策略列表”；",
+												"children": []
+											},
+											{
+												"id": "681omv698c03btsftavmpa5im2",
+												"icon": {},
+												"text": {
+													"_": "点击“导出策略列表”，系统提示“系统默认将策略集下的策略/规则及引用到的指标一并导出”；",
+													"$": {
+														"svg:width": "500"
+													}
+												},
+												"children": []
+											},
+											{
+												"id": "7h5sjg4maco2qrm2ebatr712km",
+												"icon": {},
+												"text": "导出成功后，系统提示导出成功，导出1个pls文件",
+												"children": []
+											}
+										]
+									}
+								]
+							},
+							{
+								"id": "5tm2rga4vja0riafa27389i1ia",
+								"icon": {},
+								"text": "规则流导出（修改）",
+								"children": [
+									{
+										"id": "4rgkeqs8bt0jlc860l3c39g38c",
+										"icon": {},
+										"text": "规则流状态",
+										"children": [
+											{
+												"id": "2ua7vk1iskiha9gndahich7da7",
+												"icon": {},
+												"text": "待提交",
+												"children": []
+											},
+											{
+												"id": "4c3utpnee2pv4qdu0loql1gmfe",
+												"icon": {},
+												"text": "审核中",
+												"children": []
+											},
+											{
+												"id": "073veflomkd9up2rt2987sflgu",
+												"icon": {},
+												"text": "已发布",
+												"children": []
+											}
+										]
+									},
+									{
+										"id": "3tp2r3ev93kpu1phlopgo4tcig",
+										"icon": {},
+										"text": "规则流配置",
+										"children": [
+											{
+												"id": "5ej4h0vd0m2k9dtvokanj60ruo",
+												"icon": {},
+												"text": "模型",
+												"children": []
+											},
+											{
+												"id": "1mvb51qbrhg76e3vr7tmr280vq",
+												"icon": {},
+												"text": "三方接口",
+												"children": []
+											},
+											{
+												"id": "28gu81jqq2ko3g6q9qmi7marvm",
+												"icon": {},
+												"text": "配置策略",
+												"children": [
+													{
+														"id": "19dlkue8ojt16tkmfn1tpgdat8",
+														"icon": {},
+														"text": "策略集下存在策略，策略下存在规则",
+														"children": [
+															{
+																"id": "7v7m16r01vrvpdluqnug8pepv9",
+																"icon": {},
+																"text": "规则的不同配置和状态",
+																"children": [
+																	{
+																		"id": "01tshqksfd0qqdbq9m0jstp8fs",
+																		"icon": {},
+																		"text": "开关状态",
+																		"children": [
+																			{
+																				"id": "54tg8fb2af2pk1v7c0s26boiig",
+																				"icon": {},
+																				"text": "开",
+																				"children": []
+																			},
+																			{
+																				"id": "06p48guc34gpuj9fdnn3r1qvnc",
+																				"icon": {},
+																				"text": "关",
+																				"children": []
+																			},
+																			{
+																				"id": "3ngamkblsj28stecubclvthsfv",
+																				"icon": {},
+																				"text": "模拟",
+																				"children": []
+																			}
+																		]
+																	},
+																	{
+																		"id": "1q5p0qusjut3pntnvmqkg7u5ur",
+																		"icon": {},
+																		"text": "规则中引用了系统字段",
+																		"children": []
+																	},
+																	{
+																		"id": "4b1egmc9tc08rer1oinpcu5d8t",
+																		"icon": {},
+																		"text": "规则中引用了正常的已发布的普通指标",
+																		"children": []
+																	},
+																	{
+																		"id": "748a4megolm4k21ue8uh0lne4h",
+																		"icon": {},
+																		"text": "规则中引用了公式指标",
+																		"children": [
+																			{
+																				"id": "3rqn288rdl1mj6qq3bhvf36fuj",
+																				"icon": {},
+																				"text": "公式指标使用了系统字段",
+																				"children": []
+																			},
+																			{
+																				"id": "0fg5ark7cu9btul1tjbirc1nca",
+																				"icon": {},
+																				"text": "公式指标使用了别的通用指标",
+																				"children": []
+																			}
+																		]
+																	},
+																	{
+																		"id": "74jd7r2jhslbg0nr08sajfv9s8",
+																		"icon": {},
+																		"text": "规则中配置了规则模版",
+																		"children": []
+																	},
+																	{
+																		"id": "0c5n4s8se5p6sov9o4kbosuujm",
+																		"icon": {},
+																		"text": "规则列表存在IF－terminate规则",
+																		"children": []
+																	},
+																	{
+																		"id": "77ohltf9fvu2f9qg9od6dhe1rb",
+																		"icon": {},
+																		"text": "规则中有添加到名单的配置？？？？",
+																		"children": []
+																	},
+																	{
+																		"id": "7cr4m389epj4likqnb8rs6jma6",
+																		"icon": {},
+																		"text": "名单规则？？？？？需要与名单联通",
+																		"children": []
+																	}
+																]
+															},
+															{
+																"id": "58lmkf40c3ilt9q46muhvg6796",
+																"icon": {},
+																"text": "异常场景",
+																"children": [
+																	{
+																		"id": "06vrbp8483bjmb9g0it7hissgu",
+																		"icon": {},
+																		"text": "使用了未发版、发版未开启或处于审批状态的指标",
+																		"children": []
+																	},
+																	{
+																		"id": "6h0qcg09jhdpdqgqevd9i6e78l",
+																		"icon": {},
+																		"text": "系统字段在导入环境不存在",
+																		"children": []
+																	},
+																	{
+																		"id": "3nis48h0ajgeu8vss0edgsolb8",
+																		"icon": {},
+																		"text": "指标的场景在导入环境不存在",
+																		"children": []
+																	}
+																]
+															}
+														]
+													},
+													{
+														"id": "4171bukhjap8kkp44ag7gp03vu",
+														"icon": {},
+														"text": "策略集下存在不同状态的策略",
+														"children": [
+															{
+																"id": "7evognuo4562fghginc2ca7gqr",
+																"icon": {},
+																"text": "待提交",
+																"children": []
+															},
+															{
+																"id": "03ddo0999gl6vge55kvqj4gkib",
+																"icon": {},
+																"text": "审核中",
+																"children": [
+																	{
+																		"id": "260h9ib264hm337ksjbq0r5m54",
+																		"icon": {},
+																		"text": "能导出么？？？？",
+																		"children": []
+																	}
+																]
+															},
+															{
+																"id": "4h0puefm8i81dof3f1rcp98or1",
+																"icon": {},
+																"text": "已发布",
+																"children": []
+															}
+														]
+													},
+													{
+														"id": "66tgq21rm9dfkh95cer4ddmjf4",
+														"icon": {},
+														"text": "策略集下存在不同策略模式的策略",
+														"children": [
+															{
+																"id": "0mjh8koagj07akgdbrntipqcg4",
+																"icon": {},
+																"text": "首次匹配",
+																"children": []
+															},
+															{
+																"id": "7oad36oqpn74uhsc29f9r98etr",
+																"icon": {},
+																"text": "权重模式",
+																"children": []
+															},
+															{
+																"id": "5fb2esq95jfdcph1i2gr6dq8hl",
+																"icon": {},
+																"text": "最坏匹配",
+																"children": []
+															}
+														]
+													}
+												]
+											},
+											{
+												"id": "780usua332gdeas5lqrcruvuq5",
+												"icon": {},
+												"text": "串、并、排的配置",
+												"children": [
+													{
+														"id": "797e9j7tfee46f5flddiho7b2d",
+														"icon": {},
+														"text": "串行",
+														"children": []
+													},
+													{
+														"id": "6ramp9vr4tkr7rfg72iecll3dl",
+														"icon": {},
+														"text": "并行",
+														"children": []
+													},
+													{
+														"id": "5mgi3t5rbu5a9ql2hsv4ll5e9f",
+														"icon": {},
+														"text": "排他",
+														"children": []
+													},
+													{
+														"id": "76e3lkhsu9rqoqbpj5mqcqger6",
+														"icon": {},
+														"text": "以上三种的混合",
+														"children": []
+													}
+												]
+											}
+										]
+									},
+									{
+										"id": "1ad8vqm2m4m2m4g6iq00os9lng",
+										"icon": {},
+										"text": "检查",
+										"children": [
+											{
+												"id": "6qfpcjcatgaaqrhdt6ghcaknd0",
+												"icon": {},
+												"text": {
+													"_": "点击“导出按钮”提示“系统默认将规则流中引用策略/规则/指标一并导出”；",
+													"$": {
+														"svg:width": "500"
+													}
+												},
+												"children": []
+											},
+											{
+												"id": "23dpdg27uh89ertt8ruf6n8d3f",
+												"icon": {},
+												"text": "导出成功后，系统提示导出成功，导出1个pld文件",
+												"children": []
+											}
+										]
+									}
+								]
+							},
+							{
+								"id": "28jmsn8t6u48590ajar0ddvge9",
+								"icon": {},
+								"text": "规则导入",
+								"children": [
+									{
+										"id": "2geb77uc61jaejsar5aam5qp1d",
+										"icon": {},
+										"text": "规则的正常状态下的不同配置",
+										"children": [
+											{
+												"id": "7bmnorf89gml35t4gd76sjrv81",
+												"icon": {},
+												"text": "开关状态",
+												"children": [
+													{
+														"id": "7rgdol11m5ubfjdsmr1h9bkrvn",
+														"icon": {},
+														"text": "开",
+														"children": []
+													},
+													{
+														"id": "7sqhok5ls1oagm30pnia0tial5",
+														"icon": {},
+														"text": "关",
+														"children": []
+													},
+													{
+														"id": "4kfu605pe1l6li8m9576che244",
+														"icon": {},
+														"text": "模拟",
+														"children": []
+													},
+													{
+														"id": "0sgvu7d2q2tub8lfcs0u5fkbl8",
+														"icon": {},
+														"text": "按照导入文件展示",
+														"children": []
+													}
+												]
+											},
+											{
+												"id": "2u9p8jr96m6fkcvas215rgcjnb",
+												"icon": {},
+												"text": "规则中引用了系统字段",
+												"children": [
+													{
+														"id": "50mbdq1f3vrhgg23foiu2uf5di",
+														"icon": {},
+														"text": "系统字段存在",
+														"children": []
+													},
+													{
+														"id": "71aahva2eu733u96hsorre8n05",
+														"icon": {},
+														"text": "系统字段不存在",
+														"children": [
+															{
+																"id": "32gv9876pbhivhd392p9qv27e9",
+																"icon": {},
+																"text": "展示为空",
+																"children": []
+															}
+														]
+													}
+												]
+											},
+											{
+												"id": "6g5ls7aklju1mo6c2knjms2g40",
+												"icon": {},
+												"text": "规则中引用了系统中不存在的处置方式",
+												"children": [
+													{
+														"id": "4214vf6f3pqnb1nmipo3l10qmh",
+														"icon": {},
+														"text": "将处置方式标志展示",
+														"children": []
+													}
+												]
+											},
+											{
+												"id": "37plli3khmpqbn6t1daupepppu",
+												"icon": {},
+												"text": "规则中引用了指标",
+												"children": [
+													{
+														"id": "1ulc1lo48gbmqrlq1oa0oul1li",
+														"icon": {},
+														"text": "指标ID在当前系统中存在相同",
+														"children": [
+															{
+																"id": "40a1j4dc2u5ul71r19g9fp3uh5",
+																"icon": {},
+																"text": "导入成功检查不会新增一条相同的指标，规则显示正常",
+																"children": []
+															},
+															{
+																"id": "4mer0bsdshk8vg8avo0jjekqbh",
+																"icon": {},
+																"text": "指标的导入模式选择",
+																"children": [
+																	{
+																		"id": "3u8lbjbi2svsj36tcagl0ivthh",
+																		"icon": {},
+																		"text": "覆盖",
+																		"children": [
+																			{
+																				"id": "6f819olmpvgaoqq7tkri96lkpd",
+																				"icon": {},
+																				"text": "指标是否在当前系统中全场景缺失",
+																				"children": [
+																					{
+																						"id": "7qg3fascfsbhafg9qnjipgi9uj",
+																						"icon": {},
+																						"text": "是",
+																						"children": [
+																							{
+																								"id": "6ingb060hs05dp8gs9dm5a96e6",
+																								"icon": {},
+																								"text": "缺失配置：默认当前策略集",
+																								"children": []
+																							},
+																							{
+																								"id": "2dstbm6u6mac160feocugpj2i7",
+																								"icon": {},
+																								"text": "缺失配置：选择多场景",
+																								"children": []
+																							}
+																						]
+																					},
+																					{
+																						"id": "4bclmf8o37dfujohdcojqktac7",
+																						"icon": {},
+																						"text": "否",
+																						"children": [
+																							{
+																								"id": "0o45ubm7heeivus5cd606ip88b",
+																								"icon": {},
+																								"text": "部分场景缺失",
+																								"children": []
+																							},
+																							{
+																								"id": "3dv9hipoj7fqoki5fpb17a3ghf",
+																								"icon": {},
+																								"text": "全场景不缺失",
+																								"children": []
+																							}
+																						]
+																					}
+																				]
+																			}
+																		]
+																	},
+																	{
+																		"id": "5sbuphm64pjc2onkmbdq6t0p7v",
+																		"icon": {},
+																		"text": "跳过",
+																		"children": []
+																	},
+																	{
+																		"id": "7d1cjf293q08j0f1p31njako45",
+																		"icon": {},
+																		"text": "中断",
+																		"children": [
+																			{
+																				"id": "73656e0jrr73306vcb275pffs0",
+																				"icon": {},
+																				"text": "该功能是否不需要，影响到之后正常指标的导入",
+																				"children": []
+																			},
+																			{
+																				"id": "7hllb3hia66njdh0koi9bslcvf",
+																				"icon": {},
+																				"text": "暂不考虑",
+																				"children": []
+																			}
+																		]
+																	}
+																]
+															}
+														]
+													},
+													{
+														"id": "03j1phvv0jne4e701bbpfvjh1n",
+														"icon": {},
+														"text": "指标ID在当前系统中不存在",
+														"children": [
+															{
+																"id": "7lcs42a7ihiae8dg0qh02246ue",
+																"icon": {},
+																"text": "系统新增一条该指标ID的指标",
+																"children": []
+															},
+															{
+																"id": "5cmr67jramr7vevf7m1gp8uode",
+																"icon": {},
+																"text": "指标是否在当前系统中全场景缺失",
+																"children": [
+																	{
+																		"id": "5412p8dlu9s1pigcm5l657rovs",
+																		"icon": {},
+																		"text": "是",
+																		"children": [
+																			{
+																				"id": "3aao851d2ib96m469ipgl2k6tm",
+																				"icon": {},
+																				"text": "缺失配置：默认当前策略集",
+																				"children": []
+																			},
+																			{
+																				"id": "31aml72fli7ef62ad96h15a5th",
+																				"icon": {},
+																				"text": "缺失配置：选择多场景",
+																				"children": []
+																			}
+																		]
+																	},
+																	{
+																		"id": "6212jgvg0nvcq1cuesnnjti7dh",
+																		"icon": {},
+																		"text": "否",
+																		"children": [
+																			{
+																				"id": "74rqi3o35flko8qa20ocjmufsc",
+																				"icon": {},
+																				"text": "部分场景缺失",
+																				"children": [
+																					{
+																						"id": "5trq57pccplg80id0tqpeecf8b",
+																						"icon": {},
+																						"text": "移除缺失场景",
+																						"children": []
+																					}
+																				]
+																			},
+																			{
+																				"id": "58l4046re7ufrmplaror2nkpvr",
+																				"icon": {},
+																				"text": "全场景不缺失",
+																				"children": []
+																			}
+																		]
+																	}
+																]
+															}
+														]
+													}
+												]
+											},
+											{
+												"id": "38amv4no31m5sdo5q8hd90c7pq",
+												"icon": {},
+												"text": "规则中引用了公式指标",
+												"children": [
+													{
+														"id": "3cc9omt0lvme0a70cp8uv2vsl4",
+														"icon": {},
+														"text": "公式指标使用了系统字段",
+														"children": []
+													},
+													{
+														"id": "2ka829hlohps3lfu1ginhub6rt",
+														"icon": {},
+														"text": "公式指标使用了别的通用指标",
+														"children": [
+															{
+																"id": "5jkbl27o226dujkgseup4rooho",
+																"icon": {},
+																"text": "公式指标在当前系统不存在",
+																"children": [
+																	{
+																		"id": "0m63lj3l5l7nhu7jpgs3vvo9va",
+																		"icon": {},
+																		"text": "引用的通用指标存在",
+																		"children": [
+																			{
+																				"id": "258nvl646vr54hr79d96n86teb",
+																				"icon": {},
+																				"text": "各种模式",
+																				"children": [
+																					{
+																						"id": "68r9u1oiv77p8gss3u8blba984",
+																						"icon": {},
+																						"text": "是否异常",
+																						"children": []
+																					}
+																				]
+																			}
+																		]
+																	},
+																	{
+																		"id": "5cp8j863ee0topndpc8r5io8i1",
+																		"icon": {},
+																		"text": "引用的通用指标不存在",
+																		"children": [
+																			{
+																				"id": "46vgiq0odvgpugnglsuiue6qio",
+																				"icon": {},
+																				"text": "新增",
+																				"children": []
+																			}
+																		]
+																	}
+																]
+															},
+															{
+																"id": "5opmdflicg1fbeka34sq900obg",
+																"icon": {},
+																"text": "公式指标在当前系统存在",
+																"children": [
+																	{
+																		"id": "7i76j3qskps22iv5v093g8gr8b",
+																		"icon": {},
+																		"text": "覆盖",
+																		"children": []
+																	}
+																]
+															}
+														]
+													}
+												]
+											},
+											{
+												"id": "7rguvfda2p82fa0jbir24phjf1",
+												"icon": {},
+												"text": "规则中配置了规则模版",
+												"children": []
+											},
+											{
+												"id": "5hfodn72t5n467a2egjiaurkid",
+												"icon": {},
+												"text": "规则列表存在IF－terminate规则",
+												"children": [
+													{
+														"id": "7sl6n4rhkgbtmfd15fv6rlie9i",
+														"icon": {},
+														"text": "IF规则存在规则模版",
+														"children": []
+													}
+												]
+											},
+											{
+												"id": "2ecp1980i7js33mc90r14dr004",
+												"icon": {},
+												"text": "规则中有添加到名单的配置？？？？",
+												"children": [
+													{
+														"id": "3fhuv29bmmvl4qkn0rll3fk0rg",
+														"icon": {},
+														"text": "忽略",
+														"children": []
+													}
+												]
+											},
+											{
+												"id": "7cb5tbbs2affdfmqqt21o0cmo2",
+												"icon": {},
+												"text": "名单规则？？？？？需要与名单联通",
+												"children": [
+													{
+														"id": "4etu05ahcoccmj7nmovhae0btk",
+														"icon": {},
+														"text": "没有名单展示空",
+														"children": []
+													},
+													{
+														"id": "6tj0q32vi25d7gmkad1fes0i7k",
+														"icon": {},
+														"text": "当前系统有名单正常展示",
+														"children": []
+													}
+												]
+											}
+										]
+									}
+								]
+							},
+							{
+								"id": "7p6icliksc2rh371d2l31so11c",
+								"icon": {},
+								"text": "策略导入",
+								"children": [
+									{
+										"id": "14srbpiftogkhf1134m4l87j05",
+										"icon": {},
+										"text": "导入文件中存在与当前导入策略集相同名称的策略",
+										"children": [
+											{
+												"id": "0dmhqte99s8d74e5av58alkean",
+												"icon": {},
+												"text": "测试不同策略模式导入（跳过、覆盖、中断）",
+												"children": []
+											}
+										]
+									},
+									{
+										"id": "50c682tvk0eqfk2t8k6iv3j9k4",
+										"icon": {},
+										"text": "导入文件中不存在与当前导入策略集相同名称的策略",
+										"children": [
+											{
+												"id": "2ocbkk45m19qksgs0shut92v0f",
+												"icon": {},
+												"text": "测试与策略模式无关，导入文件中的全部策略导入成功",
+												"children": []
+											}
+										]
+									},
+									{
+										"id": "3m4mce8qc196bl7vrq8s2muiro",
+										"icon": {},
+										"text": "以上情况提取出以下两种逻辑",
+										"children": [
+											{
+												"id": "6hprd7n64ju5msa2apk3aresju",
+												"icon": {},
+												"text": "针对各种导入模式与当前系统策略不相同策略",
+												"children": [
+													{
+														"id": "0kfrec97f6fhg01uiafevnur83",
+														"icon": {},
+														"text": "新增逻辑",
+														"children": []
+													}
+												]
+											},
+											{
+												"id": "3kjk0otfp5r20llmjp68jl6cjh",
+												"icon": {},
+												"text": "针对相同覆盖模式与当前系统相同的策略",
+												"children": [
+													{
+														"id": "55aegsbrvm8bt2r6dto9p8ejvl",
+														"icon": {},
+														"text": "覆盖逻辑",
+														"children": []
+													}
+												]
+											}
+										]
+									},
+									{
+										"id": "7tah36qulgulvtbroo4cjmqftj",
+										"icon": {},
+										"text": "导入新增策略",
+										"children": [
+											{
+												"id": "4lb10j4i6cljqsrvppepnq70jl",
+												"icon": {},
+												"text": "场景测试",
+												"children": [
+													{
+														"id": "6vutscoldssi6tvin8hp76p33b",
+														"icon": {},
+														"text": "导入策略的规则场景",
+														"children": [
+															{
+																"id": "3o3845r0lp2asehvra43ogjkak",
+																"icon": {},
+																"text": "规则的正常状态下的不同配置",
+																"children": [
+																	{
+																		"id": "3p4082d4jjvc8s570rbojk94sv",
+																		"icon": {},
+																		"text": "开关状态",
+																		"children": [
+																			{
+																				"id": "00lork3e0vbc6r398mvn0lkd44",
+																				"icon": {},
+																				"text": "开",
+																				"children": []
+																			},
+																			{
+																				"id": "6kofeaeicgram7tcj3la2m2vd0",
+																				"icon": {},
+																				"text": "关",
+																				"children": []
+																			},
+																			{
+																				"id": "58v6bhpc0rv22liv4fjd0o5ao4",
+																				"icon": {},
+																				"text": "模拟",
+																				"children": []
+																			},
+																			{
+																				"id": "56f5i6nesru2jk49lqu1vvcq6i",
+																				"icon": {},
+																				"text": "按照导入文件展示",
+																				"children": []
+																			}
+																		]
+																	},
+																	{
+																		"id": "50j11fv9bu4dmvnpdlgchsoda5",
+																		"icon": {},
+																		"text": "规则中引用了系统字段",
+																		"children": [
+																			{
+																				"id": "7sntg6cq7fj4rltp95e76g90gi",
+																				"icon": {},
+																				"text": "系统字段存在",
+																				"children": []
+																			},
+																			{
+																				"id": "2j4enf22ubg0nd5qmp11a1c475",
+																				"icon": {},
+																				"text": "系统字段不存在",
+																				"children": [
+																					{
+																						"id": "2puncad5nttvv7ejhvr4fkssl6",
+																						"icon": {},
+																						"text": "展示为空",
+																						"children": []
+																					}
+																				]
+																			}
+																		]
+																	},
+																	{
+																		"id": "0lbbiov7hdf54gnoj1mh428k5v",
+																		"icon": {},
+																		"text": "规则中引用了指标",
+																		"children": [
+																			{
+																				"id": "5723bak2lfk87quapbj2amaipj",
+																				"icon": {},
+																				"text": "指标ID在当前系统中存在相同",
+																				"children": [
+																					{
+																						"id": "2lk1ke46om2ec07tedmm0ovrlp",
+																						"icon": {},
+																						"text": "导入成功检查不会新增一条相同的指标，规则显示正常",
+																						"children": []
+																					},
+																					{
+																						"id": "0o1tfj4lc3j3hili624st6o1vi",
+																						"icon": {},
+																						"text": "指标的导入模式选择",
+																						"children": [
+																							{
+																								"id": "2n1sao2f7uvoglpllh69jiirhn",
+																								"icon": {},
+																								"text": "覆盖",
+																								"children": [
+																									{
+																										"id": "739k35pkhsn3sn506bbfhe221u",
+																										"icon": {},
+																										"text": "指标是否在当前系统中全场景缺失",
+																										"children": [
+																											{
+																												"id": "70256h197uq6obbktotc9fvfju",
+																												"icon": {},
+																												"text": "是",
+																												"children": [
+																													{
+																														"id": "7305p52ghkkna664nehku5g7o1",
+																														"icon": {},
+																														"text": "缺失配置：默认当前策略集",
+																														"children": []
+																													},
+																													{
+																														"id": "0n0nvcvsq6t4uqkavrcf64s13l",
+																														"icon": {},
+																														"text": "缺失配置：选择多场景",
+																														"children": []
+																													}
+																												]
+																											},
+																											{
+																												"id": "1phl7kd6uitlfgjc074ju3upup",
+																												"icon": {},
+																												"text": "否",
+																												"children": [
+																													{
+																														"id": "508edsusf80njuvrqrg2negu9q",
+																														"icon": {},
+																														"text": "部分场景缺失",
+																														"children": []
+																													},
+																													{
+																														"id": "3s0be8fta8b0na5o0ad9tr5kbh",
+																														"icon": {},
+																														"text": "全场景不缺失",
+																														"children": []
+																													}
+																												]
+																											}
+																										]
+																									}
+																								]
+																							},
+																							{
+																								"id": "0bvcfj2d8d0v8i5pq8b5fs55d8",
+																								"icon": {},
+																								"text": "跳过",
+																								"children": []
+																							},
+																							{
+																								"id": "21dcuqnqprc04ec3h8lolt5u3s",
+																								"icon": {},
+																								"text": "中断",
+																								"children": [
+																									{
+																										"id": "600vf9ahh859q1va64fnqfnlcr",
+																										"icon": {},
+																										"text": "该功能是否不需要，影响到之后正常指标的导入",
+																										"children": []
+																									}
+																								]
+																							}
+																						]
+																					}
+																				]
+																			},
+																			{
+																				"id": "50khol0h8820nvbijhcivlhcgu",
+																				"icon": {},
+																				"text": "指标ID在当前系统中不存在",
+																				"children": [
+																					{
+																						"id": "5eetagcabmdjvu41nben2m0bvm",
+																						"icon": {},
+																						"text": "系统新增一条该指标ID的指标",
+																						"children": []
+																					},
+																					{
+																						"id": "6f88jae12vbh6h4h99r2tted02",
+																						"icon": {},
+																						"text": "指标是否在当前系统中全场景缺失",
+																						"children": [
+																							{
+																								"id": "1lq6ojqctk6tt5j3dg7kpulrpr",
+																								"icon": {},
+																								"text": "是",
+																								"children": [
+																									{
+																										"id": "2gji6t5ooasbvfvfea10t5k0va",
+																										"icon": {},
+																										"text": "缺失配置：默认当前策略集",
+																										"children": []
+																									},
+																									{
+																										"id": "6is50puhdo83lusb610hlkljag",
+																										"icon": {},
+																										"text": "缺失配置：选择多场景",
+																										"children": []
+																									}
+																								]
+																							},
+																							{
+																								"id": "28npsrlhtvfd970l3621pqcq64",
+																								"icon": {},
+																								"text": "否",
+																								"children": [
+																									{
+																										"id": "4qh74l5h0p12l1ru8dgprljllb",
+																										"icon": {},
+																										"text": "部分场景缺失",
+																										"children": [
+																											{
+																												"id": "73s1s3687m5sh736knh9r95rr0",
+																												"icon": {},
+																												"text": "移除缺失场景",
+																												"children": []
+																											}
+																										]
+																									},
+																									{
+																										"id": "0tcb9a88iohk1844feh78qov7g",
+																										"icon": {},
+																										"text": "全场景不缺失",
+																										"children": []
+																									}
+																								]
+																							}
+																						]
+																					}
+																				]
+																			}
+																		]
+																	},
+																	{
+																		"id": "4lpo6tv1e9bi9s5moqf292ml72",
+																		"icon": {},
+																		"text": "规则中引用了公式指标",
+																		"children": [
+																			{
+																				"id": "1dm5i0balbv74d31edouuiqsg9",
+																				"icon": {},
+																				"text": "公式指标使用了系统字段",
+																				"children": []
+																			},
+																			{
+																				"id": "79l8vojulsldc82ctooqq6r6fs",
+																				"icon": {},
+																				"text": "公式指标使用了别的通用指标",
+																				"children": [
+																					{
+																						"id": "6iv2ooaklld0ugpsotqihn5ni9",
+																						"icon": {},
+																						"text": "公式指标在当前系统不存在",
+																						"children": [
+																							{
+																								"id": "6jf6lm622gt960414b08hhsgit",
+																								"icon": {},
+																								"text": "引用的通用指标存在",
+																								"children": [
+																									{
+																										"id": "2ujfm96sca19giv18j2pjpi4bs",
+																										"icon": {},
+																										"text": "各种模式",
+																										"children": [
+																											{
+																												"id": "4l4a9mbupo91sg49tp1gq5rmao",
+																												"icon": {},
+																												"text": "是否异常",
+																												"children": []
+																											}
+																										]
+																									}
+																								]
+																							},
+																							{
+																								"id": "5ng816junljv09jhpsl12i1bk1",
+																								"icon": {},
+																								"text": "引用的通用指标不存在",
+																								"children": [
+																									{
+																										"id": "5r4pqtt0og9seqvtca545op8b7",
+																										"icon": {},
+																										"text": "新增",
+																										"children": []
+																									}
+																								]
+																							}
+																						]
+																					},
+																					{
+																						"id": "028oftvsjtui1oephna7rchac7",
+																						"icon": {},
+																						"text": "公式指标在当前系统存在",
+																						"children": [
+																							{
+																								"id": "4tf4ifmoeth8qhkbic9kidcama",
+																								"icon": {},
+																								"text": "覆盖",
+																								"children": []
+																							}
+																						]
+																					}
+																				]
+																			}
+																		]
+																	},
+																	{
+																		"id": "4r9a6ims8co911o831o0gm7a6u",
+																		"icon": {},
+																		"text": "规则中配置了规则模版",
+																		"children": []
+																	},
+																	{
+																		"id": "6r6ghcdjeo5vaomi4v5d1brqi6",
+																		"icon": {},
+																		"text": "规则列表存在IF－terminate规则",
+																		"children": []
+																	},
+																	{
+																		"id": "2fq1dd10o1r0lk1ep4pc1jvt5t",
+																		"icon": {},
+																		"text": "规则中有添加到名单的配置？？？？",
+																		"children": []
+																	},
+																	{
+																		"id": "1cu9q69tgida55b0k3s54cgh2v",
+																		"icon": {},
+																		"text": "名单规则？？？？？需要与名单联通",
+																		"children": []
+																	}
+																]
+															}
+														]
+													},
+													{
+														"id": "6cdvupcoabd2b90078tfm05tl6",
+														"icon": {},
+														"text": "导入文件中存在不同策略模式的策略",
+														"children": [
+															{
+																"id": "05eh8e7o1rk1s8afnqslku5cpb",
+																"icon": {},
+																"text": "首次匹配",
+																"children": []
+															},
+															{
+																"id": "0dho3ln1lvhh26v6neug8efehe",
+																"icon": {},
+																"text": "权重模式",
+																"children": []
+															},
+															{
+																"id": "0ocmambp0vqn19oe7d9p05foro",
+																"icon": {},
+																"text": "最坏匹配",
+																"children": []
+															}
+														]
+													},
+													{
+														"id": "34b38pr3bbekl3i2tmvkmmhd4d",
+														"icon": {},
+														"text": "导入失败场景？？",
+														"children": [
+															{
+																"id": "2d864bdtbeurcq1fupv7l9mldg",
+																"icon": {},
+																"text": "依赖数据缺失？？？？",
+																"children": [
+																	{
+																		"id": "3o67e0al3hifv491hl0lbu7fsk",
+																		"icon": {},
+																		"text": "系统字段",
+																		"children": []
+																	}
+																]
+															}
+														]
+													},
+													{
+														"id": "6d23it693b7sdvsupt10l0rjip",
+														"icon": {},
+														"text": "实际使用导入场景测试",
+														"children": [
+															{
+																"id": "1m1uts5kfeelgl01n8mafb54uu",
+																"icon": {},
+																"text": "空白策略集导入",
+																"children": []
+															},
+															{
+																"id": "2seidgm02rpqd1ecd236rvi65b",
+																"icon": {},
+																"text": "在同一个策略集上多次导入同一文件",
+																"children": []
+															},
+															{
+																"id": "732glq7ebut7b5m7lvo6kqcl6v",
+																"icon": {},
+																"text": {
+																	"_": "在同一个策略集上导入后，修改（增删改规则、指标），然后再次导入同一文件",
+																	"$": {
+																		"svg:width": "500"
+																	}
+																},
+																"children": []
+															},
+															{
+																"id": "4ap0kbi30md7d8ceqfqhvqafgm",
+																"icon": {},
+																"text": "在同一个策略集上导入多个不同的导入文件",
+																"children": []
+															}
+														]
+													}
+												]
+											},
+											{
+												"id": "2gjp10pug0m69aql3hg2n3u31h",
+												"icon": {},
+												"text": "导入成功检查",
+												"children": [
+													{
+														"id": "47cdm9m4sl2ks9c0jrqhdbotps",
+														"icon": {},
+														"text": "策略状态为待提交",
+														"children": []
+													},
+													{
+														"id": "6p0tuqrrvrfump2mj1m3pe6pma",
+														"icon": {},
+														"text": "导入成功的指标状态为导入待提交",
+														"children": []
+													},
+													{
+														"id": "3l2g6tkoeuqbuionagvi6lua25",
+														"icon": {},
+														"text": "规则引用了指标的正常展示指标",
+														"children": []
+													}
+												]
+											}
+										]
+									},
+									{
+										"id": "2e4epq6sgjov3iot5d92hb02j2",
+										"icon": {},
+										"text": "导入覆盖策略",
+										"children": [
+											{
+												"id": "06opfdu3jlujktbb9v435oh0ph",
+												"icon": {},
+												"text": {
+													"_": "当前策略集存在与导入文件中相同的策略，且策略导入模式为相同覆盖",
+													"$": {
+														"svg:width": "500"
+													}
+												},
+												"children": [
+													{
+														"id": "1voja1bubg0u78osqebe1shk95",
+														"icon": {},
+														"text": "原策略信息删除",
+														"children": []
+													},
+													{
+														"id": "2boedrmk9h3qggsdg88ph90ggk",
+														"icon": {},
+														"text": "同导入新增策略逻辑",
+														"children": []
+													},
+													{
+														"id": "6ef162gugmse96lutcbvjt6gvr",
+														"icon": {},
+														"text": "策略uuid与原来一致",
+														"children": []
+													}
+												]
+											},
+											{
+												"id": "6p2rahcovehert3n1k29vkbrji",
+												"icon": {},
+												"text": {
+													"_": "测试导入文件中相同策略的策略模式与系统中该指标的策略模式不同",
+													"$": {
+														"svg:width": "500"
+													}
+												},
+												"children": [
+													{
+														"id": "0rmpae2ff91j4ec3irbq2inbk6",
+														"icon": {},
+														"text": "没有关系，不影响",
+														"children": []
+													}
+												]
+											},
+											{
+												"id": "16u1h11thvfmenqvg3ifu8d75g",
+												"icon": {},
+												"text": "系统中的策略状态为待审核，导入覆盖失败",
+												"children": []
+											}
+										]
+									},
+									{
+										"id": "7faog4liknucr58b2qnnnji01r",
+										"icon": {},
+										"text": "导入成功提示框",
+										"children": [
+											{
+												"id": "0bn73r4743av76fcdrj74g2f19",
+												"icon": {},
+												"text": "提示导入成功的策略数量、规则数据量、指标数量",
+												"children": []
+											},
+											{
+												"id": "0sttc4mgr7ugq14teokcr9h6sm",
+												"icon": {},
+												"text": "系统字段缺失规则详情列表",
+												"children": []
+											},
+											{
+												"id": "112ri6mrek70qtid5bbp7opu7k",
+												"icon": {},
+												"text": "引用名单缺失的规则详情列表",
+												"children": []
+											},
+											{
+												"id": "4ls7570i15qqshplgvutrgdv8q",
+												"icon": {},
+												"text": "指标缺失的指标详情列表",
+												"children": [
+													{
+														"id": "3if0tvas9hhvta3nt26gthdndp",
+														"icon": {},
+														"text": "在当前系统中不存在",
+														"children": []
+													}
+												]
+											},
+											{
+												"id": "378el5hieu6intr62cicush4ad",
+												"icon": {},
+												"text": "导入异常CSV下载",
+												"children": [
+													{
+														"id": "6a3hv1ncsfiafjh9nil6pi0dk0",
+														"icon": {},
+														"text": "成功打开，查看，检查与页面上详情列表一致",
+														"children": []
+													}
+												]
+											}
+										]
+									}
+								]
+							},
+							{
+								"id": "4ffem887bp8cnoq7m14d6ua9sv",
+								"icon": {},
+								"text": "规则流导入",
+								"children": [
+									{
+										"id": "3unc3tbf9tve3salgp3c11j2ct",
+										"icon": {},
+										"text": "策略集上无规则流配置导入规则流",
+										"children": []
+									},
+									{
+										"id": "2ti34i9rbkmmsjte9habo283u1",
+										"icon": {},
+										"text": "策略集上有规则流配置导入规则流",
+										"children": [
+											{
+												"id": "5fkid4an6kid381v6d2sun9mc1",
+												"icon": {},
+												"text": "检查删除原规则流，增加导入的规则流结构",
+												"children": []
+											},
+											{
+												"id": "15rrn6smlkkmrirqrqiaeaakst",
+												"icon": {},
+												"text": "针对导入文件中的策略信息",
+												"children": [
+													{
+														"id": "4397linurk944jutkq8j4n0inn",
+														"icon": {},
+														"text": "同策略集导入的逻辑",
+														"children": []
+													}
+												]
+											},
+											{
+												"id": "541bvv87ij4f6l99u3frtk0r32",
+												"icon": {},
+												"text": "模型",
+												"children": [
+													{
+														"id": "3o0njqtkd9avgt3j8nfe5av048",
+														"icon": {},
+														"text": "当前系统存在",
+														"children": []
+													},
+													{
+														"id": "7uubnjl15qpbu3ul2deoqoihjl",
+														"icon": {},
+														"text": "当前系统不存在",
+														"children": []
+													}
+												]
+											},
+											{
+												"id": "39bfmskcqjknfadb5af2ij2jff",
+												"icon": {},
+												"text": "三方",
+												"children": [
+													{
+														"id": "1d0qrqhsvv51d4gksvuk932hf4",
+														"icon": {},
+														"text": "当前系统存在",
+														"children": []
+													},
+													{
+														"id": "0idujmmdbdgv16v88uhrgjk744",
+														"icon": {},
+														"text": "当前系统不存在",
+														"children": []
+													}
+												]
+											}
+										]
+									},
+									{
+										"id": "7tt0kft81vjqfgodsnbcoo1e6f",
+										"icon": {},
+										"text": "导入成功提示框",
+										"children": [
+											{
+												"id": "43c20bpp7civ8m1rmku4corm7k",
+												"icon": {},
+												"text": "提示导入成功的规则流数量、策略数量、规则数据量、指标数量",
+												"children": []
+											},
+											{
+												"id": "73mcuu1l12hmogmi89c361d7sd",
+												"icon": {},
+												"text": "系统字段缺失规则详情列表",
+												"children": []
+											},
+											{
+												"id": "2665hbd8vcuaqbnittqvafepnr",
+												"icon": {},
+												"text": "引用名单缺失的规则详情列表",
+												"children": []
+											},
+											{
+												"id": "75qqfclv9pr2dpd916aknba6n1",
+												"icon": {},
+												"text": "指标缺失的指标详情列表",
+												"children": []
+											},
+											{
+												"id": "5c4850og9qoks25r4t454m8mtv",
+												"icon": {},
+												"text": "模型缺失的模型编号？？？",
+												"children": [
+													{
+														"id": "5i83lhgv40291p58kqhrrctnj3",
+														"icon": {},
+														"text": "编号、名称、版本",
+														"children": []
+													}
+												]
+											},
+											{
+												"id": "6u78hoc5tevtlluj3n95gmfls3",
+												"icon": {},
+												"text": "三方接口缺失的接口编号？？？？",
+												"children": [
+													{
+														"id": "271gero7cr293r281v76vhitl1",
+														"icon": {},
+														"text": "编号、名称",
+														"children": []
+													}
+												]
+											},
+											{
+												"id": "7lu47s0f6sm1oaosepks6e1pdg",
+												"icon": {},
+												"text": "导入异常CSV下载",
+												"children": [
+													{
+														"id": "6vtm13lldghdhl2bilsdmegi30",
+														"icon": {},
+														"text": "成功打开，查看，检查与页面上详情列表一致",
+														"children": []
+													}
+												]
+											}
+										]
+									}
+								]
+							},
+							{
+								"id": "0baia1dgtev0ovvh3rpoo4udml",
+								"icon": {},
+								"text": "版本提交",
+								"children": [
+									{
+										"id": "4i6f8vja9mfp41fs8uj9f1i20s",
+										"icon": {},
+										"text": "一个策略下全部为模拟状态的规则可以提交",
+										"children": [
+											{
+												"id": "0jgojq63un47fmpk7ibupj64qi",
+												"icon": {},
+												"text": "提交全部为模拟状态的规则的某策略，生成新版本成功",
+												"children": [
+													{
+														"id": "15lqn2ione0p9316bv4fsshr0h",
+														"icon": {},
+														"text": "给所属策略集发送riskService接口命中模拟规则",
+														"children": []
+													},
+													{
+														"id": "3vtt0i9igp5q304a5oaeghvki3",
+														"icon": {},
+														"text": "在决策流中调用该策略集，发送riskService接口命中模拟规则",
+														"children": []
+													},
+													{
+														"id": "3toh0hrqsblultpb82jh7g25h6",
+														"icon": {},
+														"text": "命中模拟规则后，查看规则运行管理，出现一条运行类型为“模拟运行”的规则命中记录",
+														"children": []
+													},
+													{
+														"id": "0ihlar3afosu1r6ruoa4hd3qv4",
+														"icon": {},
+														"text": "检查返回报文，",
+														"children": []
+													}
+												]
+											}
+										]
+									}
+								]
+							},
+							{
+								"id": "46sesgn9m46bn6m58p4blsvo1b",
+								"icon": {},
+								"text": "查询条件增加‘策略名称’查询",
+								"children": [
+									{
+										"id": "4q8n9rg9aeagbb65ddtvbbau5c",
+										"icon": {},
+										"text": "模糊查询",
+										"children": []
+									},
+									{
+										"id": "3buouv9e5m97akv8cvd5lukdnj",
+										"icon": {},
+										"text": "查询出记录为0",
+										"children": []
+									},
+									{
+										"id": "5coa9dimbtjmseahh1smo4m4bm",
+										"icon": {},
+										"text": "系统中存在记录然而当前用户无该记录的权限，查询不到",
+										"children": []
+									},
+									{
+										"id": "0fj6fj3v1t5jbvonh0h0gmcfo7",
+										"icon": {},
+										"text": "查询出多个策略集下存在同名的策略",
+										"children": []
+									},
+									{
+										"id": "2tp3a5clp42i9l3ggojstdhfhh",
+										"icon": {},
+										"text": "查询出结果为单个策略集下存在查询的策略",
+										"children": [
+											{
+												"id": "7g5a43o5m2d8k1b1ebqime5krn",
+												"icon": {},
+												"text": "待提交状态的策略",
+												"children": []
+											},
+											{
+												"id": "46lpjtecm7ej1prdk36jup2g2v",
+												"icon": {},
+												"text": "审核中的策略",
+												"children": []
+											},
+											{
+												"id": "715918e8a2sn3fsl3aaf7g9r9e",
+												"icon": {},
+												"text": "已发布的策略",
+												"children": []
+											}
+										]
+									}
+								]
+							}
+						]
+					},
+					{
+						"id": "06iasfnv317o2s9sdumi48b2q7",
+						"icon": {},
+						"text": "运行区",
+						"children": [
+							{
+								"id": "2873ai7ki18kv6u4rbkgomirer",
+								"icon": {},
+								"text": "查询条件增加‘策略名称’查询",
+								"children": [
+									{
+										"id": "7e2al7br8nn81keer3ar5bcf10",
+										"icon": {},
+										"text": "同编辑区",
+										"children": []
+									}
+								]
+							},
+							{
+								"id": "51k7quq61a72d3ifo97sb6rghs",
+								"icon": {},
+								"text": "导出策略集",
+								"children": [
+									{
+										"id": "4g4hach4k45k41hvnhkv2pfuae",
+										"icon": {},
+										"text": "策略集下存在策略，策略下存在规则",
+										"children": [
+											{
+												"id": "3j7asg942mb92974r1kpogp0cs",
+												"icon": {},
+												"text": "规则的不同配置和状态",
+												"children": [
+													{
+														"id": "46m2045llrbi56m6t7jf16mpb7",
+														"icon": {},
+														"text": "开关状态",
+														"children": [
+															{
+																"id": "68i7s888qaufevj0q455h1s7ot",
+																"icon": {},
+																"text": "开",
+																"children": []
+															},
+															{
+																"id": "4jhjk9rvg6ut6uklkpg0ois565",
+																"icon": {},
+																"text": "关",
+																"children": []
+															},
+															{
+																"id": "11chjetqakfg56es7k4ug9hnf0",
+																"icon": {},
+																"text": "模拟",
+																"children": []
+															}
+														]
+													},
+													{
+														"id": "2ier0ujlnvv02nd177r4vv5nhs",
+														"icon": {},
+														"text": "规则中引用了系统字段",
+														"children": []
+													},
+													{
+														"id": "5bb5t4fmgsbbbpu5k3o69iuv7p",
+														"icon": {},
+														"text": "规则中引用了正常的已发布的普通指标",
+														"children": []
+													},
+													{
+														"id": "52qs3jq85hdftd5hr7gsmqf8hd",
+														"icon": {},
+														"text": "规则中引用了公式指标",
+														"children": [
+															{
+																"id": "0oott0o7qkjulog7g4vfrq05ph",
+																"icon": {},
+																"text": "公式指标使用了系统字段",
+																"children": []
+															},
+															{
+																"id": "16hcj3c3q1bp1ieb94bv80ck31",
+																"icon": {},
+																"text": "公式指标使用了别的通用指标",
+																"children": []
+															}
+														]
+													},
+													{
+														"id": "0r7a63364bsqjalejasddglej3",
+														"icon": {},
+														"text": "规则中配置了规则模版",
+														"children": []
+													},
+													{
+														"id": "65m0h8jj3bfac83kd1scad96nd",
+														"icon": {},
+														"text": "规则列表存在IF－terminate规则",
+														"children": []
+													},
+													{
+														"id": "7g2lrdqlulkc8rbm2ahihoubth",
+														"icon": {},
+														"text": "规则中有添加到名单的配置？？？？",
+														"children": []
+													},
+													{
+														"id": "1biaus5tednlvkv6tk9tq6joka",
+														"icon": {},
+														"text": "名单规则？？？？？需要与名单联通",
+														"children": []
+													},
+													{
+														"id": "786qvo80sko3qpih2uka06cdkq",
+														"icon": {},
+														"text": "规则上配置了规则免疫",
+														"children": []
+													}
+												]
+											},
+											{
+												"id": "6h7unbg8pn324floavja3l2mcd",
+												"icon": {},
+												"text": "异常场景",
+												"children": [
+													{
+														"id": "42rdusptnca32f02vrt89b8u42",
+														"icon": {},
+														"text": "系统字段在导入环境不存在",
+														"children": []
+													},
+													{
+														"id": "6b9bblefbs7kafuqkhitkd6kpc",
+														"icon": {},
+														"text": "指标的场景在导入环境不存在",
+														"children": []
+													}
+												]
+											}
+										]
+									}
+								]
+							},
+							{
+								"id": "2k83dbtuqf9o804kbhda9960nr",
+								"icon": {},
+								"text": "规则流导出",
+								"children": [
+									{
+										"id": "4s3gk283hg10ajtng793udinl3",
+										"icon": {},
+										"text": "规则流配置",
+										"children": [
+											{
+												"id": "5d0kdub25b5t8d3f5v9aa0j80u",
+												"icon": {},
+												"text": "模型",
+												"children": []
+											},
+											{
+												"id": "6092tsavqpasjv0dluqdloghoi",
+												"icon": {},
+												"text": "三方接口",
+												"children": []
+											},
+											{
+												"id": "1059tugv33442ohfbtamc3ciu2",
+												"icon": {},
+												"text": "配置策略",
+												"children": [
+													{
+														"id": "25n44kcnpmssb2nkffppvvm90i",
+														"icon": {},
+														"text": "策略集下存在策略，策略下存在规则",
+														"children": [
+															{
+																"id": "2ntvftr4got9djhbgff8g6i7k9",
+																"icon": {},
+																"text": "规则的不同配置和状态",
+																"children": [
+																	{
+																		"id": "7gm6heh0bf7am3g5th4enc0omb",
+																		"icon": {},
+																		"text": "开关状态",
+																		"children": [
+																			{
+																				"id": "16npdiaib8p7e8noc609fiol79",
+																				"icon": {},
+																				"text": "开",
+																				"children": []
+																			},
+																			{
+																				"id": "68nsjllbvn3tek6a7jqi1446m1",
+																				"icon": {},
+																				"text": "关",
+																				"children": []
+																			},
+																			{
+																				"id": "7630c1ckr5e41kuifdr7aiab9f",
+																				"icon": {},
+																				"text": "模拟",
+																				"children": []
+																			}
+																		]
+																	},
+																	{
+																		"id": "4m3nlg096mdqadm438tscde0c3",
+																		"icon": {},
+																		"text": "规则中引用了系统字段",
+																		"children": []
+																	},
+																	{
+																		"id": "7losiuc5kakg0ffdj4ebeomc82",
+																		"icon": {},
+																		"text": "规则中引用了正常的已发布的普通指标",
+																		"children": []
+																	},
+																	{
+																		"id": "3c513cg4m1g1c7d4s502h1tftf",
+																		"icon": {},
+																		"text": "规则中引用了公式指标",
+																		"children": [
+																			{
+																				"id": "1k2prccbjrltahhb5tl8gupemr",
+																				"icon": {},
+																				"text": "公式指标使用了系统字段",
+																				"children": []
+																			},
+																			{
+																				"id": "0rsiclu7k8emtun078kbir3dki",
+																				"icon": {},
+																				"text": "公式指标使用了别的通用指标",
+																				"children": []
+																			}
+																		]
+																	},
+																	{
+																		"id": "473k7ojqcpd0duren7mgg4500h",
+																		"icon": {},
+																		"text": "规则中配置了规则模版",
+																		"children": []
+																	},
+																	{
+																		"id": "5rhsll5nqeh4bvd84qimti1cph",
+																		"icon": {},
+																		"text": "规则列表存在IF－terminate规则",
+																		"children": []
+																	},
+																	{
+																		"id": "2p4f6hfib6ju8t8tmt12nlq7nk",
+																		"icon": {},
+																		"text": "规则中有添加到名单的配置？？？？",
+																		"children": []
+																	},
+																	{
+																		"id": "17997h2okn0tcreant869k1v8f",
+																		"icon": {},
+																		"text": "名单规则？？？？？需要与名单联通",
+																		"children": []
+																	},
+																	{
+																		"id": "6meftm3h2idb0e39totbeudc7o",
+																		"icon": {},
+																		"text": "规则中有规则免疫",
+																		"children": []
+																	}
+																]
+															}
+														]
+													},
+													{
+														"id": "659be63ig257gumulcot3bd9v8",
+														"icon": {},
+														"text": "策略集下存在不同策略模式的策略",
+														"children": [
+															{
+																"id": "4dloucejabavpg8utug9n7bl1q",
+																"icon": {},
+																"text": "首次匹配",
+																"children": []
+															},
+															{
+																"id": "6ihsi9mhclngonasecbtvhjije",
+																"icon": {},
+																"text": "权重模式",
+																"children": []
+															},
+															{
+																"id": "4v9626v3ij5ph876cb9ifd710c",
+																"icon": {},
+																"text": "最坏匹配",
+																"children": []
+															}
+														]
+													}
+												]
+											},
+											{
+												"id": "0q9uni12susvroeb6vfvkg3oeu",
+												"icon": {},
+												"text": "串、并、排的配置",
+												"children": [
+													{
+														"id": "0954dkgmlt9uq1b1cls757rpd9",
+														"icon": {},
+														"text": "串行",
+														"children": []
+													},
+													{
+														"id": "4m8v9aii4e0f161k1hsi8fmcqr",
+														"icon": {},
+														"text": "并行",
+														"children": []
+													},
+													{
+														"id": "2mlidjt1s253fdrsakpktkuppe",
+														"icon": {},
+														"text": "排他",
+														"children": []
+													},
+													{
+														"id": "47m1iaq7h18v8iavaupmbakk3j",
+														"icon": {},
+														"text": "以上三种的混合",
+														"children": []
+													}
+												]
+											}
+										]
+									}
+								]
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	"background": {}
+}

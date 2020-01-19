@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50px" height="50px" viewBox="0 0 50 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 57.1 (83088) - https://sketch.com -->
+    <title>编组 8</title>
+    <desc>Created with Sketch.</desc>
+    <g id="xmind-图标" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon" transform="translate(-217.000000, -361.000000)">
+            <g id="任务" transform="translate(97.000000, 329.000000)">
+                <g id="编组-8" transform="translate(120.000000, 32.000000)">
+                    <circle id="椭圆形" fill="#29CB5D" cx="25" cy="25" r="25"></circle>
+                    <path d="M25,46 C30.8894497,46 36.2126484,43.5755908 40.0260239,39.6703443 L25,25 C25,17.2680135 25,10.2680135 25,4 C13.4020203,4 4,13.4020203 4,25 C4,36.5979797 13.4020203,46 25,46 Z" id="椭圆形" fill="#FFFFFF"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

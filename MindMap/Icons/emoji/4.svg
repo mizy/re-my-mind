@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50px" height="50px" viewBox="0 0 50 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 57.1 (83088) - https://sketch.com -->
+    <title>目瞪口呆</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="7.60869565" cy="7.60869565" r="7.60869565"></circle>
+    </defs>
+    <g id="xmind-图标" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon" transform="translate(-277.000000, -241.000000)">
+            <g id="表情" transform="translate(97.000000, 209.000000)">
+                <g id="目瞪口呆" transform="translate(180.000000, 32.000000)">
+                    <circle id="椭圆形" fill="#FFBF2C" cx="25" cy="25" r="25"></circle>
+                    <g id="编组-6" transform="translate(6.521739, 10.000000)">
+                        <circle id="椭圆形" fill="#FFFFFF" opacity="0.590890067" cx="7.60869565" cy="7.60869565" r="7.60869565"></circle>
+                        <circle id="椭圆形" fill="#4C4022" cx="7.60869565" cy="7.60869565" r="3.69565217"></circle>
+                        <circle id="椭圆形备份-4" fill="#FFFFFF" opacity="0.590890067" cx="29.3478261" cy="7.60869565" r="7.60869565"></circle>
+                        <circle id="椭圆形备份-3" fill="#4C4022" cx="29.3478261" cy="7.60869565" r="3.69565217"></circle>
+                    </g>
+                    <g id="椭圆形备份-7" transform="translate(16.956522, 28.695652)">
+                        <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                        <use id="蒙版" fill="#4C4022" xlink:href="#path-1"></use>
+                        <circle fill="#E84643" mask="url(#mask-2)" cx="7.60869565" cy="15" r="7.60869565"></circle>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

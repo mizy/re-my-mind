@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50px" height="50px" viewBox="0 0 50 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 57.1 (83088) - https://sketch.com -->
+    <title>编组 2</title>
+    <desc>Created with Sketch.</desc>
+    <g id="xmind-图标" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon" transform="translate(-457.000000, -361.000000)">
+            <g id="任务" transform="translate(97.000000, 329.000000)">
+                <g id="编组-2" transform="translate(360.000000, 32.000000)">
+                    <circle id="椭圆形" fill="#29CB5D" cx="25" cy="25" r="25"></circle>
+                    <path d="M21.9249103,37.4905569 C21.188916,37.4905569 20.4529185,37.2101742 19.927222,36.6844762 L10.8148609,27.572115 C9.72837971,26.4856338 9.72837971,24.698208 10.8148609,23.6117559 C11.901342,22.5252747 13.6887678,22.5252747 14.77522,23.6117559 L21.9249168,30.7614527 L37.8715086,14.8148609 C38.9579897,13.7283797 40.7454155,13.7283797 41.8318677,14.8148609 C42.9183488,15.901342 42.9183488,17.6887678 41.8318677,18.77522 L23.8875812,36.7195065 C23.3618525,37.1751261 22.6609111,37.4905569 21.9249135,37.4905569 L21.9249103,37.4905569 Z" id="路径" fill="#FFFFFF" fill-rule="nonzero"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

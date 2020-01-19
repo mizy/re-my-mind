@@ -1,0 +1,241 @@
+.ant-dropdown-menu-item {
+	list-style: none;
+}
+.minder-header {
+	& {
+		height: 60px;
+		background: #fff;
+		font-size: 14px;
+		box-shadow: 0 0 6px 0 rgba(0,0,0,.1), 0 10px 12px 0 rgba(170,182,206,.2), inset 0 -1px 0 0 hsla(0,0%,100%,.3);
+    	z-index: 1;
+    	position: relative;
+		padding: 0 20px;
+		display: flex;
+		align-items: center;
+		justify-items: center;
+	}
+	div{
+		transition: left,top,width,height 500ms ease-out;
+	}
+	.title-input {
+		& {
+			margin-top: 2px;
+			border: none;
+			margin-left: 20px;
+			width: 150px;
+			border-radius: 0;
+			border-bottom: 1px solid transparent;
+		}
+
+		&:focus,
+		&:active {
+			box-shadow: none;
+			border-color: transparent;
+		}
+
+		&:hover {
+			border-bottom: 1px solid #efefef;
+		}
+	}
+	>.anticon-question-circle{
+		position: absolute;
+		right:186px;
+	}
+	.button-area {
+		display: flex;
+		align-items: center;
+		justify-items: center;
+		margin-left: 100px;
+		// width: ~"calc(100vw - 600px)"
+	}
+	.button-area-footer {
+		right: 20px;
+		position: absolute;
+	}
+	.handle-button {
+		& {
+			display: flex;
+			align-items: center;
+			justify-items: center;
+			margin-left: 3px;
+			cursor: pointer;
+		}
+		.anticon{
+			padding-top:2px;
+		}
+
+		> i {
+			height: 32px;
+			padding: 0 10px;
+			line-height: 33px;
+			border-radius: 2px;
+			font-size: 16px!important;
+			&:hover {
+				background: #f0f0f0;
+			}
+
+			&.disabled {
+				background: none !important;
+				cursor: not-allowed;
+				color: #b4b4b4;
+			}
+		}
+	}
+}
+.minder-content {
+	display: flex;
+	background: #f8f8f8;
+	background-repeat: no-repeat;
+	.text{
+		text-align: left;
+	}
+	.rightbar {
+		overflow: auto;
+		border-top: 1px solid #e0e0e0;
+		margin-top: 0;
+		background: #fff;
+		border-left: 1px solid #e0e0e0;
+		transition: width 200ms;
+		> .ant-tabs {
+			width: 300px;
+		}
+		.mainText-content {
+			padding: 20px;
+			> .mainText-item {
+				> span {
+					font-size: 24px !important;
+					font-weight: bold;
+				}
+				> .childrens {
+					> .mainText-item {
+						> span {
+							font-size: 18px;
+							font-weight: bold;
+						}
+					}
+				}
+			}
+			.mainText-item {
+				margin: 5px 0;
+				span {
+					font-size: 14px;
+					word-wrap: none;
+					white-space: nowrap;
+					color: #333 !important;
+				}
+			}
+		}
+		.icon-content {
+			.icon-item {
+				padding: 10px 20px;
+				border-bottom: 1px solid #efefef;
+				> span {
+					margin-bottom: 10px;
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+				}
+				.icon-list {
+					> i {
+						cursor: pointer;
+						width: 24px;
+						height: 24px;
+						font-size: 24px;
+						margin-right: 10px;
+					
+						display:inline-block;
+
+						background-size:24px ;
+					}
+				}
+			}
+		}
+		.right-panel-card {
+			padding: 20px;
+			> .panel-title {
+				margin-bottom: 10px;
+				font-size: 18px;
+			}
+			border-bottom: 1px solid #e0e0e0;
+			.right-panel-card-children {
+				display: flex;
+			}
+		}
+	}
+	.color-pick-demo {
+		transition: background 500ms ease;
+		margin-right: 5px;
+		width: 40px;
+		height: 28px;
+		border-radius: 5px;
+	}
+	.red {
+		color: red;
+	}
+	.yellow {
+		color: rgb(194, 194, 0);
+	}
+	.blue {
+		color: rgb(45, 45, 243);
+	}
+	.purple {
+		color: rgb(134, 15, 134);
+	}
+	.green {
+		color: #9fe048;
+	}
+	.skyblue {
+		color: skyblue;
+	}
+	.grey {
+		color: rgb(121, 140, 143);
+	}
+	.re-mind-icon {
+		display: inline-flex ;
+		flex-direction: row-reverse;
+		align-items: center;
+		> li {
+			font-size: 18px;
+			display: inline-block;
+			margin-left: -5px;
+			width: 24px;
+			height: 24px;
+			background-size: 20px;
+			border: 2px solid #fff;
+			border-radius: 24px;
+
+		}
+		
+		> li:last-child {
+			margin-left: 0px;
+		}
+		> li:first-child {
+			margin-right: 5px;
+		}
+	}
+}
+.mind-wrap {
+	height: 100vh;
+	width: 100vw;
+	background: rgb(248, 248, 248);
+}
+.key-list{
+	padding:20px;
+	>div{
+		margin-bottom: 5px;;
+		>span{
+			display: inline-block;
+		}
+		>span:first-child{
+			font-size:12px;
+			margin-right: 20px;
+			width:80px;
+		}
+		>span:last-child{
+			width:120px;
+			text-align:center;
+			padding:0 5px;
+			border:1px solid #efefef;
+		}
+	}
+}

@@ -1,7 +1,7 @@
 const webpack = require("webpack");
 const path = require("path");
 let webpackConfig = {
-	entry: "./src/index.js",
+	entry: "./MindMap/index.js",
 	output: {
 		filename: "index.js",
 		publicPath: "/"
@@ -13,7 +13,7 @@ let webpackConfig = {
 			"@": path.join(__dirname, "src")
 		}
 	},
-	devtool: "source-map",
+	devtool: "inline-source-map",
 	devServer: {
 		port: 777,
 		open: true,
@@ -68,7 +68,10 @@ let webpackConfig = {
 				test: /\.css$/,
 				use: [{ loader: "style-loader" }, { loader: "css-loader" }]
 			},
-			 
+			{
+				test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+				loader: "url-loader"
+			},
 		]
 	}
 

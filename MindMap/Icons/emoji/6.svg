@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50px" height="50px" viewBox="0 0 50 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 57.1 (83088) - https://sketch.com -->
+    <title>表情备份</title>
+    <desc>Created with Sketch.</desc>
+    <g id="xmind-图标" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon" transform="translate(-397.000000, -241.000000)">
+            <g id="表情" transform="translate(97.000000, 209.000000)">
+                <g id="表情备份" transform="translate(300.000000, 32.000000)">
+                    <circle id="椭圆形" fill="#FFBF2C" fill-rule="nonzero" cx="25" cy="25" r="25"></circle>
+                    <path d="M11.25,18.1751521 L11.25,18.1751526 C11.25,19.9287416 12.6715637,21.3503052 14.4251526,21.3503052 C16.1787416,21.3503052 17.6003052,19.9287416 17.6003052,18.1751526 L17.6003052,18.1751526 C17.6003052,16.4215637 16.1787416,15 14.4251526,15 C12.6715637,15 11.25,16.4215637 11.25,18.1751526 L11.25,18.1751521 Z" id="路径" fill="#4C4022" fill-rule="nonzero"></path>
+                    <path d="M32.5,18.1751521 L32.5,18.1751526 C32.5,19.9287416 33.9215637,21.3503052 35.6751526,21.3503052 C37.4287416,21.3503052 38.8503052,19.9287416 38.8503052,18.1751526 L38.8503052,18.1751526 C38.8503052,16.4215637 37.4287416,15 35.6751526,15 C33.9215637,15 32.5,16.4215637 32.5,18.1751526 L32.5,18.1751521 Z" id="路径" fill="#4C4022" fill-rule="nonzero"></path>
+                    <rect id="矩形" fill="#4C4022" x="12" y="35" width="26" height="4" rx="2"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

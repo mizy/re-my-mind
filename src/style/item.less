@@ -1,12 +1,13 @@
 .item {
 	position: absolute;
 	.re-mind-icon {
+		z-index: 1;
 		display: inline-block;
 	}
 	.cut {
 		opacity: 0.5;
 	}
-	.collapsed .children {
+	&.collapsed .children {
 		display: none;
 	}
 
@@ -82,13 +83,18 @@
 }
 
 /* root */
-> .item > .content {
-	font-weight: bold;
-	border-width: 2px;
-	font-size: 140%;
-	color: #fff;
-	border: 0;
-	background-color: rgb(80, 194, 139);
+> .item {
+	> .content {
+		font-weight: bold;
+		border-width: 2px;
+		font-size: 140%;
+		color: #fff;
+		border: 0;
+		background-color: rgb(80, 194, 139);
+	}
+	>.toggle{
+		display: none;
+	}
 }
 
 .current > .content {
