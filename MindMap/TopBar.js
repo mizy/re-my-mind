@@ -133,6 +133,10 @@ class TopBar extends PureComponent {
 		});
 	};
 
+	addNote = () => {
+		MM.App.current.startNote();
+	}
+
 	export = () => {
 		const root = document.querySelector(".re-mind > .item");
 		root.style.padding = "50px";
@@ -171,7 +175,7 @@ class TopBar extends PureComponent {
 							className={`iconfont icon-editor-undo ${
 								MM.App.historyIndex > 0 ? "" : "disabled"
 								}`}
-							onClick={MM.App.historyIndex > 0 && this.undo}
+							onClick={MM.App.historyIndex > 0 ? this.undo : undefined}
 						/>
 					</div>
 					<div className={"handle-button "}>
@@ -179,7 +183,7 @@ class TopBar extends PureComponent {
 							className={`iconfont icon-editor-redo ${
 								MM.App.historyIndex < MM.App.history.length ? "" : "disabled"
 								}`}
-							onClick={MM.App.historyIndex < MM.App.history.length && this.redo}
+							onClick={MM.App.historyIndex < MM.App.history.length ? this.redo : undefined}
 						/>
 					</div>
 					{/* <div className="handle-button">
@@ -275,6 +279,11 @@ class TopBar extends PureComponent {
 					<div className="handle-button">
 						<Tooltip title="格式化">
 							<i className="iconfont icon-editor-format" onClick={this.format} />
+						</Tooltip>
+					</div>
+					<div className="handle-button">
+						<Tooltip title="备注">
+							<Icon type="file-text" onClick={this.addNote} />
 						</Tooltip>
 					</div>
 					<div className="handle-button">{message}</div>

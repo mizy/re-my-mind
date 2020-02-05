@@ -130,6 +130,7 @@ MM.App = {
 		MM.Menu.init(this._port);
 		MM.Mouse.init(this._port);
 		MM.Clipboard.init();
+		this.note = new MM.Note(this);
 
 		window.addEventListener("resize", this);
 		window.addEventListener("click", this);

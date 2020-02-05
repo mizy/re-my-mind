@@ -45,6 +45,7 @@ window.MM = {
 };
 require("./Model/Repo.js");
 require("./View/Item.js"),
+	require("./View/Note.js"),
 	require("./Model/Map.js"),
 	require("./Control/Keyboard.js"),
 	require("./Model/Action.js"),
@@ -60,4 +61,4 @@ require("./View/Item.js"),
 	require("./Control/Mouse.js"),
 	require("./app.js")
 
-export default MM;
+export default window.MM;

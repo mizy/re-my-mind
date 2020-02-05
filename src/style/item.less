@@ -121,3 +121,35 @@
 	/* NOT display:none - we need to have non-zero dimensions for layouting */
 	visibility: hidden;
 }
+.mm-note{
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+	top:80px;
+	left:0px;
+	transition: all 300ms ease-in;
+	overflow: hidden;
+	width:300px;
+	border:1px solid #efefef;
+	border-radius: 3px;
+	box-shadow: 2px 2px 20px 1px rgba(0,0,0,.2);
+	.note-util{
+		height: 30px;
+		width:100%;
+		border-bottom:1px solid #efefef;
+	}
+	.note-content{
+		height:300px;
+		width:100%;
+		overflow:scroll;
+		p{
+			padding:10px;
+			outline: none;
+			height:300px;
+			width:100%;
+		}
+	}
+}
+.mm-note.hide{
+	height:0;
+}

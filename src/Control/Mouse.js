@@ -1,3 +1,4 @@
+
 /**
  * @class
  */
@@ -34,7 +35,7 @@ MM.Mouse.handleEvent = function (e) {
 				return;
 			} /* ignore on edited node */
 			if (item) { MM.App.select(item); }
-			if (!item) {
+			if (!item && !MM.App.note.status === "show") {
 				MM.App.current.deselect();
 			}
 			break;
@@ -64,6 +65,10 @@ MM.Mouse.handleEvent = function (e) {
 				if (item == MM.App.current) { return; } /* ignore dnd on edited node */
 				MM.Command.Finish.execute(); /* clicked elsewhere => finalize edit */
 			}
+			if (MM.App.note.status === "show" && !this.isNote(e.target)) {
+				MM.App.note.hide();
+			}
+
 
 			if (e.type == "mousedown") { e.preventDefault(); } /* to prevent blurring the clipboard node */
 
@@ -118,6 +123,23 @@ MM.Mouse.handleEvent = function (e) {
 			}
 			break;
 	}
+}
+
+MM.Mouse.isNote = function (target) {
+	let parent = target;
+	let flag = false;
+	do {
+		if (parent.className === undefined) {
+			parent = false;
+		} else if (parent.className.indexOf("mm-note") === 0) {
+			flag = true;
+			parent = false;
+		} else {
+			parent = parent.parentNode;
+		}
+	} while (parent)
+	console.log(flag)
+	return flag;
 }
 
 MM.Mouse._startDrag = function (e, item) {

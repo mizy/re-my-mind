@@ -6,7 +6,19 @@ MM.Command = Object.create(MM.Repo, {
 });
 
 MM.Command.isValid = function () {
-	return (this.editMode === null || this.editMode == MM.App.editing);
+	if (MM.App.note.status === "show") {
+		return false;
+	}
+	if (!this.editMode && !MM.App.editing) {
+		return true;
+	}
+	if (this.editMode === null) {
+		return true;
+	}
+	if (this.editMode && MM.App.editing) {
+		return true;
+	}
+	return false
 }
 MM.Command.execute = function () { }
 

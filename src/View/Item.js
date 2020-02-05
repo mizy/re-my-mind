@@ -29,7 +29,8 @@ MM.Item = function (options) {
 		text: document.createElement("div"),
 		children: document.createElement("ul"),
 		toggle: document.createElement("div"),
-		canvas: document.createElement("canvas")
+		canvas: document.createElement("canvas"),
+		note: document.createElement("i")
 	}
 	this._dom.node.classList.add("item");
 	this._dom.content.classList.add("content");
@@ -39,6 +40,8 @@ MM.Item = function (options) {
 	this._dom.text.classList.add("text");
 	this._dom.toggle.classList.add("toggle");
 	this._dom.children.classList.add("children");
+	this._dom.note.classList.add("note-button");
+	this._dom.note.innerHTML = "&#x270e"
 
 	this._dom.content.appendChild(this._dom.text); /* status+value are appended in layout */
 	this._dom.node.appendChild(this._dom.canvas);
@@ -79,6 +82,9 @@ MM.Item.prototype.toJSON = function () {
 	if (this._layout) { data.layout = this._layout.id; }
 	if (!this._autoShape) { data.shape = this._shape.id; }
 	if (this._collapsed) { data.collapsed = 1; }
+	if (this.note) {
+		data.note = this.note;
+	}
 	if (this._children.length) {
 		data.children = this._children.map(function (child) { return child.toJSON(); });
 	}
@@ -107,7 +113,10 @@ MM.Item.prototype.fromJSON = function (data) {
 	if (data.collapsed) { this.collapse(); }
 	if (data.layout) { this._layout = MM.Layout.getById(data.layout); }
 	if (data.shape) { this.setShape(MM.Shape.getById(data.shape)); }
-
+	if (data.note) {
+		this.note = data.note;
+		this._dom.node.appendChild(this._dom.note);
+	}
 	(data.children || []).forEach(function (child) {
 		this.insertChild(MM.Item.fromJSON(child));
 	}, this);
@@ -489,6 +498,18 @@ MM.Item.prototype.stopEditing = function () {
 	MM.Clipboard.focus();
 
 	return result;
+}
+
+MM.Item.prototype.startNote = function (text) {
+	this._dom.node.appendChild(this._dom.note);
+	MM.App.note.show(this)
+}
+
+MM.Item.prototype.endNote = function (text) {
+	if (!this.note) {
+		this._dom.node.removeChild(this._dom.note);
+	}
+	MM.App.note.hide()
 }
 
 MM.Item.prototype.handleEvent = function (e) {
