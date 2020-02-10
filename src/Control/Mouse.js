@@ -27,6 +27,7 @@ MM.Mouse.init = function (port) {
 }
 
 MM.Mouse.handleEvent = function (e) {
+
 	switch (e.type) {
 		case "click":
 			var item = MM.App.map.getItemFor(e.target);
@@ -35,7 +36,7 @@ MM.Mouse.handleEvent = function (e) {
 				return;
 			} /* ignore on edited node */
 			if (item) { MM.App.select(item); }
-			if (!item && !MM.App.note.status === "show") {
+			if (!item && MM.App.note.status !== "show") {
 				MM.App.current.deselect();
 			}
 			break;
@@ -65,8 +66,11 @@ MM.Mouse.handleEvent = function (e) {
 				if (item == MM.App.current) { return; } /* ignore dnd on edited node */
 				MM.Command.Finish.execute(); /* clicked elsewhere => finalize edit */
 			}
-			if (MM.App.note.status === "show" && !this.isNote(e.target)) {
-				MM.App.note.hide();
+			if (MM.App.note.status === "show") {
+				if (!this.isNote(e.target)) {
+					MM.App.note.hide();
+				}
+				return;
 			}
 
 
@@ -101,6 +105,7 @@ MM.Mouse.handleEvent = function (e) {
 
 		case "wheel":
 		case "mousewheel":
+			if (MM.App.note.status === 'show') return;
 			var dir = 0;
 			if (e.wheelDelta) {
 				if (e.wheelDelta < 0) {

@@ -64,7 +64,7 @@
 		background-color: #4a90e2;
 		color: #fff;
 		border-radius: 3px;
-		.text{
+		.text,.note-button{
 			min-height: 25px;
 			font-size: 18px;
 		}
@@ -75,7 +75,7 @@
 		border: 1px solid transparent;
 		padding: 10px 20px;
 		color: #fff;
-		.text{
+		.text,.note-button{
 			min-height: 33px;
 			font-size: 24px;
 		}
@@ -116,7 +116,15 @@
 	top: -2px;
 	padding: 0px;
 }
-
+.note-button::after{
+		font-family: "iconfont" !important;
+		font-style: normal;
+		content:"\e6db";
+}
+.note-button{
+	margin-left:5px;
+	z-index: 1;
+}
 :not(.current):not(.collapsed) > .toggle {
 	/* NOT display:none - we need to have non-zero dimensions for layouting */
 	visibility: hidden;
@@ -127,7 +135,9 @@
 	position: absolute;
 	top:80px;
 	left:0px;
-	transition: all 300ms ease-in;
+	z-index: 2;
+	background: #fff;
+	transition: opacity,height 300ms ease-in;
 	overflow: hidden;
 	width:300px;
 	border:1px solid #efefef;
@@ -152,4 +162,5 @@
 }
 .mm-note.hide{
 	height:0;
+	opacity: 0;
 }

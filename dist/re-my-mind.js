@@ -91,16 +91,50 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports) {
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+module.exports = _classCallCheck;
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports) {
+
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+
+module.exports = _createClass;
+
+/***/ }),
+/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _index_less__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var _index_less__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
 /* harmony import */ var _index_less__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_index_less__WEBPACK_IMPORTED_MODULE_0__);
 
 /**
@@ -152,17 +186,17 @@ window.MM = {
   }
 };
 
-__webpack_require__(6);
+__webpack_require__(8);
 
-__webpack_require__(7), __webpack_require__(8), __webpack_require__(9), __webpack_require__(10), __webpack_require__(11), __webpack_require__(12), __webpack_require__(13), __webpack_require__(14), __webpack_require__(15), __webpack_require__(16), __webpack_require__(17), __webpack_require__(18), __webpack_require__(19), __webpack_require__(20), __webpack_require__(21);
-/* harmony default export */ __webpack_exports__["default"] = (MM);
+__webpack_require__(9), __webpack_require__(10), __webpack_require__(11), __webpack_require__(12), __webpack_require__(13), __webpack_require__(14), __webpack_require__(15), __webpack_require__(16), __webpack_require__(17), __webpack_require__(18), __webpack_require__(19), __webpack_require__(20), __webpack_require__(21), __webpack_require__(22), __webpack_require__(23), __webpack_require__(24);
+/* harmony default export */ __webpack_exports__["default"] = (window.MM);
 
 /***/ }),
-/* 1 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(2);
+var content = __webpack_require__(4);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -176,23 +210,23 @@ var options = {"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(4)(content, options);
+var update = __webpack_require__(6)(content, options);
 
 if(content.locals) module.exports = content.locals;
 
 if(false) {}
 
 /***/ }),
-/* 2 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(3)(false);
+exports = module.exports = __webpack_require__(5)(false);
 // Module
-exports.push([module.i, ".re-mind {\n  position: relative;\n  overflow: hidden;\n  /* root */\n}\n.re-mind * {\n  box-sizing: border-box;\n}\n.re-mind ul,\n.re-mind li {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n}\n.re-mind ul li,\n.re-mind li li {\n  list-style: none;\n}\n.re-mind .menu {\n  position: absolute;\n  z-index: 2;\n  /* border: 1px solid #666; */\n  background-color: #fff;\n  box-shadow: 0 0 5px 0px #666;\n  border-radius: 2px;\n  padding: 10px 0;\n}\n.re-mind .menu button {\n  display: block;\n  background-color: transparent;\n  border: none;\n  margin: 0;\n  padding: 3px 6px;\n  font-size: 15px;\n  width: 130px;\n  text-align: left;\n  cursor: pointer;\n}\n.re-mind .menu button:hover {\n  background: #0ae;\n  color: #fff;\n}\n.re-mind .menu span {\n  display: block;\n  border-top: 1px solid #eee;\n  margin-top: 4px;\n  padding-top: 4px;\n}\n.re-mind .item {\n  position: absolute;\n}\n.re-mind .item .re-mind-icon {\n  z-index: 1;\n  display: inline-block;\n}\n.re-mind .item .cut {\n  opacity: 0.5;\n}\n.re-mind .item.collapsed .children {\n  display: none;\n}\n.re-mind .item .content {\n  display: flex;\n  position: absolute;\n  cursor: pointer;\n  padding: 5px;\n  border-radius: 5px;\n}\n.re-mind .item .content > * {\n  vertical-align: middle;\n}\n.re-mind .item .content .text {\n  z-index: 1;\n  text-align: left;\n  display: inline-block;\n  min-height: 22px;\n  word-wrap: break-word;\n  white-space: nowrap;\n  word-break: break-all;\n  font-weight: normal;\n  outline: none;\n}\n.re-mind .item .content .value,\n.re-mind .item .content .status {\n  margin-right: 0.2em;\n}\n.re-mind .item .content .text ~ .value,\n.re-mind .item .content .text ~ .status {\n  margin-left: 0.2em;\n  margin-right: 0;\n}\n.re-mind .item .content .value {\n  opacity: 0.7;\n  display: none;\n}\n.re-mind .item .content .value:not(:empty):before {\n  content: \"(\";\n}\n.re-mind .item .content .value:not(:empty):after {\n  content: \")\";\n}\n.re-mind .shape-box > .content {\n  padding: 4px 10px;\n  background-color: #4a90e2;\n  color: #fff;\n  border-radius: 3px;\n}\n.re-mind .shape-box > .content .text {\n  min-height: 25px;\n  font-size: 18px;\n}\n.re-mind .shape-ellipse > .content {\n  border: 1px solid transparent;\n  padding: 10px 20px;\n  color: #fff;\n}\n.re-mind .shape-ellipse > .content .text {\n  min-height: 33px;\n  font-size: 24px;\n}\n.re-mind > .item > .content {\n  font-weight: bold;\n  border-width: 2px;\n  font-size: 140%;\n  color: #fff;\n  border: 0;\n  background-color: #50c28b;\n}\n.re-mind > .item > .toggle {\n  display: none;\n}\n.re-mind .current > .content:before {\n  content: \" \";\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: -6px;\n  top: -6px;\n  box-sizing: content-box;\n  border: 2px solid #7cb9ff;\n  padding: 4px;\n}\n.re-mind > .item > .children > .item > .children .current > .content:before {\n  left: -2px;\n  top: -2px;\n  padding: 0px;\n}\n.re-mind :not(.current):not(.collapsed) > .toggle {\n  /* NOT display:none - we need to have non-zero dimensions for layouting */\n  visibility: hidden;\n}\n.re-mind .status {\n  font-size: 150%;\n  line-height: 0.8;\n}\n.re-mind .status.yes:after {\n  content: \"✔\";\n  color: #0f0;\n}\n.re-mind .status.no:after {\n  content: \"✘\";\n  color: #f00;\n}\n.re-mind canvas {\n  position: absolute;\n  left: 0;\n  top: 0;\n}\n.re-mind .toggle {\n  position: absolute;\n  width: 12px;\n  height: 12px;\n  line-height: 12px;\n  cursor: pointer;\n  border-radius: 50%;\n  border: 1px solid #00f;\n  background-color: #88f;\n  text-align: center;\n  font-weight: bold;\n  font-family: sans-serif;\n  color: #fff;\n  opacity: 0.7;\n}\n.re-mind .toggle:hover {\n  opacity: 1;\n}\n.re-mind .toggle:before {\n  content: \"−\";\n  line-height: 8px;\n  margin-top: -2px;\n  position: absolute;\n  left: 1px;\n  top: 3px;\n  font-size: 12px;\n}\n.re-mind .collapsed > .toggle:before {\n  content: \"+\";\n  line-height: 8px;\n  margin-top: -2px;\n  position: absolute;\n  left: 1px;\n  top: 2px;\n  font-size: 12px;\n}\n.re-mind .re-mind-icon {\n  display: inline-flex !important;\n  align-items: center;\n  flex-direction: row-reverse;\n}\n.re-mind .re-mind-icon > li {\n  font-size: 18px;\n  display: inline-block;\n  margin-left: -5px;\n}\n.re-mind .re-mind-icon > li:last-child {\n  margin-left: 0px;\n}\n.re-mind .re-mind-icon > li:first-child {\n  margin-right: 5px;\n}\n", ""]);
+exports.push([module.i, ".re-mind {\n  position: relative;\n  overflow: hidden;\n  /* root */\n}\n.re-mind * {\n  box-sizing: border-box;\n}\n.re-mind ul,\n.re-mind li {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n}\n.re-mind ul li,\n.re-mind li li {\n  list-style: none;\n}\n.re-mind .menu {\n  position: absolute;\n  z-index: 2;\n  /* border: 1px solid #666; */\n  background-color: #fff;\n  box-shadow: 0 0 5px 0px #666;\n  border-radius: 2px;\n  padding: 10px 0;\n}\n.re-mind .menu button {\n  display: block;\n  background-color: transparent;\n  border: none;\n  margin: 0;\n  padding: 3px 6px;\n  font-size: 15px;\n  width: 130px;\n  text-align: left;\n  cursor: pointer;\n}\n.re-mind .menu button:hover {\n  background: #0ae;\n  color: #fff;\n}\n.re-mind .menu span {\n  display: block;\n  border-top: 1px solid #eee;\n  margin-top: 4px;\n  padding-top: 4px;\n}\n.re-mind .item {\n  position: absolute;\n}\n.re-mind .item .re-mind-icon {\n  z-index: 1;\n  display: inline-block;\n}\n.re-mind .item .cut {\n  opacity: 0.5;\n}\n.re-mind .item.collapsed .children {\n  display: none;\n}\n.re-mind .item .content {\n  display: flex;\n  position: absolute;\n  cursor: pointer;\n  padding: 5px;\n  border-radius: 5px;\n}\n.re-mind .item .content > * {\n  vertical-align: middle;\n}\n.re-mind .item .content .text {\n  z-index: 1;\n  text-align: left;\n  display: inline-block;\n  min-height: 22px;\n  word-wrap: break-word;\n  white-space: nowrap;\n  word-break: break-all;\n  font-weight: normal;\n  outline: none;\n}\n.re-mind .item .content .value,\n.re-mind .item .content .status {\n  margin-right: 0.2em;\n}\n.re-mind .item .content .text ~ .value,\n.re-mind .item .content .text ~ .status {\n  margin-left: 0.2em;\n  margin-right: 0;\n}\n.re-mind .item .content .value {\n  opacity: 0.7;\n  display: none;\n}\n.re-mind .item .content .value:not(:empty):before {\n  content: \"(\";\n}\n.re-mind .item .content .value:not(:empty):after {\n  content: \")\";\n}\n.re-mind .shape-box > .content {\n  padding: 4px 10px;\n  background-color: #4a90e2;\n  color: #fff;\n  border-radius: 3px;\n}\n.re-mind .shape-box > .content .text,\n.re-mind .shape-box > .content .note-button {\n  min-height: 25px;\n  font-size: 18px;\n}\n.re-mind .shape-ellipse > .content {\n  border: 1px solid transparent;\n  padding: 10px 20px;\n  color: #fff;\n}\n.re-mind .shape-ellipse > .content .text,\n.re-mind .shape-ellipse > .content .note-button {\n  min-height: 33px;\n  font-size: 24px;\n}\n.re-mind > .item > .content {\n  font-weight: bold;\n  border-width: 2px;\n  font-size: 140%;\n  color: #fff;\n  border: 0;\n  background-color: #50c28b;\n}\n.re-mind > .item > .toggle {\n  display: none;\n}\n.re-mind .current > .content:before {\n  content: \" \";\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: -6px;\n  top: -6px;\n  box-sizing: content-box;\n  border: 2px solid #7cb9ff;\n  padding: 4px;\n}\n.re-mind > .item > .children > .item > .children .current > .content:before {\n  left: -2px;\n  top: -2px;\n  padding: 0px;\n}\n.re-mind .note-button::after {\n  font-family: \"iconfont\" !important;\n  font-style: normal;\n  content: \"\\e6db\";\n}\n.re-mind .note-button {\n  margin-left: 5px;\n  z-index: 1;\n}\n.re-mind :not(.current):not(.collapsed) > .toggle {\n  /* NOT display:none - we need to have non-zero dimensions for layouting */\n  visibility: hidden;\n}\n.re-mind .mm-note {\n  display: flex;\n  flex-direction: column;\n  position: absolute;\n  top: 80px;\n  left: 0px;\n  z-index: 2;\n  background: #fff;\n  transition: opacity, height 300ms ease-in;\n  overflow: hidden;\n  width: 300px;\n  border: 1px solid #efefef;\n  border-radius: 3px;\n  box-shadow: 2px 2px 20px 1px rgba(0, 0, 0, 0.2);\n}\n.re-mind .mm-note .note-util {\n  height: 30px;\n  width: 100%;\n  border-bottom: 1px solid #efefef;\n}\n.re-mind .mm-note .note-content {\n  height: 300px;\n  width: 100%;\n  overflow: scroll;\n}\n.re-mind .mm-note .note-content p {\n  padding: 10px;\n  outline: none;\n  height: 300px;\n  width: 100%;\n}\n.re-mind .mm-note.hide {\n  height: 0;\n  opacity: 0;\n}\n.re-mind .status {\n  font-size: 150%;\n  line-height: 0.8;\n}\n.re-mind .status.yes:after {\n  content: \"✔\";\n  color: #0f0;\n}\n.re-mind .status.no:after {\n  content: \"✘\";\n  color: #f00;\n}\n.re-mind canvas {\n  position: absolute;\n  left: 0;\n  top: 0;\n}\n.re-mind .toggle {\n  position: absolute;\n  width: 12px;\n  height: 12px;\n  line-height: 12px;\n  cursor: pointer;\n  border-radius: 50%;\n  border: 1px solid #00f;\n  background-color: #88f;\n  text-align: center;\n  font-weight: bold;\n  font-family: sans-serif;\n  color: #fff;\n  opacity: 0.7;\n}\n.re-mind .toggle:hover {\n  opacity: 1;\n}\n.re-mind .toggle:before {\n  content: \"−\";\n  line-height: 8px;\n  margin-top: -2px;\n  position: absolute;\n  left: 1px;\n  top: 3px;\n  font-size: 12px;\n}\n.re-mind .collapsed > .toggle:before {\n  content: \"+\";\n  line-height: 8px;\n  margin-top: -2px;\n  position: absolute;\n  left: 1px;\n  top: 2px;\n  font-size: 12px;\n}\n.re-mind .re-mind-icon {\n  display: inline-flex !important;\n  align-items: center;\n  flex-direction: row-reverse;\n}\n.re-mind .re-mind-icon > li {\n  font-size: 18px;\n  display: inline-block;\n  margin-left: -5px;\n}\n.re-mind .re-mind-icon > li:last-child {\n  margin-left: 0px;\n}\n.re-mind .re-mind-icon > li:first-child {\n  margin-right: 5px;\n}\n", ""]);
 
 
 /***/ }),
-/* 3 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -288,7 +322,7 @@ function toComment(sourceMap) {
 }
 
 /***/ }),
-/* 4 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -357,7 +391,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(5);
+var	fixUrls = __webpack_require__(7);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -692,7 +726,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 5 */
+/* 7 */
 /***/ (function(module, exports) {
 
 
@@ -787,7 +821,7 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 6 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -833,12 +867,14 @@ MM.Repo = {
 /* harmony default export */ __webpack_exports__["default"] = (MM);
 
 /***/ }),
-/* 7 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 MM.Item = function (options) {
+  var _this = this;
+
   options = options || {};
   this._parent = null;
   this._children = [];
@@ -869,7 +905,8 @@ MM.Item = function (options) {
     text: document.createElement("div"),
     children: document.createElement("ul"),
     toggle: document.createElement("div"),
-    canvas: document.createElement("canvas")
+    canvas: document.createElement("canvas"),
+    note: document.createElement("i")
   };
 
   this._dom.node.classList.add("item");
@@ -887,6 +924,14 @@ MM.Item = function (options) {
   this._dom.toggle.classList.add("toggle");
 
   this._dom.children.classList.add("children");
+
+  this._dom.note.classList.add("note-button");
+
+  this._dom.note.innerHTML = "";
+
+  this._dom.note.addEventListener("click", function () {
+    _this.startNote();
+  });
 
   this._dom.content.appendChild(this._dom.text);
   /* status+value are appended in layout */
@@ -958,6 +1003,10 @@ MM.Item.prototype.toJSON = function () {
     data.collapsed = 1;
   }
 
+  if (this.note) {
+    data.note = this.note;
+  }
+
   if (this._children.length) {
     data.children = this._children.map(function (child) {
       return child.toJSON();
@@ -1019,6 +1068,12 @@ MM.Item.prototype.fromJSON = function (data) {
 
   if (data.shape) {
     this.setShape(MM.Shape.getById(data.shape));
+  }
+
+  if (data.note) {
+    this.note = data.note;
+
+    this._dom.content.appendChild(this._dom.note);
   }
 
   (data.children || []).forEach(function (child) {
@@ -1493,6 +1548,22 @@ MM.Item.prototype.stopEditing = function () {
   return result;
 };
 
+MM.Item.prototype.startNote = function (text) {
+  this._dom.content.appendChild(this._dom.note); // 
+
+
+  MM.App.note.show(this);
+  this.update();
+};
+
+MM.Item.prototype.endNote = function (text) {
+  if (!this.note) {
+    this._dom.node.removeChild(this._dom.note);
+  }
+
+  MM.App.note.hide();
+};
+
 MM.Item.prototype.handleEvent = function (e) {
   switch (e.type) {
     case "input":
@@ -1701,7 +1772,93 @@ MM.Item.prototype._findLinks = function (node) {
 /* harmony default export */ __webpack_exports__["default"] = (MM.Item);
 
 /***/ }),
-/* 8 */
+/* 10 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+var Note =
+/*#__PURE__*/
+function () {
+  function Note(app) {
+    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, Note);
+
+    this.app = app;
+    this.initDom();
+  }
+
+  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(Note, [{
+    key: "initDom",
+    value: function initDom() {
+      var note = document.createElement("div");
+      note.className = "mm-note hide";
+      note.innerHTML = "<div class=\"note-util\"></div><div  class=\"note-content\"><p /></div>";
+
+      this.app._port.appendChild(note);
+
+      this.note = note;
+    }
+  }, {
+    key: "getPosition",
+    value: function getPosition(item, index) {
+      this.x += (index === 0 ? item._dom.content.offsetLeft : 0) + item._dom.node.offsetLeft;
+      this.y += (index === 0 ? item._dom.content.offsetTop : 0) + item._dom.node.offsetTop;
+
+      if (item._parent && item._parent._dom) {
+        this.index++;
+        this.getPosition(item._parent, 1);
+      }
+    }
+  }, {
+    key: "show",
+    value: function show(item) {
+      this.status = "show";
+      var content = this.note.querySelector(".note-content p");
+      content.contentEditable = true;
+      content.innerHTML = decodeURIComponent(item.note || "");
+      this.x = 0;
+      this.y = 0;
+      this.index = 0;
+      this.getPosition(item, 0);
+      this.note.style.top = (this.index < 1 ? 80 : 40) + this.y + "px";
+      this.note.style.left = this.x + "px";
+      this.note.className = "mm-note";
+      this.item = item;
+      setTimeout(function () {
+        var selection = getSelection();
+        var range = selection.getRangeAt(0);
+        selection.removeAllRanges();
+        range.selectNodeContents(content); // selection.addRange(range);
+
+        content.focus();
+      }, 100);
+    }
+  }, {
+    key: "hide",
+    value: function hide() {
+      this.status = "hide";
+      this.note.className = "mm-note hide";
+      var content = this.note.querySelector(".note-content p");
+      this.item.note = encodeURIComponent(content.innerHTML);
+      content.innerHTML = "";
+    }
+  }]);
+
+  return Note;
+}();
+
+MM.Note = Note;
+/* harmony default export */ __webpack_exports__["default"] = (Note);
+
+/***/ }),
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2068,7 +2225,7 @@ MM.Map.prototype._setRoot = function (item) {
 /* harmony default export */ __webpack_exports__["default"] = (MM.Map);
 
 /***/ }),
-/* 9 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2132,7 +2289,7 @@ MM.Keyboard._keyOK = function (key, e) {
 /* harmony default export */ __webpack_exports__["default"] = (MM.Keyboard);
 
 /***/ }),
-/* 10 */
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2447,7 +2604,7 @@ MM.Action.SetSide.prototype.undo = function () {
 /* harmony default export */ __webpack_exports__["default"] = (MM.Action);
 
 /***/ }),
-/* 11 */
+/* 14 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2615,7 +2772,7 @@ MM.Clipboard._endCut = function () {
 /* harmony default export */ __webpack_exports__["default"] = (MM.Clipboard);
 
 /***/ }),
-/* 12 */
+/* 15 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2698,7 +2855,7 @@ MM.Menu = {
 /* harmony default export */ __webpack_exports__["default"] = (MM.Menu);
 
 /***/ }),
-/* 13 */
+/* 16 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2721,7 +2878,23 @@ MM.Command = Object.create(MM.Repo, {
 });
 
 MM.Command.isValid = function () {
-  return this.editMode === null || this.editMode == MM.App.editing;
+  if (MM.App.note.status === "show") {
+    return false;
+  }
+
+  if (!this.editMode && !MM.App.editing) {
+    return true;
+  }
+
+  if (this.editMode === null) {
+    return true;
+  }
+
+  if (this.editMode && MM.App.editing) {
+    return true;
+  }
+
+  return false;
 };
 
 MM.Command.execute = function () {};
@@ -3545,7 +3718,7 @@ MM.Command.DeleteIcon.execute = function (target) {
 /* harmony default export */ __webpack_exports__["default"] = (MM.Command);
 
 /***/ }),
-/* 14 */
+/* 17 */
 /***/ (function(module, exports) {
 
 MM.Layout = Object.create(MM.Repo, {
@@ -3732,7 +3905,7 @@ MM.Layout._alignItem = function (item, side) {
 };
 
 /***/ }),
-/* 15 */
+/* 18 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4149,7 +4322,7 @@ MM.Layout.Graph.Right = MM.Layout.Graph.create("right", "graph-right", "Right");
 /* harmony default export */ __webpack_exports__["default"] = (MM.Layout.Graph);
 
 /***/ }),
-/* 16 */
+/* 19 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4308,7 +4481,7 @@ MM.Layout.Tree.Right = MM.Layout.Tree.create("right", "tree-right", "Right");
 /* harmony default export */ __webpack_exports__["default"] = (MM.Layout.Tree);
 
 /***/ }),
-/* 17 */
+/* 20 */
 /***/ (function(module, exports) {
 
 MM.Layout.Map = Object.create(MM.Layout.Graph, {
@@ -4519,7 +4692,7 @@ MM.Layout.Map._drawRootConnectors = function (item, side, children) {
 };
 
 /***/ }),
-/* 18 */
+/* 21 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4633,7 +4806,7 @@ MM.Shape.Underline.getVerticalAnchor = function (item) {
 /* harmony default export */ __webpack_exports__["default"] = (MM.Shape);
 
 /***/ }),
-/* 19 */
+/* 22 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4700,7 +4873,7 @@ MM.Format.JSON.from = function (data) {
 /* harmony default export */ __webpack_exports__["default"] = (MM.Format);
 
 /***/ }),
-/* 20 */
+/* 23 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4757,7 +4930,7 @@ MM.Mouse.handleEvent = function (e) {
         MM.App.select(item);
       }
 
-      if (!item) {
+      if (!item && MM.App.note.status !== "show") {
         MM.App.current.deselect();
       }
 
@@ -4803,6 +4976,14 @@ MM.Mouse.handleEvent = function (e) {
         /* clicked elsewhere => finalize edit */
       }
 
+      if (MM.App.note.status === "show") {
+        if (!this.isNote(e.target)) {
+          MM.App.note.hide();
+        }
+
+        return;
+      }
+
       if (e.type == "mousedown") {
         e.preventDefault();
       }
@@ -4846,6 +5027,7 @@ MM.Mouse.handleEvent = function (e) {
 
     case "wheel":
     case "mousewheel":
+      if (MM.App.note.status === 'show') return;
       var dir = 0;
 
       if (e.wheelDelta) {
@@ -4872,6 +5054,25 @@ MM.Mouse.handleEvent = function (e) {
 
       break;
   }
+};
+
+MM.Mouse.isNote = function (target) {
+  var parent = target;
+  var flag = false;
+
+  do {
+    if (parent.className === undefined) {
+      parent = false;
+    } else if (parent.className.indexOf("mm-note") === 0) {
+      flag = true;
+      parent = false;
+    } else {
+      parent = parent.parentNode;
+    }
+  } while (parent);
+
+  console.log(flag);
+  return flag;
 };
 
 MM.Mouse._startDrag = function (e, item) {
@@ -5107,7 +5308,7 @@ MM.Mouse._visualizeDragState = function (state) {
 /* harmony default export */ __webpack_exports__["default"] = (MM.Mouse);
 
 /***/ }),
-/* 21 */
+/* 24 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5118,7 +5319,7 @@ __webpack_require__.r(__webpack_exports__);
 MM.App = {
   options: {
     headTitle: " - 脑图",
-    colors: ['#f17c67', '#495A80', '#9966CC', '#EEE8AB', '#FD5B78', '#228fbd', '#fdb933', '#7fb80e', '#7bbfea', '#6f599c', '#fedcbd', '#00EBC0', '#FF84BA']
+    colors: ['#fec936', '#f88b15', '#fe7e4d', '#ec6d7a', '#ef3224', '#9bc039', '#67c97e', '#00a7cd', '#40b5c6', '#2da4ff', '#956fe7', '#882e99', '#FF84BA']
   },
   keyboard: null,
   current: null,
@@ -5252,6 +5453,7 @@ MM.App = {
     this._syncPort();
 
     this.setMap(new MM.Map(options || {}));
+    this.note = new MM.Note(this);
     return this;
   },
   _syncPort: function _syncPort() {

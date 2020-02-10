@@ -41,7 +41,10 @@ MM.Item = function (options) {
 	this._dom.toggle.classList.add("toggle");
 	this._dom.children.classList.add("children");
 	this._dom.note.classList.add("note-button");
-	this._dom.note.innerHTML = "&#x270e"
+	this._dom.note.innerHTML = "";
+	this._dom.note.addEventListener("click", () => {
+		this.startNote()
+	});
 
 	this._dom.content.appendChild(this._dom.text); /* status+value are appended in layout */
 	this._dom.node.appendChild(this._dom.canvas);
@@ -50,6 +53,7 @@ MM.Item = function (options) {
 	this.setText(options.name || "")
 	this._dom.toggle.addEventListener("click", this);
 }
+
 
 MM.Item.COLOR = "#999999";
 
@@ -115,7 +119,7 @@ MM.Item.prototype.fromJSON = function (data) {
 	if (data.shape) { this.setShape(MM.Shape.getById(data.shape)); }
 	if (data.note) {
 		this.note = data.note;
-		this._dom.node.appendChild(this._dom.note);
+		this._dom.content.appendChild(this._dom.note);
 	}
 	(data.children || []).forEach(function (child) {
 		this.insertChild(MM.Item.fromJSON(child));
@@ -501,8 +505,10 @@ MM.Item.prototype.stopEditing = function () {
 }
 
 MM.Item.prototype.startNote = function (text) {
-	this._dom.node.appendChild(this._dom.note);
-	MM.App.note.show(this)
+	this._dom.content.appendChild(this._dom.note);
+	// 
+	MM.App.note.show(this);
+	this.update();
 }
 
 MM.Item.prototype.endNote = function (text) {

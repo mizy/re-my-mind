@@ -5,7 +5,7 @@
 MM.App = {
 	options: {
 		headTitle: " - 脑图",
-		colors: ['#f17c67', '#495A80', '#9966CC', '#EEE8AB', '#FD5B78', '#228fbd', '#fdb933', '#7fb80e', '#7bbfea', '#6f599c', '#fedcbd', '#00EBC0', '#FF84BA'],
+		colors: ['#fec936', '#f88b15', '#fe7e4d', '#ec6d7a', '#ef3224', '#9bc039', '#67c97e', '#00a7cd', '#40b5c6', '#2da4ff', '#956fe7', '#882e99', '#FF84BA'],
 	},
 	keyboard: null,
 	current: null,
@@ -130,7 +130,6 @@ MM.App = {
 		MM.Menu.init(this._port);
 		MM.Mouse.init(this._port);
 		MM.Clipboard.init();
-		this.note = new MM.Note(this);
 
 		window.addEventListener("resize", this);
 		window.addEventListener("click", this);
@@ -144,6 +143,7 @@ MM.App = {
 		this._syncPort();
 
 		this.setMap(new MM.Map(options || {}));
+		this.note = new MM.Note(this);
 		return this;
 	},
 

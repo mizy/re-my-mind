@@ -12,11 +12,12 @@ class Note {
 		this.note = note;
 	}
 
-	getPosition(item) {
-		this.x += item._dom.content.offsetLeft + item._dom.node.offsetLeft;
-		this.y += item._dom.content.offsetTop + item._dom.node.offsetTop;
+	getPosition(item, index) {
+		this.x += (index === 0 ? item._dom.content.offsetLeft : 0) + item._dom.node.offsetLeft;
+		this.y += (index === 0 ? item._dom.content.offsetTop : 0) + item._dom.node.offsetTop;
 		if (item._parent && item._parent._dom) {
-			this.getPosition(item._parent)
+			this.index++;
+			this.getPosition(item._parent, 1)
 		}
 	}
 
@@ -25,33 +26,32 @@ class Note {
 		const content = this.note.querySelector(".note-content p");
 		content.contentEditable = true;
 		content.innerHTML = decodeURIComponent(item.note || "");
-		this.x = 0; this.y = 0;
-		this.getPosition(item);
-		this.note.style.top = this.y + 80 + "px";
+		this.x = 0; this.y = 0; this.index = 0;
+		this.getPosition(item, 0);
+		this.note.style.top = (this.index < 1 ? 80 : 40) + this.y + "px";
 		this.note.style.left = this.x + "px";
 		this.note.className = "mm-note";
 		this.item = item;
-		const selection = getSelection();
-		const range = selection.getRangeAt(0);
-		range.selectNodeContents(content);
-		selection.removeAllRanges();
-		selection.addRange(range);
-		this.note.addEventListener("blur", this.onBlur)
 
-	}
+		setTimeout(() => {
+			const selection = getSelection();
+			const range = selection.getRangeAt(0);
+			selection.removeAllRanges();
+			range.selectNodeContents(content);
+			// selection.addRange(range);
 
-	onBlur = () => {
-		this.hide();
-		this.note.removeEventListener("blur", this.onBlur)
+			content.focus();
+
+		}, 100)
 	}
 
 	hide() {
 		this.status = "hide";
 		this.note.className = "mm-note hide";
 		const content = this.note.querySelector(".note-content p");
-		content.contentEditable = false;
+		this.item.note = encodeURIComponent(content.innerHTML);
 		content.innerHTML = "";
-		this.item.note = encodeURIComponent(content.innerHTML)
+
 	}
 
 }

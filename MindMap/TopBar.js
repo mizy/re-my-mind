@@ -283,7 +283,7 @@ class TopBar extends PureComponent {
 					</div>
 					<div className="handle-button">
 						<Tooltip title="备注">
-							<Icon type="file-text" onClick={this.addNote} />
+							<i className="iconfont icon-biji" onClick={this.addNote} />
 						</Tooltip>
 					</div>
 					<div className="handle-button">{message}</div>
