@@ -230,7 +230,6 @@ MM.Item.prototype.update = function (doNotRecurse) {
 		}
 	}
 	if (this.getDOM().text.clientWidth > 301) {
-		console.log(this.getDOM().text.clientWidth)
 		this.getDOM().text.style.width = "300px";
 		this.getDOM().text.style.whiteSpace = "normal"
 	} else if (this.getDOM().text.clientHeight < 40) {

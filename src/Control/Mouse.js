@@ -143,7 +143,6 @@ MM.Mouse.isNote = function (target) {
 			parent = parent.parentNode;
 		}
 	} while (parent)
-	console.log(flag)
 	return flag;
 }
 

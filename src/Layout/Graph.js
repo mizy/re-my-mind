@@ -98,7 +98,6 @@ MM.Layout.Graph._layoutItem = function (item, rankDirection) {
 			//TODO: 当只有一个children时，兼容多行文本
 			offsetY = (child.getDOM().text.offsetHeight - dom.content.offsetHeight) / 2;
 			offsetY = offsetY < 0 ? 0 : offsetY;
-			console.log(offsetY)
 		}
 	}
 	dom.content.style[childPosProp] = Math.round((childSize - contentSize[childIndex]) / 2) + offsetY + "px";

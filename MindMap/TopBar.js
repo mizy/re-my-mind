@@ -186,7 +186,7 @@ class TopBar extends PureComponent {
 							onClick={MM.App.historyIndex < MM.App.history.length ? this.redo : undefined}
 						/>
 					</div>
-					{/* <div className="handle-button">
+					<div className="handle-button">
 						<Icon
 							type="zoom-in"
 							onClick={() => {
@@ -201,7 +201,7 @@ class TopBar extends PureComponent {
 								this.zoom(0.8);
 							}}
 						/>
-					</div> */}
+					</div>
 					<div className="handle-button">
 						<Tooltip title="插入子主题">
 							<i className="iconfont icon-editor-insert-child" onClick={this.add}></i>

@@ -1221,7 +1221,6 @@ MM.Item.prototype.update = function (doNotRecurse) {
   }
 
   if (this.getDOM().text.clientWidth > 301) {
-    console.log(this.getDOM().text.clientWidth);
     this.getDOM().text.style.width = "300px";
     this.getDOM().text.style.whiteSpace = "normal";
   } else if (this.getDOM().text.clientHeight < 40) {
@@ -4055,7 +4054,6 @@ MM.Layout.Graph._layoutItem = function (item, rankDirection) {
       //TODO: 当只有一个children时，兼容多行文本
       offsetY = (child.getDOM().text.offsetHeight - dom.content.offsetHeight) / 2;
       offsetY = offsetY < 0 ? 0 : offsetY;
-      console.log(offsetY);
     }
   }
 
@@ -5071,7 +5069,6 @@ MM.Mouse.isNote = function (target) {
     }
   } while (parent);
 
-  console.log(flag);
   return flag;
 };
 

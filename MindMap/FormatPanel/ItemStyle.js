@@ -25,7 +25,6 @@ export default class StyleEdit extends PureComponent {
 	// 同步数据
 	syncNowItem(item) {
 		const content = item.getDOM().content;
-		console.log(content.style);
 		this.setState({
 			color: content.style.backgroundColor || "#50c28b"
 		});
