@@ -7,7 +7,7 @@ class Note {
 	initDom() {
 		const note = document.createElement("div");
 		note.className = "mm-note hide";
-		note.innerHTML = `<div class="note-util"></div><div  class="note-content"><p /></div>`;
+		note.innerHTML = `<div class="note-util">备注</div><div  class="note-content"><p /></div>`;
 		this.app._port.appendChild(note);
 		this.note = note;
 	}
