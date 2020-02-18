@@ -35,7 +35,7 @@ class Minder extends PureComponent {
 		this.init({
 			root: {
 				text: "demo",
-				layout: "map",
+				layout: "map-right",
 				children: []
 			}
 		});

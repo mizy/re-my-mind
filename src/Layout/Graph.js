@@ -65,17 +65,15 @@ MM.Layout.Graph._layoutItem = function (item, rankDirection) {
 	/* children size */
 	// 撑开孩子节点的属性
 	var bbox = this._computeChildrenBBox(item.getChildren(), childIndex);
-
-	/* node size */
+ 
 	var rankSize = contentSize[rankIndex];
 	if (bbox[rankIndex]) { rankSize += bbox[rankIndex] + spacingRank; }
 	var childSize = Math.max(bbox[childIndex], contentSize[childIndex]);
-	dom.node.style[rankSizeProp] = rankSize + "px"; // 父元素的宽度为文字的宽度
-	dom.node.style[childSizeProp] = childSize + "px";// 子元素撑开的高度就是父元素的高度
-
+	
 	var offset = [0, 0];
 	if (rankDirection == "right") { offset[0] = contentSize[0] + spacingRank; }
 	if (rankDirection == "bottom") { offset[1] = contentSize[1] + spacingRank; }
+	// 居中子元素所需要的偏移量
 	offset[childIndex] = Math.round((childSize - bbox[childIndex]) / 2);
 	if (shape === 'box') {
 		this._layoutBoxChildren(item.getChildren(), rankDirection, offset, bbox);
@@ -103,6 +101,11 @@ MM.Layout.Graph._layoutItem = function (item, rankDirection) {
 	dom.content.style[childPosProp] = Math.round((childSize - contentSize[childIndex]) / 2) + offsetY + "px";
 	dom.content.style[rankPosProp] = labelPos + "px";
 
+	// 当元素的子节点布局完成后，重新设置子节点的高度，避免子节点偏移后，高度不准确
+	var itemSize = [dom.content.offsetWidth+dom.content.offsetLeft, dom.content.offsetHeight+dom.content.offsetTop];
+	childSize = Math.max(bbox[childIndex], itemSize[childIndex]);
+	dom.node.style[rankSizeProp] = rankSize + "px"; // 父元素的宽度为文字的宽度
+	dom.node.style[childSizeProp] = childSize + "px";// 子元素撑开的高度就是父元素的高度
 	return this;
 }
 
