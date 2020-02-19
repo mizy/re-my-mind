@@ -21,7 +21,7 @@ MM.Mouse.init = function (port) {
 	this._port.addEventListener("click", this);
 	this._port.addEventListener("dblclick", this);
 	this._port.addEventListener("wheel", this);
-	this._port.addEventListener("mouseout", this);
+	this._port.addEventListener("mouseleave", this);
 	this._port.addEventListener("mousewheel", this);
 	this._port.addEventListener("contextmenu", this);
 }
@@ -98,7 +98,7 @@ MM.Mouse.handleEvent = function (e) {
 		case "touchend":
 			clearTimeout(this._touchTimeout);
 		case "mouseup":
-		case "mouseout":
+		case "mouseleave":
 			this._endDrag();
 			break;
 
@@ -175,7 +175,7 @@ MM.Mouse._processDrag = function (e) {
 	var dy = e.clientY - this._cursor[1];
 	this._cursor[0] = e.clientX;
 	this._cursor[1] = e.clientY;
-
+	console.log(e)
 	switch (this._mode) {
 		case "drag":
 			if (!this._ghost) {

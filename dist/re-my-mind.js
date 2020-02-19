@@ -2321,14 +2321,7 @@ MM.Action.InsertNewItem = function (parent, index) {
   this._parent = parent;
   this._index = index;
   var options = {};
-  var color = MM.App.options.colors[index];
-
-  if (!color) {
-    var r = Math.floor(Math.random() * 256);
-    var g = Math.floor(Math.random() * 256);
-    var b = Math.floor(Math.random() * 256);
-    color = '#' + r.toString(16) + g.toString(16) + b.toString(16);
-  }
+  var color = MM.App.options.colors[index % MM.App.options.colors.length];
 
   if (parent.isRoot()) {
     options.color = color;
@@ -4053,7 +4046,8 @@ MM.Layout.Graph._layoutItem = function (item, rankDirection) {
   }
 
   dom.content.style[childPosProp] = Math.round((childSize - contentSize[childIndex]) / 2) + offsetY + "px";
-  dom.content.style[rankPosProp] = labelPos + "px";
+  dom.content.style[rankPosProp] = labelPos + "px"; // 当元素的子节点布局完成后，重新设置子节点的高度，避免子节点偏移后，高度不准确
+
   var itemSize = [dom.content.offsetWidth + dom.content.offsetLeft, dom.content.offsetHeight + dom.content.offsetTop];
   childSize = Math.max(bbox[childIndex], itemSize[childIndex]);
   dom.node.style[rankSizeProp] = rankSize + "px"; // 父元素的宽度为文字的宽度
@@ -4907,7 +4901,7 @@ MM.Mouse.init = function (port) {
 
   this._port.addEventListener("wheel", this);
 
-  this._port.addEventListener("mouseout", this);
+  this._port.addEventListener("mouseleave", this);
 
   this._port.addEventListener("mousewheel", this);
 
@@ -5019,7 +5013,7 @@ MM.Mouse.handleEvent = function (e) {
       clearTimeout(this._touchTimeout);
 
     case "mouseup":
-    case "mouseout":
+    case "mouseleave":
       this._endDrag();
 
       break;
@@ -5105,6 +5099,7 @@ MM.Mouse._processDrag = function (e) {
   var dy = e.clientY - this._cursor[1];
   this._cursor[0] = e.clientX;
   this._cursor[1] = e.clientY;
+  console.log(e);
 
   switch (this._mode) {
     case "drag":

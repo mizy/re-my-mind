@@ -21,13 +21,7 @@ MM.Action.InsertNewItem = function (parent, index) {
 	this._parent = parent;
 	this._index = index;
 	const options = {};
-	let color = MM.App.options.colors[index];
-	if (!color) {
-		const r = Math.floor(Math.random() * 256);
-		const g = Math.floor(Math.random() * 256);
-		const b = Math.floor(Math.random() * 256);
-		color = '#' + r.toString(16) + g.toString(16) + b.toString(16);
-	}
+	let color = MM.App.options.colors[index%MM.App.options.colors.length];
 	if (parent.isRoot()) {
 		options.color = color;
 	}
