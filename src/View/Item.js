@@ -512,9 +512,8 @@ MM.Item.prototype.startNote = function (text) {
 
 MM.Item.prototype.endNote = function (text) {
 	if (!this.note) {
-		this._dom.node.removeChild(this._dom.note);
+		this._dom.content.removeChild(this._dom.note);
 	}
-	MM.App.note.hide()
 }
 
 MM.Item.prototype.handleEvent = function (e) {
@@ -523,15 +522,12 @@ MM.Item.prototype.handleEvent = function (e) {
 			this.update();
 			this.getMap().ensureItemVisibility(this);
 			break;
-
 		case "keydown":
 			if (e.keyCode == 9) { e.preventDefault(); } /* TAB has a special meaning in this app, do not use it to change focus */
 			break;
-
 		case "blur": /* 3d */
 			MM.Command.Finish.execute();
 			break;
-
 		case "click":
 			if (this._collapsed) { this.expand(); } else { this.collapse(); }
 			MM.App.select(this);

@@ -73,7 +73,6 @@ MM.Mouse.handleEvent = function (e) {
 				return;
 			}
 
-
 			if (e.type == "mousedown") { e.preventDefault(); } /* to prevent blurring the clipboard node */
 
 			if (e.type == "touchstart") { /* context menu here, after we have the item */

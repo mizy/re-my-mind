@@ -50,6 +50,7 @@ class Note {
 		this.note.className = "mm-note hide";
 		const content = this.note.querySelector(".note-content p");
 		this.item.note = encodeURIComponent(content.innerHTML);
+		this.item.endNote();
 		content.innerHTML = "";
 
 	}

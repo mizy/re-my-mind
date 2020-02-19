@@ -1557,10 +1557,8 @@ MM.Item.prototype.startNote = function (text) {
 
 MM.Item.prototype.endNote = function (text) {
   if (!this.note) {
-    this._dom.node.removeChild(this._dom.note);
+    this._dom.content.removeChild(this._dom.note);
   }
-
-  MM.App.note.hide();
 };
 
 MM.Item.prototype.handleEvent = function (e) {
@@ -1846,6 +1844,7 @@ function () {
       this.note.className = "mm-note hide";
       var content = this.note.querySelector(".note-content p");
       this.item.note = encodeURIComponent(content.innerHTML);
+      this.item.endNote();
       content.innerHTML = "";
     }
   }]);
