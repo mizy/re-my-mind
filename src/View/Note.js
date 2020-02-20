@@ -55,6 +55,12 @@ class Note {
 
 	}
 
+	destroy(){
+		this.app._port.removeChild(this.note);
+		this.app = null;
+		this.item = null
+	}
+
 }
 MM.Note = Note
 export default Note;

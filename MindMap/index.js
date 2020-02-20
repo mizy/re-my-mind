@@ -75,13 +75,23 @@ class Minder extends PureComponent {
 		});
 		// 鼠标滚动
 		MM.subscribe("mousewheel", (e) => {
+			e.stopPropagation();
+			e.preventDefault();
 			const node = MM.App.map.getRoot().getDOM().node;
+
+			if(e.ctrlKey){// 双指
+				this.topbar.scale = this.topbar.scale * (1-e.deltaY/50);
+				node.style.transform = `scale(${this.topbar.scale})`;
+				this.setState({
+
+				})
+				return;
+			}
 			const top = parseInt(node.style.top.split("px")[0], 10);
 			const left = parseInt(node.style.left.split("px")[0], 10);
 			node.style.top = `${-e.deltaY + top}px`;
 			node.style.left = `${-e.deltaX + left}px`;
-			e.stopPropagation();
-			e.preventDefault();
+			
 		});
 	}
 
@@ -139,6 +149,7 @@ class Minder extends PureComponent {
 				<div className={"mind-wrap"} >
 					{this.app && (
 						<TopBar
+							ref={(ref)=>{this.topbar = ref;}}
 							type={type}
 							match={this.props.match}
 							rootName={rootName}

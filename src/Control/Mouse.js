@@ -174,7 +174,6 @@ MM.Mouse._processDrag = function (e) {
 	var dy = e.clientY - this._cursor[1];
 	this._cursor[0] = e.clientX;
 	this._cursor[1] = e.clientY;
-	console.log(e)
 	switch (this._mode) {
 		case "drag":
 			if (!this._ghost) {

@@ -229,4 +229,19 @@ MM.Action.SetSide.prototype.undo = function () {
 	this._item.setSide(this._oldSide);
 	this._item.getMap().update();
 }
+
+
+MM.Action.SetData = function (data) {
+	this.data = data;
+	this.oldData = MM.App.map.toJSON();
+}
+MM.Action.SetData.prototype = Object.create(MM.Action.prototype);
+MM.Action.SetData.prototype.perform = function () {
+	MM.App.options.data = this.data;
+	MM.App.setMap(new MM.Map(MM.App.options))
+}
+MM.Action.SetData.prototype.undo = function () {
+	MM.App.options.data = this.oldData;
+	MM.App.setMap(new MM.Map(MM.App.options))
+}
 export default MM.Action;

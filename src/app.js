@@ -29,6 +29,8 @@ MM.App = {
 	_fontSize: 100,
 
 	destroy() {
+		this.map.destroy();
+		this.note.destroy();
 		this._port.innerHTML = null;
 		this.map = null;
 		this.current = null;
@@ -55,7 +57,7 @@ MM.App = {
 	},
 
 	setMap: function (map) {
-		if (this.map) { this.map.hide(); }
+		if (this.map) { this.map.destroy(); }
 
 		this.history = [];
 		this.historyIndex = 0;

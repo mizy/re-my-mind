@@ -95,7 +95,7 @@ MM.Map.prototype.show = function (where) {
 	return this;
 }
 
-MM.Map.prototype.hide = function () {
+MM.Map.prototype.destroy = function () {
 	var node = this._root.getDOM().node;
 	node.parentNode.removeChild(node);
 	this._visible = false;
