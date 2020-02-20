@@ -6,6 +6,10 @@ MM.Keyboard.init = function () {
 	window.addEventListener("keydown", this);
 	window.addEventListener("keypress", this);
 }
+MM.Keyboard.destroy = ()=>{
+	window.removeEventListener("keydown", this);
+	window.removeEventListener("keypress", this);
+}
 
 MM.Keyboard.handleEvent = function (e) {
 	/* mode 2a: ignore keyboard when the activeElement resides somewhere inside of the UI pane */

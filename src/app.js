@@ -31,6 +31,7 @@ MM.App = {
 	destroy() {
 		this.map.destroy();
 		this.note.destroy();
+		MM.keyboard.destroy();
 		this._port.innerHTML = null;
 		this.map = null;
 		this.current = null;
