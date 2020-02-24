@@ -49,7 +49,9 @@ MM.Mouse.handleEvent = function (e) {
 		case "contextmenu":
 			this._endDrag();
 			e.preventDefault();
-
+			if(MM.App.readonly){
+				return;
+			}
 			var item = MM.App.map.getItemFor(e.target);
 			item && MM.App.select(item);
 

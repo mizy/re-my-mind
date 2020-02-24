@@ -16,8 +16,11 @@ MM.Keyboard.handleEvent = function (e) {
 	if (["TEXTAREA", "INPUT"].indexOf(document.activeElement.tagName) > -1 && document.activeElement.className !== "re-mind-clip") {
 		return;
 	}
-	//如果没有在工作区删除
-
+	//只读模式
+	if(MM.App.readonly){
+		return;
+	}
+	
 	var commands = MM.Command.getAll();
 	for (var i = 0; i < commands.length; i++) {
 		var command = commands[i];

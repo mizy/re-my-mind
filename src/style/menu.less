@@ -1,30 +1,38 @@
-.menu {
+.menu{
+	outline: none;
+	margin: 0;
+	padding: 5px 0;
+	list-style: none;
 	position: absolute;
     z-index: 2;
-    /* border: 1px solid #666; */
-    background-color: #fff;
-    box-shadow: 0 0 5px 0px #666;
+	background: #fff;
+	-webkit-box-shadow: 0 2px 8px 0 rgba(0,0,0,.1);
+	box-shadow: 0 2px 8px 0 rgba(0,0,0,.1);
 	border-radius: 2px;
-	padding:10px 0;
-}
-
-.menu button {
-	display: block;
-	background-color: transparent;
-	border: none;
-	margin: 0;
-	padding: 3px 6px;
-	font-size: 15px;
-	width: 130px;
-	text-align: left;
-	cursor: pointer;
-}
-
-.menu button:hover {
-	background: #0ae;
-	color: #fff
-}
-
+	width: 200px;
+	>button{
+		height: 32px;
+		line-height: 32px;
+		padding: 0 20px;
+		color: #666;
+		font-size: 13px;
+		font-weight: 400;
+		cursor: pointer;
+		-webkit-transition: all .3s;
+		transition: all .3s;
+		white-space: nowrap;
+		display: block;
+		background-color: transparent;
+		border: none;
+		margin: 0;
+		width: 100%;
+		text-align: left;
+		&:hover{
+			background:#efefef
+		}
+	}
+} 
+ 
 .menu span {
 	display: block;
 	border-top: 1px solid #eee;

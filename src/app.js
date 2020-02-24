@@ -13,6 +13,7 @@ MM.App = {
 	zoomRatio: 0.2,//每次缩放递进比例
 	scale: 1,//原始比例
 	history: [],
+	readonly:false,
 	historyIndex: 0,
 	portSize: [0, 0],
 	map: null,
@@ -31,7 +32,7 @@ MM.App = {
 	destroy() {
 		this.map.destroy();
 		this.note.destroy();
-		MM.keyboard.destroy();
+		MM.Keyboard.destroy();
 		this._port.innerHTML = null;
 		this.map = null;
 		this.current = null;

@@ -12,23 +12,15 @@ class Note {
 		this.note = note;
 	}
 
-	getPosition(item, index) {
-		this.x += (index === 0 ? item._dom.content.offsetLeft : 0) + item._dom.node.offsetLeft;
-		this.y += (index === 0 ? item._dom.content.offsetTop : 0) + item._dom.node.offsetTop;
-		if (item._parent && item._parent._dom) {
-			this.index++;
-			this.getPosition(item._parent, 1)
-		}
-	}
-
 	show(item) {
 		this.status = "show";
 		const content = this.note.querySelector(".note-content p");
 		content.contentEditable = true;
 		content.innerHTML = decodeURIComponent(item.note || "");
-		this.x = 0; this.y = 0; this.index = 0;
-		this.getPosition(item, 0);
-		this.note.style.top = (this.index < 1 ? 80 : 40) + this.y + "px";
+		const pos = content.getBoundingClientRect();
+		this.x = pos.x; 
+		this.y = pos.y - 60; 
+		this.note.style.top = ((item._parent&&item._parent._dom) ? 40 : 80) + this.y + "px";
 		this.note.style.left = this.x + "px";
 		this.note.className = "mm-note";
 		this.item = item;
