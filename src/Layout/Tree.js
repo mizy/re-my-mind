@@ -37,7 +37,7 @@ MM.Layout.Tree._layoutItem = function(item, rankDirection) {
 	var dom = item.getDOM();
 
 	/* content size */
-	var contentSize = [dom.content.offsetWidth, dom.content.offsetHeight];
+	var contentSize = [MM.PolyDom.getOffset(dom.content,"width"), MM.PolyDom.getOffset(dom.content,"height")];
 
 	/* children size */
 	var bbox = this._computeChildrenBBox(item.getChildren(), 1);

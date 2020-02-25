@@ -23,12 +23,12 @@ MM.Shape.update = function (item) {
 
 MM.Shape.getHorizontalAnchor = function (item) {
 	var node = item.getDOM().content;
-	return Math.round(node.offsetLeft + node.offsetWidth / 2) + 0.5;
+	return Math.round(MM.PolyDom.getOffset(node,"left") + MM.PolyDom.getOffset(node,"width")/ 2) + 0.5;
 }
 
 MM.Shape.getVerticalAnchor = function (item) {
 	var node = item.getDOM().content;
-	return node.offsetTop + Math.round(node.offsetHeight * this.VERTICAL_OFFSET);
+	return MM.PolyDom.getOffset(node,"top") + Math.round(MM.PolyDom.getOffset(node,"height") * this.VERTICAL_OFFSET);
 }
 MM.Shape.Box = Object.create(MM.Shape, {
 	id: { value: "box" },
@@ -68,8 +68,8 @@ MM.Shape.Underline.update = function (item) {
 	var ctx = dom.canvas.getContext("2d");
 	ctx.strokeStyle = item.getColor();
 
-	var left = dom.content.offsetLeft;
-	var right = left + dom.content.offsetWidth;
+	var left = MM.PolyDom.getOffset(dom.content,"left");
+	var right = left + MM.PolyDom.getOffset(dom.content,"width");
 
 	var top = this.getVerticalAnchor(item);
 
@@ -81,6 +81,6 @@ MM.Shape.Underline.update = function (item) {
 
 MM.Shape.Underline.getVerticalAnchor = function (item) {
 	var node = item.getDOM().content;
-	return node.offsetTop + node.offsetHeight + this.VERTICAL_OFFSET;
+	return MM.PolyDom.getOffset(node,"top") + MM.PolyDom.getOffset(node,"height") + this.VERTICAL_OFFSET;
 }
 export default MM.Shape;

@@ -102,20 +102,20 @@ MM.Layout.Map._layoutRoot = function (item) {
 
 	var bboxLeft = this._computeChildrenBBox(childrenLeft, 1);
 	var bboxRight = this._computeChildrenBBox(childrenRight, 1);
-	var height = Math.max(bboxLeft[1], bboxRight[1], dom.content.offsetHeight);
+	var height = Math.max(bboxLeft[1], bboxRight[1],MM.PolyDom.getOffset(dom.content,"height"));
 	var left = 0;
 	this._layoutChildren(childrenLeft, "left", [left, Math.round((height - bboxLeft[1]) / 2)], bboxLeft);
 	left += bboxLeft[0];
 
 	if (childrenLeft.length) { left += this.ROOT_SPACE; }
 	dom.content.style.left = left + "px";
-	left += dom.content.offsetWidth;
+	left += MM.PolyDom.getOffset(dom.content,"width");
 
 	if (childrenRight.length) { left += this.ROOT_SPACE; }
 	this._layoutChildren(childrenRight, "right", [left, Math.round((height - bboxRight[1]) / 2)], bboxRight);
 	left += bboxRight[0];
 
-	dom.content.style.top = Math.round((height - dom.content.offsetHeight) / 2) + "px";
+	dom.content.style.top = Math.round((height - MM.PolyDom.getOffset(dom.content,"height")) / 2) + "px";
 	dom.node.style.height = height + "px";
 	dom.node.style.width = left + "px";
 
@@ -132,7 +132,7 @@ MM.Layout.Map._drawRootConnectors = function (item, side, children) {
 	var ctx = canvas.getContext("2d");
 	var R = this.SPACING_RANK / 2;
 
-	var x1 = MM.PolyDom.getOffset(dom.content,"left") + dom.content.offsetWidth / 2;
+	var x1 = MM.PolyDom.getOffset(dom.content,"left") + MM.PolyDom.getOffset(dom.content,"width") / 2;
 	var y1 = item.getShape().getVerticalAnchor(item);
 	var half = this.LINE_THICKNESS / 2;
 

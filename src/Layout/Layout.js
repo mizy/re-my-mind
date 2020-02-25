@@ -106,10 +106,10 @@ MM.Layout._getChildAnchor = function (item, side) {
 	var dom = item.getDOM();
 	if (side == "left" || side == "right") {
 		var pos = MM.PolyDom.getOffset(dom.node,"left") + MM.PolyDom.getOffset(dom.content,"left");
-		if (side == "left") { pos += dom.content.offsetWidth; }
+		if (side == "left") { pos += MM.PolyDom.getOffset(dom.content,"width"); }
 	} else {
 		var pos = MM.PolyDom.getOffset(dom.node,"top") + MM.PolyDom.getOffset(dom.content,"top");
-		if (side == "top") { pos += dom.content.offsetHeight; }
+		if (side == "top") { pos += MM.PolyDom.getOffset(dom.content,"height"); }
 	}
 	return pos;
 }

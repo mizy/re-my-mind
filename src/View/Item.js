@@ -229,18 +229,21 @@ MM.Item.prototype.update = function (doNotRecurse) {
 			this._shape.set(this);
 		}
 	}
-	if (this.getDOM().text.clientWidth > 301) {
+	const contentWidth  = MM.PolyDom.getOffset(this._dom.content,"width")
+	if ( contentWidth> 301) {
 		this.getDOM().text.style.width = "300px";
-		this.getDOM().text.style.whiteSpace = "normal"
-	} else if (this.getDOM().text.clientHeight < 40) {
-		this.getDOM().text.style.whiteSpace = "nowrap"
+		this.getDOM().text.style.whiteSpace = "normal";
+	} else {
+		this.getDOM().text.style.whiteSpace = "nowrap";
 		this.getDOM().text.style.width = "auto";
 	}
+
 	this._updateStatus();
 	this._updateIcon();
 	this._updateValue();
 	this.updateBackground();
 	this._dom.node.classList[this._collapsed ? "add" : "remove"]("collapsed");
+	
 	this.getLayout().update(this);
 	this.getShape().update(this);
 	if (!this.isRoot() && !doNotRecurse) { this._parent.update(); }
@@ -516,11 +519,20 @@ MM.Item.prototype.endNote = function (text) {
 	}
 }
 
+MM.Item.prototype.clearContentWidth = function(){
+	this._dom.content.style.width = "auto";
+	this._dom.content.style.height = "auto";
+	clearTimeout(this.updateTimeout);
+	this.updateTimeout = setTimeout(()=>{
+		this.update();
+		this.getMap().ensureItemVisibility(this);
+	},200)
+}
+
 MM.Item.prototype.handleEvent = function (e) {
 	switch (e.type) {
 		case "input":
-			this.update();
-			this.getMap().ensureItemVisibility(this);
+			this.clearContentWidth();
 			break;
 		case "keydown":
 			if (e.keyCode == 9) { e.preventDefault(); } /* TAB has a special meaning in this app, do not use it to change focus */
