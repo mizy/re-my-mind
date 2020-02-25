@@ -543,6 +543,7 @@ MM.Item.prototype._getAutoShape = function () {
 		depth++;
 		node = node.getParent();
 	}
+	this.depth = depth;
 	switch (depth) {
 		case 0: return MM.Shape.Ellipse;
 		case 1: return MM.Shape.Box;

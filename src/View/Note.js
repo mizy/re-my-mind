@@ -17,7 +17,7 @@ class Note {
 		const content = this.note.querySelector(".note-content p");
 		content.contentEditable = true;
 		content.innerHTML = decodeURIComponent(item.note || "");
-		const pos = content.getBoundingClientRect();
+		const pos = item._dom.content.getBoundingClientRect();
 		this.x = pos.x; 
 		this.y = pos.y - 60; 
 		this.note.style.top = ((item._parent&&item._parent._dom) ? 40 : 80) + this.y + "px";

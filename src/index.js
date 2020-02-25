@@ -59,6 +59,7 @@ require("./View/Item.js"),
 	require("./Shape/Shape.js"),
 	require("./Model/Format.js"),
 	require("./Control/Mouse.js"),
+	require("./View/PolyDom.js")
 	require("./app.js")
 
 export default window.MM;

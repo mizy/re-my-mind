@@ -132,7 +132,7 @@ MM.Layout.Map._drawRootConnectors = function (item, side, children) {
 	var ctx = canvas.getContext("2d");
 	var R = this.SPACING_RANK / 2;
 
-	var x1 = dom.content.offsetLeft + dom.content.offsetWidth / 2;
+	var x1 = MM.PolyDom.getOffset(dom.content,"left") + dom.content.offsetWidth / 2;
 	var y1 = item.getShape().getVerticalAnchor(item);
 	var half = this.LINE_THICKNESS / 2;
 
@@ -140,7 +140,7 @@ MM.Layout.Map._drawRootConnectors = function (item, side, children) {
 		var child = children[i];
 
 		var x2 = this._getChildAnchor(child, side);
-		var y2 = child.getShape().getVerticalAnchor(child) + child.getDOM().node.offsetTop;
+		var y2 = child.getShape().getVerticalAnchor(child) +  MM.PolyDom.getOffset(child.getDOM().node,'top');
 		var angle = Math.atan2(y2 - y1, x2 - x1) + Math.PI / 2;
 		var dx = Math.cos(angle) * half;
 		var dy = Math.sin(angle) * half;

@@ -102,7 +102,7 @@ MM.Layout.Graph._layoutItem = function (item, rankDirection) {
 	dom.content.style[rankPosProp] = labelPos + "px";
 
 	// 当元素的子节点布局完成后，重新设置子节点的高度，避免子节点偏移后，高度不准确
-	var itemSize = [dom.content.offsetWidth+dom.content.offsetLeft, dom.content.offsetHeight+dom.content.offsetTop];
+	var itemSize = [dom.content.offsetWidth+ MM.PolyDom.getOffset(dom.content,"left"), dom.content.offsetHeight+MM.PolyDom.getOffset(dom.content,"top")];
 	childSize = Math.max(bbox[childIndex], itemSize[childIndex]);
 	dom.node.style[rankSizeProp] = rankSize + "px"; // 父元素的宽度为文字的宽度
 	dom.node.style[childSizeProp] = childSize + "px";// 子元素撑开的高度就是父元素的高度
@@ -119,8 +119,7 @@ MM.Layout.Graph._layoutBoxChildren = function (children, rankDirection, offset, 
 	children.forEach(function (child, index) {
 		var node = child.getDOM().node;
 		// 下划线的Y
-		const offsetY = (node.offsetHeight + child.getShape().VERTICAL_OFFSET) - node.offsetHeight / 2 - 1;//线高度1px
-		var childSize = [node.offsetWidth, node.offsetHeight];
+		var childSize = [MM.PolyDom.getOffset(node,"width"), MM.PolyDom.getOffset(node,"height")];
 
 		if (rankDirection == "left") {
 			offset[0] = bbox[0] - childSize[0];
@@ -151,7 +150,7 @@ MM.Layout.Graph._layoutChildren = function (children, rankDirection, offset, bbo
 
 	children.forEach(function (child, index) {
 		var node = child.getDOM().node;
-		var childSize = [node.offsetWidth, node.offsetHeight];
+		var childSize = [MM.PolyDom.getOffset(node,"width"), MM.PolyDom.getOffset(node,"height")];
 
 		if (rankDirection == "left") {
 			offset[0] = bbox[0] - childSize[0];
@@ -191,9 +190,9 @@ MM.Layout.Graph._drawHorizontalConnectors = function (item, side, children) {
 	/* first part */
 	var y1 = item.getShape().getVerticalAnchor(item);
 	if (side == "left") {
-		var x1 = dom.content.offsetLeft - 0.5;
+		var x1 = MM.PolyDom.getOffset(dom.content,"left") - 0.5;
 	} else {
-		var x1 = dom.content.offsetWidth + dom.content.offsetLeft + 0.5;
+		var x1 = dom.content.offsetWidth + MM.PolyDom.getOffset(dom.content,"left") + 0.5;
 	}
 
 	this._anchorToggle(item, x1, y1, side);
@@ -202,7 +201,7 @@ MM.Layout.Graph._drawHorizontalConnectors = function (item, side, children) {
 	if (children.length == 1) {
 		//一个子节点时的情况
 		var child = children[0];
-		var y2 = child.getShape().getVerticalAnchor(child) + child.getDOM().node.offsetTop;
+		var y2 = child.getShape().getVerticalAnchor(child) +  MM.PolyDom.getOffset(child.getDOM().node,"top");
 		var x2 = this._getChildAnchor(child, side);
 		ctx.beginPath();
 		ctx.moveTo(x1, y1);
@@ -230,8 +229,8 @@ MM.Layout.Graph._drawHorizontalConnectors = function (item, side, children) {
 	var y = y1;
 	var xx = x + (side == "left" ? -R : R);
 	var sideVal = side === "left" ? -1 : 1;
-	var y1 = c1.getShape().getVerticalAnchor(c1) + c1.getDOM().node.offsetTop;
-	var y2 = c2.getShape().getVerticalAnchor(c2) + c2.getDOM().node.offsetTop;
+	var y1 = c1.getShape().getVerticalAnchor(c1) + MM.PolyDom.getOffset(c1.getDOM().node,"top");
+	var y2 = c2.getShape().getVerticalAnchor(c2) + MM.PolyDom.getOffset(c2.getDOM().node,"top");
 	var x1 = this._getChildAnchor(c1, side);
 	var x2 = this._getChildAnchor(c2, side);
 
@@ -251,14 +250,14 @@ MM.Layout.Graph._drawHorizontalConnectors = function (item, side, children) {
 	for (var i = 1; i < children.length - 1; i++) {
 		var c = children[i];
 		const x1 = this._getChildAnchor(c, side)
-		var y = c.getShape().getVerticalAnchor(c) + c.getDOM().node.offsetTop;
+		var y = c.getShape().getVerticalAnchor(c) + MM.PolyDom.getOffset(c.getDOM().node,"top");
 		// 节点下的下划线
 		ctx.moveTo(x1, y);
 		let offsetTop = 0;
 		if (item.getShape().id === "underline") {
-			offsetTop = dom.content.offsetTop + item.getShape().VERTICAL_OFFSET + dom.content.offsetHeight;
+			offsetTop = MM.PolyDom.getOffset(dom.content,"top") + item.getShape().VERTICAL_OFFSET + dom.content.offsetHeight;
 		} else {
-			offsetTop = dom.content.offsetTop + dom.content.offsetHeight / 2;
+			offsetTop =  MM.PolyDom.getOffset(dom.content,"top") + dom.content.offsetHeight / 2;
 		}
 		if (Math.abs(y - offsetTop) <= 1) {
 			ctx.lineTo(x, y);
@@ -311,8 +310,8 @@ MM.Layout.Graph._drawVerticalConnectors = function (item, side, children) {
 	var offset = dom.content.offsetHeight + height;
 	var y = Math.round(side == "top" ? canvas.height - offset : offset) + 0.5;
 
-	var x1 = c1.getShape().getHorizontalAnchor(c1) + c1.getDOM().node.offsetLeft;
-	var x2 = c2.getShape().getHorizontalAnchor(c2) + c2.getDOM().node.offsetLeft;
+	var x1 = c1.getShape().getHorizontalAnchor(c1) + MM.PolyDom.getOffset(c1.getDOM().node,"left");
+	var x2 = c2.getShape().getHorizontalAnchor(c2) + MM.PolyDom.getOffset(c2.getDOM().node,"left");
 	var y1 = this._getChildAnchor(c1, side);
 	var y2 = this._getChildAnchor(c2, side);
 	// var center = [(x1+x2)/2,y1];
@@ -327,7 +326,7 @@ MM.Layout.Graph._drawVerticalConnectors = function (item, side, children) {
 
 	for (var i = 1; i < children.length - 1; i++) {
 		var c = children[i];
-		var x = c.getShape().getHorizontalAnchor(c) + c.getDOM().node.offsetLeft;
+		var x = c.getShape().getHorizontalAnchor(c) + MM.PolyDom.getOffset(c.getDOM().node,"left");
 		ctx.moveTo(x, y);
 
 		ctx.lineTo(x, this._getChildAnchor(c, side));

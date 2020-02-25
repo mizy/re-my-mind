@@ -68,7 +68,7 @@ MM.Layout.Tree._layoutItem = function(item, rankDirection) {
 MM.Layout.Tree._layoutChildren = function(children, rankDirection, offset, bbox) {
 	children.forEach(function(child, index) {
 		var node = child.getDOM().node;
-		var childSize = [node.offsetWidth, node.offsetHeight];
+		var childSize = [MM.PolyDom.getOffset(node,"width"), MM.PolyDom.getOffset(node,"height")];
 		var left = offset[0];
 		if (rankDirection == "left") { left += (bbox[0] - childSize[0]); }
 
@@ -97,7 +97,7 @@ MM.Layout.Tree._drawLines = function(item, side) {
 
 	var y1 = item.getShape().getVerticalAnchor(item);
 	var last = children[children.length-1];
-	var y2 = last.getShape().getVerticalAnchor(last) + last.getDOM().node.offsetTop;
+	var y2 = last.getShape().getVerticalAnchor(last) + MM.PolyDom.getOffset(last.getDOM().node,"top");
 
 	ctx.beginPath();
 	ctx.moveTo(x, y1);
@@ -106,7 +106,7 @@ MM.Layout.Tree._drawLines = function(item, side) {
 	/* rounded connectors */
 	for (var i=0; i<children.length; i++) {
 		var c = children[i];
-		var y = c.getShape().getVerticalAnchor(c) + c.getDOM().node.offsetTop;
+		var y = c.getShape().getVerticalAnchor(c) + MM.PolyDom.getOffset(c.getDOM().node,"top");
 		var anchor = this._getChildAnchor(c, side);
 
 		ctx.moveTo(x, y - R);

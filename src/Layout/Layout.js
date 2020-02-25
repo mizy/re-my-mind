@@ -67,14 +67,14 @@ MM.Layout.pickSibling = function (item, dir) {
  */
 MM.Layout._anchorCanvas = function (item) {
 	var dom = item.getDOM();
-	dom.canvas.width = dom.node.offsetWidth;
-	dom.canvas.height = dom.node.offsetHeight;
+	dom.canvas.width = MM.PolyDom.getOffset(dom.node,"width");
+	dom.canvas.height = MM.PolyDom.getOffset(dom.node,"height");
 }
 
 MM.Layout._anchorToggle = function (item, x, y, side) {
 	var node = item.getDOM().toggle;
-	var w = node.offsetWidth;
-	var h = node.offsetHeight;
+	var w = 12||node.offsetWidth;
+	var h = 12||node.offsetHeight;
 	var l = x;
 	var t = y;
 
@@ -105,10 +105,10 @@ MM.Layout._anchorToggle = function (item, x, y, side) {
 MM.Layout._getChildAnchor = function (item, side) {
 	var dom = item.getDOM();
 	if (side == "left" || side == "right") {
-		var pos = dom.node.offsetLeft + dom.content.offsetLeft;
+		var pos = MM.PolyDom.getOffset(dom.node,"left") + MM.PolyDom.getOffset(dom.content,"left");
 		if (side == "left") { pos += dom.content.offsetWidth; }
 	} else {
-		var pos = dom.node.offsetTop + dom.content.offsetTop;
+		var pos = MM.PolyDom.getOffset(dom.node,"top") + MM.PolyDom.getOffset(dom.content,"top");
 		if (side == "top") { pos += dom.content.offsetHeight; }
 	}
 	return pos;
@@ -120,7 +120,7 @@ MM.Layout._computeChildrenBBox = function (children, childIndex) {
 
 	children.forEach(function (child, index) {
 		var node = child.getDOM().node;
-		var childSize = [node.offsetWidth, node.offsetHeight];
+		var childSize = [MM.PolyDom.getOffset(node,"width"), MM.PolyDom.getOffset(node,"height")];
 
 		bbox[rankIndex] = Math.max(bbox[rankIndex], childSize[rankIndex]); /* adjust cardinal size */
 		bbox[childIndex] += childSize[childIndex]; /* adjust orthogonal size */
@@ -139,14 +139,14 @@ MM.Layout._alignItem = function (item, side) {
 	var dom = item.getDOM();
 	// 所有情况都插入
 	dom.content.insertBefore(dom.icon, dom.content.firstChild);
-	switch (side) {
-		case "left":
-			dom.content.appendChild(dom.value);
-			dom.content.appendChild(dom.status);
-			break;
-		case "right":
-			dom.content.insertBefore(dom.value, dom.content.firstChild);
-			dom.content.insertBefore(dom.status, dom.content.firstChild);
-			break;
-	}
+	// switch (side) {
+	// 	case "left":
+	// 		dom.content.appendChild(dom.value);
+	// 		dom.content.appendChild(dom.status);
+	// 		break;
+	// 	case "right":
+	// 		dom.content.insertBefore(dom.value, dom.content.firstChild);
+	// 		dom.content.insertBefore(dom.status, dom.content.firstChild);
+	// 		break;
+	// }
 }

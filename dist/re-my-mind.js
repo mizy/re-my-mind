@@ -189,6 +189,9 @@ window.MM = {
 __webpack_require__(8);
 
 __webpack_require__(9), __webpack_require__(10), __webpack_require__(11), __webpack_require__(12), __webpack_require__(13), __webpack_require__(14), __webpack_require__(15), __webpack_require__(16), __webpack_require__(17), __webpack_require__(18), __webpack_require__(19), __webpack_require__(20), __webpack_require__(21), __webpack_require__(22), __webpack_require__(23), __webpack_require__(24);
+
+__webpack_require__(25);
+
 /* harmony default export */ __webpack_exports__["default"] = (window.MM);
 
 /***/ }),
@@ -1604,6 +1607,8 @@ MM.Item.prototype._getAutoShape = function () {
     node = node.getParent();
   }
 
+  this.depth = depth;
+
   switch (depth) {
     case 0:
       return MM.Shape.Ellipse;
@@ -1809,7 +1814,9 @@ function () {
       var content = this.note.querySelector(".note-content p");
       content.contentEditable = true;
       content.innerHTML = decodeURIComponent(item.note || "");
-      var pos = content.getBoundingClientRect();
+
+      var pos = item._dom.content.getBoundingClientRect();
+
       this.x = pos.x;
       this.y = pos.y - 60;
       this.note.style.top = (item._parent && item._parent._dom ? 40 : 80) + this.y + "px";
@@ -3734,7 +3741,7 @@ MM.Command.DeleteIcon.execute = function (target) {
 
 /***/ }),
 /* 17 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
 MM.Layout = Object.create(MM.Repo, {
   ALL: {
@@ -3823,14 +3830,14 @@ MM.Layout.pickSibling = function (item, dir) {
 
 MM.Layout._anchorCanvas = function (item) {
   var dom = item.getDOM();
-  dom.canvas.width = dom.node.offsetWidth;
-  dom.canvas.height = dom.node.offsetHeight;
+  dom.canvas.width = MM.PolyDom.getOffset(dom.node, "width");
+  dom.canvas.height = MM.PolyDom.getOffset(dom.node, "height");
 };
 
 MM.Layout._anchorToggle = function (item, x, y, side) {
   var node = item.getDOM().toggle;
-  var w = node.offsetWidth;
-  var h = node.offsetHeight;
+  var w = 12 || false;
+  var h = 12 || false;
   var l = x;
   var t = y;
 
@@ -3862,13 +3869,13 @@ MM.Layout._getChildAnchor = function (item, side) {
   var dom = item.getDOM();
 
   if (side == "left" || side == "right") {
-    var pos = dom.node.offsetLeft + dom.content.offsetLeft;
+    var pos = MM.PolyDom.getOffset(dom.node, "left") + MM.PolyDom.getOffset(dom.content, "left");
 
     if (side == "left") {
       pos += dom.content.offsetWidth;
     }
   } else {
-    var pos = dom.node.offsetTop + dom.content.offsetTop;
+    var pos = MM.PolyDom.getOffset(dom.node, "top") + MM.PolyDom.getOffset(dom.content, "top");
 
     if (side == "top") {
       pos += dom.content.offsetHeight;
@@ -3883,7 +3890,7 @@ MM.Layout._computeChildrenBBox = function (children, childIndex) {
   var rankIndex = childIndex ? 0 : 1;
   children.forEach(function (child, index) {
     var node = child.getDOM().node;
-    var childSize = [node.offsetWidth, node.offsetHeight];
+    var childSize = [MM.PolyDom.getOffset(node, "width"), MM.PolyDom.getOffset(node, "height")];
     bbox[rankIndex] = Math.max(bbox[rankIndex], childSize[rankIndex]);
     /* adjust cardinal size */
 
@@ -3904,19 +3911,16 @@ MM.Layout._computeChildrenBBox = function (children, childIndex) {
 MM.Layout._alignItem = function (item, side) {
   var dom = item.getDOM(); // 所有情况都插入
 
-  dom.content.insertBefore(dom.icon, dom.content.firstChild);
-
-  switch (side) {
-    case "left":
-      dom.content.appendChild(dom.value);
-      dom.content.appendChild(dom.status);
-      break;
-
-    case "right":
-      dom.content.insertBefore(dom.value, dom.content.firstChild);
-      dom.content.insertBefore(dom.status, dom.content.firstChild);
-      break;
-  }
+  dom.content.insertBefore(dom.icon, dom.content.firstChild); // switch (side) {
+  // 	case "left":
+  // 		dom.content.appendChild(dom.value);
+  // 		dom.content.appendChild(dom.status);
+  // 		break;
+  // 	case "right":
+  // 		dom.content.insertBefore(dom.value, dom.content.firstChild);
+  // 		dom.content.insertBefore(dom.status, dom.content.firstChild);
+  // 		break;
+  // }
 };
 
 /***/ }),
@@ -4071,7 +4075,7 @@ MM.Layout.Graph._layoutItem = function (item, rankDirection) {
   dom.content.style[childPosProp] = Math.round((childSize - contentSize[childIndex]) / 2) + offsetY + "px";
   dom.content.style[rankPosProp] = labelPos + "px"; // 当元素的子节点布局完成后，重新设置子节点的高度，避免子节点偏移后，高度不准确
 
-  var itemSize = [dom.content.offsetWidth + dom.content.offsetLeft, dom.content.offsetHeight + dom.content.offsetTop];
+  var itemSize = [dom.content.offsetWidth + MM.PolyDom.getOffset(dom.content, "left"), dom.content.offsetHeight + MM.PolyDom.getOffset(dom.content, "top")];
   childSize = Math.max(bbox[childIndex], itemSize[childIndex]);
   dom.node.style[rankSizeProp] = rankSize + "px"; // 父元素的宽度为文字的宽度
 
@@ -4089,9 +4093,7 @@ MM.Layout.Graph._layoutBoxChildren = function (children, rankDirection, offset, 
   children.forEach(function (child, index) {
     var node = child.getDOM().node; // 下划线的Y
 
-    var offsetY = node.offsetHeight + child.getShape().VERTICAL_OFFSET - node.offsetHeight / 2 - 1; //线高度1px
-
-    var childSize = [node.offsetWidth, node.offsetHeight];
+    var childSize = [MM.PolyDom.getOffset(node, "width"), MM.PolyDom.getOffset(node, "height")];
 
     if (rankDirection == "left") {
       offset[0] = bbox[0] - childSize[0];
@@ -4122,7 +4124,7 @@ MM.Layout.Graph._layoutChildren = function (children, rankDirection, offset, bbo
   var childPosProp = posProps[childIndex];
   children.forEach(function (child, index) {
     var node = child.getDOM().node;
-    var childSize = [node.offsetWidth, node.offsetHeight];
+    var childSize = [MM.PolyDom.getOffset(node, "width"), MM.PolyDom.getOffset(node, "height")];
 
     if (rankDirection == "left") {
       offset[0] = bbox[0] - childSize[0];
@@ -4167,9 +4169,9 @@ MM.Layout.Graph._drawHorizontalConnectors = function (item, side, children) {
   var y1 = item.getShape().getVerticalAnchor(item);
 
   if (side == "left") {
-    var x1 = dom.content.offsetLeft - 0.5;
+    var x1 = MM.PolyDom.getOffset(dom.content, "left") - 0.5;
   } else {
-    var x1 = dom.content.offsetWidth + dom.content.offsetLeft + 0.5;
+    var x1 = dom.content.offsetWidth + MM.PolyDom.getOffset(dom.content, "left") + 0.5;
   }
 
   this._anchorToggle(item, x1, y1, side);
@@ -4181,7 +4183,7 @@ MM.Layout.Graph._drawHorizontalConnectors = function (item, side, children) {
   if (children.length == 1) {
     //一个子节点时的情况
     var child = children[0];
-    var y2 = child.getShape().getVerticalAnchor(child) + child.getDOM().node.offsetTop;
+    var y2 = child.getShape().getVerticalAnchor(child) + MM.PolyDom.getOffset(child.getDOM().node, "top");
 
     var x2 = this._getChildAnchor(child, side);
 
@@ -4212,8 +4214,8 @@ MM.Layout.Graph._drawHorizontalConnectors = function (item, side, children) {
   var y = y1;
   var xx = x + (side == "left" ? -R : R);
   var sideVal = side === "left" ? -1 : 1;
-  var y1 = c1.getShape().getVerticalAnchor(c1) + c1.getDOM().node.offsetTop;
-  var y2 = c2.getShape().getVerticalAnchor(c2) + c2.getDOM().node.offsetTop;
+  var y1 = c1.getShape().getVerticalAnchor(c1) + MM.PolyDom.getOffset(c1.getDOM().node, "top");
+  var y2 = c2.getShape().getVerticalAnchor(c2) + MM.PolyDom.getOffset(c2.getDOM().node, "top");
 
   var x1 = this._getChildAnchor(c1, side);
 
@@ -4237,15 +4239,15 @@ MM.Layout.Graph._drawHorizontalConnectors = function (item, side, children) {
 
     var _x = this._getChildAnchor(c, side);
 
-    var y = c.getShape().getVerticalAnchor(c) + c.getDOM().node.offsetTop; // 节点下的下划线
+    var y = c.getShape().getVerticalAnchor(c) + MM.PolyDom.getOffset(c.getDOM().node, "top"); // 节点下的下划线
 
     ctx.moveTo(_x, y);
     var offsetTop = 0;
 
     if (item.getShape().id === "underline") {
-      offsetTop = dom.content.offsetTop + item.getShape().VERTICAL_OFFSET + dom.content.offsetHeight;
+      offsetTop = MM.PolyDom.getOffset(dom.content, "top") + item.getShape().VERTICAL_OFFSET + dom.content.offsetHeight;
     } else {
-      offsetTop = dom.content.offsetTop + dom.content.offsetHeight / 2;
+      offsetTop = MM.PolyDom.getOffset(dom.content, "top") + dom.content.offsetHeight / 2;
     }
 
     if (Math.abs(y - offsetTop) <= 1) {
@@ -4304,8 +4306,8 @@ MM.Layout.Graph._drawVerticalConnectors = function (item, side, children) {
   var c2 = children[children.length - 1];
   var offset = dom.content.offsetHeight + height;
   var y = Math.round(side == "top" ? canvas.height - offset : offset) + 0.5;
-  var x1 = c1.getShape().getHorizontalAnchor(c1) + c1.getDOM().node.offsetLeft;
-  var x2 = c2.getShape().getHorizontalAnchor(c2) + c2.getDOM().node.offsetLeft;
+  var x1 = c1.getShape().getHorizontalAnchor(c1) + MM.PolyDom.getOffset(c1.getDOM().node, "left");
+  var x2 = c2.getShape().getHorizontalAnchor(c2) + MM.PolyDom.getOffset(c2.getDOM().node, "left");
 
   var y1 = this._getChildAnchor(c1, side);
 
@@ -4323,7 +4325,7 @@ MM.Layout.Graph._drawVerticalConnectors = function (item, side, children) {
 
   for (var i = 1; i < children.length - 1; i++) {
     var c = children[i];
-    var x = c.getShape().getHorizontalAnchor(c) + c.getDOM().node.offsetLeft;
+    var x = c.getShape().getHorizontalAnchor(c) + MM.PolyDom.getOffset(c.getDOM().node, "left");
     ctx.moveTo(x, y);
     ctx.lineTo(x, this._getChildAnchor(c, side));
   }
@@ -4439,7 +4441,7 @@ MM.Layout.Tree._layoutItem = function (item, rankDirection) {
 MM.Layout.Tree._layoutChildren = function (children, rankDirection, offset, bbox) {
   children.forEach(function (child, index) {
     var node = child.getDOM().node;
-    var childSize = [node.offsetWidth, node.offsetHeight];
+    var childSize = [MM.PolyDom.getOffset(node, "width"), MM.PolyDom.getOffset(node, "height")];
     var left = offset[0];
 
     if (rankDirection == "left") {
@@ -4472,7 +4474,7 @@ MM.Layout.Tree._drawLines = function (item, side) {
   ctx.strokeStyle = item.getColor();
   var y1 = item.getShape().getVerticalAnchor(item);
   var last = children[children.length - 1];
-  var y2 = last.getShape().getVerticalAnchor(last) + last.getDOM().node.offsetTop;
+  var y2 = last.getShape().getVerticalAnchor(last) + MM.PolyDom.getOffset(last.getDOM().node, "top");
   ctx.beginPath();
   ctx.moveTo(x, y1);
   ctx.lineTo(x, y2 - R);
@@ -4480,7 +4482,7 @@ MM.Layout.Tree._drawLines = function (item, side) {
 
   for (var i = 0; i < children.length; i++) {
     var c = children[i];
-    var y = c.getShape().getVerticalAnchor(c) + c.getDOM().node.offsetTop;
+    var y = c.getShape().getVerticalAnchor(c) + MM.PolyDom.getOffset(c.getDOM().node, "top");
 
     var anchor = this._getChildAnchor(c, side);
 
@@ -4684,7 +4686,7 @@ MM.Layout.Map._drawRootConnectors = function (item, side, children) {
   var canvas = dom.canvas;
   var ctx = canvas.getContext("2d");
   var R = this.SPACING_RANK / 2;
-  var x1 = dom.content.offsetLeft + dom.content.offsetWidth / 2;
+  var x1 = MM.PolyDom.getOffset(dom.content, "left") + dom.content.offsetWidth / 2;
   var y1 = item.getShape().getVerticalAnchor(item);
   var half = this.LINE_THICKNESS / 2;
 
@@ -4693,7 +4695,7 @@ MM.Layout.Map._drawRootConnectors = function (item, side, children) {
 
     var x2 = this._getChildAnchor(child, side);
 
-    var y2 = child.getShape().getVerticalAnchor(child) + child.getDOM().node.offsetTop;
+    var y2 = child.getShape().getVerticalAnchor(child) + MM.PolyDom.getOffset(child.getDOM().node, 'top');
     var angle = Math.atan2(y2 - y1, x2 - x1) + Math.PI / 2;
     var dx = Math.cos(angle) * half;
     var dy = Math.sin(angle) * half;
@@ -5329,6 +5331,23 @@ MM.Mouse._visualizeDragState = function (state) {
 
 /***/ }),
 /* 24 */
+/***/ (function(module, exports) {
+
+MM.PolyDom = {
+  getOffset: function getOffset(node, type) {
+    var styleName = type;
+    var value = node.style[styleName] ? node.style[styleName].split("px")[0] : 0;
+    return parseInt(value);
+  },
+  getClient: function getClient(node, type) {
+    var styleName = type;
+    var value = node.style[styleName] ? node.style[styleName].split("px")[0] : 0;
+    return parseInt(value);
+  }
+};
+
+/***/ }),
+/* 25 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
