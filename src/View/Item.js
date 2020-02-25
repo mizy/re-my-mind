@@ -229,20 +229,19 @@ MM.Item.prototype.update = function (doNotRecurse) {
 			this._shape.set(this);
 		}
 	}
+	
+	// this._updateStatus();
+	this._updateIcon();
+	// this._updateValue();
 	const contentWidth  = MM.PolyDom.getOffset(this._dom.content,"width")
-	if ( contentWidth> 301) {
-		this.getDOM().content.style.width = "300px";
+	if ( contentWidth> 300) {
+		this.getDOM().content.style.width = "302px";
 		this.getDOM().text.className="text multi-line";
 	} else{
 		this.getDOM().text.className="text";
 	}
-
-	this._updateStatus();
-	this._updateIcon();
-	this._updateValue();
 	this.updateBackground();
 	this._dom.node.classList[this._collapsed ? "add" : "remove"]("collapsed");
-	
 	this.getLayout().update(this);
 	this.getShape().update(this);
 	if (!this.isRoot() && !doNotRecurse) { this._parent.update(); }
@@ -284,17 +283,24 @@ MM.Item.prototype.getText = function () {
 }
 
 MM.Item.prototype.collapse = function () {
+	this.clearOffset();
 	if (this._collapsed) { return; }
 	this._collapsed = true;
 	return this.update();
 }
-
 MM.Item.prototype.expand = function () {
+	this.clearOffset();
 	if (!this._collapsed) { return; }
 	this._collapsed = false;
 	this.update();
 	return this.updateSubtree();
 }
+
+MM.Item.prototype.clearOffset = function () {
+	this._dom.content.style.width = "auto";
+	this._dom.content.style.height = "auto";
+}
+
 
 MM.Item.prototype.isCollapsed = function () {
 	return this._collapsed;
@@ -324,6 +330,7 @@ MM.Item.prototype.getStatus = function () {
 
 MM.Item.prototype.setIcon = function (icon, type = 'default') {
 	this._icon[type] = icon;
+	this.clearOffset();
 	return this.update();
 }
 
@@ -333,6 +340,7 @@ MM.Item.prototype.deleteIcon = function (type) {
 		return this.update;
 	}
 	delete this._icon[type];
+	this.clearOffset();
 	return this.update();
 }
 
@@ -519,7 +527,10 @@ MM.Item.prototype.endNote = function (text) {
 }
 
 MM.Item.prototype.clearContentWidth = function(){
-	this._dom.content.style.width = "auto";
+	const width = MM.PolyDom.getOffset(this._dom.content,"width");
+	if(width<300){
+		this._dom.content.style.width = "auto";
+	}
 	this._dom.content.style.height = "auto";
 	clearTimeout(this.updateTimeout);
 	this.updateTimeout = setTimeout(()=>{

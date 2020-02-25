@@ -1221,22 +1221,20 @@ MM.Item.prototype.update = function (doNotRecurse) {
 
       this._shape.set(this);
     }
-  }
+  } // this._updateStatus();
+
+
+  this._updateIcon(); // this._updateValue();
+
 
   var contentWidth = MM.PolyDom.getOffset(this._dom.content, "width");
 
-  if (contentWidth > 301) {
-    this.getDOM().content.style.width = "300px";
+  if (contentWidth > 300) {
+    this.getDOM().content.style.width = "302px";
     this.getDOM().text.className = "text multi-line";
   } else {
     this.getDOM().text.className = "text";
   }
-
-  this._updateStatus();
-
-  this._updateIcon();
-
-  this._updateValue();
 
   this.updateBackground();
 
@@ -1291,6 +1289,8 @@ MM.Item.prototype.getText = function () {
 };
 
 MM.Item.prototype.collapse = function () {
+  this.clearOffset();
+
   if (this._collapsed) {
     return;
   }
@@ -1300,6 +1300,8 @@ MM.Item.prototype.collapse = function () {
 };
 
 MM.Item.prototype.expand = function () {
+  this.clearOffset();
+
   if (!this._collapsed) {
     return;
   }
@@ -1307,6 +1309,11 @@ MM.Item.prototype.expand = function () {
   this._collapsed = false;
   this.update();
   return this.updateSubtree();
+};
+
+MM.Item.prototype.clearOffset = function () {
+  this._dom.content.style.width = "auto";
+  this._dom.content.style.height = "auto";
 };
 
 MM.Item.prototype.isCollapsed = function () {
@@ -1338,6 +1345,7 @@ MM.Item.prototype.getStatus = function () {
 MM.Item.prototype.setIcon = function (icon) {
   var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'default';
   this._icon[type] = icon;
+  this.clearOffset();
   return this.update();
 };
 
@@ -1348,6 +1356,7 @@ MM.Item.prototype.deleteIcon = function (type) {
   }
 
   delete this._icon[type];
+  this.clearOffset();
   return this.update();
 };
 
@@ -1568,7 +1577,12 @@ MM.Item.prototype.endNote = function (text) {
 MM.Item.prototype.clearContentWidth = function () {
   var _this2 = this;
 
-  this._dom.content.style.width = "auto";
+  var width = MM.PolyDom.getOffset(this._dom.content, "width");
+
+  if (width < 300) {
+    this._dom.content.style.width = "auto";
+  }
+
   this._dom.content.style.height = "auto";
   clearTimeout(this.updateTimeout);
   this.updateTimeout = setTimeout(function () {
@@ -4030,13 +4044,13 @@ MM.Layout.Graph._layoutItem = function (item, rankDirection) {
   /* children size */
   // 撑开孩子节点的属性
 
-  var bbox = this._computeChildrenBBox(item.getChildren(), childIndex);
-
+  var bbox = item.isCollapsed() ? [0, 0] : this._computeChildrenBBox(item.getChildren(), childIndex);
   var rankSize = contentSize[rankIndex];
 
   if (bbox[rankIndex]) {
     rankSize += bbox[rankIndex] + spacingRank;
-  }
+  } // 子节点们的size
+
 
   var childSize = Math.max(bbox[childIndex], contentSize[childIndex]);
   var offset = [0, 0];
@@ -4050,15 +4064,13 @@ MM.Layout.Graph._layoutItem = function (item, rankDirection) {
   } // 居中子元素所需要的偏移量
 
 
-  offset[childIndex] = Math.round((childSize - bbox[childIndex]) / 2);
+  offset[childIndex] = Math.round((childSize - bbox[childIndex]) / 2); // 放置子元素
 
   if (shape === 'box') {
     this._layoutBoxChildren(item.getChildren(), rankDirection, offset, bbox);
   } else {
     this._layoutChildren(item.getChildren(), rankDirection, offset, bbox);
   }
-  /* label position */
-
 
   var labelPos = 0;
 
@@ -4070,7 +4082,7 @@ MM.Layout.Graph._layoutItem = function (item, rankDirection) {
     labelPos = rankSize - contentSize[1];
   }
 
-  var offsetY = 0;
+  var offsetY = 0; // 只有一个子节点的兼容情况，因为可能父节点没子节点大，所以需要特殊处理
 
   if (item.getChildren().length) {
     var child = item.getChildren()[0]; // 父子节点都为Underline的情况不用偏移
@@ -4078,8 +4090,8 @@ MM.Layout.Graph._layoutItem = function (item, rankDirection) {
     if (child.getShape().id === "underline" && shape !== "underline") {
       var childNode = child.getDOM().text;
       offsetY = childNode.offsetHeight / 2 + 1; //线高度1px
-    } else if (item.getChildren().length) {
-      //TODO: 当只有一个children时，兼容多行文本
+    } else {
+      // 子节点比父节点大的情况需要父节点偏移
       offsetY = (MM.PolyDom.getOffset(child.getDOM().content, "height") - MM.PolyDom.getOffset(dom.content, "height")) / 2;
       offsetY = offsetY < 0 ? 0 : offsetY;
     }

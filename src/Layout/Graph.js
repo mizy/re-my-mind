@@ -64,10 +64,11 @@ MM.Layout.Graph._layoutItem = function (item, rankDirection) {
 
 	/* children size */
 	// 撑开孩子节点的属性
-	var bbox = this._computeChildrenBBox(item.getChildren(), childIndex);
+	var bbox = item.isCollapsed()?[0,0]:this._computeChildrenBBox(item.getChildren(), childIndex);
  
 	var rankSize = contentSize[rankIndex];
 	if (bbox[rankIndex]) { rankSize += bbox[rankIndex] + spacingRank; }
+	// 子节点们的size
 	var childSize = Math.max(bbox[childIndex], contentSize[childIndex]);
 	
 	var offset = [0, 0];
@@ -75,25 +76,27 @@ MM.Layout.Graph._layoutItem = function (item, rankDirection) {
 	if (rankDirection == "bottom") { offset[1] = contentSize[1] + spacingRank; }
 	// 居中子元素所需要的偏移量
 	offset[childIndex] = Math.round((childSize - bbox[childIndex]) / 2);
+	// 放置子元素
 	if (shape === 'box') {
 		this._layoutBoxChildren(item.getChildren(), rankDirection, offset, bbox);
 	} else {
 		this._layoutChildren(item.getChildren(), rankDirection, offset, bbox);
 	}
 
-	/* label position */
 	var labelPos = 0;
 	if (rankDirection == "left") { labelPos = rankSize - contentSize[0]; }
 	if (rankDirection == "top") { labelPos = rankSize - contentSize[1]; }
 	let offsetY = 0
+
+	// 只有一个子节点的兼容情况，因为可能父节点没子节点大，所以需要特殊处理
 	if (item.getChildren().length) {
 		const child = item.getChildren()[0];
 		// 父子节点都为Underline的情况不用偏移
 		if (child.getShape().id === "underline" && shape !== "underline") {
 			const childNode = child.getDOM().text;
 			offsetY = childNode.offsetHeight / 2 + 1;//线高度1px
-		} else if (item.getChildren().length) {
-			//TODO: 当只有一个children时，兼容多行文本
+		} else{
+			// 子节点比父节点大的情况需要父节点偏移
 			offsetY = (MM.PolyDom.getOffset(child.getDOM().content,"height") - MM.PolyDom.getOffset(dom.content,"height")) / 2;
 			offsetY = offsetY < 0 ? 0 : offsetY;
 		}
