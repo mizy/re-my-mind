@@ -231,11 +231,10 @@ MM.Item.prototype.update = function (doNotRecurse) {
 	}
 	const contentWidth  = MM.PolyDom.getOffset(this._dom.content,"width")
 	if ( contentWidth> 301) {
-		this.getDOM().text.style.width = "300px";
-		this.getDOM().text.style.whiteSpace = "normal";
-	} else {
-		this.getDOM().text.style.whiteSpace = "nowrap";
-		this.getDOM().text.style.width = "auto";
+		this.getDOM().content.style.width = "300px";
+		this.getDOM().text.className="text multi-line";
+	} else{
+		this.getDOM().text.className="text";
 	}
 
 	this._updateStatus();
