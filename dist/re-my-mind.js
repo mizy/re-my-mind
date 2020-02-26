@@ -943,6 +943,8 @@ MM.Item = function (options) {
   this._dom.node.appendChild(this._dom.canvas);
 
   this._dom.node.appendChild(this._dom.content);
+
+  this._dom.content.insertBefore(this._dom.icon, this._dom.content.firstChild);
   /* toggle+children are appended when children exist */
 
 
@@ -3993,9 +3995,8 @@ MM.Layout.Graph.update = function (item) {
 
   if (!item.isRoot()) {
     side = item.getParent().getLayout().getChildDirection(item);
-  }
+  } // this._alignItem(item, side);
 
-  this._alignItem(item, side);
 
   this._layoutItem(item, this.childDirection);
 

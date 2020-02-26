@@ -45,10 +45,10 @@ MM.Item = function (options) {
 	this._dom.note.addEventListener("click", () => {
 		this.startNote()
 	});
-
 	this._dom.content.appendChild(this._dom.text); /* status+value are appended in layout */
 	this._dom.node.appendChild(this._dom.canvas);
 	this._dom.node.appendChild(this._dom.content);
+	this._dom.content.insertBefore(this._dom.icon, this._dom.content.firstChild);
 	/* toggle+children are appended when children exist */
 	this.setText(options.name || "")
 	this._dom.toggle.addEventListener("click", this);

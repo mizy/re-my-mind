@@ -23,7 +23,7 @@ MM.Layout.Graph.update = function (item) {
 	if (!item.isRoot()) {
 		side = item.getParent().getLayout().getChildDirection(item);
 	}
-	this._alignItem(item, side);
+	// this._alignItem(item, side);
 
 	this._layoutItem(item, this.childDirection);
 
