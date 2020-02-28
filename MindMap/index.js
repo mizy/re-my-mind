@@ -75,15 +75,16 @@ class Minder extends PureComponent {
 		});
 		// 鼠标滚动
 		MM.subscribe("mousewheel", (e) => {
+			const node = MM.App.map.getRoot().getDOM().node;
 			e.stopPropagation();
 			e.preventDefault();
-			const node = MM.App.map.getRoot().getDOM().node;
-
 			if(e.ctrlKey){// 双指
-				this.topbar.scale = this.topbar.scale * (1-e.deltaY/50);
-				node.style.transform = `scale(${this.topbar.scale})`;
-				this.setState({
-
+				let {scale} = this.topbar.state;
+				scale = scale * (1-e.deltaY/50);
+				if(scale<0.05)return;
+				node.style.transform = `scale(${scale})`;
+				this.topbar.setState({
+					scale
 				})
 				return;
 			}
@@ -91,7 +92,6 @@ class Minder extends PureComponent {
 			const left = parseInt(node.style.left.split("px")[0], 10);
 			node.style.top = `${-e.deltaY + top}px`;
 			node.style.left = `${-e.deltaX + left}px`;
-			
 		});
 	}
 

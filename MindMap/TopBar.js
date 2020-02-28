@@ -1,31 +1,45 @@
-import React, { PureComponent } from "react";
+import React, { PureComponent,Fragment } from "react";
+import { get } from "lodash";
 import html2canvas from "html2canvas";
 import { saveAs } from "file-saver";
-import { Icon, Popover, Button, Modal, Input, Dropdown, Menu, Divider, message, Tooltip } from "antd";
+import {
+	Icon,
+	Popover,
+	Button,
+	Modal,
+	Menu,
+	Input,
+	Dropdown,
+	Divider,
+	message,
+	Tooltip
+} from "antd";
+import CommandKey from './FormatPanel/CommandKey';
 const MM = window.MM;
+
 class TopBar extends PureComponent {
-	scale = 1;
 	state = {
+		scale: 1,
+
 		selectedKeys: ["3"],
 		show3dView: false
 	};
 
 	componentDidMount() {
 		this.setState({
-			selectedKeys: [MM.App.current.getLayout().id],
-			name: this.props.rootName
+			selectedKeys: [MM.App.current.getLayout().id]
 		});
-		MM.subscribe("item-select", (item) => {
+		MM.subscribe("item-select", item => {
 			this.setState({
 				selectedKeys: [item.getLayout().id]
 			});
 		});
-		MM.subscribe("redo", (index) => {
+		MM.subscribe("redo", index => {
 			this.setState({
 				historyIndex: index
 			});
 		});
-		MM.subscribe("undo", (index) => {
+		MM.subscribe("undo", index => {
 			console.log(index);
 			this.setState({
 				historyIndex: index
@@ -42,18 +56,20 @@ class TopBar extends PureComponent {
 	}
 
 	startTimeout() {
+		if(this.props.historyId)return;
 		this.timeout && clearTimeout(this.timeout);
 		this.timeout = setTimeout(() => {
 			this.save();
 			this.startTimeout();
-		}, 30000);
+		}, 90000);
 	}
 
-	save = () => {
-		const { record, name } = this.state;
+	save = needCreateHistory => {
+		const { record = {} } = this.props;
+		const {catalog={}} = record;
 		let data = this.props.app.map.toJSON();
 		this.getBackgroundData(data);
-		message.info("保存")
+		message.warn("保存功能")
 	};
 
 	getBackgroundData(data) {
@@ -83,7 +99,10 @@ class TopBar extends PureComponent {
 
 	add = () => {
 		const item = MM.App.current;
-		const action = new MM.Action.InsertNewItem(item, item.getChildren().length);
+		const action = new MM.Action.InsertNewItem(
+			item,
+			item.getChildren().length
+		);
 		this.props.app.action(action);
 		MM.Command.Edit.execute();
 		MM.publish("command-child");
@@ -93,7 +112,10 @@ class TopBar extends PureComponent {
 		var item = MM.App.current;
 		let action;
 		if (item.isRoot()) {
-			action = new MM.Action.InsertNewItem(item, item.getChildren().length);
+			action = new MM.Action.InsertNewItem(
+				item,
+				item.getChildren().length
+			);
 		} else {
 			const parent = item.getParent();
 			const index = parent.getChildren().indexOf(item);
@@ -105,9 +127,19 @@ class TopBar extends PureComponent {
 	};
 
 	zoom = val => {
-		this.scale = this.scale * val;
+		let { scale } = this.state;
+		scale = scale * val;
+		if (scale < 0.05) return;
 		const node = this.props.app.map.getRoot().getDOM().node;
-		node.style.transform = `scale(${this.scale})`;
+		node.style.transition = 'transform 0.3s ease-in';
+		node.style.transform = `scale(${scale})`;
+		clearTimeout(this.transitionTimeout)
+		this.transitionTimeout = setTimeout(()=>{
+			node.style.transition = '';
+		},500);
+		this.setState({
+			scale
+		});
 	};
 
 	changeNodeType = (value, key) => {
@@ -120,7 +152,13 @@ class TopBar extends PureComponent {
 	};
 
 	format = () => {
+		const root = MM.App.map.getRoot();
+		root._dom.node.style.transition = 'left 0.3s ease-in,top 0.3s ease-in';
 		MM.App.map.center();
+		clearTimeout(this.transitionTimeout)
+		this.transitionTimeout = setTimeout(()=>{
+			root._dom.node.style.transition = '';
+		},500)
 	};
 
 	goback = () => {
@@ -133,228 +171,309 @@ class TopBar extends PureComponent {
 		});
 	};
 
-	addNote = () => {
-		MM.App.current.startNote();
-	}
-
 	export = () => {
-		const root = document.querySelector(".re-mind > .item");
-		root.style.padding = "50px";
-		html2canvas(
-			root,
-			{ useCORS: true }
-		).then(canvas => {
+		html2canvas(document.querySelector(".re-mind > .item"), {
+			useCORS: true
+		}).then(canvas => {
 			canvas.toBlob(blob => {
 				saveAs(blob, this.state.name + ".png");
 			});
-			root.style.padding = "0";
 		});
-	}
+	};
+
+	addNote = () => {
+		MM.App.current.startNote();
+	};
+
+	fullScreen = () => {
+		if (this.state.fullscreen) {
+			return this.exitFullscreen();
+		}
+
+		this.setState({
+			fullscreen: true
+		});
+		var element = document.documentElement;
+		if (element.requestFullscreen) {
+			element.requestFullscreen();
+		} else if (element.msRequestFullscreen) {
+			element.msRequestFullscreen();
+		} else if (element.mozRequestFullScreen) {
+			element.mozRequestFullScreen();
+		} else if (element.webkitRequestFullscreen) {
+			element.webkitRequestFullscreen();
+		}
+	};
+
+	// 退出全屏
+	exitFullscreen = () => {
+		this.setState({
+			fullscreen: false
+		});
+		if (document.exitFullscreen) {
+			document.exitFullscreen();
+		} else if (document.msExitFullscreen) {
+			document.msExitFullscreen();
+		} else if (document.mozCancelFullScreen) {
+			document.mozCancelFullScreen();
+		} else if (document.webkitExitFullscreen) {
+			document.webkitExitFullscreen();
+		}
+	};
 
 	render() {
-		const { rootName, message, type } = this.props;
-		const { name } = this.state;
+		const { scale, fullscreen } = this.state;
+		const { type, mind, mindType = "mind", historyId,record={} } = this.props;
+		const {book={}} = record;
+		const {projectVersion={}} = book;
 		return (
 			<div className="minder-header">
-
-				<Input
-					value={name || rootName}
-					onChange={this.changeName}
-					className="title-input"
-				/>
+				<a
+					style={{ cursor: "pointer" }}
+					onClick={this.goback}
+				>
+					脑图
+				</a>
+				
 
 				<div className="button-area">
+					{!historyId && (
+						<Fragment>
+							<div className="handle-button">
+								<Tooltip title="保存为版本">
+									<i
+										className="iconfont icon-editor-save"
+										onClick={() => {
+											this.save(true);
+										}}
+									></i>
+								</Tooltip>
+							</div>
+							<div className={"handle-button"}>
+								<i
+									className={`iconfont icon-editor-undo ${
+										MM.App.historyIndex > 0
+											? ""
+											: "disabled"
+										}`}
+									onClick={
+										MM.App.historyIndex > 0 && this.undo
+									}
+								/>
+							</div>
+							<div className={"handle-button "}>
+								<i
+									className={`iconfont icon-editor-redo ${
+										MM.App.historyIndex <
+											MM.App.history.length
+											? ""
+											: "disabled"
+										}`}
+									onClick={
+										MM.App.historyIndex <
+										MM.App.history.length && this.redo
+									}
+								/>
+							</div>
+
+							<div className="handle-button">
+								<Tooltip title="插入子主题">
+									<i
+										className="iconfont icon-editor-insert-child"
+										onClick={this.add}
+									></i>
+								</Tooltip>
+							</div>
+							<div className="handle-button">
+								<Tooltip title="插入同级主题">
+									<i
+										className="iconfont icon-editor-insert-brother"
+										onClick={this.addItem}
+									></i>
+								</Tooltip>
+							</div>
+							<div className="handle-button">
+								<Tooltip title="备注">
+									<i
+										className="iconfont icon-biji"
+										onClick={this.addNote}
+									></i>
+								</Tooltip>
+							</div>
+							<div className="handle-button">
+								<Dropdown
+									overlayClassName="tnt-dropdown"
+									overlay={
+										<Menu
+											style={{ width: 120 }}
+											onClick={({ item, key }) => {
+												this.changeNodeType(key);
+											}}
+											selectedKeys={
+												this.state.selectedKeys
+											}
+										>
+											<Menu.Item key="map">
+												脑图
+											</Menu.Item>
+											<Menu.Item key="map-right">
+												脑图-右
+											</Menu.Item>
+											<Menu.Item key="map-left">
+												脑图-左
+											</Menu.Item>
+											<Menu.Divider />
+											<Menu.Item key="graph-top">
+												架构图-上
+											</Menu.Item>
+											<Menu.Item key="graph-bottom">
+												架构图-下
+											</Menu.Item>
+											<Menu.Item key="graph-left">
+												架构图-左
+											</Menu.Item>
+											<Menu.Item key="graph-right">
+												架构图-右
+											</Menu.Item>
+											<Menu.Divider />
+											<Menu.Item key="tree-right">
+												树图-右
+											</Menu.Item>
+											<Menu.Item key="tree-left">
+												树图-左
+											</Menu.Item>
+										</Menu>
+									}
+								>
+									<i className="iconfont icon-editor-org"></i>
+								</Dropdown>
+							</div>
+						</Fragment>
+					)}
 					<div className="handle-button">
-						<Tooltip title="保存">
-							<i className="iconfont icon-editor-save" onClick={this.save}></i>
-							{/* <Icon type="save" onClick={this.save} /> */}
-						</Tooltip>
-					</div>
-					<div className={"handle-button"}>
-						<i
-							className={`iconfont icon-editor-undo ${
-								MM.App.historyIndex > 0 ? "" : "disabled"
-								}`}
-							onClick={MM.App.historyIndex > 0 ? this.undo : undefined}
-						/>
-					</div>
-					<div className={"handle-button "}>
-						<i
-							className={`iconfont icon-editor-redo ${
-								MM.App.historyIndex < MM.App.history.length ? "" : "disabled"
-								}`}
-							onClick={MM.App.historyIndex < MM.App.history.length ? this.redo : undefined}
-						/>
-					</div>
-					<div className="handle-button">
-						<Icon
-							type="zoom-in"
-							onClick={() => {
-								this.zoom(1.2);
-							}}
-						/>
-					</div>
-					<div className="handle-button">
-						<Icon
-							type="zoom-out"
-							onClick={() => {
-								this.zoom(0.8);
-							}}
-						/>
-					</div>
-					<div className="handle-button">
-						<Tooltip title="插入子主题">
-							<i className="iconfont icon-editor-insert-child" onClick={this.add}></i>
-						</Tooltip>
-					</div>
-					<div className="handle-button">
-						<Tooltip title="插入同级主题">
-							<i className="iconfont icon-editor-insert-brother" onClick={this.addItem}></i>
+						<Tooltip title="归位">
+							<i
+								className="iconfont icon-guiwei"
+								onClick={this.format}
+							/>
 						</Tooltip>
 					</div>
 
 					<div className="handle-button">
-						<Dropdown
-							overlayClassName="tnt-dropdown"
-							overlay={
-								<Menu
-									style={{ width: 120 }}
-									onClick={({ item, key }) => {
-										this.changeNodeType(key);
-									}}
-									selectedKeys={this.state.selectedKeys}
-								>
-									<Menu.Item
-										key="map"
-									>
-										脑图
-									</Menu.Item>
-									<Menu.Item
-										key="map-right"
-									>
-										脑图-右
-									</Menu.Item>
-									<Menu.Item
-										key="map-left"
-									>
-										脑图-左
-									</Menu.Item>
-									<Menu.Divider />
-									<Menu.Item
-										key="graph-top"
-									>
-										架构图-上
-									</Menu.Item>
-									<Menu.Item
-										key="graph-bottom"
-									>
-										架构图-下
-									</Menu.Item>
-									<Menu.Item
-										key="graph-left"
-									>
-										架构图-左
-									</Menu.Item>
-									<Menu.Item
-										key="graph-right"
-									>
-										架构图-右
-									</Menu.Item>
-									<Menu.Divider />
-									<Menu.Item
-										key="tree-right"
-									>
-										树图-右
-									</Menu.Item>
-									<Menu.Item
-										key="tree-left"
-									>
-										树图-左
-									</Menu.Item>
-								</Menu>
-							}>
-							<i className="iconfont icon-editor-org"></i>
-						</Dropdown>
-					</div>
-					<div className="handle-button">
-						<Tooltip title="格式化">
-							<i className="iconfont icon-editor-format" onClick={this.format} />
+						<Tooltip title="放大">
+							<Icon
+								type="zoom-in"
+								onClick={() => {
+									this.zoom(1.2);
+								}}
+							/>
 						</Tooltip>
 					</div>
 					<div className="handle-button">
-						<Tooltip title="备注">
-							<i className="iconfont icon-biji" onClick={this.addNote} />
+						<Tooltip title="缩小">
+							<Icon
+								type="zoom-out"
+								onClick={() => {
+									this.zoom(0.8);
+								}}
+							/>
 						</Tooltip>
 					</div>
-					<div className="handle-button">{message}</div>
+					<div className="handle-button">
+						<Tooltip title="恢复成100%">
+							<i
+								className="iconfont "
+								style={{ fontSize: 14 }}
+								onClick={() => {
+									this.zoom(1 / scale);
+								}}
+							>
+								{(scale * 100).toFixed(0)}%
+							</i>
+						</Tooltip>
+					</div>
+					<div className="handle-button">
+						<Tooltip title="全屏">
+							<Icon
+								type={
+									!fullscreen
+										? "fullscreen"
+										: "fullscreen-exit"
+								}
+								onClick={this.fullScreen}
+								style={{ fontSize: 14 }}
+							/>
+						</Tooltip>
+					</div>
 				</div>
-				<Popover content={<div className="key-list">
-					<div><span>保存</span><span>⌘/ctrl+S</span></div>
-					<div><span>撤销</span><span>⌘/ctrl+Z</span></div>
-					<div><span>回退</span><span>⌘/ctrl+shift+Z</span></div>
-					<div><span>插入子节点</span><span>Tab</span></div>
-					<div><span>插入同级节点</span><span>Enter</span></div>
-					<div><span>复制</span><span>⌘/ctrl+C</span></div>
-					<div><span>剪切</span><span>⌘/ctrl+X</span></div>
-					<div><span>粘贴</span><span>⌘/ctrl+V</span></div>
-					<div><span>折叠</span><span>F</span></div>
-					<div><span>编辑</span><span>Space</span></div>
-					<div><span>结束编辑</span><span>Enter</span></div>
-					<div><span>退出编辑</span><span>Esc</span></div>
-					<div><span>换行</span><span>shift+Space</span></div>
-					<div><span>加粗</span><span>ctrl+B</span></div>
-					<div><span>斜体</span><span>ctrl+I</span></div>
-					<div><span>移动节点</span><span>方向键</span></div>
-					<div><span>脑图居中</span><span>C</span></div>
-					<div><span>移动脑图</span><span>W/A/S/D</span></div>
-				</div>} >
-					<Icon type="question-circle" />
-				</Popover>
+				{!historyId&&<CommandKey />}
 				<Button.Group className="button-area-footer">
 					<Tooltip title="大纲">
 						<Button
-							type={type === "mainText" ? "primary" : "default"}
+							type={type === "icon" ? "primary" : "default"}
 							onClick={() => {
 								this.props.mind.showRightPanel("mainText");
-							}}>
-							<Icon type="unordered-list" />
+							}}
+						>
+							<i style={{fontSize:14}} className="iconfont icon-read" />
 						</Button>
 					</Tooltip>
-					{/* <Button
-						type={type === "3d" ? "primary" : "default"}
-						onClick={() => {
-							this.props.mind.show3d();
-						}}>
-						3D
-					</Button> */}
-					<Tooltip title="图标">
+					{!historyId&&<Tooltip title="图标">
 						<Button
 							type={type === "icon" ? "primary" : "default"}
 							onClick={() => {
 								this.props.mind.showRightPanel("icon");
-							}}>
+							}}
+						>
 							<Icon type="star" />
 						</Button>
-					</Tooltip>
-					<Tooltip title="格式">
+					</Tooltip>}
+					{!historyId&&<Tooltip title="格式">
 						<Button
 							type={type === "format" ? "primary" : "default"}
 							onClick={() => {
 								this.props.mind.showRightPanel("format");
-							}}>
+							}}
+						>
 							<Icon type="highlight" />
 						</Button>
-					</Tooltip>
-					<Tooltip title="导出为图片">
-						<Button
-							key="export"
-							type={"default"}
-							onClick={() => {
-								this.export();
-							}}>
-							<Icon type="export" />
-						</Button>
-					</Tooltip>
+					</Tooltip>}
+					<Dropdown
+						overlay={
+							<Menu
+								onClick={({ domEvent }) =>
+									domEvent.stopPropagation()
+								}
+							>
+								{/* <Divider /> */}
+								<Menu.Item
+									onClick={() => {
+										this.export();
+									}}
+								>
+									<Icon type="export" />
+									导出为图片
+								</Menu.Item>
+								{!historyId&&<Menu.Item
+									disabled
+								>
+									<Icon type="upload" />
+									从xmind文件导入
+								</Menu.Item>}
+								<Menu.Item
+									disabled
+								>
+									<Icon type="history" />
+									历史记录
+								</Menu.Item>
+							</Menu>
+						}
+						class="project-action-more"
+						overlayClassName="tnt-dropdown"
+						placement="bottomRight"
+					>
+						<Button icon="more" />
+					</Dropdown>
 				</Button.Group>
 			</div>
 		);

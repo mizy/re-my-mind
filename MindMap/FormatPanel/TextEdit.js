@@ -21,27 +21,24 @@ export default class StyleEdit extends PureComponent {
 
 	// 同步数据
 	syncNowItem(item) {
-		const span = item.getDOM().text.querySelector("span") || {};
-		const { style = {} } = span;
+		const text = item.getDOM().text || {};
+		const { style = {} } = text;
 		this.setState({
 			color: style.color
 		});
 	}
 
 	execute = (command, data) => {
-		if (MM.App.editing) {
-			document.execCommand("styleWithCSS", null, null);
-			document.execCommand(command, null, data);
-		} else {
-			MM.Command.Edit.execute();
-			const selection = getSelection();
-			const range = selection.getRangeAt(0);
-			range.selectNodeContents(MM.App.current.getDOM().text);
-			selection.removeAllRanges();
-			selection.addRange(range);
-			this.execute(command, data);
-			MM.Command.Finish.execute();
-		}
+		 const text = this.props.nowItem.getDOM().text;
+		 const {style = {}} = text;
+		 if(style[command]!==data){
+			style[command] = data;
+			nowItem.style[command] = data;
+		 }else{
+			style[command] = '';
+			delete nowItem.style[command] ;
+		 }
+		
 	};
 
 	changeFontColor = e => {
@@ -50,7 +47,7 @@ export default class StyleEdit extends PureComponent {
 		this.setState({
 			color
 		});
-		this.execute("foreColor", color);
+		this.execute("color", color);
 		// MM.App.current.getDOM().text.style.color = color;
 	};
 
@@ -62,25 +59,25 @@ export default class StyleEdit extends PureComponent {
 					<Button.Group>
 						<Button
 							onClick={() => {
-								this.execute("bold");
+								this.execute("fontWeight","bold");
 							}}>
 							<span style={{ fontWeight: "bold" }}>B</span>
 						</Button>
 						<Button
 							onClick={() => {
-								this.execute("italic");
+								this.execute("fontStyle","italic");
 							}}>
 							<span style={{ fontStyle: "italic" }}>I</span>
 						</Button>
 						<Button
 							onClick={() => {
-								this.execute("underline");
+								this.execute("textDecoration","underline");
 							}}>
 							<span style={{ textDecoration: "underline" }}>U</span>
 						</Button>
 						<Button
 							onClick={() => {
-								this.execute("strikeThrough");
+								this.execute("textDecoration","line-through");
 							}}>
 							<span style={{ textDecoration: "line-through" }}>S</span>
 						</Button>

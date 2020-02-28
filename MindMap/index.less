@@ -17,6 +17,18 @@
 	div{
 		transition: left,top,width,height 500ms ease-out;
 	}
+
+
+    >.shortcut {
+        font-size: 18px;
+        position: absolute;
+        right: 220px;
+        cursor: pointer;
+
+        &:hover {
+            color: #999;
+        }
+    }
 	.title-input {
 		& {
 			margin-top: 2px;
@@ -168,6 +180,7 @@
 		width: 40px;
 		height: 28px;
 		border-radius: 5px;
+		border:1px solid #efefef;
 	}
 	.red {
 		color: red;
@@ -218,24 +231,30 @@
 	height: 100vh;
 	width: 100vw;
 	background: rgb(248, 248, 248);
-}
-.key-list{
-	padding:20px;
-	>div{
-		margin-bottom: 5px;;
-		>span{
-			display: inline-block;
-		}
-		>span:first-child{
-			font-size:12px;
-			margin-right: 20px;
-			width:80px;
-		}
-		>span:last-child{
-			width:120px;
-			text-align:center;
-			padding:0 5px;
-			border:1px solid #efefef;
-		}
-	}
+} 
+
+.key-list {
+    padding: 20px;
+
+    >div {
+        margin-bottom: 5px;
+        ;
+
+        >span {
+            display: inline-block;
+        }
+
+        >span:first-child {
+            font-size: 12px;
+            margin-right: 20px;
+            width: 80px;
+        }
+
+        >span:last-child {
+            width: 120px;
+            text-align: center;
+            padding: 0 5px;
+            border: 1px solid #efefef;
+        }
+    }
 }
