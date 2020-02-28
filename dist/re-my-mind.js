@@ -895,6 +895,7 @@ MM.Item = function (options) {
   this._icon = {};
   this._id = MM.generateId();
   this._oldText = "";
+  this.style = {};
   this._computed = {
     value: 0,
     status: null
@@ -1018,6 +1019,10 @@ MM.Item.prototype.toJSON = function () {
     });
   }
 
+  if (this.style && JSON.stringify(this.style) !== "{}") {
+    data.style = this.style;
+  }
+
   var content = this.getDOM().content;
 
   if (content.style.backgroundColor) {
@@ -1081,11 +1086,25 @@ MM.Item.prototype.fromJSON = function (data) {
     this._dom.content.appendChild(this._dom.note);
   }
 
+  if (data.style && JSON.stringify(data.style) !== "{}") {
+    this.setTextStyle(data.style);
+  }
+
   (data.children || []).forEach(function (child) {
     this.insertChild(MM.Item.fromJSON(child));
   }, this);
   this._data = data;
   return this;
+};
+
+MM.Item.prototype.setTextStyle = function (style) {
+  var text = this._dom.text;
+
+  for (var name in style) {
+    text.style[name] = style[name];
+  }
+
+  this.style = style;
 };
 
 MM.Item.prototype.mergeWith = function (data) {
@@ -1223,10 +1242,10 @@ MM.Item.prototype.update = function (doNotRecurse) {
 
       this._shape.set(this);
     }
-  } // this._updateStatus();
+  }
 
-
-  this._updateIcon(); // this._updateValue();
+  this._updateIcon(); // this._updateStatus();
+  // this._updateValue();
 
 
   var contentWidth = MM.PolyDom.getOffset(this._dom.content, "width");
@@ -1563,6 +1582,8 @@ MM.Item.prototype.stopEditing = function () {
 };
 
 MM.Item.prototype.startNote = function (text) {
+  this.clearOffset();
+
   this._dom.content.appendChild(this._dom.note); // 
 
 
@@ -1571,6 +1592,8 @@ MM.Item.prototype.startNote = function (text) {
 };
 
 MM.Item.prototype.endNote = function (text) {
+  this.clearOffset();
+
   if (!this.note) {
     this._dom.content.removeChild(this._dom.note);
   }
@@ -1591,7 +1614,7 @@ MM.Item.prototype.clearContentWidth = function () {
     _this2.update();
 
     _this2.getMap().ensureItemVisibility(_this2);
-  }, 200);
+  }, 100);
 };
 
 MM.Item.prototype.handleEvent = function (e) {
@@ -1631,7 +1654,7 @@ MM.Item.prototype._getAutoShape = function () {
   var depth = 0;
   var node = this;
 
-  while (!node.isRoot()) {
+  while (!node.isRoot() && depth < 2) {
     depth++;
     node = node.getParent();
   }

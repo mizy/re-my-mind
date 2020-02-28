@@ -14,6 +14,7 @@ MM.Item = function (options) {
 	this._icon = {};
 	this._id = MM.generateId();
 	this._oldText = "";
+	this.style = {};
 
 	this._computed = {
 		value: 0,
@@ -92,6 +93,9 @@ MM.Item.prototype.toJSON = function () {
 	if (this._children.length) {
 		data.children = this._children.map(function (child) { return child.toJSON(); });
 	}
+	if(this.style&&JSON.stringify(this.style)!=="{}"){
+		data.style = this.style;
+	}
 	const content = this.getDOM().content;
 	if (content.style.backgroundColor) {
 		data.backgroundColor = content.style.backgroundColor;
@@ -121,11 +125,22 @@ MM.Item.prototype.fromJSON = function (data) {
 		this.note = data.note;
 		this._dom.content.appendChild(this._dom.note);
 	}
+	if(data.style&&JSON.stringify(data.style)!=="{}"){
+		this.setTextStyle(data.style);
+	}
 	(data.children || []).forEach(function (child) {
 		this.insertChild(MM.Item.fromJSON(child));
 	}, this);
 	this._data = data;
 	return this;
+}
+
+MM.Item.prototype.setTextStyle = function (style) {
+	const text = this._dom.text;
+	for(let name in style){
+		text.style[name] = style[name];
+	}
+	this.style = style;
 }
 
 MM.Item.prototype.mergeWith = function (data) {
@@ -230,8 +245,8 @@ MM.Item.prototype.update = function (doNotRecurse) {
 		}
 	}
 	
-	// this._updateStatus();
 	this._updateIcon();
+	// this._updateStatus();
 	// this._updateValue();
 	const contentWidth  = MM.PolyDom.getOffset(this._dom.content,"width")
 	if ( contentWidth> 300) {
@@ -240,6 +255,7 @@ MM.Item.prototype.update = function (doNotRecurse) {
 	} else{
 		this.getDOM().text.className="text";
 	}
+	
 	this.updateBackground();
 	this._dom.node.classList[this._collapsed ? "add" : "remove"]("collapsed");
 	this.getLayout().update(this);
@@ -514,6 +530,7 @@ MM.Item.prototype.stopEditing = function () {
 }
 
 MM.Item.prototype.startNote = function (text) {
+	this.clearOffset();
 	this._dom.content.appendChild(this._dom.note);
 	// 
 	MM.App.note.show(this);
@@ -521,6 +538,7 @@ MM.Item.prototype.startNote = function (text) {
 }
 
 MM.Item.prototype.endNote = function (text) {
+	this.clearOffset();
 	if (!this.note) {
 		this._dom.content.removeChild(this._dom.note);
 	}
@@ -536,7 +554,7 @@ MM.Item.prototype.clearContentWidth = function(){
 	this.updateTimeout = setTimeout(()=>{
 		this.update();
 		this.getMap().ensureItemVisibility(this);
-	},200)
+	},100)
 }
 
 MM.Item.prototype.handleEvent = function (e) {
@@ -561,7 +579,7 @@ MM.Item.prototype.handleEvent = function (e) {
 MM.Item.prototype._getAutoShape = function () {
 	var depth = 0;
 	var node = this;
-	while (!node.isRoot()) {
+	while (!node.isRoot()&&depth<2) {
 		depth++;
 		node = node.getParent();
 	}
