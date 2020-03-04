@@ -104,8 +104,8 @@ class Minder extends PureComponent {
 		this.setState({
 			backgroundRepeat: data.background.repeat,
 			backgroundSize: data.background.size,
-			backgroundImage: data.background.image,
-			backgroundColor: data.background.color || "#f8f8f8"
+			backgroundImage: data.background.image||undefined,
+			backgroundColor: data.background.color || undefined
 		});
 	}
 
@@ -139,7 +139,7 @@ class Minder extends PureComponent {
 			type,
 			nowData,
 			loading = false,
-			backgroundColor = "#F8F8F8",
+			backgroundColor,
 			backgroundImage,
 			backgroundRepeat,
 			backgroundSize
@@ -165,7 +165,7 @@ class Minder extends PureComponent {
 						<div
 							style={{
 								flexGrow: 1,
-								backgroundRepeat, backgroundSize, backgroundColor, backgroundImage: `url(${backgroundImage})`,
+								backgroundRepeat, backgroundSize, backgroundImage: `url(${backgroundImage})`,
 								display: !this.state.show3dView ? "block" : "none"
 							}}
 							ref={ref => {

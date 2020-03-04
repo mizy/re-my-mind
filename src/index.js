@@ -45,6 +45,7 @@ window.MM = {
 };
 require("./Model/Repo.js");
 require("./View/Item.js"),
+require("./View/Theme.js")
 	require("./View/Note.js"),
 	require("./Model/Map.js"),
 	require("./Control/Keyboard.js"),

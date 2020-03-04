@@ -130,7 +130,7 @@ MM.Layout.Map._drawRootConnectors = function (item, side, children) {
 	var dom = item.getDOM();
 	var canvas = dom.canvas;
 	var ctx = canvas.getContext("2d");
-	var R = this.SPACING_RANK / 2;
+	ctx.lineWidth = MM.Theme.theme.lineWidth||2;
 
 	var x1 = MM.PolyDom.getOffset(dom.content,"left") + MM.PolyDom.getOffset(dom.content,"width") / 2;
 	var y1 = item.getShape().getVerticalAnchor(item);

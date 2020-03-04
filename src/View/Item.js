@@ -577,6 +577,7 @@ MM.Item.prototype.handleEvent = function (e) {
 }
 
 MM.Item.prototype._getAutoShape = function () {
+	const theme = MM.Theme.theme;
 	var depth = 0;
 	var node = this;
 	while (!node.isRoot()&&depth<2) {
@@ -585,9 +586,9 @@ MM.Item.prototype._getAutoShape = function () {
 	}
 	this.depth = depth;
 	switch (depth) {
-		case 0: return MM.Shape.Ellipse;
-		case 1: return MM.Shape.Box;
-		default: return MM.Shape.Underline;
+		case 0: return MM.Shape[theme.main];
+		case 1: return MM.Shape[theme.second];
+		default: return MM.Shape[theme.node];
 	}
 }
 
@@ -608,12 +609,10 @@ MM.Item.prototype._updateStatus = function () {
 			this._dom.status.classList.add("yes");
 			this._computed.status = true;
 			break;
-
 		case "no":
 			this._dom.status.classList.add("no");
 			this._computed.status = false;
 			break;
-
 		default:
 			this._computed.status = null;
 			this._dom.status.style.display = "none";

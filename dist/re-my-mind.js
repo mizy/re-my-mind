@@ -188,9 +188,10 @@ window.MM = {
 
 __webpack_require__(8);
 
-__webpack_require__(9), __webpack_require__(10), __webpack_require__(11), __webpack_require__(12), __webpack_require__(13), __webpack_require__(14), __webpack_require__(15), __webpack_require__(16), __webpack_require__(17), __webpack_require__(18), __webpack_require__(19), __webpack_require__(20), __webpack_require__(21), __webpack_require__(22), __webpack_require__(23), __webpack_require__(24);
+__webpack_require__(9), __webpack_require__(10);
+__webpack_require__(11), __webpack_require__(12), __webpack_require__(13), __webpack_require__(14), __webpack_require__(15), __webpack_require__(16), __webpack_require__(17), __webpack_require__(18), __webpack_require__(19), __webpack_require__(20), __webpack_require__(21), __webpack_require__(22), __webpack_require__(23), __webpack_require__(24), __webpack_require__(25);
 
-__webpack_require__(25);
+__webpack_require__(26);
 
 /* harmony default export */ __webpack_exports__["default"] = (window.MM);
 
@@ -225,7 +226,7 @@ if(false) {}
 
 exports = module.exports = __webpack_require__(5)(false);
 // Module
-exports.push([module.i, ".re-mind {\n  position: relative;\n  overflow: hidden;\n  /* root */\n}\n.re-mind * {\n  box-sizing: border-box;\n}\n.re-mind ul,\n.re-mind li {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n}\n.re-mind ul li,\n.re-mind li li {\n  list-style: none;\n}\n.re-mind .menu {\n  outline: none;\n  margin: 0;\n  padding: 5px 0;\n  list-style: none;\n  position: absolute;\n  z-index: 2;\n  background: #fff;\n  -webkit-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);\n  border-radius: 2px;\n  width: 200px;\n}\n.re-mind .menu > button {\n  height: 32px;\n  line-height: 32px;\n  padding: 0 20px;\n  color: #666;\n  font-size: 13px;\n  font-weight: 400;\n  cursor: pointer;\n  -webkit-transition: all 0.3s;\n  transition: all 0.3s;\n  white-space: nowrap;\n  display: block;\n  background-color: transparent;\n  border: none;\n  margin: 0;\n  width: 100%;\n  text-align: left;\n}\n.re-mind .menu > button:hover {\n  background: #efefef;\n}\n.re-mind .menu span {\n  display: block;\n  border-top: 1px solid #eee;\n  margin-top: 4px;\n  padding-top: 4px;\n}\n.re-mind .item {\n  position: absolute;\n}\n.re-mind .item .re-mind-icon {\n  z-index: 1;\n  display: inline-block;\n}\n.re-mind .item .cut {\n  opacity: 0.5;\n}\n.re-mind .item.collapsed .children {\n  display: none;\n}\n.re-mind .item .content {\n  display: flex;\n  position: absolute;\n  cursor: pointer;\n  padding: 5px;\n  border-radius: 5px;\n}\n.re-mind .item .content > * {\n  vertical-align: middle;\n}\n.re-mind .item .content .text {\n  z-index: 1;\n  text-align: left;\n  display: inline-block;\n  min-height: 22px;\n  word-wrap: break-word;\n  white-space: nowrap;\n  word-break: break-all;\n  font-weight: normal;\n  outline: none;\n}\n.re-mind .item .content .multi-line {\n  white-space: normal;\n}\n.re-mind .item .content .value,\n.re-mind .item .content .status {\n  margin-right: 0.2em;\n}\n.re-mind .item .content .text ~ .value,\n.re-mind .item .content .text ~ .status {\n  margin-left: 0.2em;\n  margin-right: 0;\n}\n.re-mind .item .content .value {\n  opacity: 0.7;\n  display: none;\n}\n.re-mind .item .content .value:not(:empty):before {\n  content: \"(\";\n}\n.re-mind .item .content .value:not(:empty):after {\n  content: \")\";\n}\n.re-mind .shape-box > .content {\n  padding: 4px 10px;\n  background-color: #4a90e2;\n  color: #fff;\n  border-radius: 3px;\n}\n.re-mind .shape-box > .content .text,\n.re-mind .shape-box > .content .note-button {\n  min-height: 25px;\n  font-size: 18px;\n}\n.re-mind .shape-ellipse > .content {\n  border: 1px solid transparent;\n  padding: 10px 20px;\n  color: #fff;\n}\n.re-mind .shape-ellipse > .content .text,\n.re-mind .shape-ellipse > .content .note-button {\n  min-height: 33px;\n  font-size: 24px;\n}\n.re-mind > .item > .content {\n  font-weight: bold;\n  border-width: 2px;\n  font-size: 140%;\n  color: #fff;\n  border: 0;\n  background-color: #50c28b;\n}\n.re-mind > .item > .toggle {\n  display: none;\n}\n.re-mind .current > .content:before {\n  content: \" \";\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: -6px;\n  top: -6px;\n  box-sizing: content-box;\n  border: 2px solid #7cb9ff;\n  padding: 4px;\n}\n.re-mind > .item > .children > .item > .children .current > .content:before {\n  left: -2px;\n  top: -2px;\n  padding: 0px;\n}\n.re-mind .note-button::after {\n  font-family: \"iconfont\" !important;\n  font-style: normal;\n  content: \"\\e6db\";\n}\n.re-mind .note-button {\n  margin-left: 5px;\n  z-index: 1;\n}\n.re-mind :not(.current):not(.collapsed) > .toggle {\n  /* NOT display:none - we need to have non-zero dimensions for layouting */\n  visibility: hidden;\n}\n.re-mind .mm-note {\n  display: flex;\n  flex-direction: column;\n  position: absolute;\n  top: 80px;\n  left: 0px;\n  z-index: 2;\n  background: #fff;\n  transition: opacity, height 300ms ease-in;\n  overflow: hidden;\n  width: 300px;\n  border: 1px solid #efefef;\n  border-radius: 3px;\n  box-shadow: 2px 2px 20px 1px rgba(0, 0, 0, 0.2);\n}\n.re-mind .mm-note .note-util {\n  height: 30px;\n  width: 100%;\n  border-bottom: 1px solid #efefef;\n}\n.re-mind .mm-note .note-content {\n  height: 300px;\n  width: 100%;\n  overflow: scroll;\n}\n.re-mind .mm-note .note-content p {\n  white-space: pre-line;\n  padding: 10px;\n  outline: none;\n  height: 300px;\n  width: 100%;\n}\n.re-mind .mm-note.hide {\n  height: 0;\n  opacity: 0;\n}\n.re-mind .status {\n  font-size: 150%;\n  line-height: 0.8;\n}\n.re-mind .status.yes:after {\n  content: \"✔\";\n  color: #0f0;\n}\n.re-mind .status.no:after {\n  content: \"✘\";\n  color: #f00;\n}\n.re-mind canvas {\n  position: absolute;\n  left: 0;\n  top: 0;\n}\n.re-mind .toggle {\n  position: absolute;\n  width: 12px;\n  height: 12px;\n  line-height: 12px;\n  cursor: pointer;\n  border-radius: 50%;\n  border: 1px solid #00f;\n  background-color: #88f;\n  text-align: center;\n  font-weight: bold;\n  font-family: sans-serif;\n  color: #fff;\n  opacity: 0.7;\n}\n.re-mind .toggle:hover {\n  opacity: 1;\n}\n.re-mind .toggle:before {\n  content: \"−\";\n  line-height: 8px;\n  margin-top: -2px;\n  position: absolute;\n  left: 1px;\n  top: 3px;\n  font-size: 12px;\n}\n.re-mind .collapsed > .toggle:before {\n  content: \"+\";\n  line-height: 8px;\n  margin-top: -2px;\n  position: absolute;\n  left: 1px;\n  top: 2px;\n  font-size: 12px;\n}\n.re-mind .re-mind-icon {\n  display: inline-flex !important;\n  align-items: center;\n  flex-direction: row-reverse;\n}\n.re-mind .re-mind-icon > li {\n  font-size: 18px;\n  display: inline-block;\n  margin-left: -5px;\n}\n.re-mind .re-mind-icon > li:last-child {\n  margin-left: 0px;\n}\n.re-mind .re-mind-icon > li:first-child {\n  margin-right: 5px;\n}\n", ""]);
+exports.push([module.i, ".re-mind.stright {\n  background-color: #f4f9fa;\n}\n.re-mind.stright .shape-ellipse > .content {\n  background-color: #ff383e;\n  border: 3px solid #ff8d8f;\n  padding: 20px;\n}\n.re-mind.stright .shape-ellipse > .content .text {\n  font-size: 28px;\n}\n.re-mind {\n  position: relative;\n  overflow: hidden;\n  /* root */\n}\n.re-mind * {\n  box-sizing: border-box;\n}\n.re-mind ul,\n.re-mind li {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n}\n.re-mind ul li,\n.re-mind li li {\n  list-style: none;\n}\n.re-mind .menu {\n  outline: none;\n  margin: 0;\n  padding: 5px 0;\n  list-style: none;\n  position: absolute;\n  z-index: 2;\n  background: #fff;\n  -webkit-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);\n  border-radius: 2px;\n  width: 200px;\n}\n.re-mind .menu > button {\n  height: 32px;\n  line-height: 32px;\n  padding: 0 20px;\n  color: #666;\n  font-size: 13px;\n  font-weight: 400;\n  cursor: pointer;\n  -webkit-transition: all 0.3s;\n  transition: all 0.3s;\n  white-space: nowrap;\n  display: block;\n  background-color: transparent;\n  border: none;\n  margin: 0;\n  width: 100%;\n  text-align: left;\n}\n.re-mind .menu > button:hover {\n  background: #efefef;\n}\n.re-mind .menu span {\n  display: block;\n  border-top: 1px solid #eee;\n  margin-top: 4px;\n  padding-top: 4px;\n}\n.re-mind .item {\n  position: absolute;\n}\n.re-mind .item .re-mind-icon {\n  z-index: 1;\n  display: inline-block;\n}\n.re-mind .item .cut {\n  opacity: 0.5;\n}\n.re-mind .item.collapsed .children {\n  display: none;\n}\n.re-mind .item .content {\n  display: flex;\n  position: absolute;\n  cursor: pointer;\n  padding: 5px;\n  border-radius: 5px;\n}\n.re-mind .item .content > * {\n  vertical-align: middle;\n}\n.re-mind .item .content .text {\n  z-index: 1;\n  text-align: left;\n  display: inline-block;\n  min-height: 22px;\n  word-wrap: break-word;\n  white-space: nowrap;\n  word-break: break-all;\n  font-weight: normal;\n  outline: none;\n}\n.re-mind .item .content .multi-line {\n  white-space: normal;\n}\n.re-mind .item .content .value,\n.re-mind .item .content .status {\n  margin-right: 0.2em;\n}\n.re-mind .item .content .text ~ .value,\n.re-mind .item .content .text ~ .status {\n  margin-left: 0.2em;\n  margin-right: 0;\n}\n.re-mind .item .content .value {\n  opacity: 0.7;\n  display: none;\n}\n.re-mind .item .content .value:not(:empty):before {\n  content: \"(\";\n}\n.re-mind .item .content .value:not(:empty):after {\n  content: \")\";\n}\n.re-mind .shape-box > .content {\n  padding: 4px 10px;\n  background-color: #4a90e2;\n  color: #fff;\n  border-radius: 3px;\n}\n.re-mind .shape-box > .content .text,\n.re-mind .shape-box > .content .note-button {\n  min-height: 25px;\n  font-size: 18px;\n}\n.re-mind .shape-ellipse > .content {\n  border: 1px solid transparent;\n  padding: 10px 20px;\n  color: #fff;\n}\n.re-mind .shape-ellipse > .content .text,\n.re-mind .shape-ellipse > .content .note-button {\n  min-height: 33px;\n  font-size: 24px;\n}\n.re-mind > .item > .content {\n  font-weight: bold;\n  border-width: 2px;\n  font-size: 140%;\n  color: #fff;\n  border: 0;\n  background-color: #50c28b;\n}\n.re-mind > .item > .toggle {\n  display: none;\n}\n.re-mind .current > .content:before {\n  content: \" \";\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: -6px;\n  top: -6px;\n  box-sizing: content-box;\n  border: 2px solid #7cb9ff;\n  padding: 4px;\n}\n.re-mind > .item > .children > .item > .children .current > .content:before {\n  left: -2px;\n  top: -2px;\n  padding: 0px;\n}\n.re-mind .note-button::after {\n  font-family: \"iconfont\" !important;\n  font-style: normal;\n  content: \"\\e6db\";\n}\n.re-mind .note-button {\n  margin-left: 5px;\n  z-index: 1;\n}\n.re-mind :not(.current):not(.collapsed) > .toggle {\n  /* NOT display:none - we need to have non-zero dimensions for layouting */\n  visibility: hidden;\n}\n.re-mind .mm-note {\n  display: flex;\n  flex-direction: column;\n  position: absolute;\n  top: 80px;\n  left: 0px;\n  z-index: 2;\n  background: #fff;\n  transition: opacity, height 300ms ease-in;\n  overflow: hidden;\n  width: 300px;\n  border: 1px solid #efefef;\n  border-radius: 3px;\n  box-shadow: 2px 2px 20px 1px rgba(0, 0, 0, 0.2);\n}\n.re-mind .mm-note .note-util {\n  height: 30px;\n  width: 100%;\n  border-bottom: 1px solid #efefef;\n}\n.re-mind .mm-note .note-content {\n  height: 300px;\n  width: 100%;\n  overflow: scroll;\n}\n.re-mind .mm-note .note-content p {\n  white-space: pre-line;\n  padding: 10px;\n  outline: none;\n  height: 300px;\n  width: 100%;\n}\n.re-mind .mm-note.hide {\n  height: 0;\n  opacity: 0;\n}\n.re-mind .status {\n  font-size: 150%;\n  line-height: 0.8;\n}\n.re-mind .status.yes:after {\n  content: \"✔\";\n  color: #0f0;\n}\n.re-mind .status.no:after {\n  content: \"✘\";\n  color: #f00;\n}\n.re-mind canvas {\n  position: absolute;\n  left: 0;\n  top: 0;\n}\n.re-mind .toggle {\n  position: absolute;\n  width: 12px;\n  height: 12px;\n  line-height: 12px;\n  cursor: pointer;\n  border-radius: 50%;\n  border: 1px solid #00f;\n  background-color: #88f;\n  text-align: center;\n  font-weight: bold;\n  font-family: sans-serif;\n  color: #fff;\n  opacity: 0.7;\n}\n.re-mind .toggle:hover {\n  opacity: 1;\n}\n.re-mind .toggle:before {\n  content: \"−\";\n  line-height: 8px;\n  margin-top: -2px;\n  position: absolute;\n  left: 1px;\n  top: 3px;\n  font-size: 12px;\n}\n.re-mind .collapsed > .toggle:before {\n  content: \"+\";\n  line-height: 8px;\n  margin-top: -2px;\n  position: absolute;\n  left: 1px;\n  top: 2px;\n  font-size: 12px;\n}\n.re-mind .re-mind-icon {\n  display: inline-flex !important;\n  align-items: center;\n  flex-direction: row-reverse;\n}\n.re-mind .re-mind-icon > li {\n  font-size: 18px;\n  display: inline-block;\n  margin-left: -5px;\n}\n.re-mind .re-mind-icon > li:last-child {\n  margin-left: 0px;\n}\n.re-mind .re-mind-icon > li:first-child {\n  margin-right: 5px;\n}\n", ""]);
 
 
 /***/ }),
@@ -1651,6 +1652,7 @@ MM.Item.prototype.handleEvent = function (e) {
 };
 
 MM.Item.prototype._getAutoShape = function () {
+  var theme = MM.Theme.theme;
   var depth = 0;
   var node = this;
 
@@ -1663,13 +1665,13 @@ MM.Item.prototype._getAutoShape = function () {
 
   switch (depth) {
     case 0:
-      return MM.Shape.Ellipse;
+      return MM.Shape[theme.main];
 
     case 1:
-      return MM.Shape.Box;
+      return MM.Shape[theme.second];
 
     default:
-      return MM.Shape.Underline;
+      return MM.Shape[theme.node];
   }
 };
 
@@ -1827,6 +1829,42 @@ MM.Item.prototype._findLinks = function (node) {
 
 /***/ }),
 /* 10 */
+/***/ (function(module, exports) {
+
+MM.Theme = {
+  // 基本主题
+  themes: {
+    "default": {
+      main: "Ellipse",
+      second: "Box",
+      node: "Underline"
+    },
+    "stright": {
+      background: {
+        color: "rgb(244, 249, 250)"
+      },
+      main: "Ellipse",
+      second: "Underline",
+      node: "Underline",
+      lineWidth: 2
+    },
+    "box": {
+      main: "Ellipse",
+      second: "box",
+      node: "box"
+    }
+  },
+  theme: {
+    className: "stright",
+    lineWidth: 3,
+    main: "Ellipse",
+    second: "Underline",
+    node: "Underline"
+  }
+};
+
+/***/ }),
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1911,7 +1949,7 @@ MM.Note = Note;
 /* harmony default export */ __webpack_exports__["default"] = (Note);
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2278,7 +2316,7 @@ MM.Map.prototype._setRoot = function (item) {
 /* harmony default export */ __webpack_exports__["default"] = (MM.Map);
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2353,7 +2391,7 @@ MM.Keyboard._keyOK = function (key, e) {
 /* harmony default export */ __webpack_exports__["default"] = (MM.Keyboard);
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2678,7 +2716,7 @@ MM.Action.SetData.prototype.undo = function () {
 /* harmony default export */ __webpack_exports__["default"] = (MM.Action);
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2846,7 +2884,7 @@ MM.Clipboard._endCut = function () {
 /* harmony default export */ __webpack_exports__["default"] = (MM.Clipboard);
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2929,7 +2967,7 @@ MM.Menu = {
 /* harmony default export */ __webpack_exports__["default"] = (MM.Menu);
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3792,7 +3830,7 @@ MM.Command.DeleteIcon.execute = function (target) {
 /* harmony default export */ __webpack_exports__["default"] = (MM.Command);
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 MM.Layout = Object.create(MM.Repo, {
@@ -3976,7 +4014,7 @@ MM.Layout._alignItem = function (item, side) {
 };
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4212,6 +4250,7 @@ MM.Layout.Graph._drawHorizontalConnectors = function (item, side, children) {
   var canvas = dom.canvas;
   var ctx = canvas.getContext("2d");
   ctx.strokeStyle = item.getColor();
+  ctx.lineWidth = MM.Theme.theme.lineWidth || 1;
   var R = this.SPACING_RANK / 2;
   /* first part */
 
@@ -4322,6 +4361,7 @@ MM.Layout.Graph._drawVerticalConnectors = function (item, side, children) {
   var canvas = dom.canvas;
   var ctx = canvas.getContext("2d");
   ctx.strokeStyle = item.getColor();
+  ctx.lineWidth = MM.Theme.theme.lineWidth || 1;
   /* first part */
 
   var R = this.SPACING_RANK / 2;
@@ -4389,7 +4429,7 @@ MM.Layout.Graph.Right = MM.Layout.Graph.create("right", "graph-right", "Right");
 /* harmony default export */ __webpack_exports__["default"] = (MM.Layout.Graph);
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4548,7 +4588,7 @@ MM.Layout.Tree.Right = MM.Layout.Tree.create("right", "tree-right", "Right");
 /* harmony default export */ __webpack_exports__["default"] = (MM.Layout.Tree);
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports) {
 
 MM.Layout.Map = Object.create(MM.Layout.Graph, {
@@ -4734,7 +4774,7 @@ MM.Layout.Map._drawRootConnectors = function (item, side, children) {
   var dom = item.getDOM();
   var canvas = dom.canvas;
   var ctx = canvas.getContext("2d");
-  var R = this.SPACING_RANK / 2;
+  ctx.lineWidth = MM.Theme.theme.lineWidth || 2;
   var x1 = MM.PolyDom.getOffset(dom.content, "left") + MM.PolyDom.getOffset(dom.content, "width") / 2;
   var y1 = item.getShape().getVerticalAnchor(item);
   var half = this.LINE_THICKNESS / 2;
@@ -4759,7 +4799,7 @@ MM.Layout.Map._drawRootConnectors = function (item, side, children) {
 };
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4813,7 +4853,7 @@ MM.Shape.Box.update = function (item) {
   if (data.backgroundColor) {
     item.getDOM().content.style.backgroundColor = data.backgroundColor;
   } else {
-    item.getDOM().content.style.backgroundColor = "#4a90e2";
+    item.getDOM().content.style.backgroundColor = undefined;
   }
 
   return this;
@@ -4834,7 +4874,7 @@ MM.Shape.Ellipse.update = function (item) {
   if (data.backgroundColor) {
     item.getDOM().content.style.backgroundColor = data.backgroundColor;
   } else {
-    item.getDOM().content.style.backgroundColor = "#50c28b";
+    item.getDOM().content.style.backgroundColor = undefined;
   }
 
   return this;
@@ -4856,6 +4896,7 @@ MM.Shape.Underline.update = function (item) {
   var dom = item.getDOM();
   var ctx = dom.canvas.getContext("2d");
   ctx.strokeStyle = item.getColor();
+  ctx.lineWidth = MM.Theme.theme.lineWidth || 1;
   var left = MM.PolyDom.getOffset(dom.content, "left");
   var right = left + MM.PolyDom.getOffset(dom.content, "width");
   var top = this.getVerticalAnchor(item);
@@ -4873,7 +4914,7 @@ MM.Shape.Underline.getVerticalAnchor = function (item) {
 /* harmony default export */ __webpack_exports__["default"] = (MM.Shape);
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4940,7 +4981,7 @@ MM.Format.JSON.from = function (data) {
 /* harmony default export */ __webpack_exports__["default"] = (MM.Format);
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5379,7 +5420,7 @@ MM.Mouse._visualizeDragState = function (state) {
 /* harmony default export */ __webpack_exports__["default"] = (MM.Mouse);
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports) {
 
 MM.PolyDom = {
@@ -5403,7 +5444,7 @@ MM.PolyDom = {
 };
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5532,7 +5573,7 @@ MM.App = {
 
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     this._port = dom;
-    this._port.className += " re-mind";
+    this._port.className += " re-mind ".concat(MM.Theme.theme.className);
     Object.assign(this.options, options);
     this._menu = options.menu || this.initMenu();
     MM.Keyboard.init();

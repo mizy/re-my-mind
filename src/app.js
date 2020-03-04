@@ -127,7 +127,7 @@ MM.App = {
 
 	init: function (dom, options = {}) {
 		this._port = dom;
-		this._port.className += " re-mind";
+		this._port.className += ` re-mind ${MM.Theme.theme.className}`;
 		Object.assign(this.options, options)
 		this._menu = options.menu || this.initMenu();
 		MM.Keyboard.init();

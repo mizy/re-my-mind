@@ -39,7 +39,7 @@ MM.Shape.Box.update = function (item) {
 	if (data.backgroundColor) {
 		item.getDOM().content.style.backgroundColor = data.backgroundColor;
 	} else {
-		item.getDOM().content.style.backgroundColor = "#4a90e2"
+		item.getDOM().content.style.backgroundColor = undefined
 	}
 	return this;
 }
@@ -52,7 +52,7 @@ MM.Shape.Ellipse.update = function (item) {
 	if (data.backgroundColor) {
 		item.getDOM().content.style.backgroundColor = data.backgroundColor;
 	} else {
-		item.getDOM().content.style.backgroundColor = "#50c28b"
+		item.getDOM().content.style.backgroundColor = undefined
 	}
 	return this;
 }
@@ -67,7 +67,8 @@ MM.Shape.Underline.update = function (item) {
 
 	var ctx = dom.canvas.getContext("2d");
 	ctx.strokeStyle = item.getColor();
-
+	ctx.lineWidth = MM.Theme.theme.lineWidth||1;
+	
 	var left = MM.PolyDom.getOffset(dom.content,"left");
 	var right = left + MM.PolyDom.getOffset(dom.content,"width");
 

@@ -189,6 +189,7 @@ MM.Layout.Graph._drawHorizontalConnectors = function (item, side, children) {
 	var canvas = dom.canvas;
 	var ctx = canvas.getContext("2d");
 	ctx.strokeStyle = item.getColor();
+	ctx.lineWidth = MM.Theme.theme.lineWidth||1;
 	var R = this.SPACING_RANK / 2;
 
 	/* first part */
@@ -283,7 +284,8 @@ MM.Layout.Graph._drawVerticalConnectors = function (item, side, children) {
 	var canvas = dom.canvas;
 	var ctx = canvas.getContext("2d");
 	ctx.strokeStyle = item.getColor();
-
+	ctx.lineWidth = MM.Theme.theme.lineWidth||1;
+	
 	/* first part */
 	var R = this.SPACING_RANK / 2;
 
