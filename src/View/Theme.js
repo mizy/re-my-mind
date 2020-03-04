@@ -13,20 +13,21 @@ MM.Theme = {
 			main:"Ellipse",
 			second:"Underline",
 			node:"Underline",
-			lineWidth:2
+			lineWidth:2,
+			className:"stright"
 		},
 		"box":{
 			main:"Ellipse",
 			second:"box",
-			node:"box"
+			node:"box",
+			className:"box"
 		},
 	 },
 
 	 theme:{
-		className:"stright",
-		lineWidth:3,
+		className:"default",
 		main:"Ellipse",
-		second:"Underline",
+		second:"Box",
 		node:"Underline"
 	},
 

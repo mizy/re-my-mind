@@ -1,9 +1,10 @@
 MM.PolyDom =  {
 	getOffset(node,type){
 		let styleValue = node.style[type]
-		if(styleValue&&styleValue!=="auto"){
+		if(styleValue&&styleValue!=="auto"&&!MM.App.rendering){
 			return parseInt(styleValue.split("px")[0])
 		}else{
+			node.style[type]="auto";// 回归默认，然后取宽度
 			var name = type.charAt(0).toUpperCase() + type.slice(1);
 			const value =node["offset".concat(name)]
 			node.style[type] = value + "px";

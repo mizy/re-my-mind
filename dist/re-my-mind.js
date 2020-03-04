@@ -1846,19 +1846,20 @@ MM.Theme = {
       main: "Ellipse",
       second: "Underline",
       node: "Underline",
-      lineWidth: 2
+      lineWidth: 2,
+      className: "stright"
     },
     "box": {
       main: "Ellipse",
       second: "box",
-      node: "box"
+      node: "box",
+      className: "box"
     }
   },
   theme: {
-    className: "stright",
-    lineWidth: 3,
+    className: "default",
     main: "Ellipse",
-    second: "Underline",
+    second: "Box",
     node: "Underline"
   }
 };
@@ -1982,7 +1983,8 @@ MM.Map.fromJSON = function (data) {
 
 MM.Map.prototype.toJSON = function () {
   var data = {
-    root: this._root.toJSON()
+    root: this._root.toJSON(),
+    theme: MM.Theme.theme.className
   };
   return data;
 };
@@ -2086,6 +2088,8 @@ MM.Map.prototype.destroy = function () {
 
   node.parentNode.removeChild(node);
   this._visible = false;
+  this._root = null;
+  this.children = [];
   return this;
 };
 
@@ -5427,9 +5431,11 @@ MM.PolyDom = {
   getOffset: function getOffset(node, type) {
     var styleValue = node.style[type];
 
-    if (styleValue && styleValue !== "auto") {
+    if (styleValue && styleValue !== "auto" && !MM.App.rendering) {
       return parseInt(styleValue.split("px")[0]);
     } else {
+      node.style[type] = "auto"; // 回归默认，然后取宽度
+
       var name = type.charAt(0).toUpperCase() + type.slice(1);
       var value = node["offset".concat(name)];
       node.style[type] = value + "px";
@@ -5595,6 +5601,12 @@ MM.App = {
     this.setMap(new MM.Map(options || {}));
     this.note = new MM.Note(this);
     return this;
+  },
+  repaint: function repaint() {
+    // 重新渲染需要重新计算宽度
+    this.rendering = true;
+    this.map.update();
+    this.rendering = false;
   },
   _syncPort: function _syncPort() {
     this.portSize = [this._port.clientWidth, this._port.clientHeight];

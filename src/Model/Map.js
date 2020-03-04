@@ -20,7 +20,8 @@ MM.Map.fromJSON = function (data) {
 
 MM.Map.prototype.toJSON = function () {
 	var data = {
-		root: this._root.toJSON()
+		root: this._root.toJSON(),
+		theme:MM.Theme.theme.className
 	};
 	return data;
 }
@@ -99,6 +100,8 @@ MM.Map.prototype.destroy = function () {
 	var node = this._root.getDOM().node;
 	node.parentNode.removeChild(node);
 	this._visible = false;
+	this._root = null;
+	this.children = [];
 	return this;
 }
 

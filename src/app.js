@@ -151,6 +151,13 @@ MM.App = {
 		return this;
 	},
 
+	repaint(){
+		// 重新渲染需要重新计算宽度
+		this.rendering = true;
+		this.map.update();
+		this.rendering = false;
+	},
+
 	_syncPort: function () {
 
 		this.portSize = [this._port.clientWidth, this._port.clientHeight];
