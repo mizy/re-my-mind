@@ -281,6 +281,7 @@ MM.Item.prototype.updateSubtree = function (isSubChild) {
 	this._children.forEach(function (child) {
 		child.updateSubtree(true);
 	});
+	this.clearOffset()
 	return this.update(isSubChild);
 }
 
