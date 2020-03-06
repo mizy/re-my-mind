@@ -319,13 +319,13 @@ MM.Item.prototype.getText = function () {
 }
 
 MM.Item.prototype.collapse = function () {
-	this.clearOffset();
+	// this.clearOffset();
 	if (this._collapsed) { return; }
 	this._collapsed = true;
 	return this.update();
 }
 MM.Item.prototype.expand = function () {
-	this.clearOffset();
+	// this.clearOffset();
 	if (!this._collapsed) { return; }
 	this._collapsed = false;
 	this.update();

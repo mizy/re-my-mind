@@ -1332,8 +1332,7 @@ MM.Item.prototype.getText = function () {
 };
 
 MM.Item.prototype.collapse = function () {
-  this.clearOffset();
-
+  // this.clearOffset();
   if (this._collapsed) {
     return;
   }
@@ -1343,8 +1342,7 @@ MM.Item.prototype.collapse = function () {
 };
 
 MM.Item.prototype.expand = function () {
-  this.clearOffset();
-
+  // this.clearOffset();
   if (!this._collapsed) {
     return;
   }
