@@ -21,7 +21,7 @@ MM.Map.fromJSON = function (data) {
 MM.Map.prototype.toJSON = function () {
 	var data = {
 		root: this._root.toJSON(),
-		theme:MM.Theme.theme.className
+		theme: MM.Theme.theme.className
 	};
 	return data;
 }
@@ -85,6 +85,12 @@ MM.Map.prototype.update = function () {
 	this._root.updateSubtree();
 	return this;
 }
+
+MM.Map.prototype.resetTheme = function () {
+	this._root.resetTheme();
+	return this;
+}
+
 
 MM.Map.prototype.show = function (where) {
 	var node = this._root.getDOM().node;

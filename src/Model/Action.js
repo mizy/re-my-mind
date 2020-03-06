@@ -21,7 +21,8 @@ MM.Action.InsertNewItem = function (parent, index) {
 	this._parent = parent;
 	this._index = index;
 	const options = {};
-	let color = MM.App.options.colors[index%MM.App.options.colors.length];
+	const colors = MM.Theme.theme.colors || MM.App.options.colors;
+	let color = colors[index % colors.length];
 	if (parent.isRoot()) {
 		options.color = color;
 	}
@@ -75,14 +76,10 @@ MM.Action.MoveItem = function (item, newParent, newIndex, newSide) {
 	this._oldParent = item.getParent();
 	this._oldIndex = this._oldParent.getChildren().indexOf(item);
 	this._oldSide = item.getSide();
+	const colors = MM.Theme.theme.colors || MM.App.options.colors;
 	if (newParent.isRoot()) {
-		let color = MM.App.options.colors[newIndex];
-		if (!color) {
-			const r = Math.floor(Math.random() * 256);
-			const g = Math.floor(Math.random() * 256);
-			const b = Math.floor(Math.random() * 256);
-			color = '#' + r.toString(16) + g.toString(16) + b.toString(16);
-		}
+		let color = colors[newIndex % colors.length];
+
 		this._item.setColor(color);
 	}
 }

@@ -93,7 +93,7 @@ MM.Item.prototype.toJSON = function () {
 	if (this._children.length) {
 		data.children = this._children.map(function (child) { return child.toJSON(); });
 	}
-	if(this.style&&JSON.stringify(this.style)!=="{}"){
+	if (this.style && JSON.stringify(this.style) !== "{}") {
 		data.style = this.style;
 	}
 	const content = this.getDOM().content;
@@ -125,7 +125,7 @@ MM.Item.prototype.fromJSON = function (data) {
 		this.note = data.note;
 		this._dom.content.appendChild(this._dom.note);
 	}
-	if(data.style&&JSON.stringify(data.style)!=="{}"){
+	if (data.style && JSON.stringify(data.style) !== "{}") {
 		this.setTextStyle(data.style);
 	}
 	(data.children || []).forEach(function (child) {
@@ -137,7 +137,7 @@ MM.Item.prototype.fromJSON = function (data) {
 
 MM.Item.prototype.setTextStyle = function (style) {
 	const text = this._dom.text;
-	for(let name in style){
+	for (let name in style) {
 		text.style[name] = style[name];
 	}
 	this.style = style;
@@ -244,18 +244,18 @@ MM.Item.prototype.update = function (doNotRecurse) {
 			this._shape.set(this);
 		}
 	}
-	
+
 	this._updateIcon();
 	// this._updateStatus();
 	// this._updateValue();
-	const contentWidth  = MM.PolyDom.getOffset(this._dom.content,"width")
-	if ( contentWidth> 300) {
+	const contentWidth = MM.PolyDom.getOffset(this._dom.content, "width")
+	if (contentWidth > 300) {
 		this.getDOM().content.style.width = "302px";
-		this.getDOM().text.className="text multi-line";
-	} else{
-		this.getDOM().text.className="text";
+		this.getDOM().text.className = "text multi-line";
+	} else {
+		this.getDOM().text.className = "text";
 	}
-	
+
 	this.updateBackground();
 	this._dom.node.classList[this._collapsed ? "add" : "remove"]("collapsed");
 	this.getLayout().update(this);
@@ -281,8 +281,28 @@ MM.Item.prototype.updateSubtree = function (isSubChild) {
 	this._children.forEach(function (child) {
 		child.updateSubtree(true);
 	});
-	this.clearOffset()
 	return this.update(isSubChild);
+}
+
+MM.Item.prototype.resetTheme = function () {
+	this._children.forEach(function (child) {
+		child.resetTheme();
+	});
+	this.clearOffset();
+	this.clearStyle();
+
+	return this.update();
+}
+
+MM.Item.prototype.clearStyle = function () {
+	this._dom.content.style.backgroundColor = null;
+	delete this._data.backgroundColor;
+	if (this.style) {
+		for (let key in this.style) {
+			this.style[key] = null;
+			delete this.style[key]
+		}
+	}
 }
 
 MM.Item.prototype.setText = function (text) {
@@ -430,6 +450,7 @@ MM.Item.prototype.setShape = function (shape) {
 	}
 
 	this._shape.set(this);
+	this.clearOffset();
 	return this.update();
 }
 
@@ -545,17 +566,17 @@ MM.Item.prototype.endNote = function (text) {
 	}
 }
 
-MM.Item.prototype.clearContentWidth = function(){
-	const width = MM.PolyDom.getOffset(this._dom.content,"width");
-	if(width<300){
+MM.Item.prototype.clearContentWidth = function () {
+	const width = MM.PolyDom.getOffset(this._dom.content, "width");
+	if (width < 300) {
 		this._dom.content.style.width = "auto";
 	}
 	this._dom.content.style.height = "auto";
 	clearTimeout(this.updateTimeout);
-	this.updateTimeout = setTimeout(()=>{
+	this.updateTimeout = setTimeout(() => {
 		this.update();
 		this.getMap().ensureItemVisibility(this);
-	},100)
+	}, 100)
 }
 
 MM.Item.prototype.handleEvent = function (e) {
@@ -581,7 +602,7 @@ MM.Item.prototype._getAutoShape = function () {
 	const theme = MM.Theme.theme;
 	var depth = 0;
 	var node = this;
-	while (!node.isRoot()&&depth<2) {
+	while (!node.isRoot() && depth < 2) {
 		depth++;
 		node = node.getParent();
 	}

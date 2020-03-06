@@ -36,11 +36,6 @@ MM.Shape.Box = Object.create(MM.Shape, {
 });
 MM.Shape.Box.update = function (item) {
 	const data = item._data;
-	if (data.backgroundColor) {
-		item.getDOM().content.style.backgroundColor = data.backgroundColor;
-	} else {
-		item.getDOM().content.style.backgroundColor = undefined
-	}
 	return this;
 }
 MM.Shape.Ellipse = Object.create(MM.Shape, {
@@ -49,11 +44,7 @@ MM.Shape.Ellipse = Object.create(MM.Shape, {
 });
 MM.Shape.Ellipse.update = function (item) {
 	const data = item._data;
-	if (data.backgroundColor) {
-		item.getDOM().content.style.backgroundColor = data.backgroundColor;
-	} else {
-		item.getDOM().content.style.backgroundColor = undefined
-	}
+	 
 	return this;
 }
 MM.Shape.Underline = Object.create(MM.Shape, {
