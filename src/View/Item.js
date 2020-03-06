@@ -288,10 +288,9 @@ MM.Item.prototype.resetTheme = function () {
 	this._children.forEach(function (child) {
 		child.resetTheme();
 	});
-	this.clearOffset();
 	this.clearStyle();
-
-	return this.update();
+	// this.clearOffset();
+	// return this.update();
 }
 
 MM.Item.prototype.clearStyle = function () {
