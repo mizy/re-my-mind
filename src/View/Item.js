@@ -369,7 +369,7 @@ MM.Item.prototype.setIcon = function (icon, type = 'default') {
 	this._icon[type] = icon;
 	this.clearOffset();
 	//todo icon 变化也要存入历史记录
-	MM.publish("item-change")
+	MM.publish("item-change", this)
 	return this.update();
 }
 
