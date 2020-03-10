@@ -1213,9 +1213,9 @@ MM.Item.prototype.select = function () {
 };
 
 MM.Item.prototype.deselect = function () {
-  /* we were in 2b; finish that via 3b */
   if (MM.App.editing) {
     MM.Command.Finish.execute();
+    MM.publish("item-change", this);
   }
 
   this._dom.node.classList.remove("current");
@@ -1227,8 +1227,6 @@ MM.Item.prototype.update = function (doNotRecurse) {
   if (!map || !map.isVisible()) {
     return this;
   }
-
-  MM.publish("item-change", this);
 
   if (this._autoShape) {
     /* check for changed auto-shape */
@@ -1249,7 +1247,7 @@ MM.Item.prototype.update = function (doNotRecurse) {
   // this._updateValue();
 
 
-  var contentWidth = MM.PolyDom.getOffset(this._dom.content, "width");
+  var contentWidth = MM.PolyDom.getOffset(this._dom.content, "width"); // 大于300则
 
   if (contentWidth > 300) {
     this.getDOM().content.style.width = "302px";
@@ -1386,7 +1384,9 @@ MM.Item.prototype.getStatus = function () {
 MM.Item.prototype.setIcon = function (icon) {
   var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'default';
   this._icon[type] = icon;
-  this.clearOffset();
+  this.clearOffset(); //todo icon 变化也要存入历史记录
+
+  MM.publish("item-change");
   return this.update();
 };
 
@@ -1572,6 +1572,7 @@ MM.Item.prototype.startEditing = function () {
 
 
   document.execCommand("styleWithCSS", null, false);
+  this._dom.node.style.zIndex = "1000";
 
   this._dom.text.addEventListener("input", this);
 
@@ -1579,25 +1580,34 @@ MM.Item.prototype.startEditing = function () {
 
   this._dom.text.addEventListener("blur", this);
 
+  this.clearContentWidth();
   return this;
 };
 
-MM.Item.prototype.stopEditing = function () {
+MM.Item.prototype.stopEditing = function (reverse) {
   this._dom.text.removeEventListener("input", this);
 
   this._dom.text.removeEventListener("keydown", this);
 
   this._dom.text.removeEventListener("blur", this);
 
+  this._dom.node.style.zIndex = 0;
+
   this._dom.text.blur();
 
   this._dom.text.contentEditable = false;
   var result = this._dom.text.innerHTML;
-  this._dom.text.innerHTML = this._oldText;
-  this._oldText = "";
+
+  if (reverse) {
+    this._dom.text.innerHTML = this._oldText;
+    this._oldText = "";
+  }
+
+  this.clearContentWidth();
   this.update();
   /* text changed */
 
+  this.getMap().ensureItemVisibility(this);
   MM.Clipboard.focus();
   return result;
 };
@@ -1613,6 +1623,7 @@ MM.Item.prototype.startNote = function (text) {
 };
 
 MM.Item.prototype.endNote = function (text) {
+  // todo 触发历史记录
   this.clearOffset();
 
   if (!this.note) {
@@ -1621,27 +1632,20 @@ MM.Item.prototype.endNote = function (text) {
 };
 
 MM.Item.prototype.clearContentWidth = function () {
-  var _this2 = this;
-
-  var width = MM.PolyDom.getOffset(this._dom.content, "width");
-
-  if (width < 300) {
+  if (this._dom.text.clientHeight < 50) {
+    // 先写死40像素，不同文字大小这个值不一样
+    this._dom.text.className = "text";
     this._dom.content.style.width = "auto";
+  } else {
+    this._dom.content.style.width = "302px";
   }
 
   this._dom.content.style.height = "auto";
-  clearTimeout(this.updateTimeout);
-  this.updateTimeout = setTimeout(function () {
-    _this2.update();
-
-    _this2.getMap().ensureItemVisibility(_this2);
-  }, 100);
 };
 
 MM.Item.prototype.handleEvent = function (e) {
   switch (e.type) {
     case "input":
-      this.clearContentWidth();
       break;
 
     case "keydown":
@@ -1656,6 +1660,7 @@ MM.Item.prototype.handleEvent = function (e) {
     case "blur":
       /* 3d */
       MM.Command.Finish.execute();
+      MM.publish("item-change", this);
       break;
 
     case "click":
@@ -1957,6 +1962,10 @@ function () {
       this.item.note = encodeURIComponent(content.innerHTML);
       this.item.endNote();
       content.innerHTML = "";
+      MM.publish("item-change", {
+        type: "note",
+        item: this.item
+      });
     }
   }, {
     key: "destroy",
@@ -3523,7 +3532,8 @@ MM.Command.Edit.execute = function () {
   var selection = window.getSelection();
   selection.removeAllRanges();
   selection.addRange(range);
-};
+}; //todo: 备注的前进后退
+
 
 MM.Command.Finish = Object.create(MM.Command, {
   keys: {
@@ -3591,7 +3601,8 @@ MM.Command.Cancel = Object.create(MM.Command, {
 
 MM.Command.Cancel.execute = function () {
   MM.App.editing = false;
-  MM.App.current.stopEditing();
+  MM.App.current.stopEditing(true); //还原文字
+
   var oldText = MM.App.current.getText();
 
   if (!oldText) {

@@ -336,7 +336,7 @@ MM.Command.Edit.execute = function () {
 	selection.removeAllRanges();
 	selection.addRange(range)
 }
-
+//todo: 备注的前进后退
 MM.Command.Finish = Object.create(MM.Command, {
 	keys: { value: [{ keyCode: 13, altKey: false, ctrlKey: false, shiftKey: false }] },
 	editMode: { value: true }
@@ -376,7 +376,7 @@ MM.Command.Cancel = Object.create(MM.Command, {
 });
 MM.Command.Cancel.execute = function () {
 	MM.App.editing = false;
-	MM.App.current.stopEditing();
+	MM.App.current.stopEditing(true);//还原文字
 	var oldText = MM.App.current.getText();
 	if (!oldText) { /* newly added node */
 		var action = new MM.Action.RemoveItem(MM.App.current);
