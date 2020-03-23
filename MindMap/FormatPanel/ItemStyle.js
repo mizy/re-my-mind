@@ -26,7 +26,7 @@ export default class StyleEdit extends PureComponent {
 	syncNowItem(item) {
 		const content = item.getDOM().content;
 		this.setState({
-			color: content.style.backgroundColor || "#50c28b"
+			color: content.style.backgroundColor || undefined
 		});
 		this.setState({
 			shape: item.getShape().id
@@ -44,21 +44,17 @@ export default class StyleEdit extends PureComponent {
 
 	changeShape = value => {
 		MM.App.current.setShape(MM.Shape.getById(value));
-		let color = "rgb(80, 194, 139)";
-		switch (value) {
-			case "underline":
-				color = "transparent";
-				break;
-			case "box":
-				color = "rgb(74, 144, 226)";
-				break;
-		}
-		MM.App.current.getDOM().content.style.backgroundColor = color;
 		this.setState({
-			color: color,
 			shape: value
 		});
 	};
+
+	clearColor = () => {
+		this.setState({
+			color: undefined
+		});
+		MM.App.current.getDOM().content.style.backgroundColor = null;
+	}
 
 	render() {
 		const { color, shape } = this.state;
@@ -76,24 +72,28 @@ export default class StyleEdit extends PureComponent {
 						<Option value="ellipse">主节点</Option>
 					</Select>
 					{shape !== "underline" && (
-						<Dropdown
-							trigger="click"
-							overlay={
-								<SketchPicker
-									color={color}
-									onChangeComplete={this.changeBackGroundColor}
-								/>
-							}>
-							<div className="right-panel-card-children">
-								<div
-									className="color-pick-demo"
-									style={{ backgroundColor: color }}></div>
-
-								<Button>
-									<Icon fill={color} type="bg-colors" />
+						<div className="right-panel-card-children">
+							<div
+								className="color-pick-demo"
+								style={{ backgroundColor: color }}></div>
+							<Button.Group>
+								<Dropdown
+									trigger="click"
+									overlay={
+										<SketchPicker
+											color={color}
+											onChangeComplete={this.changeBackGroundColor}
+										/>
+									}>
+									<Button>
+										<Icon fill={color} type="bg-colors" />
+									</Button>
+								</Dropdown>
+								<Button onClick={this.clearColor}>
+									<Icon type="delete" />
 								</Button>
-							</div>
-						</Dropdown>
+							</Button.Group>
+						</div>
 					)}
 				</div>
 			</div>

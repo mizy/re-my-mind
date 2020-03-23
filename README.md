@@ -58,3 +58,4 @@ MM.App.map.toJSON();
 -   增加备注功能
 -   增加节点布局模式
 -   具体效果请查看 dist 下 index.html 的 demo
+-   添加主题支持

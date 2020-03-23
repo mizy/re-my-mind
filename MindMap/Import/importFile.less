@@ -1,0 +1,65 @@
+.import-from-file-modal {
+    & {}
+
+    .ant-modal-body {
+        & {
+            padding: 0;
+            height: 400px;
+            display: flex;
+        }
+
+        .aside-box {
+            & {
+                position: relative;
+                width: 200px;
+                box-shadow: 6px 0 5px 0 rgba(0, 0, 0, 0.06);
+                z-index: 1;
+            }
+
+            .type-list {
+                & {
+                    padding: 0;
+                    list-style: none;
+                    height: 100%;
+                    border-right: 1px solid #e6e6e6;
+                }
+
+                .type-list-item {
+                    height: 40px;
+                    line-height: 40px;
+                    border-bottom: 1px solid #e6e6e6;
+                    border-left: 4px solid #fff;
+                    padding-left: 16px;
+                    cursor: pointer;
+
+                    &.active {
+                        background: #E8ECF8;
+                        border-left: 4px solid #2E3341;
+                        color: #2E3341;
+                    }
+                }
+            }
+        }
+
+        .main-box {
+            & {
+                flex: 1;
+                background: #fff;
+            }
+
+
+            .ant-upload.ant-upload-drag {
+                background: none;
+                border: 2px dashed #FAFBFC;
+
+                &:hover {
+                    border: 2px dashed #e6e6e6;
+                }
+
+                .ant-upload {
+                    padding: 0 0 40px;
+                }
+            }
+        }
+    }
+}

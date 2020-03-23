@@ -91,7 +91,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -130,11 +130,32 @@ module.exports = _createClass;
 
 /***/ }),
 /* 2 */
+/***/ (function(module, exports) {
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+module.exports = _defineProperty;
+
+/***/ }),
+/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _index_less__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
+/* harmony import */ var _index_less__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
 /* harmony import */ var _index_less__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_index_less__WEBPACK_IMPORTED_MODULE_0__);
 
 /**
@@ -186,21 +207,21 @@ window.MM = {
   }
 };
 
-__webpack_require__(8);
+__webpack_require__(9);
 
-__webpack_require__(9), __webpack_require__(10);
-__webpack_require__(11), __webpack_require__(12), __webpack_require__(13), __webpack_require__(14), __webpack_require__(15), __webpack_require__(16), __webpack_require__(17), __webpack_require__(18), __webpack_require__(19), __webpack_require__(20), __webpack_require__(21), __webpack_require__(22), __webpack_require__(23), __webpack_require__(24), __webpack_require__(25);
+__webpack_require__(10), __webpack_require__(11);
+__webpack_require__(12), __webpack_require__(13), __webpack_require__(14), __webpack_require__(15), __webpack_require__(16), __webpack_require__(17), __webpack_require__(18), __webpack_require__(19), __webpack_require__(20), __webpack_require__(21), __webpack_require__(22), __webpack_require__(23), __webpack_require__(24), __webpack_require__(25), __webpack_require__(26);
 
-__webpack_require__(26);
+__webpack_require__(27);
 
 /* harmony default export */ __webpack_exports__["default"] = (window.MM);
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(4);
+var content = __webpack_require__(5);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -214,23 +235,23 @@ var options = {"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(6)(content, options);
+var update = __webpack_require__(7)(content, options);
 
 if(content.locals) module.exports = content.locals;
 
 if(false) {}
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(5)(false);
+exports = module.exports = __webpack_require__(6)(false);
 // Module
-exports.push([module.i, ".re-mind.stright {\n  background-color: #f4f9fa;\n}\n.re-mind.stright .shape-ellipse > .content {\n  border-radius: 10px;\n  background-color: #ff383e;\n  border: 3px solid #ff8d8f;\n  padding: 20px;\n}\n.re-mind.stright .shape-ellipse > .content .text {\n  font-size: 28px;\n}\n.re-mind.box {\n  background-color: #1f2934;\n}\n.re-mind.box > .item > .content {\n  background-color: #1f2934;\n  border: 3px solid #20a5a1;\n  font-size: 48px;\n  padding: 20px;\n  color: #20a5a1;\n}\n.re-mind.box > .item > .content .text {\n  color: #20a5a1;\n  font-size: 28px;\n}\n.re-mind.box > .item > .children > .shape-box > .content {\n  background-color: #20a5a1;\n  color: #000;\n  padding: 10px 20px;\n  border-radius: 10px;\n}\n.re-mind.box > .item > .children > .shape-box > .children .shape-box > .content {\n  background-color: transparent;\n  border: none;\n  color: #20a5a1;\n  padding: 5px;\n  font-size: 22px;\n}\n.re-mind {\n  position: relative;\n  overflow: hidden;\n  /* root */\n}\n.re-mind * {\n  box-sizing: border-box;\n}\n.re-mind ul,\n.re-mind li {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n}\n.re-mind ul li,\n.re-mind li li {\n  list-style: none;\n}\n.re-mind .menu {\n  outline: none;\n  margin: 0;\n  padding: 5px 0;\n  list-style: none;\n  position: absolute;\n  z-index: 2;\n  background: #fff;\n  -webkit-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);\n  border-radius: 2px;\n  width: 200px;\n}\n.re-mind .menu > button {\n  height: 32px;\n  line-height: 32px;\n  padding: 0 20px;\n  color: #666;\n  font-size: 13px;\n  font-weight: 400;\n  cursor: pointer;\n  -webkit-transition: all 0.3s;\n  transition: all 0.3s;\n  white-space: nowrap;\n  display: block;\n  background-color: transparent;\n  border: none;\n  margin: 0;\n  width: 100%;\n  text-align: left;\n}\n.re-mind .menu > button:hover {\n  background: #efefef;\n}\n.re-mind .menu span {\n  display: block;\n  border-top: 1px solid #eee;\n  margin-top: 4px;\n  padding-top: 4px;\n}\n.re-mind .item {\n  position: absolute;\n}\n.re-mind .item .re-mind-icon {\n  z-index: 1;\n  display: inline-block;\n}\n.re-mind .item .cut {\n  opacity: 0.5;\n}\n.re-mind .item.collapsed .children {\n  display: none;\n}\n.re-mind .item .content {\n  display: flex;\n  position: absolute;\n  cursor: pointer;\n  padding: 5px;\n  border-radius: 5px;\n}\n.re-mind .item .content > * {\n  vertical-align: middle;\n}\n.re-mind .item .content .text {\n  z-index: 1;\n  text-align: left;\n  display: inline-block;\n  min-height: 22px;\n  word-wrap: break-word;\n  white-space: nowrap;\n  word-break: break-all;\n  font-weight: normal;\n  outline: none;\n}\n.re-mind .item .content .multi-line {\n  white-space: normal;\n}\n.re-mind .item .content .value,\n.re-mind .item .content .status {\n  margin-right: 0.2em;\n}\n.re-mind .item .content .text ~ .value,\n.re-mind .item .content .text ~ .status {\n  margin-left: 0.2em;\n  margin-right: 0;\n}\n.re-mind .item .content .value {\n  opacity: 0.7;\n  display: none;\n}\n.re-mind .item .content .value:not(:empty):before {\n  content: \"(\";\n}\n.re-mind .item .content .value:not(:empty):after {\n  content: \")\";\n}\n.re-mind .shape-box > .content {\n  padding: 4px 10px;\n  background-color: #4a90e2;\n  color: #fff;\n  border-radius: 3px;\n}\n.re-mind .shape-box > .content .text,\n.re-mind .shape-box > .content .note-button {\n  min-height: 25px;\n  font-size: 18px;\n}\n.re-mind .shape-ellipse > .content {\n  border: 1px solid transparent;\n  padding: 10px 20px;\n  color: #fff;\n}\n.re-mind .shape-ellipse > .content .text,\n.re-mind .shape-ellipse > .content .note-button {\n  min-height: 33px;\n  font-size: 24px;\n}\n.re-mind > .item > .content {\n  font-weight: bold;\n  border-width: 2px;\n  font-size: 140%;\n  color: #fff;\n  border: 0;\n  background-color: #50c28b;\n}\n.re-mind > .item > .toggle {\n  display: none;\n}\n.re-mind .current > .content:before {\n  content: \" \";\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: -6px;\n  top: -6px;\n  box-sizing: content-box;\n  border: 2px solid #7cb9ff;\n  padding: 4px;\n}\n.re-mind > .item > .children > .item > .children .current > .content:before {\n  left: -2px;\n  top: -2px;\n  padding: 0px;\n}\n.re-mind .note-button::after {\n  font-family: \"iconfont\" !important;\n  font-style: normal;\n  content: \"\\e6db\";\n}\n.re-mind .note-button {\n  margin-left: 5px;\n  z-index: 1;\n}\n.re-mind :not(.current):not(.collapsed) > .toggle {\n  /* NOT display:none - we need to have non-zero dimensions for layouting */\n  visibility: hidden;\n}\n.re-mind .mm-note {\n  display: flex;\n  flex-direction: column;\n  position: absolute;\n  top: 80px;\n  left: 0px;\n  z-index: 2;\n  background: #fff;\n  transition: opacity, height 300ms ease-in;\n  overflow: hidden;\n  width: 300px;\n  border: 1px solid #efefef;\n  border-radius: 3px;\n  box-shadow: 2px 2px 20px 1px rgba(0, 0, 0, 0.2);\n}\n.re-mind .mm-note .note-util {\n  height: 30px;\n  width: 100%;\n  border-bottom: 1px solid #efefef;\n}\n.re-mind .mm-note .note-content {\n  height: 300px;\n  width: 100%;\n  overflow: scroll;\n}\n.re-mind .mm-note .note-content p {\n  white-space: pre-line;\n  padding: 10px;\n  outline: none;\n  height: 300px;\n  width: 100%;\n}\n.re-mind .mm-note.hide {\n  height: 0;\n  opacity: 0;\n}\n.re-mind .status {\n  font-size: 150%;\n  line-height: 0.8;\n}\n.re-mind .status.yes:after {\n  content: \"✔\";\n  color: #0f0;\n}\n.re-mind .status.no:after {\n  content: \"✘\";\n  color: #f00;\n}\n.re-mind canvas {\n  position: absolute;\n  left: 0;\n  top: 0;\n}\n.re-mind .toggle {\n  position: absolute;\n  width: 12px;\n  height: 12px;\n  line-height: 12px;\n  cursor: pointer;\n  border-radius: 50%;\n  border: 1px solid #00f;\n  background-color: #88f;\n  text-align: center;\n  font-weight: bold;\n  font-family: sans-serif;\n  color: #fff;\n  opacity: 0.7;\n}\n.re-mind .toggle:hover {\n  opacity: 1;\n}\n.re-mind .toggle:before {\n  content: \"−\";\n  line-height: 8px;\n  margin-top: -2px;\n  position: absolute;\n  left: 1px;\n  top: 3px;\n  font-size: 12px;\n}\n.re-mind .collapsed > .toggle:before {\n  content: \"+\";\n  line-height: 8px;\n  margin-top: -2px;\n  position: absolute;\n  left: 1px;\n  top: 2px;\n  font-size: 12px;\n}\n.re-mind .re-mind-icon {\n  display: inline-flex !important;\n  align-items: center;\n  flex-direction: row-reverse;\n}\n.re-mind .re-mind-icon > li {\n  font-size: 18px;\n  display: inline-block;\n  margin-left: -5px;\n}\n.re-mind .re-mind-icon > li:last-child {\n  margin-left: 0px;\n}\n.re-mind .re-mind-icon > li:first-child {\n  margin-right: 5px;\n}\n", ""]);
+exports.push([module.i, ".re-mind.stright {\n  background-color: #f4f9fa;\n}\n.re-mind.stright .shape-ellipse > .content {\n  border-radius: 10px;\n  background-color: #ff383e;\n  border: 3px solid #ff8d8f;\n  padding: 20px;\n}\n.re-mind.stright .shape-ellipse > .content .text {\n  font-size: 28px;\n}\n.re-mind.box {\n  background-color: #1f2934;\n}\n.re-mind.box > .item > .content {\n  background-color: #1f2934;\n  border: 3px solid #20a5a1;\n  font-size: 48px;\n  padding: 20px;\n  color: #20a5a1;\n}\n.re-mind.box > .item > .content .text {\n  color: #20a5a1;\n  font-size: 28px;\n}\n.re-mind.box > .item > .children > .shape-box > .content {\n  background-color: #20a5a1;\n  color: #000;\n  padding: 10px 20px;\n  border-radius: 10px;\n}\n.re-mind.box > .item > .children > .shape-box > .children .shape-box > .content {\n  background-color: transparent;\n  border: none;\n  color: #20a5a1;\n  padding: 5px;\n  font-size: 22px;\n}\n.re-mind {\n  position: relative;\n  overflow: hidden;\n  /* root */\n}\n.re-mind * {\n  box-sizing: border-box;\n}\n.re-mind ul,\n.re-mind li {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n}\n.re-mind ul li,\n.re-mind li li {\n  list-style: none;\n}\n.re-mind .menu {\n  outline: none;\n  margin: 0;\n  padding: 5px 0;\n  list-style: none;\n  position: absolute;\n  z-index: 2;\n  background: #fff;\n  -webkit-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);\n  border-radius: 2px;\n  width: 200px;\n}\n.re-mind .menu > button {\n  height: 32px;\n  line-height: 32px;\n  padding: 0 20px;\n  color: #666;\n  font-size: 13px;\n  font-weight: 400;\n  cursor: pointer;\n  -webkit-transition: all 0.3s;\n  transition: all 0.3s;\n  white-space: nowrap;\n  display: block;\n  background-color: transparent;\n  border: none;\n  margin: 0;\n  width: 100%;\n  text-align: left;\n}\n.re-mind .menu > button:hover {\n  background: #efefef;\n}\n.re-mind .menu span {\n  display: block;\n  border-top: 1px solid #eee;\n  margin-top: 4px;\n  padding-top: 4px;\n}\n.re-mind .item {\n  position: absolute;\n}\n.re-mind .item .re-mind-icon {\n  z-index: 1;\n  display: inline-block;\n}\n.re-mind .item .cut {\n  opacity: 0.5;\n}\n.re-mind .item.collapsed .children {\n  display: none;\n}\n.re-mind .item .content {\n  display: flex;\n  position: absolute;\n  cursor: pointer;\n  padding: 5px;\n  border-radius: 5px;\n}\n.re-mind .item .content > * {\n  vertical-align: middle;\n}\n.re-mind .item .content .text {\n  z-index: 1;\n  text-align: left;\n  display: inline-block;\n  min-height: 22px;\n  word-wrap: break-word;\n  white-space: nowrap;\n  word-break: break-all;\n  font-weight: normal;\n  outline: none;\n}\n.re-mind .item .content .multi-line {\n  white-space: normal;\n}\n.re-mind .item .content .value,\n.re-mind .item .content .status {\n  margin-right: 0.2em;\n}\n.re-mind .item .content .text ~ .value,\n.re-mind .item .content .text ~ .status {\n  margin-left: 0.2em;\n  margin-right: 0;\n}\n.re-mind .item .content .value {\n  opacity: 0.7;\n  display: none;\n}\n.re-mind .item .content .value:not(:empty):before {\n  content: \"(\";\n}\n.re-mind .item .content .value:not(:empty):after {\n  content: \")\";\n}\n.re-mind .shape-box > .content {\n  padding: 4px 10px;\n  background-color: #4a90e2;\n  color: #fff;\n  border-radius: 3px;\n}\n.re-mind .shape-box > .content .text,\n.re-mind .shape-box > .content .note-button {\n  min-height: 25px;\n  font-size: 18px;\n}\n.re-mind .shape-ellipse > .content {\n  border: 1px solid transparent;\n  padding: 10px 20px;\n  color: #fff;\n}\n.re-mind .shape-ellipse > .content .text,\n.re-mind .shape-ellipse > .content .note-button {\n  min-height: 33px;\n  font-size: 24px;\n}\n.re-mind > .item > .content {\n  font-weight: bold;\n  border-width: 2px;\n  font-size: 140%;\n  color: #fff;\n  border: 0;\n  background-color: #50c28b;\n}\n.re-mind > .item > .toggle {\n  display: none;\n}\n.re-mind .current > .content:before {\n  content: \" \";\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: -6px;\n  top: -6px;\n  box-sizing: content-box;\n  border: 2px solid #7cb9ff;\n  padding: 4px;\n}\n.re-mind > .item > .children > .item > .children .current > .content:before {\n  left: -2px;\n  top: -2px;\n  padding: 0px;\n}\n.re-mind .note-button::after {\n  font-family: \"iconfont\" !important;\n  font-style: normal;\n  content: \"\\e6db\";\n}\n.re-mind .note-button {\n  margin-left: 5px;\n  z-index: 1;\n}\n.re-mind :not(.current):not(.collapsed) > .toggle {\n  /* NOT display:none - we need to have non-zero dimensions for layouting */\n  visibility: hidden;\n}\n.re-mind .mm-note {\n  display: flex;\n  flex-direction: column;\n  position: absolute;\n  top: 80px;\n  left: 0px;\n  z-index: 2;\n  background: #fff;\n  transition: opacity, height 300ms ease-in;\n  overflow: hidden;\n  width: 300px;\n  border: 1px solid #efefef;\n  border-radius: 3px;\n  box-shadow: 2px 2px 20px 1px rgba(0, 0, 0, 0.2);\n}\n.re-mind .mm-note .note-util {\n  height: 30px;\n  width: 100%;\n  border-bottom: 1px solid #efefef;\n  padding-left: 10px;\n  padding-top: 4px;\n}\n.re-mind .mm-note .note-content {\n  height: 300px;\n  width: 100%;\n  overflow: scroll;\n}\n.re-mind .mm-note .note-content p {\n  white-space: pre-line;\n  padding: 10px;\n  outline: none;\n  height: 300px;\n  width: 100%;\n}\n.re-mind .mm-note.hide {\n  height: 0;\n  opacity: 0;\n}\n.re-mind .status {\n  font-size: 150%;\n  line-height: 0.8;\n}\n.re-mind .status.yes:after {\n  content: \"✔\";\n  color: #0f0;\n}\n.re-mind .status.no:after {\n  content: \"✘\";\n  color: #f00;\n}\n.re-mind canvas {\n  position: absolute;\n  left: 0;\n  top: 0;\n}\n.re-mind .toggle {\n  position: absolute;\n  width: 12px;\n  height: 12px;\n  line-height: 12px;\n  cursor: pointer;\n  border-radius: 50%;\n  border: 1px solid #00f;\n  background-color: #88f;\n  text-align: center;\n  font-weight: bold;\n  font-family: sans-serif;\n  color: #fff;\n  opacity: 0.7;\n}\n.re-mind .toggle:hover {\n  opacity: 1;\n}\n.re-mind .toggle:before {\n  content: \"−\";\n  line-height: 8px;\n  margin-top: -2px;\n  position: absolute;\n  left: 1px;\n  top: 3px;\n  font-size: 12px;\n}\n.re-mind .collapsed > .toggle:before {\n  content: \"+\";\n  line-height: 8px;\n  margin-top: -2px;\n  position: absolute;\n  left: 1px;\n  top: 2px;\n  font-size: 12px;\n}\n.re-mind .re-mind-icon {\n  display: inline-flex !important;\n  align-items: center;\n  flex-direction: row-reverse;\n}\n.re-mind .re-mind-icon > li {\n  font-size: 18px;\n  display: inline-block;\n  margin-left: -5px;\n}\n.re-mind .re-mind-icon > li:last-child {\n  margin-left: 0px;\n}\n.re-mind .re-mind-icon > li:first-child {\n  margin-right: 5px;\n}\n", ""]);
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -326,7 +347,7 @@ function toComment(sourceMap) {
 }
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -395,7 +416,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(7);
+var	fixUrls = __webpack_require__(8);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -730,7 +751,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports) {
 
 
@@ -825,7 +846,7 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -871,7 +892,7 @@ MM.Repo = {
 /* harmony default export */ __webpack_exports__["default"] = (MM);
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -947,10 +968,6 @@ MM.Item = function (options) {
   this._dom.node.appendChild(this._dom.content);
 
   this._dom.content.insertBefore(this._dom.icon, this._dom.content.firstChild);
-  /* toggle+children are appended when children exist */
-
-
-  this.setText(options.name || "");
 
   this._dom.toggle.addEventListener("click", this);
 };
@@ -1039,8 +1056,6 @@ MM.Item.prototype.toJSON = function () {
 
 
 MM.Item.prototype.fromJSON = function (data) {
-  this.setText(data.text);
-
   if (data.id) {
     this._id = data.id;
   }
@@ -1095,6 +1110,8 @@ MM.Item.prototype.fromJSON = function (data) {
     this.insertChild(MM.Item.fromJSON(child));
   }, this);
   this._data = data;
+  this.setText(data.text, false); // 不触发重绘
+
   return this;
 };
 
@@ -1215,7 +1232,6 @@ MM.Item.prototype.select = function () {
 MM.Item.prototype.deselect = function () {
   if (MM.App.editing) {
     MM.Command.Finish.execute();
-    MM.publish("item-change", this);
   }
 
   this._dom.node.classList.remove("current");
@@ -1297,8 +1313,10 @@ MM.Item.prototype.resetTheme = function () {
     child.resetTheme();
   });
 
-  this.clearStyle(); // this.clearOffset();
-  // return this.update();
+  this.clearStyle(); // if (reRender) {
+
+  this.clearOffset();
+  this.update(true); // }
 };
 
 MM.Item.prototype.clearStyle = function () {
@@ -1314,10 +1332,17 @@ MM.Item.prototype.clearStyle = function () {
 };
 
 MM.Item.prototype.setText = function (text) {
+  var clear = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+
+  if (this._dom.text.innerHTML === text) {
+    return;
+  }
+
   this._dom.text.innerHTML = text;
 
   this._findLinks(this._dom.text);
 
+  clear && this.clearOffset();
   return this.update();
 };
 
@@ -1383,22 +1408,16 @@ MM.Item.prototype.getStatus = function () {
 
 MM.Item.prototype.setIcon = function (icon) {
   var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'default';
-  this._icon[type] = icon;
-  this.clearOffset(); //todo icon 变化也要存入历史记录
-
+  var action = new MM.Action.SetIcon(this, icon, type);
+  MM.App.action(action);
   MM.publish("item-change", this);
-  return this.update();
 };
 
 MM.Item.prototype.deleteIcon = function (type) {
-  if (!type) {
-    this._icon = {};
-    return this.update;
-  }
-
-  delete this._icon[type];
-  this.clearOffset();
-  return this.update();
+  // 删除icon
+  var action = new MM.Action.SetIcon(this, false, type);
+  MM.App.action(action);
+  MM.publish("item-change", this);
 };
 
 MM.Item.prototype.getIcon = function () {
@@ -1584,7 +1603,7 @@ MM.Item.prototype.startEditing = function () {
   return this;
 };
 
-MM.Item.prototype.stopEditing = function (reverse) {
+MM.Item.prototype.stopEditing = function () {
   this._dom.text.removeEventListener("input", this);
 
   this._dom.text.removeEventListener("keydown", this);
@@ -1597,12 +1616,6 @@ MM.Item.prototype.stopEditing = function (reverse) {
 
   this._dom.text.contentEditable = false;
   var result = this._dom.text.innerHTML;
-
-  if (reverse) {
-    this._dom.text.innerHTML = this._oldText;
-    this._oldText = "";
-  }
-
   this.clearContentWidth();
   this.update();
   /* text changed */
@@ -1615,20 +1628,16 @@ MM.Item.prototype.stopEditing = function (reverse) {
 MM.Item.prototype.startNote = function (text) {
   this.clearOffset();
 
-  this._dom.content.appendChild(this._dom.note); // 
-
+  this._dom.content.appendChild(this._dom.note);
 
   MM.App.note.show(this);
   this.update();
 };
 
 MM.Item.prototype.endNote = function (text) {
-  // todo 触发历史记录
-  this.clearOffset();
-
-  if (!this.note) {
-    this._dom.content.removeChild(this._dom.note);
-  }
+  if (text === this.note) return;
+  var action = new MM.Action.SetNote(this, text);
+  MM.App.action(action);
 };
 
 MM.Item.prototype.clearContentWidth = function () {
@@ -1660,7 +1669,6 @@ MM.Item.prototype.handleEvent = function (e) {
     case "blur":
       /* 3d */
       MM.Command.Finish.execute();
-      MM.publish("item-change", this);
       break;
 
     case "click":
@@ -1853,7 +1861,7 @@ MM.Item.prototype._findLinks = function (node) {
 /* harmony default export */ __webpack_exports__["default"] = (MM.Item);
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports) {
 
 MM.Theme = {
@@ -1895,7 +1903,7 @@ MM.Theme = {
 };
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1959,13 +1967,10 @@ function () {
       this.status = "hide";
       this.note.className = "mm-note hide";
       var content = this.note.querySelector(".note-content p");
-      this.item.note = encodeURIComponent(content.innerHTML);
-      this.item.endNote();
+      var note = encodeURIComponent(content.innerHTML);
+      this.item.endNote(note);
       content.innerHTML = "";
-      MM.publish("item-change", {
-        type: "note",
-        item: this.item
-      });
+      MM.publish("item-change", this.item);
     }
   }, {
     key: "destroy",
@@ -1984,7 +1989,7 @@ MM.Note = Note;
 /* harmony default export */ __webpack_exports__["default"] = (Note);
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2104,7 +2109,7 @@ MM.Map.prototype.update = function () {
   return this;
 };
 
-MM.Map.prototype.resetTheme = function () {
+MM.Map.prototype.resetTheme = function (reRender) {
   this._root.resetTheme();
 
   return this;
@@ -2360,7 +2365,7 @@ MM.Map.prototype._setRoot = function (item) {
 /* harmony default export */ __webpack_exports__["default"] = (MM.Map);
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2435,11 +2440,15 @@ MM.Keyboard._keyOK = function (key, e) {
 /* harmony default export */ __webpack_exports__["default"] = (MM.Keyboard);
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
+
+
 MM.Action = function () {};
 
 MM.Action.prototype.perform = function () {};
@@ -2641,78 +2650,52 @@ MM.Action.SetColor.prototype.undo = function () {
   this._item.setColor(this._oldColor);
 };
 
-MM.Action.SetText = function (item, text) {
+MM.Action.SetText = function (item, text, oldText) {
   this._item = item;
   this._text = text;
-  this._oldText = item.getText();
-  this._oldValue = item.getValue();
-  /* adjusting text can also modify value! */
+  this._oldText = oldText === undefined ? item.getText() : oldText;
 };
 
 MM.Action.SetText.prototype = Object.create(MM.Action.prototype);
 
 MM.Action.SetText.prototype.perform = function () {
   this._item.setText(this._text);
-
-  var numText = Number(this._text);
-
-  if (numText == this._text) {
-    this._item.setValue(numText);
-  }
 };
 
 MM.Action.SetText.prototype.undo = function () {
   this._item.setText(this._oldText);
-
-  this._item.setValue(this._oldValue);
 };
 
-MM.Action.SetValue = function (item, value) {
+MM.Action.SetIcon = function (item, icon, type) {
   this._item = item;
-  this._value = value;
-  this._oldValue = item.getValue();
-};
 
-MM.Action.SetValue.prototype = Object.create(MM.Action.prototype);
+  if (icon) {
+    this._icon = Object.assign({}, item._icon, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, type, icon));
+  } else {
+    this._icon = Object.assign({}, item._icon);
+    delete this._icon[type];
+  }
 
-MM.Action.SetValue.prototype.perform = function () {
-  this._item.setValue(this._value);
-};
-
-MM.Action.SetValue.prototype.undo = function () {
-  this._item.setValue(this._oldValue);
-};
-
-MM.Action.SetStatus = function (item, status) {
-  this._item = item;
-  this._status = status;
-  this._oldStatus = item.getStatus();
-};
-
-MM.Action.SetStatus.prototype = Object.create(MM.Action.prototype);
-
-MM.Action.SetStatus.prototype.perform = function () {
-  this._item.setStatus(this._status);
-};
-
-MM.Action.SetStatus.prototype.undo = function () {
-  this._item.setStatus(this._oldStatus);
-};
-
-MM.Action.SetIcon = function (item, icon) {
-  this._item = item;
-  this._icon = icon;
+  ;
   this._oldIcon = item.getIcon();
 };
 
 MM.Action.SetIcon.prototype = Object.create(MM.Action.prototype);
 
 MM.Action.SetIcon.prototype.perform = function () {
-  this._item.setIcon(this._icon);
+  this._item._icon = this._icon;
+
+  this._item.clearOffset();
+
+  this._item.update();
 };
 
 MM.Action.SetIcon.prototype.undo = function () {
-  this._item.setIcon(this._oldIcon);
+  this._item._icon = this._oldIcon;
+
+  this._item.clearOffset();
+
+  this._item.update();
 };
 
 MM.Action.SetSide = function (item, side) {
@@ -2752,10 +2735,48 @@ MM.Action.SetData.prototype.undo = function () {
   MM.App.setMap(new MM.Map(MM.App.options));
 };
 
+MM.Action.SetNote = function (item, note) {
+  this.oldNote = item.note;
+  this.item = item;
+  this.note = note;
+};
+
+MM.Action.SetNote.prototype = Object.create(MM.Action.prototype);
+
+MM.Action.SetNote.prototype.perform = function () {
+  this.item.note = this.note; //更新Note
+
+  if (!this.note) {
+    this.item._dom.content.removeChild(this.item._dom.note);
+
+    this.item.update();
+  } else {
+    this.item._dom.content.appendChild(this.item._dom.note);
+  }
+
+  this.item.clearOffset();
+  this.item.update();
+};
+
+MM.Action.SetNote.prototype.undo = function () {
+  this.item.note = this.oldNote;
+
+  if (!this.oldNote) {
+    // 之前的note为空
+    this.item._dom.content.removeChild(this.item._dom.note);
+  } else {
+    // 之前note不为空
+    this.item._dom.content.appendChild(this.item._dom.note);
+  }
+
+  this.item.clearOffset();
+  this.item.update();
+};
+
 /* harmony default export */ __webpack_exports__["default"] = (MM.Action);
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2923,7 +2944,7 @@ MM.Clipboard._endCut = function () {
 /* harmony default export */ __webpack_exports__["default"] = (MM.Clipboard);
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3006,7 +3027,7 @@ MM.Menu = {
 /* harmony default export */ __webpack_exports__["default"] = (MM.Menu);
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3532,8 +3553,7 @@ MM.Command.Edit.execute = function () {
   var selection = window.getSelection();
   selection.removeAllRanges();
   selection.addRange(range);
-}; //todo: 备注的前进后退
-
+};
 
 MM.Command.Finish = Object.create(MM.Command, {
   keys: {
@@ -3554,12 +3574,13 @@ MM.Command.Finish.execute = function () {
   var text = MM.App.current.stopEditing();
 
   if (text) {
-    var action = new MM.Action.SetText(MM.App.current, text);
+    var action = new MM.Action.SetText(MM.App.current, text, MM.App.current._oldText);
   } else {
     var action = new MM.Action.RemoveItem(MM.App.current);
   }
 
   MM.App.action(action);
+  MM.publish("item-change", MM.App.current);
 };
 
 MM.Command.Newline = Object.create(MM.Command, {
@@ -3601,9 +3622,9 @@ MM.Command.Cancel = Object.create(MM.Command, {
 
 MM.Command.Cancel.execute = function () {
   MM.App.editing = false;
-  MM.App.current.stopEditing(true); //还原文字
+  MM.App.current.stopEditing(); //还原文字
 
-  var oldText = MM.App.current.getText();
+  var oldText = MM.App.current._oldText;
 
   if (!oldText) {
     /* newly added node */
@@ -3871,7 +3892,7 @@ MM.Command.DeleteIcon.execute = function (target) {
 /* harmony default export */ __webpack_exports__["default"] = (MM.Command);
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 MM.Layout = Object.create(MM.Repo, {
@@ -4055,7 +4076,7 @@ MM.Layout._alignItem = function (item, side) {
 };
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4470,7 +4491,7 @@ MM.Layout.Graph.Right = MM.Layout.Graph.create("right", "graph-right", "Right");
 /* harmony default export */ __webpack_exports__["default"] = (MM.Layout.Graph);
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4629,7 +4650,7 @@ MM.Layout.Tree.Right = MM.Layout.Tree.create("right", "tree-right", "Right");
 /* harmony default export */ __webpack_exports__["default"] = (MM.Layout.Tree);
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports) {
 
 MM.Layout.Map = Object.create(MM.Layout.Graph, {
@@ -4840,7 +4861,7 @@ MM.Layout.Map._drawRootConnectors = function (item, side, children) {
 };
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4941,7 +4962,7 @@ MM.Shape.Underline.getVerticalAnchor = function (item) {
 /* harmony default export */ __webpack_exports__["default"] = (MM.Shape);
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5008,7 +5029,7 @@ MM.Format.JSON.from = function (data) {
 /* harmony default export */ __webpack_exports__["default"] = (MM.Format);
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5447,7 +5468,7 @@ MM.Mouse._visualizeDragState = function (state) {
 /* harmony default export */ __webpack_exports__["default"] = (MM.Mouse);
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports) {
 
 MM.PolyDom = {
@@ -5473,7 +5494,7 @@ MM.PolyDom = {
 };
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

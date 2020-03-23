@@ -1,14 +1,24 @@
 import React, { PureComponent, Fragment } from "react";
-import { Button, Dropdown, Icon, Upload, Checkbox } from "antd";
+import { Button, Dropdown, Icon, Upload, Checkbox, Modal } from "antd";
 const MM = window.MM;
 
 import { SketchPicker } from "react-color";
 export default class CanvasEdit extends PureComponent {
-	state = {}
+	state = {
+		fileList: []
+	}
 	componentDidMount() {
+		const imageUrl = this.props.mind.state.backgroundImage;
+		const fileList = imageUrl ? [{
+			uid: "-1",
+			name: "背景",
+			url: imageUrl,
+			status: "done"
+		}] : [];
 		this.setState({
 			color: this.props.mind.state.backgroundColor,
-			imageUrl: this.props.mind.state.backgroundImage,
+			fileList,
+			imageUrl,
 			repeat: this.props.mind.state.backgroundRepeat === "repeat",
 			size: this.props.mind.state.backgroundSize === "100% 100%"
 		});
@@ -25,7 +35,39 @@ export default class CanvasEdit extends PureComponent {
 		});
 	};
 
+	clearBack = () => {
+		const color = undefined;
+		this.setState({
+			color
+		});
+		this.props.mind.setState({
+			backgroundColor: null
+		});
+	}
+
+	handlePreview = async file => {
+		this.setState({
+			previewImage: file.url,
+			previewVisible: true
+		});
+	};
+
+	handleCancel = () => {
+		this.setState({
+			previewVisible: false
+		});
+	}
+
 	changeBackUrl = info => {
+		this.setState({
+			fileList: info.fileList
+		});
+		if (info.fileList.length < 1) {
+			this.props.mind.setState({
+				backgroundImage: null
+			});
+		}
+
 		if (info.file.status === "uploading") {
 			this.setState({ loading: true });
 			return;
@@ -60,7 +102,8 @@ export default class CanvasEdit extends PureComponent {
 	}
 
 	render() {
-		const { color, imageUrl, repeat, size } = this.state || {};
+		const { color, previewVisible, previewImage, fileList, repeat, size } = this.state || {};
+
 		return (
 			<Fragment>
 				<div className="right-panel-card">
@@ -75,10 +118,14 @@ export default class CanvasEdit extends PureComponent {
 						}>
 						<div className="right-panel-card-children">
 							<div className="color-pick-demo" style={{ backgroundColor: color }}></div>
-
-							<Button>
-								<Icon fill={color} type="bg-colors" />
-							</Button>
+							<Button.Group>
+								<Button>
+									<Icon fill={color} type="bg-colors" />
+								</Button>
+								<Button onClick={this.clearBack}>
+									<Icon type="delete" />
+								</Button>
+							</Button.Group>
 						</div>
 					</Dropdown>
 				</div >
@@ -89,32 +136,38 @@ export default class CanvasEdit extends PureComponent {
 							name="avatar"
 							listType="picture-card"
 							className="avatar-uploader"
-							showUploadList={false}
+							fileList={fileList}
+							onPreview={this.handlePreview}
 							action="/api/bucket/upload"
 							onChange={this.changeBackUrl}
 						>
-							{imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: "100%" }} /> : <div>
-								<Icon type={this.state.loading ? "loading" : "plus"} />
-								<div className="ant-upload-text">上传</div>
-							</div>}
+							{fileList.length > 0 ? null
+								: <div>
+									<Icon type={this.state.loading ? "loading" : "plus"} />
+									<div className="ant-upload-text">上传</div>
+								</div>}
 						</Upload>
+						<Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
+							<img alt="example" style={{ width: "100%" }} src={previewImage} />
+						</Modal>
+						<div >
+							<Checkbox
+								checked={size}
+								onChange={this.onSizeChange}
+							>
+								拉伸
+							</Checkbox>
+							<Checkbox
+								style={{ marginLeft: 0 }}
+								checked={repeat}
+								onChange={this.onRepeatChange}
+							>
+								重复平铺
+							</Checkbox>
+						</div>
+
 					</div>
-					<div className="right-panel-card-children">
-						<Checkbox
-							checked={size}
-							onChange={this.onSizeChange}
-						>
-							拉伸
-						</Checkbox>
-					</div>
-					<div className="right-panel-card-children">
-						<Checkbox
-							checked={repeat}
-							onChange={this.onRepeatChange}
-						>
-							重复平铺
-						</Checkbox>
-					</div>
+
 				</div >
 			</Fragment >
 		);

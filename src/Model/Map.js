@@ -86,7 +86,7 @@ MM.Map.prototype.update = function () {
 	return this;
 }
 
-MM.Map.prototype.resetTheme = function () {
+MM.Map.prototype.resetTheme = function (reRender) {
 	this._root.resetTheme();
 	return this;
 }

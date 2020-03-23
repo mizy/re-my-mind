@@ -41,10 +41,10 @@ class Note {
 		this.status = "hide";
 		this.note.className = "mm-note hide";
 		const content = this.note.querySelector(".note-content p");
-		this.item.note = encodeURIComponent(content.innerHTML);
-		this.item.endNote();
+		const note = encodeURIComponent(content.innerHTML);
+		this.item.endNote(note);
 		content.innerHTML = "";
-		MM.publish("item-change", { type: "note", item: this.item })
+		MM.publish("item-change", this.item)
 	}
 
 	destroy() {

@@ -50,8 +50,7 @@ MM.Item = function (options) {
 	this._dom.node.appendChild(this._dom.canvas);
 	this._dom.node.appendChild(this._dom.content);
 	this._dom.content.insertBefore(this._dom.icon, this._dom.content.firstChild);
-	/* toggle+children are appended when children exist */
-	this.setText(options.name || "")
+
 	this._dom.toggle.addEventListener("click", this);
 }
 
@@ -108,7 +107,6 @@ MM.Item.prototype.toJSON = function () {
  * Only when creating a new item. To merge existing items, use .mergeWith().
  */
 MM.Item.prototype.fromJSON = function (data) {
-	this.setText(data.text);
 	if (data.id) { this._id = data.id; }
 	if (data.side) { this._side = data.side; }
 	if (data.color) { this._color = data.color; }
@@ -132,6 +130,7 @@ MM.Item.prototype.fromJSON = function (data) {
 		this.insertChild(MM.Item.fromJSON(child));
 	}, this);
 	this._data = data;
+	this.setText(data.text, false);// 不触发重绘
 	return this;
 }
 
@@ -226,7 +225,7 @@ MM.Item.prototype.select = function () {
 MM.Item.prototype.deselect = function () {
 	if (MM.App.editing) {
 		MM.Command.Finish.execute();
-		MM.publish("item-change", this);
+
 	}
 	this._dom.node.classList.remove("current");
 }
@@ -290,8 +289,10 @@ MM.Item.prototype.resetTheme = function () {
 		child.resetTheme();
 	});
 	this.clearStyle();
-	// this.clearOffset();
-	// return this.update();
+	// if (reRender) {
+	this.clearOffset();
+	this.update(true);
+	// }
 }
 
 MM.Item.prototype.clearStyle = function () {
@@ -305,9 +306,13 @@ MM.Item.prototype.clearStyle = function () {
 	}
 }
 
-MM.Item.prototype.setText = function (text) {
+MM.Item.prototype.setText = function (text, clear = true) {
+	if (this._dom.text.innerHTML === text) {
+		return;
+	}
 	this._dom.text.innerHTML = text;
 	this._findLinks(this._dom.text);
+	clear && this.clearOffset();
 	return this.update();
 }
 
@@ -366,21 +371,17 @@ MM.Item.prototype.getStatus = function () {
 }
 
 MM.Item.prototype.setIcon = function (icon, type = 'default') {
-	this._icon[type] = icon;
-	this.clearOffset();
-	//todo icon 变化也要存入历史记录
+	const action = new MM.Action.SetIcon(this, icon, type);
+	MM.App.action(action);
 	MM.publish("item-change", this)
-	return this.update();
 }
 
 MM.Item.prototype.deleteIcon = function (type) {
-	if (!type) {
-		this._icon = {};
-		return this.update;
-	}
-	delete this._icon[type];
-	this.clearOffset();
-	return this.update();
+	// 删除icon
+	const action = new MM.Action.SetIcon(this, false, type);
+	MM.App.action(action);
+	MM.publish("item-change", this)
+
 }
 
 MM.Item.prototype.getIcon = function () {
@@ -536,7 +537,7 @@ MM.Item.prototype.startEditing = function () {
 	return this;
 }
 
-MM.Item.prototype.stopEditing = function (reverse) {
+MM.Item.prototype.stopEditing = function () {
 	this._dom.text.removeEventListener("input", this);
 	this._dom.text.removeEventListener("keydown", this);
 	this._dom.text.removeEventListener("blur", this);
@@ -545,10 +546,6 @@ MM.Item.prototype.stopEditing = function (reverse) {
 	this._dom.text.contentEditable = false;
 
 	var result = this._dom.text.innerHTML;
-	if (reverse) {
-		this._dom.text.innerHTML = this._oldText;
-		this._oldText = "";
-	}
 	this.clearContentWidth();
 	this.update(); /* text changed */
 	this.getMap().ensureItemVisibility(this);
@@ -561,17 +558,14 @@ MM.Item.prototype.stopEditing = function (reverse) {
 MM.Item.prototype.startNote = function (text) {
 	this.clearOffset();
 	this._dom.content.appendChild(this._dom.note);
-	// 
 	MM.App.note.show(this);
 	this.update();
 }
 
 MM.Item.prototype.endNote = function (text) {
-	// todo 触发历史记录
-	this.clearOffset();
-	if (!this.note) {
-		this._dom.content.removeChild(this._dom.note);
-	}
+	if (text === this.note) return;
+	const action = new MM.Action.SetNote(this, text)
+	MM.App.action(action)
 }
 
 MM.Item.prototype.clearContentWidth = function () {
@@ -593,7 +587,6 @@ MM.Item.prototype.handleEvent = function (e) {
 			break;
 		case "blur": /* 3d */
 			MM.Command.Finish.execute();
-			MM.publish("item-change", this);
 			break;
 		case "click":
 			if (this._collapsed) { this.expand(); } else { this.collapse(); }

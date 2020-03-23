@@ -21,24 +21,24 @@ export default class StyleEdit extends PureComponent {
 
 	// 同步数据
 	syncNowItem(item) {
-		const text = item.getDOM().text || {};
-		const { style = {} } = text;
+		const style = item.style || {};
 		this.setState({
 			color: style.color
 		});
 	}
 
 	execute = (command, data) => {
-		 const text = this.props.nowItem.getDOM().text;
-		 const {style = {}} = text;
-		 if(style[command]!==data){
+		const nowItem = this.props.nowItem;
+		const text = nowItem.getDOM().text;
+		const { style = {} } = text;
+		if (style[command] !== data) {
 			style[command] = data;
 			nowItem.style[command] = data;
-		 }else{
-			style[command] = '';
-			delete nowItem.style[command] ;
-		 }
-		
+		} else {
+			style[command] = "";
+			delete nowItem.style[command];
+		}
+
 	};
 
 	changeFontColor = e => {
@@ -48,7 +48,6 @@ export default class StyleEdit extends PureComponent {
 			color
 		});
 		this.execute("color", color);
-		// MM.App.current.getDOM().text.style.color = color;
 	};
 
 	render() {
@@ -59,25 +58,25 @@ export default class StyleEdit extends PureComponent {
 					<Button.Group>
 						<Button
 							onClick={() => {
-								this.execute("fontWeight","bold");
+								this.execute("fontWeight", "bold");
 							}}>
 							<span style={{ fontWeight: "bold" }}>B</span>
 						</Button>
 						<Button
 							onClick={() => {
-								this.execute("fontStyle","italic");
+								this.execute("fontStyle", "italic");
 							}}>
 							<span style={{ fontStyle: "italic" }}>I</span>
 						</Button>
 						<Button
 							onClick={() => {
-								this.execute("textDecoration","underline");
+								this.execute("textDecoration", "underline");
 							}}>
 							<span style={{ textDecoration: "underline" }}>U</span>
 						</Button>
 						<Button
 							onClick={() => {
-								this.execute("textDecoration","line-through");
+								this.execute("textDecoration", "line-through");
 							}}>
 							<span style={{ textDecoration: "line-through" }}>S</span>
 						</Button>

@@ -156,60 +156,39 @@ MM.Action.SetColor.prototype.undo = function () {
 	this._item.setColor(this._oldColor);
 }
 
-MM.Action.SetText = function (item, text) {
+MM.Action.SetText = function (item, text, oldText) {
 	this._item = item;
 	this._text = text;
-	this._oldText = item.getText();
-	this._oldValue = item.getValue(); /* adjusting text can also modify value! */
+	this._oldText = oldText === undefined ? item.getText() : oldText;
 }
 MM.Action.SetText.prototype = Object.create(MM.Action.prototype);
 MM.Action.SetText.prototype.perform = function () {
 	this._item.setText(this._text);
-	var numText = Number(this._text);
-	if (numText == this._text) { this._item.setValue(numText); }
 }
 MM.Action.SetText.prototype.undo = function () {
 	this._item.setText(this._oldText);
-	this._item.setValue(this._oldValue);
 }
 
-MM.Action.SetValue = function (item, value) {
+MM.Action.SetIcon = function (item, icon, type) {
 	this._item = item;
-	this._value = value;
-	this._oldValue = item.getValue();
-}
-MM.Action.SetValue.prototype = Object.create(MM.Action.prototype);
-MM.Action.SetValue.prototype.perform = function () {
-	this._item.setValue(this._value);
-}
-MM.Action.SetValue.prototype.undo = function () {
-	this._item.setValue(this._oldValue);
-}
-
-MM.Action.SetStatus = function (item, status) {
-	this._item = item;
-	this._status = status;
-	this._oldStatus = item.getStatus();
-}
-MM.Action.SetStatus.prototype = Object.create(MM.Action.prototype);
-MM.Action.SetStatus.prototype.perform = function () {
-	this._item.setStatus(this._status);
-}
-MM.Action.SetStatus.prototype.undo = function () {
-	this._item.setStatus(this._oldStatus);
-}
-
-MM.Action.SetIcon = function (item, icon) {
-	this._item = item;
-	this._icon = icon;
+	if (icon) {
+		this._icon = Object.assign({}, item._icon, { [type]: icon });
+	} else {
+		this._icon = Object.assign({}, item._icon);
+		delete this._icon[type];
+	};
 	this._oldIcon = item.getIcon();
 }
 MM.Action.SetIcon.prototype = Object.create(MM.Action.prototype);
 MM.Action.SetIcon.prototype.perform = function () {
-	this._item.setIcon(this._icon);
+	this._item._icon = this._icon;
+	this._item.clearOffset();
+	this._item.update();
 }
 MM.Action.SetIcon.prototype.undo = function () {
-	this._item.setIcon(this._oldIcon);
+	this._item._icon = this._oldIcon;
+	this._item.clearOffset();
+	this._item.update();
 }
 
 MM.Action.SetSide = function (item, side) {
@@ -240,5 +219,33 @@ MM.Action.SetData.prototype.perform = function () {
 MM.Action.SetData.prototype.undo = function () {
 	MM.App.options.data = this.oldData;
 	MM.App.setMap(new MM.Map(MM.App.options))
+}
+
+MM.Action.SetNote = function (item, note) {
+	this.oldNote = item.note;
+	this.item = item;
+	this.note = note;
+}
+MM.Action.SetNote.prototype = Object.create(MM.Action.prototype);
+MM.Action.SetNote.prototype.perform = function () {
+	this.item.note = this.note;//更新Note
+	if (!this.note) {
+		this.item._dom.content.removeChild(this.item._dom.note);
+		this.item.update();
+	} else {
+		this.item._dom.content.appendChild(this.item._dom.note);
+	}
+	this.item.clearOffset();
+	this.item.update()
+}
+MM.Action.SetNote.prototype.undo = function () {
+	this.item.note = this.oldNote;
+	if (!this.oldNote) {// 之前的note为空
+		this.item._dom.content.removeChild(this.item._dom.note);
+	} else {// 之前note不为空
+		this.item._dom.content.appendChild(this.item._dom.note);
+	}
+	this.item.clearOffset();
+	this.item.update();
 }
 export default MM.Action;

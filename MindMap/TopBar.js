@@ -1,4 +1,4 @@
-import React, { PureComponent,Fragment } from "react";
+import React, { PureComponent, Fragment } from "react";
 import { get } from "lodash";
 import html2canvas from "html2canvas";
 import { saveAs } from "file-saver";
@@ -14,7 +14,9 @@ import {
 	message,
 	Tooltip
 } from "antd";
-import CommandKey from './FormatPanel/CommandKey';
+import CommandKey from "./Modals/CommandKey";
+import ImportFile from "./Import/ImportFile";
+import History from "./Modals/History/index.js";
 const MM = window.MM;
 
 class TopBar extends PureComponent {
@@ -26,6 +28,15 @@ class TopBar extends PureComponent {
 	};
 
 	componentDidMount() {
+		this.oldData = JSON.stringify(this.props.nowData);
+		const { root = {} } = this.props.nowData || {};
+		const { children = [] } = root;
+		const noFold = children.find(item => item.collapsed !== 1);
+		if (!noFold) {
+			this.setState({
+				foldStatus: true
+			});
+		}
 		this.setState({
 			selectedKeys: [MM.App.current.getLayout().id]
 		});
@@ -48,6 +59,8 @@ class TopBar extends PureComponent {
 		MM.subscribe("save", () => {
 			this.save();
 		});
+
+		window.addEventListener("resize", this.resize);
 		this.startTimeout();
 	}
 
@@ -56,20 +69,25 @@ class TopBar extends PureComponent {
 	}
 
 	startTimeout() {
-		if(this.props.historyId)return;
+		if (this.props.readonly) return;
 		this.timeout && clearTimeout(this.timeout);
 		this.timeout = setTimeout(() => {
-			this.save();
+			this.save(false);
 			this.startTimeout();
-		}, 90000);
+		}, 120000);
 	}
 
-	save = needCreateHistory => {
+	save = async () => {
 		const { record = {} } = this.props;
-		const {catalog={}} = record;
 		let data = this.props.app.map.toJSON();
 		this.getBackgroundData(data);
-		message.warn("保存功能")
+		const json = JSON.stringify(data);
+		// 一样的话直接保存
+		if (this.oldData === json) return message.success("保存成功");
+		this.oldData = json;
+
+
+		message.success("保存成功");
 	};
 
 	getBackgroundData(data) {
@@ -131,12 +149,12 @@ class TopBar extends PureComponent {
 		scale = scale * val;
 		if (scale < 0.05) return;
 		const node = this.props.app.map.getRoot().getDOM().node;
-		node.style.transition = 'transform 0.3s ease-in';
+		node.style.transition = "transform 0.3s ease-in";
 		node.style.transform = `scale(${scale})`;
-		clearTimeout(this.transitionTimeout)
-		this.transitionTimeout = setTimeout(()=>{
-			node.style.transition = '';
-		},500);
+		clearTimeout(this.transitionTimeout);
+		this.transitionTimeout = setTimeout(() => {
+			node.style.transition = "";
+		}, 500);
 		this.setState({
 			scale
 		});
@@ -153,12 +171,12 @@ class TopBar extends PureComponent {
 
 	format = () => {
 		const root = MM.App.map.getRoot();
-		root._dom.node.style.transition = 'left 0.3s ease-in,top 0.3s ease-in';
+		root._dom.node.style.transition = "left 0.3s ease-in,top 0.3s ease-in";
 		MM.App.map.center();
-		clearTimeout(this.transitionTimeout)
-		this.transitionTimeout = setTimeout(()=>{
-			root._dom.node.style.transition = '';
-		},500)
+		clearTimeout(this.transitionTimeout);
+		this.transitionTimeout = setTimeout(() => {
+			root._dom.node.style.transition = "";
+		}, 500);
 	};
 
 	goback = () => {
@@ -184,6 +202,21 @@ class TopBar extends PureComponent {
 	addNote = () => {
 		MM.App.current.startNote();
 	};
+
+	resize = () => {
+		this.resizeTimeout && clearTimeout(this.resizeTimeout);
+		this.resizeTimeout = setTimeout(() => {
+			if (document.fullscreenElement) {
+				this.setState({
+					fullscreen: true
+				});
+			} else {
+				this.setState({
+					fullscreen: false
+				});
+			}
+		}, 50);
+	}
 
 	fullScreen = () => {
 		if (this.state.fullscreen) {
@@ -221,23 +254,64 @@ class TopBar extends PureComponent {
 		}
 	};
 
+	fold = () => {
+		const { foldStatus } = this.state;
+		this.props.mind.setState({
+			loading: true
+		});
+		setTimeout(() => {
+			const children = MM.App.map.getRoot().getChildren();
+			children.forEach(item => {
+				item._collapsed = !foldStatus;
+				item.update(true);
+			});
+			MM.App.map.getRoot().update();
+			this.format();
+			this.props.mind.setState({
+				loading: false
+			});
+			this.setState({
+				foldStatus: !foldStatus
+			});
+		}, 100);
+
+	}
+
 	render() {
-		const { scale, fullscreen } = this.state;
-		const { type, mind, mindType = "mind", historyId,record={} } = this.props;
-		const {book={}} = record;
-		const {projectVersion={}} = book;
+		const { scale, fullscreen, foldStatus } = this.state;
+		const { type, mind, mindType = "mind", readonly, record = {} } = this.props;
+		const { book = {} } = record;
+		const { projectVersion = {} } = book;
 		return (
 			<div className="minder-header">
-				<a
-					style={{ cursor: "pointer" }}
-					onClick={this.goback}
-				>
-					脑图
-				</a>
-				
+
+				<div className="main-mind-tab">
+					<Tooltip title="切换至思维导图">
+						<div
+							className={mindType === "mind" ? "active" : ""}
+							onClick={() => {
+								this.props.mind.showMindText("mind");
+							}}
+						>
+							<i className="iconfont icon-editor-org" />
+							<div>思维导图</div>
+						</div>
+					</Tooltip>
+					<Tooltip title="切换至大纲">
+						<div
+							className={mindType === "text" ? "active" : ""}
+							onClick={() => {
+								this.props.mind.showMindText("text");
+							}}
+						>
+							<i className="iconfont icon-read" />
+							<div>大纲</div>
+						</div>
+					</Tooltip>
+				</div>
 
 				<div className="button-area">
-					{!historyId && (
+					{!readonly && (
 						<Fragment>
 							<div className="handle-button">
 								<Tooltip title="保存为版本">
@@ -405,20 +479,19 @@ class TopBar extends PureComponent {
 							/>
 						</Tooltip>
 					</div>
+					<div className="handle-button">
+						<Tooltip title="折叠2级节点">
+							<Icon
+								type={foldStatus ? "folder" : "folder-open"}
+								onClick={this.fold}
+								style={{ fontSize: 14 }}
+							/>
+						</Tooltip>
+					</div>
 				</div>
-				{!historyId&&<CommandKey />}
+				{!readonly && <CommandKey />}
 				<Button.Group className="button-area-footer">
-					<Tooltip title="大纲">
-						<Button
-							type={type === "icon" ? "primary" : "default"}
-							onClick={() => {
-								this.props.mind.showRightPanel("mainText");
-							}}
-						>
-							<i style={{fontSize:14}} className="iconfont icon-read" />
-						</Button>
-					</Tooltip>
-					{!historyId&&<Tooltip title="图标">
+					{!readonly && <Tooltip title="图标">
 						<Button
 							type={type === "icon" ? "primary" : "default"}
 							onClick={() => {
@@ -428,7 +501,7 @@ class TopBar extends PureComponent {
 							<Icon type="star" />
 						</Button>
 					</Tooltip>}
-					{!historyId&&<Tooltip title="格式">
+					{!readonly && <Tooltip title="格式">
 						<Button
 							type={type === "format" ? "primary" : "default"}
 							onClick={() => {
@@ -454,14 +527,18 @@ class TopBar extends PureComponent {
 									<Icon type="export" />
 									导出为图片
 								</Menu.Item>
-								{!historyId&&<Menu.Item
-									disabled
+								{!readonly && <Menu.Item
+									onClick={() => {
+										this.importFile.show();
+									}}
 								>
 									<Icon type="upload" />
 									从xmind文件导入
 								</Menu.Item>}
 								<Menu.Item
-									disabled
+									onClick={() => {
+										this.history.show();
+									}}
 								>
 									<Icon type="history" />
 									历史记录
@@ -475,6 +552,21 @@ class TopBar extends PureComponent {
 						<Button icon="more" />
 					</Dropdown>
 				</Button.Group>
+				{readonly && <div className="read-only-bar">预览中</div>}
+				<History
+					mind={mind}
+					id={this.props.id}
+					ref={ref => {
+						this.history = ref;
+					}}
+				/>
+				<ImportFile
+					mind={mind}
+					id={this.props.id}
+					ref={ref => {
+						this.importFile = ref;
+					}}
+				/>
 			</div>
 		);
 	}

@@ -336,7 +336,7 @@ MM.Command.Edit.execute = function () {
 	selection.removeAllRanges();
 	selection.addRange(range)
 }
-//todo: 备注的前进后退
+
 MM.Command.Finish = Object.create(MM.Command, {
 	keys: { value: [{ keyCode: 13, altKey: false, ctrlKey: false, shiftKey: false }] },
 	editMode: { value: true }
@@ -345,11 +345,12 @@ MM.Command.Finish.execute = function () {
 	MM.App.editing = false;
 	var text = MM.App.current.stopEditing();
 	if (text) {
-		var action = new MM.Action.SetText(MM.App.current, text);
+		var action = new MM.Action.SetText(MM.App.current, text, MM.App.current._oldText);
 	} else {
 		var action = new MM.Action.RemoveItem(MM.App.current);
 	}
 	MM.App.action(action);
+	MM.publish("item-change", MM.App.current);
 }
 
 MM.Command.Newline = Object.create(MM.Command, {
@@ -376,8 +377,8 @@ MM.Command.Cancel = Object.create(MM.Command, {
 });
 MM.Command.Cancel.execute = function () {
 	MM.App.editing = false;
-	MM.App.current.stopEditing(true);//还原文字
-	var oldText = MM.App.current.getText();
+	MM.App.current.stopEditing();//还原文字
+	var oldText = MM.App.current._oldText;
 	if (!oldText) { /* newly added node */
 		var action = new MM.Action.RemoveItem(MM.App.current);
 		MM.App.action(action);
