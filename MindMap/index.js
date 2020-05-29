@@ -96,7 +96,6 @@ class Minder extends PureComponent {
 		});
 		// 鼠标滚动
 		MM.subscribe("mousewheel", (e) => {
-			return;
 			const node = MM.App.map.getRoot().getDOM().node;
 			e.stopPropagation();
 			e.preventDefault();
@@ -110,6 +109,9 @@ class Minder extends PureComponent {
 				});
 				return;
 			}
+			MM.App.container.scrollLeft += e.deltaX;
+			MM.App.container.scrollTop += e.deltaY;
+			return;
 			const top = parseInt(node.style.top.split("px")[0], 10);
 			const left = parseInt(node.style.left.split("px")[0], 10);
 			node.style.top = `${-e.deltaY + top}px`;

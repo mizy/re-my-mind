@@ -2158,7 +2158,9 @@ MM.Map.prototype.destroy = function () {
 };
 
 MM.Map.prototype.center = function () {
-  var node = this._root.getDOM().node;
+  var _this$_root$getDOM = this._root.getDOM(),
+      node = _this$_root$getDOM.node,
+      content = _this$_root$getDOM.content;
 
   var port = MM.App._port;
   var container = MM.App.container;
@@ -2168,14 +2170,16 @@ MM.Map.prototype.center = function () {
   var containerHeight = MM.PolyDom.getOffset(container, "height");
   var rootWidth = MM.PolyDom.getOffset(node, "width");
   var rootHeight = MM.PolyDom.getOffset(node, "height");
-  var left = (portWidth - rootWidth) / 2;
-  var top = (portHeight - rootHeight) / 2; //配置中心点
+  var left = (portWidth - rootWidth) / 2; // + MM.PolyDom.getClient(content,"left");
+
+  var top = (portHeight - rootHeight) / 2; // - MM.PolyDom.getClient(content,"top");
+  //配置中心点
 
   this._moveTo(Math.round(left), Math.round(top)); // 移动滚动条
 
 
-  container.scrollLeft = (portWidth - containerWidth) / 2;
-  container.scrollTop = (portHeight - containerHeight) / 2;
+  container.scrollLeft = -containerWidth / 2 + left + MM.PolyDom.getClient(content, "left") + MM.PolyDom.getClient(content, "width");
+  container.scrollTop = -containerHeight / 2 + top + MM.PolyDom.getClient(content, "top");
   return this;
 };
 
