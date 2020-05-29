@@ -247,7 +247,7 @@ if(false) {}
 
 exports = module.exports = __webpack_require__(6)(false);
 // Module
-exports.push([module.i, ".re-mind.stright {\n  background-color: #f4f9fa;\n}\n.re-mind.stright .shape-ellipse > .content {\n  border-radius: 10px;\n  background-color: #ff383e;\n  border: 3px solid #ff8d8f;\n  padding: 20px;\n}\n.re-mind.stright .shape-ellipse > .content .text {\n  font-size: 28px;\n}\n.re-mind.box {\n  background-color: #1f2934;\n}\n.re-mind.box > .item > .content {\n  background-color: #1f2934;\n  border: 3px solid #20a5a1;\n  font-size: 48px;\n  padding: 20px;\n  color: #20a5a1;\n}\n.re-mind.box > .item > .content .text {\n  color: #20a5a1;\n  font-size: 28px;\n}\n.re-mind.box > .item > .children > .shape-box > .content {\n  background-color: #20a5a1;\n  color: #000;\n  padding: 10px 20px;\n  border-radius: 10px;\n}\n.re-mind.box > .item > .children > .shape-box > .children .shape-box > .content {\n  background-color: transparent;\n  border: none;\n  color: #20a5a1;\n  padding: 5px;\n  font-size: 22px;\n}\n.re-mind {\n  position: relative;\n  overflow: hidden;\n  /* root */\n}\n.re-mind * {\n  box-sizing: border-box;\n}\n.re-mind ul,\n.re-mind li {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n}\n.re-mind ul li,\n.re-mind li li {\n  list-style: none;\n}\n.re-mind .menu {\n  outline: none;\n  margin: 0;\n  padding: 5px 0;\n  list-style: none;\n  position: absolute;\n  z-index: 2;\n  background: #fff;\n  -webkit-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);\n  border-radius: 2px;\n  width: 200px;\n}\n.re-mind .menu > button {\n  height: 32px;\n  line-height: 32px;\n  padding: 0 20px;\n  color: #666;\n  font-size: 13px;\n  font-weight: 400;\n  cursor: pointer;\n  -webkit-transition: all 0.3s;\n  transition: all 0.3s;\n  white-space: nowrap;\n  display: block;\n  background-color: transparent;\n  border: none;\n  margin: 0;\n  width: 100%;\n  text-align: left;\n}\n.re-mind .menu > button:hover {\n  background: #efefef;\n}\n.re-mind .menu span {\n  display: block;\n  border-top: 1px solid #eee;\n  margin-top: 4px;\n  padding-top: 4px;\n}\n.re-mind .item {\n  position: absolute;\n}\n.re-mind .item .re-mind-icon {\n  z-index: 1;\n  display: inline-block;\n}\n.re-mind .item .cut {\n  opacity: 0.5;\n}\n.re-mind .item.collapsed .children {\n  display: none;\n}\n.re-mind .item .content {\n  display: flex;\n  position: absolute;\n  cursor: pointer;\n  padding: 5px;\n  border-radius: 5px;\n}\n.re-mind .item .content > * {\n  vertical-align: middle;\n}\n.re-mind .item .content .text {\n  z-index: 1;\n  text-align: left;\n  display: inline-block;\n  min-height: 22px;\n  word-wrap: break-word;\n  white-space: nowrap;\n  word-break: break-all;\n  font-weight: normal;\n  outline: none;\n}\n.re-mind .item .content .multi-line {\n  white-space: normal;\n}\n.re-mind .item .content .value,\n.re-mind .item .content .status {\n  margin-right: 0.2em;\n}\n.re-mind .item .content .text ~ .value,\n.re-mind .item .content .text ~ .status {\n  margin-left: 0.2em;\n  margin-right: 0;\n}\n.re-mind .item .content .value {\n  opacity: 0.7;\n  display: none;\n}\n.re-mind .item .content .value:not(:empty):before {\n  content: \"(\";\n}\n.re-mind .item .content .value:not(:empty):after {\n  content: \")\";\n}\n.re-mind .shape-box > .content {\n  padding: 4px 10px;\n  background-color: #4a90e2;\n  color: #fff;\n  border-radius: 3px;\n}\n.re-mind .shape-box > .content .text,\n.re-mind .shape-box > .content .note-button {\n  min-height: 25px;\n  font-size: 18px;\n}\n.re-mind .shape-ellipse > .content {\n  border: 1px solid transparent;\n  padding: 10px 20px;\n  color: #fff;\n}\n.re-mind .shape-ellipse > .content .text,\n.re-mind .shape-ellipse > .content .note-button {\n  min-height: 33px;\n  font-size: 24px;\n}\n.re-mind > .item > .content {\n  font-weight: bold;\n  border-width: 2px;\n  font-size: 140%;\n  color: #fff;\n  border: 0;\n  background-color: #50c28b;\n}\n.re-mind > .item > .toggle {\n  display: none;\n}\n.re-mind .current > .content:before {\n  content: \" \";\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: -6px;\n  top: -6px;\n  box-sizing: content-box;\n  border: 2px solid #7cb9ff;\n  padding: 4px;\n}\n.re-mind > .item > .children > .item > .children .current > .content:before {\n  left: -2px;\n  top: -2px;\n  padding: 0px;\n}\n.re-mind .note-button::after {\n  font-family: \"iconfont\" !important;\n  font-style: normal;\n  content: \"\\e6db\";\n}\n.re-mind .note-button {\n  margin-left: 5px;\n  z-index: 1;\n}\n.re-mind :not(.current):not(.collapsed) > .toggle {\n  /* NOT display:none - we need to have non-zero dimensions for layouting */\n  visibility: hidden;\n}\n.re-mind .mm-note {\n  display: flex;\n  flex-direction: column;\n  position: absolute;\n  top: 80px;\n  left: 0px;\n  z-index: 2;\n  background: #fff;\n  transition: opacity, height 300ms ease-in;\n  overflow: hidden;\n  width: 300px;\n  border: 1px solid #efefef;\n  border-radius: 3px;\n  box-shadow: 2px 2px 20px 1px rgba(0, 0, 0, 0.2);\n}\n.re-mind .mm-note .note-util {\n  height: 30px;\n  width: 100%;\n  border-bottom: 1px solid #efefef;\n  padding-left: 10px;\n  padding-top: 4px;\n}\n.re-mind .mm-note .note-content {\n  height: 300px;\n  width: 100%;\n  overflow: scroll;\n}\n.re-mind .mm-note .note-content p {\n  white-space: pre-line;\n  padding: 10px;\n  outline: none;\n  height: 300px;\n  width: 100%;\n}\n.re-mind .mm-note.hide {\n  height: 0;\n  opacity: 0;\n}\n.re-mind .status {\n  font-size: 150%;\n  line-height: 0.8;\n}\n.re-mind .status.yes:after {\n  content: \"✔\";\n  color: #0f0;\n}\n.re-mind .status.no:after {\n  content: \"✘\";\n  color: #f00;\n}\n.re-mind canvas {\n  position: absolute;\n  left: 0;\n  top: 0;\n}\n.re-mind .toggle {\n  position: absolute;\n  width: 12px;\n  height: 12px;\n  line-height: 12px;\n  cursor: pointer;\n  border-radius: 50%;\n  border: 1px solid #00f;\n  background-color: #88f;\n  text-align: center;\n  font-weight: bold;\n  font-family: sans-serif;\n  color: #fff;\n  opacity: 0.7;\n}\n.re-mind .toggle:hover {\n  opacity: 1;\n}\n.re-mind .toggle:before {\n  content: \"−\";\n  line-height: 8px;\n  margin-top: -2px;\n  position: absolute;\n  left: 1px;\n  top: 3px;\n  font-size: 12px;\n}\n.re-mind .collapsed > .toggle:before {\n  content: \"+\";\n  line-height: 8px;\n  margin-top: -2px;\n  position: absolute;\n  left: 1px;\n  top: 2px;\n  font-size: 12px;\n}\n.re-mind .re-mind-icon {\n  display: inline-flex !important;\n  align-items: center;\n  flex-direction: row-reverse;\n}\n.re-mind .re-mind-icon > li {\n  font-size: 18px;\n  display: inline-block;\n  margin-left: -5px;\n}\n.re-mind .re-mind-icon > li:last-child {\n  margin-left: 0px;\n}\n.re-mind .re-mind-icon > li:first-child {\n  margin-right: 5px;\n}\n", ""]);
+exports.push([module.i, ".re-mind.stright {\n  background-color: #f4f9fa;\n}\n.re-mind.stright .shape-ellipse > .content {\n  border-radius: 10px;\n  background-color: #ff383e;\n  border: 3px solid #ff8d8f;\n  padding: 20px;\n}\n.re-mind.stright .shape-ellipse > .content .text {\n  font-size: 28px;\n}\n.re-mind.box {\n  background-color: #1f2934;\n}\n.re-mind.box > .item > .content {\n  background-color: #1f2934;\n  border: 3px solid #20a5a1;\n  font-size: 48px;\n  padding: 20px;\n  color: #20a5a1;\n}\n.re-mind.box > .item > .content .text {\n  color: #20a5a1;\n  font-size: 28px;\n}\n.re-mind.box > .item > .children > .shape-box > .content {\n  background-color: #20a5a1;\n  color: #000;\n  padding: 10px 20px;\n  border-radius: 10px;\n}\n.re-mind.box > .item > .children > .shape-box > .children .shape-box > .content {\n  background-color: transparent;\n  border: none;\n  color: #20a5a1;\n  padding: 5px;\n  font-size: 22px;\n}\n.re-mind {\n  overflow: scroll;\n}\n.re-mind * {\n  box-sizing: border-box;\n}\n.re-mind ul,\n.re-mind li {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n}\n.re-mind ul li,\n.re-mind li li {\n  list-style: none;\n}\n.re-mind .re-mind-scroll {\n  position: relative;\n  /* root */\n}\n.re-mind .re-mind-scroll .item {\n  position: absolute;\n}\n.re-mind .re-mind-scroll .item .re-mind-icon {\n  z-index: 1;\n  display: inline-block;\n}\n.re-mind .re-mind-scroll .item .cut {\n  opacity: 0.5;\n}\n.re-mind .re-mind-scroll .item.collapsed .children {\n  display: none;\n}\n.re-mind .re-mind-scroll .item .content {\n  display: flex;\n  position: absolute;\n  cursor: pointer;\n  padding: 5px;\n  border-radius: 5px;\n}\n.re-mind .re-mind-scroll .item .content > * {\n  vertical-align: middle;\n}\n.re-mind .re-mind-scroll .item .content .text {\n  z-index: 1;\n  text-align: left;\n  display: inline-block;\n  min-height: 22px;\n  word-wrap: break-word;\n  white-space: nowrap;\n  word-break: break-all;\n  font-weight: normal;\n  outline: none;\n}\n.re-mind .re-mind-scroll .item .content .multi-line {\n  white-space: normal;\n}\n.re-mind .re-mind-scroll .item .content .value,\n.re-mind .re-mind-scroll .item .content .status {\n  margin-right: 0.2em;\n}\n.re-mind .re-mind-scroll .item .content .text ~ .value,\n.re-mind .re-mind-scroll .item .content .text ~ .status {\n  margin-left: 0.2em;\n  margin-right: 0;\n}\n.re-mind .re-mind-scroll .item .content .value {\n  opacity: 0.7;\n  display: none;\n}\n.re-mind .re-mind-scroll .item .content .value:not(:empty):before {\n  content: \"(\";\n}\n.re-mind .re-mind-scroll .item .content .value:not(:empty):after {\n  content: \")\";\n}\n.re-mind .re-mind-scroll .shape-box > .content {\n  padding: 4px 10px;\n  background-color: #4a90e2;\n  color: #fff;\n  border-radius: 3px;\n}\n.re-mind .re-mind-scroll .shape-box > .content .text,\n.re-mind .re-mind-scroll .shape-box > .content .note-button {\n  min-height: 25px;\n  font-size: 18px;\n}\n.re-mind .re-mind-scroll .shape-ellipse > .content {\n  border: 1px solid transparent;\n  padding: 10px 20px;\n  color: #fff;\n}\n.re-mind .re-mind-scroll .shape-ellipse > .content .text,\n.re-mind .re-mind-scroll .shape-ellipse > .content .note-button {\n  min-height: 33px;\n  font-size: 24px;\n}\n.re-mind .re-mind-scroll > .item > .content {\n  font-weight: bold;\n  border-width: 2px;\n  font-size: 140%;\n  color: #fff;\n  border: 0;\n  background-color: #50c28b;\n}\n.re-mind .re-mind-scroll > .item > .toggle {\n  display: none;\n}\n.re-mind .re-mind-scroll .current > .content:before {\n  content: \" \";\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: -6px;\n  top: -6px;\n  box-sizing: content-box;\n  border: 2px solid #7cb9ff;\n  padding: 4px;\n}\n.re-mind .re-mind-scroll > .item > .children > .item > .children .current > .content:before {\n  left: -2px;\n  top: -2px;\n  padding: 0px;\n}\n.re-mind .re-mind-scroll .note-button::after {\n  font-family: \"iconfont\" !important;\n  font-style: normal;\n  content: \"\\e6db\";\n}\n.re-mind .re-mind-scroll .note-button {\n  margin-left: 5px;\n  z-index: 1;\n}\n.re-mind .re-mind-scroll :not(.current):not(.collapsed) > .toggle {\n  /* NOT display:none - we need to have non-zero dimensions for layouting */\n  visibility: hidden;\n}\n.re-mind .re-mind-scroll .mm-note {\n  display: flex;\n  flex-direction: column;\n  position: absolute;\n  top: 80px;\n  left: 0px;\n  z-index: 2;\n  background: #fff;\n  transition: opacity, height 300ms ease-in;\n  overflow: hidden;\n  width: 300px;\n  border: 1px solid #efefef;\n  border-radius: 3px;\n  box-shadow: 2px 2px 20px 1px rgba(0, 0, 0, 0.2);\n}\n.re-mind .re-mind-scroll .mm-note .note-util {\n  height: 30px;\n  width: 100%;\n  border-bottom: 1px solid #efefef;\n  padding-left: 10px;\n  padding-top: 4px;\n}\n.re-mind .re-mind-scroll .mm-note .note-content {\n  height: 300px;\n  width: 100%;\n  overflow: scroll;\n}\n.re-mind .re-mind-scroll .mm-note .note-content p {\n  white-space: pre-line;\n  padding: 10px;\n  outline: none;\n  height: 300px;\n  width: 100%;\n}\n.re-mind .re-mind-scroll .mm-note.hide {\n  height: 0;\n  opacity: 0;\n}\n.re-mind .re-mind-scroll .menu {\n  outline: none;\n  margin: 0;\n  padding: 5px 0;\n  list-style: none;\n  position: absolute;\n  z-index: 2;\n  background: #fff;\n  -webkit-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);\n  border-radius: 2px;\n  width: 200px;\n}\n.re-mind .re-mind-scroll .menu > button {\n  height: 32px;\n  line-height: 32px;\n  padding: 0 20px;\n  color: #666;\n  font-size: 13px;\n  font-weight: 400;\n  cursor: pointer;\n  -webkit-transition: all 0.3s;\n  transition: all 0.3s;\n  white-space: nowrap;\n  display: block;\n  background-color: transparent;\n  border: none;\n  margin: 0;\n  width: 100%;\n  text-align: left;\n}\n.re-mind .re-mind-scroll .menu > button:hover {\n  background: #efefef;\n}\n.re-mind .re-mind-scroll .menu span {\n  display: block;\n  border-top: 1px solid #eee;\n  margin-top: 4px;\n  padding-top: 4px;\n}\n.re-mind .status {\n  font-size: 150%;\n  line-height: 0.8;\n}\n.re-mind .status.yes:after {\n  content: \"✔\";\n  color: #0f0;\n}\n.re-mind .status.no:after {\n  content: \"✘\";\n  color: #f00;\n}\n.re-mind canvas {\n  position: absolute;\n  left: 0;\n  top: 0;\n}\n.re-mind .toggle {\n  position: absolute;\n  width: 12px;\n  height: 12px;\n  line-height: 12px;\n  cursor: pointer;\n  border-radius: 50%;\n  border: 1px solid #00f;\n  background-color: #88f;\n  text-align: center;\n  font-weight: bold;\n  font-family: sans-serif;\n  color: #fff;\n  opacity: 0.7;\n}\n.re-mind .toggle:hover {\n  opacity: 1;\n}\n.re-mind .toggle:before {\n  content: \"−\";\n  line-height: 8px;\n  margin-top: -2px;\n  position: absolute;\n  left: 1px;\n  top: 3px;\n  font-size: 12px;\n}\n.re-mind .collapsed > .toggle:before {\n  content: \"+\";\n  line-height: 8px;\n  margin-top: -2px;\n  position: absolute;\n  left: 1px;\n  top: 2px;\n  font-size: 12px;\n}\n.re-mind .re-mind-icon {\n  display: inline-flex !important;\n  align-items: center;\n  flex-direction: row-reverse;\n}\n.re-mind .re-mind-icon > li {\n  font-size: 18px;\n  display: inline-block;\n  margin-left: -5px;\n}\n.re-mind .re-mind-icon > li:last-child {\n  margin-left: 0px;\n}\n.re-mind .re-mind-icon > li:first-child {\n  margin-right: 5px;\n}\n", ""]);
 
 
 /***/ }),
@@ -1283,6 +1283,10 @@ MM.Item.prototype.update = function (doNotRecurse) {
     this._parent.update();
   }
 
+  if (this.isRoot()) {
+    this._parent.updateRootWidth();
+  }
+
   return this;
 };
 
@@ -2109,6 +2113,21 @@ MM.Map.prototype.update = function () {
   return this;
 };
 
+MM.Map.prototype.updateRootWidth = function () {
+  var dom = this._root.getDOM().node;
+
+  var width = MM.PolyDom.getOffset(dom, 'width');
+  var height = MM.PolyDom.getOffset(dom, 'height');
+  var finalWidth = Math.max(width * 3, 10000);
+  var finalHeight = Math.max(height * 3, 10000);
+  var container = MM.App._port;
+  container.style.width = finalWidth + 'px';
+  container.style.height = finalHeight + 'px';
+  container.scrollLeft = (finalWidth - width) / 2;
+  container.scrollTop = (finalHeight - height) / 2;
+  return;
+};
+
 MM.Map.prototype.resetTheme = function (reRender) {
   this._root.resetTheme();
 
@@ -2141,17 +2160,30 @@ MM.Map.prototype.destroy = function () {
 MM.Map.prototype.center = function () {
   var node = this._root.getDOM().node;
 
-  var port = MM.App.portSize;
-  var left = (port[0] - node.offsetWidth) / 2;
-  var top = (port[1] - node.offsetHeight) / 2;
+  var port = MM.App._port;
+  var container = MM.App.container;
+  var portWidth = MM.PolyDom.getOffset(port, "width");
+  var portHeight = MM.PolyDom.getOffset(port, "height");
+  var containerWidth = MM.PolyDom.getOffset(container, "width");
+  var containerHeight = MM.PolyDom.getOffset(container, "height");
+  var rootWidth = MM.PolyDom.getOffset(node, "width");
+  var rootHeight = MM.PolyDom.getOffset(node, "height");
+  var left = (portWidth - rootWidth) / 2;
+  var top = (portHeight - rootHeight) / 2; //配置中心点
 
-  this._moveTo(Math.round(left), Math.round(top));
+  this._moveTo(Math.round(left), Math.round(top)); // 移动滚动条
 
+
+  container.scrollLeft = (portWidth - containerWidth) / 2;
+  container.scrollTop = (portHeight - containerHeight) / 2;
   return this;
 };
 
 MM.Map.prototype.moveBy = function (dx, dy) {
-  return this._moveTo(this._position[0] + dx, this._position[1] + dy);
+  var container = MM.App.container;
+  container.scrollLeft -= dx;
+  container.scrollTop -= dy;
+  return;
 };
 
 MM.Map.prototype.getClosestItem = function (x, y) {
@@ -4118,8 +4150,7 @@ MM.Layout.Graph.update = function (item) {
 
   if (!item.isRoot()) {
     side = item.getParent().getLayout().getChildDirection(item);
-  } // this._alignItem(item, side);
-
+  }
 
   this._layoutItem(item, this.childDirection);
 
@@ -4139,8 +4170,6 @@ MM.Layout.Graph.update = function (item) {
 MM.Layout.Graph._layoutItem = function (item, rankDirection) {
   var shape = item.getShape().id;
   var spacingRank = this.SPACING_RANK;
-  var sizeProps = ["width", "height"];
-  var posProps = ["left", "top"];
   var rankIndex = rankDirection == "left" || rankDirection == "right" ? 0 : 1;
   var childIndex = rankIndex === 0 ? 1 : 0;
   var rankPosProp; // 左右排是css的left,上下是以top为基准 
@@ -5622,8 +5651,12 @@ MM.App = {
     var _this = this;
 
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    this._port = dom;
-    this._port.className += " re-mind ".concat(MM.Theme.theme.className);
+    var container = document.createElement("div");
+    dom.appendChild(container);
+    dom.className += "re-mind  ".concat(MM.Theme.theme.className);
+    this.container = dom;
+    this._port = container;
+    this._port.className += " re-mind-scroll";
     Object.assign(this.options, options);
     this._menu = options.menu || this.initMenu();
     MM.Keyboard.init();
@@ -5633,15 +5666,11 @@ MM.App = {
     window.addEventListener("resize", this);
     window.addEventListener("click", this);
     window.addEventListener("beforeunload", this);
-    MM.subscribe("ui-change", this._syncPort);
     MM.subscribe("item-change", function (publisher) {
       if (publisher.isRoot() && publisher.getMap() == _this.map) {
         document.title = _this.map.getName() + _this.options.headTitle;
       }
     });
-
-    this._syncPort();
-
     this.setMap(new MM.Map(options || {}));
     this.note = new MM.Note(this);
     return this;
@@ -5651,13 +5680,6 @@ MM.App = {
     this.rendering = true;
     this.map.update();
     this.rendering = false;
-  },
-  _syncPort: function _syncPort() {
-    this.portSize = [this._port.clientWidth, this._port.clientHeight];
-
-    if (this.map) {
-      this.map.ensureItemVisibility(this.current);
-    }
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (MM.App);

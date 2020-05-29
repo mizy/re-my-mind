@@ -86,6 +86,22 @@ MM.Map.prototype.update = function () {
 	return this;
 }
 
+MM.Map.prototype.updateRootWidth = function(){
+	const dom = this._root.getDOM().node;
+	const width = MM.PolyDom.getOffset(dom,'width');
+	const height = MM.PolyDom.getOffset(dom,'height');
+	const finalWidth = Math.max(width*3,10000);
+	const finalHeight = Math.max(height*3,10000);
+	
+	const container = MM.App._port;
+	container.style.width = finalWidth+'px';
+	container.style.height = finalHeight+'px';
+
+	container.scrollLeft = (finalWidth-width)/2;
+	container.scrollTop = (finalHeight-height)/2;
+	return;
+}
+
 MM.Map.prototype.resetTheme = function (reRender) {
 	this._root.resetTheme();
 	return this;
@@ -113,17 +129,34 @@ MM.Map.prototype.destroy = function () {
 
 MM.Map.prototype.center = function () {
 	var node = this._root.getDOM().node;
-	var port = MM.App.portSize;
-	var left = (port[0] - node.offsetWidth) / 2;
-	var top = (port[1] - node.offsetHeight) / 2;
+	const port = MM.App._port;
+	const container = MM.App.container;
+	const portWidth = MM.PolyDom.getOffset(port,"width");
+	const portHeight = MM.PolyDom.getOffset(port,"height");
+	const containerWidth = MM.PolyDom.getOffset(container,"width");
+	const containerHeight = MM.PolyDom.getOffset(container,"height");
+	const rootWidth = MM.PolyDom.getOffset(node,"width");
+	const rootHeight = MM.PolyDom.getOffset(node,"height");
+	
+	var left = (portWidth- rootWidth) / 2;
+	var top = (portHeight - rootHeight) / 2;
 
+	//配置中心点
 	this._moveTo(Math.round(left), Math.round(top));
+
+	// 移动滚动条
+	
+	container.scrollLeft = (portWidth - containerWidth)/2;
+	container.scrollTop = (portHeight-containerHeight)/2;
 
 	return this;
 }
 
 MM.Map.prototype.moveBy = function (dx, dy) {
-	return this._moveTo(this._position[0] + dx, this._position[1] + dy);
+	const container = MM.App.container;
+	container.scrollLeft -= dx;
+	container.scrollTop -= dy;
+	return  
 }
 
 MM.Map.prototype.getClosestItem = function (x, y) {

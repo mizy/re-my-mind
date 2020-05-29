@@ -261,7 +261,9 @@ MM.Item.prototype.update = function (doNotRecurse) {
 	this.getLayout().update(this);
 	this.getShape().update(this);
 	if (!this.isRoot() && !doNotRecurse) { this._parent.update(); }
-
+	if(this.isRoot()){
+		this._parent.updateRootWidth();
+	}
 	return this;
 }
 

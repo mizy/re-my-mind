@@ -23,7 +23,6 @@ MM.Layout.Graph.update = function (item) {
 	if (!item.isRoot()) {
 		side = item.getParent().getLayout().getChildDirection(item);
 	}
-	// this._alignItem(item, side);
 
 	this._layoutItem(item, this.childDirection);
 
@@ -41,8 +40,6 @@ MM.Layout.Graph.update = function (item) {
 MM.Layout.Graph._layoutItem = function (item, rankDirection) {
 	const shape = item.getShape().id;
 	const spacingRank = this.SPACING_RANK;
-	var sizeProps = ["width", "height"];
-	var posProps = ["left", "top"];
 
 	var rankIndex = (rankDirection == "left" || rankDirection == "right") ? 0 : 1;
 	var childIndex = rankIndex === 0 ? 1 : 0;

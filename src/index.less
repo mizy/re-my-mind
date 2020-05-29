@@ -1,7 +1,6 @@
 @import "./style/theme/index.less" ;
 .re-mind{
-	position: relative;
-	overflow: hidden;
+	overflow: scroll;
 	*{
 		box-sizing: border-box;
 		// transition: left,top,width,height 200ms ease-in-out;
@@ -14,8 +13,12 @@
 			list-style: none;
 		}
 	}
-	@import "./style/menu.less" ;
-	@import "./style/item.less";
+	.re-mind-scroll{
+		position: relative;
+		@import "./style/item.less";
+		@import "./style/menu.less" ;
+
+	}
 	.status {
 		font-size: 150%;
 		line-height: 0.8;

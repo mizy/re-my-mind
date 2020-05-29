@@ -126,8 +126,12 @@ MM.App = {
 	},
 
 	init: function (dom, options = {}) {
-		this._port = dom;
-		this._port.className += ` re-mind ${MM.Theme.theme.className}`;
+		const container = document.createElement("div");
+		dom.appendChild(container);
+		dom.className+=`re-mind  ${MM.Theme.theme.className}`;
+		this.container = dom;
+		this._port = container;
+		this._port.className += ` re-mind-scroll`;
 		Object.assign(this.options, options)
 		this._menu = options.menu || this.initMenu();
 		MM.Keyboard.init();
@@ -138,13 +142,11 @@ MM.App = {
 		window.addEventListener("resize", this);
 		window.addEventListener("click", this);
 		window.addEventListener("beforeunload", this);
-		MM.subscribe("ui-change", this._syncPort);
 		MM.subscribe("item-change", (publisher) => {
 			if (publisher.isRoot() && publisher.getMap() == this.map) {
 				document.title = this.map.getName() + this.options.headTitle;
 			}
 		});
-		this._syncPort();
 
 		this.setMap(new MM.Map(options || {}));
 		this.note = new MM.Note(this);
@@ -158,10 +160,6 @@ MM.App = {
 		this.rendering = false;
 	},
 
-	_syncPort: function () {
-
-		this.portSize = [this._port.clientWidth, this._port.clientHeight];
-		if (this.map) { this.map.ensureItemVisibility(this.current); }
-	}
+	
 }
 export default MM.App;

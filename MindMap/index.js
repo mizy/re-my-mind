@@ -96,6 +96,7 @@ class Minder extends PureComponent {
 		});
 		// 鼠标滚动
 		MM.subscribe("mousewheel", (e) => {
+			return;
 			const node = MM.App.map.getRoot().getDOM().node;
 			e.stopPropagation();
 			e.preventDefault();
@@ -191,7 +192,7 @@ class Minder extends PureComponent {
 						<div
 							style={{
 								flexGrow: 1,
-								backgroundRepeat, backgroundSize, backgroundColor, backgroundImage: `url(${backgroundImage})`,
+								backgroundRepeat, backgroundSize, backgroundColor, backgroundImage: backgroundImage?`url(${backgroundImage})`:'none',
 								display: mindType === "mind" ? "block" : "none"
 							}}
 							ref={ref => {
