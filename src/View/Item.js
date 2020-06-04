@@ -362,8 +362,16 @@ MM.Item.prototype.rememberPos = function(){
 
 MM.Item.prototype.center = function(){
 	const {left,top} =  this.getDOM().content.getBoundingClientRect();
+	if(!this.beforePos){
+		this.beforePos = {
+			left:MM.App.container.clientWidth/2,
+			top:MM.App.container.clientHeight/2
+		}
+	}
 	MM.App.container.scrollLeft -= this.beforePos.left - left;
 	MM.App.container.scrollTop -= this.beforePos.top - top; 
+	this.beforePos = undefined
+
 }
 
 MM.Item.prototype.clearOffset = function () {

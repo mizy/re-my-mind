@@ -1415,8 +1415,16 @@ MM.Item.prototype.center = function () {
       left = _this$getDOM$content$.left,
       top = _this$getDOM$content$.top;
 
+  if (!this.beforePos) {
+    this.beforePos = {
+      left: MM.App.container.clientWidth / 2,
+      top: MM.App.container.clientHeight / 2
+    };
+  }
+
   MM.App.container.scrollLeft -= this.beforePos.left - left;
   MM.App.container.scrollTop -= this.beforePos.top - top;
+  this.beforePos = undefined;
 };
 
 MM.Item.prototype.clearOffset = function () {
@@ -2209,16 +2217,30 @@ MM.Map.prototype.center = function () {
   var containerWidth = MM.PolyDom.getOffset(container, "width");
   var containerHeight = MM.PolyDom.getOffset(container, "height");
   var rootWidth = MM.PolyDom.getOffset(node, "width");
-  var rootHeight = MM.PolyDom.getOffset(node, "height");
-  var left = (portWidth - rootWidth) / 2; // + MM.PolyDom.getClient(content,"left");
-
-  var top = (portHeight - rootHeight) / 2; // - MM.PolyDom.getClient(content,"top");
-  //配置中心点
+  var rootHeight = MM.PolyDom.getOffset(node, "height"); //配置中心点
   // this._moveTo(Math.round(left), Math.round(top));
   // 移动滚动条
 
-  container.scrollLeft = -containerWidth / 2 + left + MM.PolyDom.getClient(content, "width");
-  container.scrollTop = -containerHeight / 2 + top + MM.PolyDom.getClient(content, "top");
+  var layout = MM.App.map.getRoot().getLayout().id;
+  var pos = content.getBoundingClientRect();
+
+  switch (layout) {
+    case 'map-right':
+      container.scrollLeft = (portWidth - containerWidth) / 2 - rootWidth / 2;
+      container.scrollTop = (portHeight - containerHeight) / 2;
+      break;
+
+    case 'map-left':
+      container.scrollLeft = (portWidth - containerWidth) / 2 + rootWidth / 2;
+      container.scrollTop = (portHeight - containerHeight) / 2;
+      break;
+
+    default:
+      container.scrollLeft = (portWidth - containerWidth) / 2;
+      container.scrollTop = (portHeight - containerHeight) / 2;
+      break;
+  }
+
   return this;
 };
 

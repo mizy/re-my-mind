@@ -138,16 +138,27 @@ MM.Map.prototype.center = function () {
 	const rootWidth = MM.PolyDom.getOffset(node,"width");
 	const rootHeight = MM.PolyDom.getOffset(node,"height");
 	
-	var left = (portWidth- rootWidth) / 2;// + MM.PolyDom.getClient(content,"left");
-	var top = (portHeight - rootHeight) / 2;// - MM.PolyDom.getClient(content,"top");
-
 	//配置中心点
 	// this._moveTo(Math.round(left), Math.round(top));
 
 	// 移动滚动条
-	container.scrollLeft = -(containerWidth)/2 +left+ MM.PolyDom.getClient(content,"width");
-	container.scrollTop = -(containerHeight)/2 + top+MM.PolyDom.getClient(content,"top");
-
+	const layout = MM.App.map.getRoot().getLayout().id;
+	const pos = content.getBoundingClientRect();
+	switch(layout){
+		case 'map-right':
+			container.scrollLeft = (portWidth-containerWidth)/2 - rootWidth/2;
+			container.scrollTop = (portHeight-containerHeight)/2;
+			break;
+		case 'map-left':
+			container.scrollLeft = (portWidth-containerWidth)/2 + rootWidth/2;
+			container.scrollTop = (portHeight-containerHeight)/2;
+			break;
+		default:
+			container.scrollLeft = (portWidth-containerWidth)/2 ;
+			container.scrollTop = (portHeight-containerHeight)/2;
+			break;
+	}
+	 
 	return this;
 }
 
