@@ -6,15 +6,17 @@ MM.Menu = {
 		this._dom.node.style.display = "";
 		var w = this._dom.node.offsetWidth;
 		var h = this._dom.node.offsetHeight;
+		const {left:containerX,top:containerY} = this.app.container.getBoundingClientRect();
+		var left = x - containerX;
+		var top = y - containerY;
 
-		var left = x;
-		var top = y;
-
-		if (left > this._port.offsetWidth / 2) { left -= w; }
-		if (top > this._port.offsetHeight / 2) { top -= h; }
+		if (left > (this.app.container.offsetWidth  - w)) { left -= w; }
+		if (top >  (this.app.container.offsetHeight -h)) { top -= h; }
 		this.nowTarget = target;
-		this._dom.node.style.left = left + "px";
-		this._dom.node.style.top = top + "px";
+		left = left+this.app.container.scrollLeft;
+		top = top +this.app.container.scrollTop;
+
+		this._dom.node.style.transform = `translate(${left}px,${top}px)`; 
 		
 		const iconCommand = this._dom.node.querySelector("[data-command=DeleteIcon]");
 
@@ -50,9 +52,10 @@ MM.Menu = {
 		this.close();
 	},
 
-	init: function (port) {
-		this._port = port;
-		this._dom.node = port.querySelector(".menu");
+	init: function (app) {
+		this.app = app;
+		this._port =app._port;
+		this._dom.node = app._port.querySelector(".menu");
 		var buttons = this._dom.node.querySelectorAll("[data-command]");
 
 		this._port.addEventListener("mousedown", this);

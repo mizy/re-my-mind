@@ -84,6 +84,26 @@ class Minder extends PureComponent {
 			loading: false,
 			nowData: data
 		});
+		MM.subscribe('beforeexpand', msg => {
+			this.setState({
+				loading: true
+			});
+		});
+		MM.subscribe('afterexpand', msg => {
+			this.setState({
+				loading: false
+			});
+		});
+		MM.subscribe('beforecollapse', msg => {
+			this.setState({
+				loading: true
+			});
+		});
+		MM.subscribe('aftercollapse', msg => {
+			this.setState({
+				loading: false
+			});
+		});
 		MM.subscribe("item-change", msg => {
 			clearTimeout(this.changeTimeout);
 			this.changeTimeout = setTimeout(() => {
@@ -112,10 +132,7 @@ class Minder extends PureComponent {
 			MM.App.container.scrollLeft += e.deltaX;
 			MM.App.container.scrollTop += e.deltaY;
 			return;
-			const top = parseInt(node.style.top.split("px")[0], 10);
-			const left = parseInt(node.style.left.split("px")[0], 10);
-			node.style.top = `${-e.deltaY + top}px`;
-			node.style.left = `${-e.deltaX + left}px`;
+			 
 		});
 	}
 

@@ -247,7 +247,7 @@ if(false) {}
 
 exports = module.exports = __webpack_require__(6)(false);
 // Module
-exports.push([module.i, ".re-mind.stright {\n  background-color: #f4f9fa;\n}\n.re-mind.stright .shape-ellipse > .content {\n  border-radius: 10px;\n  background-color: #ff383e;\n  border: 3px solid #ff8d8f;\n  padding: 20px;\n}\n.re-mind.stright .shape-ellipse > .content .text {\n  font-size: 28px;\n}\n.re-mind.box {\n  background-color: #1f2934;\n}\n.re-mind.box > .item > .content {\n  background-color: #1f2934;\n  border: 3px solid #20a5a1;\n  font-size: 48px;\n  padding: 20px;\n  color: #20a5a1;\n}\n.re-mind.box > .item > .content .text {\n  color: #20a5a1;\n  font-size: 28px;\n}\n.re-mind.box > .item > .children > .shape-box > .content {\n  background-color: #20a5a1;\n  color: #000;\n  padding: 10px 20px;\n  border-radius: 10px;\n}\n.re-mind.box > .item > .children > .shape-box > .children .shape-box > .content {\n  background-color: transparent;\n  border: none;\n  color: #20a5a1;\n  padding: 5px;\n  font-size: 22px;\n}\n.re-mind {\n  overflow: scroll;\n}\n.re-mind * {\n  box-sizing: border-box;\n}\n.re-mind ul,\n.re-mind li {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n}\n.re-mind ul li,\n.re-mind li li {\n  list-style: none;\n}\n.re-mind .re-mind-scroll {\n  position: relative;\n  /* root */\n}\n.re-mind .re-mind-scroll .item {\n  position: absolute;\n}\n.re-mind .re-mind-scroll .item .re-mind-icon {\n  z-index: 1;\n  display: inline-block;\n}\n.re-mind .re-mind-scroll .item .cut {\n  opacity: 0.5;\n}\n.re-mind .re-mind-scroll .item.collapsed .children {\n  display: none;\n}\n.re-mind .re-mind-scroll .item .content {\n  display: flex;\n  position: absolute;\n  cursor: pointer;\n  padding: 5px;\n  border-radius: 5px;\n}\n.re-mind .re-mind-scroll .item .content > * {\n  vertical-align: middle;\n}\n.re-mind .re-mind-scroll .item .content .text {\n  z-index: 1;\n  text-align: left;\n  display: inline-block;\n  min-height: 22px;\n  word-wrap: break-word;\n  white-space: nowrap;\n  word-break: break-all;\n  font-weight: normal;\n  outline: none;\n}\n.re-mind .re-mind-scroll .item .content .multi-line {\n  white-space: normal;\n}\n.re-mind .re-mind-scroll .item .content .value,\n.re-mind .re-mind-scroll .item .content .status {\n  margin-right: 0.2em;\n}\n.re-mind .re-mind-scroll .item .content .text ~ .value,\n.re-mind .re-mind-scroll .item .content .text ~ .status {\n  margin-left: 0.2em;\n  margin-right: 0;\n}\n.re-mind .re-mind-scroll .item .content .value {\n  opacity: 0.7;\n  display: none;\n}\n.re-mind .re-mind-scroll .item .content .value:not(:empty):before {\n  content: \"(\";\n}\n.re-mind .re-mind-scroll .item .content .value:not(:empty):after {\n  content: \")\";\n}\n.re-mind .re-mind-scroll .shape-box > .content {\n  padding: 4px 10px;\n  background-color: #4a90e2;\n  color: #fff;\n  border-radius: 3px;\n}\n.re-mind .re-mind-scroll .shape-box > .content .text,\n.re-mind .re-mind-scroll .shape-box > .content .note-button {\n  min-height: 25px;\n  font-size: 18px;\n}\n.re-mind .re-mind-scroll .shape-ellipse > .content {\n  border: 1px solid transparent;\n  padding: 10px 20px;\n  color: #fff;\n}\n.re-mind .re-mind-scroll .shape-ellipse > .content .text,\n.re-mind .re-mind-scroll .shape-ellipse > .content .note-button {\n  min-height: 33px;\n  font-size: 24px;\n}\n.re-mind .re-mind-scroll > .item > .content {\n  font-weight: bold;\n  border-width: 2px;\n  font-size: 140%;\n  color: #fff;\n  border: 0;\n  background-color: #50c28b;\n}\n.re-mind .re-mind-scroll > .item > .toggle {\n  display: none;\n}\n.re-mind .re-mind-scroll .current > .content:before {\n  content: \" \";\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: -6px;\n  top: -6px;\n  box-sizing: content-box;\n  border: 2px solid #7cb9ff;\n  padding: 4px;\n}\n.re-mind .re-mind-scroll > .item > .children > .item > .children .current > .content:before {\n  left: -2px;\n  top: -2px;\n  padding: 0px;\n}\n.re-mind .re-mind-scroll .note-button::after {\n  font-family: \"iconfont\" !important;\n  font-style: normal;\n  content: \"\\e6db\";\n}\n.re-mind .re-mind-scroll .note-button {\n  margin-left: 5px;\n  z-index: 1;\n}\n.re-mind .re-mind-scroll :not(.current):not(.collapsed) > .toggle {\n  /* NOT display:none - we need to have non-zero dimensions for layouting */\n  visibility: hidden;\n}\n.re-mind .re-mind-scroll .mm-note {\n  display: flex;\n  flex-direction: column;\n  position: absolute;\n  top: 80px;\n  left: 0px;\n  z-index: 2;\n  background: #fff;\n  transition: opacity, height 300ms ease-in;\n  overflow: hidden;\n  width: 300px;\n  border: 1px solid #efefef;\n  border-radius: 3px;\n  box-shadow: 2px 2px 20px 1px rgba(0, 0, 0, 0.2);\n}\n.re-mind .re-mind-scroll .mm-note .note-util {\n  height: 30px;\n  width: 100%;\n  border-bottom: 1px solid #efefef;\n  padding-left: 10px;\n  padding-top: 4px;\n}\n.re-mind .re-mind-scroll .mm-note .note-content {\n  height: 300px;\n  width: 100%;\n  overflow: scroll;\n}\n.re-mind .re-mind-scroll .mm-note .note-content p {\n  white-space: pre-line;\n  padding: 10px;\n  outline: none;\n  height: 300px;\n  width: 100%;\n}\n.re-mind .re-mind-scroll .mm-note.hide {\n  height: 0;\n  opacity: 0;\n}\n.re-mind .re-mind-scroll .menu {\n  outline: none;\n  margin: 0;\n  padding: 5px 0;\n  list-style: none;\n  position: absolute;\n  z-index: 2;\n  background: #fff;\n  -webkit-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);\n  border-radius: 2px;\n  width: 200px;\n}\n.re-mind .re-mind-scroll .menu > button {\n  height: 32px;\n  line-height: 32px;\n  padding: 0 20px;\n  color: #666;\n  font-size: 13px;\n  font-weight: 400;\n  cursor: pointer;\n  -webkit-transition: all 0.3s;\n  transition: all 0.3s;\n  white-space: nowrap;\n  display: block;\n  background-color: transparent;\n  border: none;\n  margin: 0;\n  width: 100%;\n  text-align: left;\n}\n.re-mind .re-mind-scroll .menu > button:hover {\n  background: #efefef;\n}\n.re-mind .re-mind-scroll .menu span {\n  display: block;\n  border-top: 1px solid #eee;\n  margin-top: 4px;\n  padding-top: 4px;\n}\n.re-mind .status {\n  font-size: 150%;\n  line-height: 0.8;\n}\n.re-mind .status.yes:after {\n  content: \"✔\";\n  color: #0f0;\n}\n.re-mind .status.no:after {\n  content: \"✘\";\n  color: #f00;\n}\n.re-mind canvas {\n  position: absolute;\n  left: 0;\n  top: 0;\n}\n.re-mind .toggle {\n  position: absolute;\n  width: 12px;\n  height: 12px;\n  line-height: 12px;\n  cursor: pointer;\n  border-radius: 50%;\n  border: 1px solid #00f;\n  background-color: #88f;\n  text-align: center;\n  font-weight: bold;\n  font-family: sans-serif;\n  color: #fff;\n  opacity: 0.7;\n}\n.re-mind .toggle:hover {\n  opacity: 1;\n}\n.re-mind .toggle:before {\n  content: \"−\";\n  line-height: 8px;\n  margin-top: -2px;\n  position: absolute;\n  left: 1px;\n  top: 3px;\n  font-size: 12px;\n}\n.re-mind .collapsed > .toggle:before {\n  content: \"+\";\n  line-height: 8px;\n  margin-top: -2px;\n  position: absolute;\n  left: 1px;\n  top: 2px;\n  font-size: 12px;\n}\n.re-mind .re-mind-icon {\n  display: inline-flex !important;\n  align-items: center;\n  flex-direction: row-reverse;\n}\n.re-mind .re-mind-icon > li {\n  font-size: 18px;\n  display: inline-block;\n  margin-left: -5px;\n}\n.re-mind .re-mind-icon > li:last-child {\n  margin-left: 0px;\n}\n.re-mind .re-mind-icon > li:first-child {\n  margin-right: 5px;\n}\n", ""]);
+exports.push([module.i, ".re-mind.stright {\n  background-color: #f4f9fa;\n}\n.re-mind.stright .shape-ellipse > .content {\n  border-radius: 10px;\n  background-color: #ff383e;\n  border: 3px solid #ff8d8f;\n  padding: 20px;\n}\n.re-mind.stright .shape-ellipse > .content .text {\n  font-size: 28px;\n}\n.re-mind.box {\n  background-color: #1f2934;\n}\n.re-mind.box > .item > .content {\n  background-color: #1f2934;\n  border: 3px solid #20a5a1;\n  font-size: 48px;\n  padding: 20px;\n  color: #20a5a1;\n}\n.re-mind.box > .item > .content .text {\n  color: #20a5a1;\n  font-size: 28px;\n}\n.re-mind.box > .item > .children > .shape-box > .content {\n  background-color: #20a5a1;\n  color: #000;\n  padding: 10px 20px;\n  border-radius: 10px;\n}\n.re-mind.box > .item > .children > .shape-box > .children .shape-box > .content {\n  background-color: transparent;\n  border: none;\n  color: #20a5a1;\n  padding: 5px;\n  font-size: 22px;\n}\n.re-mind {\n  overflow: scroll;\n}\n.re-mind * {\n  box-sizing: border-box;\n}\n.re-mind ul,\n.re-mind li {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n}\n.re-mind ul li,\n.re-mind li li {\n  list-style: none;\n}\n.re-mind .re-mind-scroll {\n  position: relative;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  /* root */\n}\n.re-mind .re-mind-scroll .item {\n  position: absolute;\n}\n.re-mind .re-mind-scroll .item .re-mind-icon {\n  z-index: 1;\n  display: inline-block;\n}\n.re-mind .re-mind-scroll .item .cut {\n  opacity: 0.5;\n}\n.re-mind .re-mind-scroll .item.collapsed .children {\n  display: none;\n}\n.re-mind .re-mind-scroll .item .content {\n  display: flex;\n  position: absolute;\n  cursor: pointer;\n  padding: 5px;\n  border-radius: 5px;\n}\n.re-mind .re-mind-scroll .item .content > * {\n  vertical-align: middle;\n}\n.re-mind .re-mind-scroll .item .content .text {\n  z-index: 1;\n  text-align: left;\n  display: inline-block;\n  min-height: 22px;\n  word-wrap: break-word;\n  white-space: nowrap;\n  word-break: break-all;\n  font-weight: normal;\n  outline: none;\n  user-select: none;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n}\n.re-mind .re-mind-scroll .item .content .multi-line {\n  white-space: normal;\n}\n.re-mind .re-mind-scroll .item .content .value,\n.re-mind .re-mind-scroll .item .content .status {\n  margin-right: 0.2em;\n}\n.re-mind .re-mind-scroll .item .content .text ~ .value,\n.re-mind .re-mind-scroll .item .content .text ~ .status {\n  margin-left: 0.2em;\n  margin-right: 0;\n}\n.re-mind .re-mind-scroll .item .content .value {\n  opacity: 0.7;\n  display: none;\n}\n.re-mind .re-mind-scroll .item .content .value:not(:empty):before {\n  content: \"(\";\n}\n.re-mind .re-mind-scroll .item .content .value:not(:empty):after {\n  content: \")\";\n}\n.re-mind .re-mind-scroll .shape-box > .content {\n  padding: 4px 10px;\n  background-color: #4a90e2;\n  color: #fff;\n  border-radius: 3px;\n}\n.re-mind .re-mind-scroll .shape-box > .content .text,\n.re-mind .re-mind-scroll .shape-box > .content .note-button {\n  min-height: 25px;\n  font-size: 18px;\n}\n.re-mind .re-mind-scroll .shape-ellipse > .content {\n  border: 1px solid transparent;\n  padding: 10px 20px;\n  color: #fff;\n}\n.re-mind .re-mind-scroll .shape-ellipse > .content .text,\n.re-mind .re-mind-scroll .shape-ellipse > .content .note-button {\n  min-height: 33px;\n  font-size: 24px;\n}\n.re-mind .re-mind-scroll > .item > .content {\n  font-weight: bold;\n  border-width: 2px;\n  font-size: 140%;\n  color: #fff;\n  border: 0;\n  background-color: #50c28b;\n}\n.re-mind .re-mind-scroll > .item > .toggle {\n  display: none;\n}\n.re-mind .re-mind-scroll .current > .content:before {\n  content: \" \";\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: -6px;\n  top: -6px;\n  box-sizing: content-box;\n  border: 2px solid #7cb9ff;\n  padding: 4px;\n}\n.re-mind .re-mind-scroll > .item > .children > .item > .children .current > .content:before {\n  left: -2px;\n  top: -2px;\n  padding: 0px;\n}\n.re-mind .re-mind-scroll .note-button::after {\n  font-family: \"iconfont\" !important;\n  font-style: normal;\n  content: \"\\e6db\";\n}\n.re-mind .re-mind-scroll .note-button {\n  margin-left: 5px;\n  z-index: 1;\n}\n.re-mind .re-mind-scroll :not(.current):not(.collapsed) > .toggle {\n  /* NOT display:none - we need to have non-zero dimensions for layouting */\n  visibility: hidden;\n}\n.re-mind .re-mind-scroll .mm-note {\n  display: flex;\n  flex-direction: column;\n  position: absolute;\n  top: 80px;\n  left: 0px;\n  z-index: 2;\n  background: #fff;\n  transition: opacity, height 300ms ease-in;\n  overflow: hidden;\n  width: 300px;\n  border: 1px solid #efefef;\n  border-radius: 3px;\n  box-shadow: 2px 2px 20px 1px rgba(0, 0, 0, 0.2);\n}\n.re-mind .re-mind-scroll .mm-note .note-util {\n  height: 30px;\n  width: 100%;\n  border-bottom: 1px solid #efefef;\n  padding-left: 10px;\n  padding-top: 4px;\n}\n.re-mind .re-mind-scroll .mm-note .note-content {\n  height: 300px;\n  width: 100%;\n  overflow: scroll;\n}\n.re-mind .re-mind-scroll .mm-note .note-content p {\n  white-space: pre-line;\n  padding: 10px;\n  outline: none;\n  height: 300px;\n  width: 100%;\n}\n.re-mind .re-mind-scroll .mm-note.hide {\n  height: 0;\n  opacity: 0;\n}\n.re-mind .re-mind-scroll .menu {\n  outline: none;\n  margin: 0;\n  padding: 5px 0;\n  list-style: none;\n  position: absolute;\n  left: 0;\n  top: 0;\n  z-index: 2;\n  background: #fff;\n  -webkit-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);\n  border-radius: 2px;\n  width: 200px;\n}\n.re-mind .re-mind-scroll .menu > button {\n  height: 32px;\n  line-height: 32px;\n  padding: 0 20px;\n  color: #666;\n  font-size: 13px;\n  font-weight: 400;\n  cursor: pointer;\n  -webkit-transition: all 0.3s;\n  transition: all 0.3s;\n  white-space: nowrap;\n  display: block;\n  background-color: transparent;\n  border: none;\n  margin: 0;\n  width: 100%;\n  text-align: left;\n}\n.re-mind .re-mind-scroll .menu > button:hover {\n  background: #efefef;\n}\n.re-mind .re-mind-scroll .menu span {\n  display: block;\n  border-top: 1px solid #eee;\n  margin-top: 4px;\n  padding-top: 4px;\n}\n.re-mind .status {\n  font-size: 150%;\n  line-height: 0.8;\n}\n.re-mind .status.yes:after {\n  content: \"✔\";\n  color: #0f0;\n}\n.re-mind .status.no:after {\n  content: \"✘\";\n  color: #f00;\n}\n.re-mind canvas {\n  position: absolute;\n  left: 0;\n  top: 0;\n}\n.re-mind .toggle {\n  position: absolute;\n  width: 12px;\n  height: 12px;\n  line-height: 12px;\n  cursor: pointer;\n  border-radius: 50%;\n  border: 1px solid #00f;\n  background-color: #88f;\n  text-align: center;\n  font-weight: bold;\n  font-family: sans-serif;\n  color: #fff;\n  opacity: 0.7;\n}\n.re-mind .toggle:hover {\n  opacity: 1;\n}\n.re-mind .toggle:before {\n  content: \"−\";\n  line-height: 8px;\n  margin-top: -2px;\n  position: absolute;\n  left: 1px;\n  top: 3px;\n  font-size: 12px;\n}\n.re-mind .collapsed > .toggle:before {\n  content: \"+\";\n  line-height: 8px;\n  margin-top: -2px;\n  position: absolute;\n  left: 1px;\n  top: 2px;\n  font-size: 12px;\n}\n.re-mind .re-mind-icon {\n  display: inline-flex !important;\n  align-items: center;\n  flex-direction: row-reverse;\n}\n.re-mind .re-mind-icon > li {\n  font-size: 18px;\n  display: inline-block;\n  margin-left: -5px;\n}\n.re-mind .re-mind-icon > li:last-child {\n  margin-left: 0px;\n}\n.re-mind .re-mind-icon > li:first-child {\n  margin-right: 5px;\n}\n", ""]);
 
 
 /***/ }),
@@ -1359,30 +1359,64 @@ MM.Item.prototype.getText = function () {
 };
 
 MM.Item.prototype.collapse = function () {
+  var _this2 = this;
+
   // this.clearOffset();
   if (this._collapsed) {
     return;
   }
 
   this._collapsed = true;
-  MM.publish("beforecollapse");
-  this.update();
-  MM.publish("aftercollapse");
+  MM.publish("beforecollapse", this);
+  clearTimeout(this.timeout);
+  this.timeout = setTimeout(function () {
+    _this2.rememberPos();
+
+    _this2.update();
+
+    _this2.center();
+
+    MM.publish('aftercollapse', _this2);
+  }, 100);
   return this;
 };
 
 MM.Item.prototype.expand = function () {
+  var _this3 = this;
+
   // this.clearOffset();
   if (!this._collapsed) {
     return;
   }
 
   this._collapsed = false;
-  MM.publish("beforeexpand");
-  this.update();
-  this.updateSubtree();
-  MM.publish("afterexpand");
+  MM.publish("beforeexpand", this);
+  clearTimeout(this.timeout);
+  this.timeout = setTimeout(function () {
+    _this3.rememberPos();
+
+    _this3.update();
+
+    _this3.updateSubtree();
+
+    _this3.center();
+
+    MM.publish('afterexpand');
+  }, 100);
   return;
+};
+
+MM.Item.prototype.rememberPos = function () {
+  this.beforePos = this.getDOM().content.getBoundingClientRect();
+};
+
+MM.Item.prototype.center = function () {
+  var _this$getDOM$content$ = this.getDOM().content.getBoundingClientRect(),
+      left = _this$getDOM$content$.left,
+      top = _this$getDOM$content$.top;
+
+  MM.App.container.scrollLeft -= this.beforePos.left - left;
+  MM.App.container.scrollTop -= this.beforePos.top - top;
 };
 
 MM.Item.prototype.clearOffset = function () {
@@ -1956,10 +1990,10 @@ function () {
 
       var pos = item._dom.content.getBoundingClientRect();
 
-      this.x = pos.x;
-      this.y = pos.y - 60;
-      this.note.style.top = (item._parent && item._parent._dom ? 40 : 80) + this.y + "px";
-      this.note.style.left = this.x + "px";
+      this.x = pos.left;
+      this.y = pos.top - 60;
+      this.note.style.top = (item._parent && item._parent._dom ? 40 : 80) + this.y + this.app.container.scrollTop + "px";
+      this.note.style.left = this.x + this.app.container.scrollLeft + "px";
       this.note.className = "mm-note";
       this.item = item;
       setTimeout(function () {
@@ -2180,11 +2214,10 @@ MM.Map.prototype.center = function () {
 
   var top = (portHeight - rootHeight) / 2; // - MM.PolyDom.getClient(content,"top");
   //配置中心点
+  // this._moveTo(Math.round(left), Math.round(top));
+  // 移动滚动条
 
-  this._moveTo(Math.round(left), Math.round(top)); // 移动滚动条
-
-
-  container.scrollLeft = -containerWidth / 2 + left + MM.PolyDom.getClient(content, "left") + MM.PolyDom.getClient(content, "width");
+  container.scrollLeft = -containerWidth / 2 + left + MM.PolyDom.getClient(content, "width");
   container.scrollTop = -containerHeight / 2 + top + MM.PolyDom.getClient(content, "top");
   return this;
 };
@@ -2998,20 +3031,26 @@ MM.Menu = {
     this._dom.node.style.display = "";
     var w = this._dom.node.offsetWidth;
     var h = this._dom.node.offsetHeight;
-    var left = x;
-    var top = y;
 
-    if (left > this._port.offsetWidth / 2) {
+    var _this$app$container$g = this.app.container.getBoundingClientRect(),
+        containerX = _this$app$container$g.left,
+        containerY = _this$app$container$g.top;
+
+    var left = x - containerX;
+    var top = y - containerY;
+
+    if (left > this.app.container.offsetWidth - w) {
       left -= w;
     }
 
-    if (top > this._port.offsetHeight / 2) {
+    if (top > this.app.container.offsetHeight - h) {
       top -= h;
     }
 
     this.nowTarget = target;
-    this._dom.node.style.left = left + "px";
-    this._dom.node.style.top = top + "px";
+    left = left + this.app.container.scrollLeft;
+    top = top + this.app.container.scrollTop;
+    this._dom.node.style.transform = "translate(".concat(left, "px,").concat(top, "px)");
 
     var iconCommand = this._dom.node.querySelector("[data-command=DeleteIcon]");
 
@@ -3053,9 +3092,10 @@ MM.Menu = {
     command.execute(this.nowTarget);
     this.close();
   },
-  init: function init(port) {
-    this._port = port;
-    this._dom.node = port.querySelector(".menu");
+  init: function init(app) {
+    this.app = app;
+    this._port = app._port;
+    this._dom.node = app._port.querySelector(".menu");
 
     var buttons = this._dom.node.querySelectorAll("[data-command]");
 
@@ -5151,7 +5191,7 @@ MM.Mouse.handleEvent = function (e) {
 
       var item = MM.App.map.getItemFor(e.target);
       item && MM.App.select(item);
-      MM.Menu.open(e.clientX, e.clientY, e.target);
+      MM.Menu.open(e.clientX, e.clientY, e.target, item);
       break;
 
     case "touchstart":
@@ -5194,7 +5234,7 @@ MM.Mouse.handleEvent = function (e) {
         /* context menu here, after we have the item */
         this._touchTimeout = setTimeout(function () {
           item && MM.App.select(item);
-          MM.Menu.open(e.clientX, e.clientY);
+          MM.Menu.open(e.clientX, e.clientY, e.target, item);
         }, this.TOUCH_DELAY);
       }
 
@@ -5631,8 +5671,7 @@ MM.App = {
   handleEvent: function handleEvent(e) {
     switch (e.type) {
       case "resize":
-        this._syncPort();
-
+        // this._syncPort();
         break;
 
       case "click":
@@ -5670,7 +5709,7 @@ MM.App = {
     Object.assign(this.options, options);
     this._menu = options.menu || this.initMenu();
     MM.Keyboard.init();
-    MM.Menu.init(this._port);
+    MM.Menu.init(this);
     MM.Mouse.init(this._port);
     MM.Clipboard.init();
     window.addEventListener("resize", this);

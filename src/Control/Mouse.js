@@ -55,7 +55,7 @@ MM.Mouse.handleEvent = function (e) {
 			var item = MM.App.map.getItemFor(e.target);
 			item && MM.App.select(item);
 
-			MM.Menu.open(e.clientX, e.clientY, e.target);
+			MM.Menu.open(e.clientX, e.clientY, e.target,item);
 			break;
 
 		case "touchstart":
@@ -80,7 +80,7 @@ MM.Mouse.handleEvent = function (e) {
 			if (e.type == "touchstart") { /* context menu here, after we have the item */
 				this._touchTimeout = setTimeout(function () {
 					item && MM.App.select(item);
-					MM.Menu.open(e.clientX, e.clientY);
+					MM.Menu.open(e.clientX, e.clientY,e.target,item);
 				}, this.TOUCH_DELAY);
 			}
 

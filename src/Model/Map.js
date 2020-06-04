@@ -142,10 +142,10 @@ MM.Map.prototype.center = function () {
 	var top = (portHeight - rootHeight) / 2;// - MM.PolyDom.getClient(content,"top");
 
 	//配置中心点
-	this._moveTo(Math.round(left), Math.round(top));
+	// this._moveTo(Math.round(left), Math.round(top));
 
 	// 移动滚动条
-	container.scrollLeft = -(containerWidth)/2 +  left+MM.PolyDom.getClient(content,"left")+MM.PolyDom.getClient(content,"width");
+	container.scrollLeft = -(containerWidth)/2 +left+ MM.PolyDom.getClient(content,"width");
 	container.scrollTop = -(containerHeight)/2 + top+MM.PolyDom.getClient(content,"top");
 
 	return this;

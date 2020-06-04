@@ -330,20 +330,40 @@ MM.Item.prototype.collapse = function () {
 	// this.clearOffset();
 	if (this._collapsed) { return; }
 	this._collapsed = true;
-	MM.publish("beforecollapse");
-	this.update();
-	MM.publish("aftercollapse");
+	MM.publish("beforecollapse",this);
+	clearTimeout(this.timeout)
+	this.timeout = setTimeout(()=>{
+		this.rememberPos();
+		this.update();
+		this.center();
+		MM.publish('aftercollapse', this);
+	}, 100);
 	return this;
 }
 MM.Item.prototype.expand = function () {
 	// this.clearOffset();
 	if (!this._collapsed) { return; }
 	this._collapsed = false;
-	MM.publish("beforeexpand");
-	this.update();
-	this.updateSubtree();
-	MM.publish("afterexpand");
+	MM.publish("beforeexpand",this);
+	clearTimeout(this.timeout);
+	this.timeout = setTimeout(()=>{
+		this.rememberPos();
+		this.update();
+		this.updateSubtree();
+		this.center();
+		MM.publish('afterexpand');
+	}, 100);
 	return 
+}
+
+MM.Item.prototype.rememberPos = function(){
+	this.beforePos = this.getDOM().content.getBoundingClientRect();
+}
+
+MM.Item.prototype.center = function(){
+	const {left,top} =  this.getDOM().content.getBoundingClientRect();
+	MM.App.container.scrollLeft -= this.beforePos.left - left;
+	MM.App.container.scrollTop -= this.beforePos.top - top; 
 }
 
 MM.Item.prototype.clearOffset = function () {

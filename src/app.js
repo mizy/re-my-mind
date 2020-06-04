@@ -91,7 +91,7 @@ MM.App = {
 	handleEvent: function (e) {
 		switch (e.type) {
 			case "resize":
-				this._syncPort();
+				// this._syncPort();
 				break;
 			case "click":
 				break;
@@ -135,7 +135,7 @@ MM.App = {
 		Object.assign(this.options, options)
 		this._menu = options.menu || this.initMenu();
 		MM.Keyboard.init();
-		MM.Menu.init(this._port);
+		MM.Menu.init(this);
 		MM.Mouse.init(this._port);
 		MM.Clipboard.init();
 

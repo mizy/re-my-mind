@@ -18,10 +18,10 @@ class Note {
 		content.contentEditable = true;
 		content.innerHTML = decodeURIComponent(item.note || "");
 		const pos = item._dom.content.getBoundingClientRect();
-		this.x = pos.x;
-		this.y = pos.y - 60;
-		this.note.style.top = ((item._parent && item._parent._dom) ? 40 : 80) + this.y + "px";
-		this.note.style.left = this.x + "px";
+		this.x = pos.left;
+		this.y = pos.top - 60;
+		this.note.style.top = ((item._parent && item._parent._dom) ? 40 : 80) + this.y + this.app.container.scrollTop + "px";
+		this.note.style.left = this.x + this.app.container.scrollLeft+ "px";
 		this.note.className = "mm-note";
 		this.item = item;
 
