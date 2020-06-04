@@ -330,14 +330,20 @@ MM.Item.prototype.collapse = function () {
 	// this.clearOffset();
 	if (this._collapsed) { return; }
 	this._collapsed = true;
-	return this.update();
+	MM.publish("beforecollapse");
+	this.update();
+	MM.publish("aftercollapse");
+	return this;
 }
 MM.Item.prototype.expand = function () {
 	// this.clearOffset();
 	if (!this._collapsed) { return; }
 	this._collapsed = false;
+	MM.publish("beforeexpand");
 	this.update();
-	return this.updateSubtree();
+	this.updateSubtree();
+	MM.publish("afterexpand");
+	return 
 }
 
 MM.Item.prototype.clearOffset = function () {
