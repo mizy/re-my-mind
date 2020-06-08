@@ -537,6 +537,14 @@ class TopBar extends PureComponent {
 								</Menu.Item>}
 								<Menu.Item
 									onClick={() => {
+										message.success("服务端完成")
+									}}
+								>
+									<Icon type="download" />
+									导出为xmind
+								</Menu.Item>
+								<Menu.Item
+									onClick={() => {
 										this.history.show();
 									}}
 								>
