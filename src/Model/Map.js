@@ -93,12 +93,12 @@ MM.Map.prototype.updateRootWidth = function(){
 	const finalWidth = Math.max(width*3,10000);
 	const finalHeight = Math.max(height*3,10000);
 	
-	const container = MM.App._port;
-	container.style.width = finalWidth+'px';
-	container.style.height = finalHeight+'px';
+	const port = MM.App._port;
+	port.style.width = finalWidth+'px';
+	port.style.height = finalHeight+'px';
 
-	container.scrollLeft = (finalWidth-width)/2;
-	container.scrollTop = (finalHeight-height)/2;
+	port.scrollLeft = (finalWidth-width)/2;
+	port.scrollTop = (finalHeight-height)/2;
 	return;
 }
 
@@ -133,8 +133,8 @@ MM.Map.prototype.center = function () {
 	const container = MM.App.container;
 	const portWidth = MM.PolyDom.getOffset(port,"width");
 	const portHeight = MM.PolyDom.getOffset(port,"height");
-	const containerWidth = MM.PolyDom.getOffset(container,"width");
-	const containerHeight = MM.PolyDom.getOffset(container,"height");
+	const containerWidth = container.clientWidth;
+	const containerHeight = container.clientHeight;
 	const rootWidth = MM.PolyDom.getOffset(node,"width");
 	const rootHeight = MM.PolyDom.getOffset(node,"height");
 	

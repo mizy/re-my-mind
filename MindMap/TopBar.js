@@ -190,7 +190,7 @@ class TopBar extends PureComponent {
 	};
 
 	export = () => {
-		html2canvas(document.querySelector(".re-mind > .item"), {
+		html2canvas(document.querySelector(".re-mind .item"), {
 			useCORS: true
 		}).then(canvas => {
 			canvas.toBlob(blob => {
