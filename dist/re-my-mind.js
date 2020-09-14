@@ -2168,11 +2168,11 @@ MM.Map.prototype.updateRootWidth = function () {
   var height = MM.PolyDom.getOffset(dom, 'height');
   var finalWidth = Math.max(width * 3, 10000);
   var finalHeight = Math.max(height * 3, 10000);
-  var container = MM.App._port;
-  container.style.width = finalWidth + 'px';
-  container.style.height = finalHeight + 'px';
-  container.scrollLeft = (finalWidth - width) / 2;
-  container.scrollTop = (finalHeight - height) / 2;
+  var port = MM.App._port;
+  port.style.width = finalWidth + 'px';
+  port.style.height = finalHeight + 'px';
+  port.scrollLeft = (finalWidth - width) / 2;
+  port.scrollTop = (finalHeight - height) / 2;
   return;
 };
 
@@ -2214,8 +2214,8 @@ MM.Map.prototype.center = function () {
   var container = MM.App.container;
   var portWidth = MM.PolyDom.getOffset(port, "width");
   var portHeight = MM.PolyDom.getOffset(port, "height");
-  var containerWidth = MM.PolyDom.getOffset(container, "width");
-  var containerHeight = MM.PolyDom.getOffset(container, "height");
+  var containerWidth = container.clientWidth;
+  var containerHeight = container.clientHeight;
   var rootWidth = MM.PolyDom.getOffset(node, "width");
   var rootHeight = MM.PolyDom.getOffset(node, "height"); //配置中心点
   // this._moveTo(Math.round(left), Math.round(top));
