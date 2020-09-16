@@ -4,6 +4,7 @@
  */
 MM.App = {
 	options: {
+		disableDrag:false,
 		headTitle: " - 脑图",
 		colors: ['#fec936', '#f88b15', '#fe7e4d', '#ec6d7a', '#ef3224', '#9bc039', '#67c97e', '#00a7cd', '#40b5c6', '#2da4ff', '#956fe7', '#882e99', '#FF84BA'],
 	},
@@ -47,13 +48,14 @@ MM.App = {
 	},
 
 	action: function (action) {
+		MM.publish("onaction",action);
+		if(action.stop)return;
 		if (this.historyIndex < this.history.length) { /* remove undoed actions */
 			this.history.splice(this.historyIndex, this.history.length - this.historyIndex);
 		}
 
 		this.history.push(action);
 		this.historyIndex++;
-
 		action.perform();
 		return this;
 	},

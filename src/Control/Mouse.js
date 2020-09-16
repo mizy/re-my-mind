@@ -148,7 +148,7 @@ MM.Mouse.isNote = function (target) {
 }
 
 MM.Mouse._startDrag = function (e, item) {
-
+	if(MM.App.disableDrag){return;}
 	if (e.type == "mousedown") {
 		e.preventDefault(); /* no selections allowed. only for mouse; preventing touchstart would prevent Safari from emulating clicks */
 		this._port.addEventListener("mousemove", this);

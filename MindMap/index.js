@@ -11,7 +11,6 @@ import RightBar from "./Rightbar";
 window.updateTimes = 0;
 window.layoutItemTimes = 0;
 const MM = window.MM;
-
 class Minder extends PureComponent {
 	scale = 1;
 	colors = ["#2da4ff", "#9bc039", "#882e99", "#FF84BA", "#f88b15", "#00a7cd", "#fe7e4d", "#ec6d7a", "#fec936", "#67c97e", "#ef3224", "#40b5c6", "#956fe7"];
@@ -31,7 +30,8 @@ class Minder extends PureComponent {
 				text: "demo",
 				layout: "map-right",
 				children: []
-			}
+			},
+			theme:"tree"
 		});
 	}
 
@@ -210,7 +210,7 @@ class Minder extends PureComponent {
 					}}>
 						<div
 							style={{
-								flexGrow: 1,
+								flex: 1,
 								backgroundRepeat, backgroundSize, backgroundColor, backgroundImage: backgroundImage?`url(${backgroundImage})`:'none',
 								display: mindType === "mind" ? "block" : "none"
 							}}

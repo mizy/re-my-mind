@@ -27,6 +27,16 @@ MM.Theme = {
 				color: "rgb(31, 41, 52)"
 			},
 		},
+		"tree":{
+			main: "Box",
+			second: "Box",
+			colors: ["#5bd4ff", "#38b2ff", "#2589e5", "#1579b5"],
+			node: "Box",
+			className: "tree",
+			background: {
+				color: "rgb(31, 41, 52)"
+			},
+		}
 	},
 
 	theme: {

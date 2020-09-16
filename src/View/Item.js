@@ -8,7 +8,6 @@ MM.Item = function (options) {
 	this._shape = null;
 	this._autoShape = true;
 	this._color = options.color || null;
-	this._value = null;
 	this._status = null;
 	this._side = null; /* side preference */
 	this._icon = {};
@@ -37,7 +36,6 @@ MM.Item = function (options) {
 	this._dom.content.classList.add("content");
 	this._dom.status.classList.add("status");
 	this._dom.icon.classList.add("icon");
-	this._dom.value.classList.add("value");
 	this._dom.text.classList.add("text");
 	this._dom.toggle.classList.add("toggle");
 	this._dom.children.classList.add("children");
@@ -81,7 +79,7 @@ MM.Item.prototype.toJSON = function () {
 	if (this._side) { data.side = this._side; }
 	if (this._color) { data.color = this._color; }
 	if (this._icon) { data.icon = this._icon; }
-	if (this._value) { data.value = this._value; }
+
 	if (this._status) { data.status = this._status; }
 	if (this._layout) { data.layout = this._layout.id; }
 	if (!this._autoShape) { data.shape = this._shape.id; }
@@ -111,7 +109,7 @@ MM.Item.prototype.fromJSON = function (data) {
 	if (data.side) { this._side = data.side; }
 	if (data.color) { this._color = data.color; }
 	if (data.icon) { this._icon = data.icon; }
-	if (data.value) { this._value = data.value; }
+
 	if (data.status) {
 		this._status = data.status;
 		if (this._status == "maybe") { this._status = "computed"; }
@@ -158,11 +156,6 @@ MM.Item.prototype.mergeWith = function (data) {
 
 	if (this._icon != data.icon) {
 		this._icon = data.icon;
-		dirty = 1;
-	}
-
-	if (this._value != data.value) {
-		this._value = data.value;
 		dirty = 1;
 	}
 
@@ -246,7 +239,6 @@ MM.Item.prototype.update = function (doNotRecurse) {
 
 	this._updateIcon();
 	// this._updateStatus();
-	// this._updateValue();
 	const contentWidth = MM.PolyDom.getOffset(this._dom.content, "width")
 	// 大于300则
 	if (contentWidth > 300) {
@@ -383,15 +375,8 @@ MM.Item.prototype.clearOffset = function () {
 MM.Item.prototype.isCollapsed = function () {
 	return this._collapsed;
 }
+ 
 
-MM.Item.prototype.setValue = function (value) {
-	this._value = value;
-	return this.update();
-}
-
-MM.Item.prototype.getValue = function () {
-	return this._value;
-}
 
 MM.Item.prototype.getComputedValue = function () {
 	return this._computed.value;
@@ -694,54 +679,7 @@ MM.Item.prototype._updateIcon = function () {
 		this._dom.icon.style.display = "none";
 	}
 }
-
-MM.Item.prototype._updateValue = function () {
-	this._dom.value.style.display = "";
-
-	if (typeof (this._value) == "number") {
-		this._computed.value = this._value;
-		this._dom.value.innerHTML = this._value;
-		return;
-	}
-
-	var childValues = this._children.map(function (child) {
-		return child.getComputedValue();
-	});
-
-	var result = 0;
-	switch (this._value) {
-		case "sum":
-			result = childValues.reduce(function (prev, cur) {
-				return prev + cur;
-			}, 0);
-			break;
-
-		case "avg":
-			var sum = childValues.reduce(function (prev, cur) {
-				return prev + cur;
-			}, 0);
-			result = (childValues.length ? sum / childValues.length : 0);
-			break;
-
-		case "max":
-			result = Math.max.apply(Math, childValues);
-			break;
-
-		case "min":
-			result = Math.min.apply(Math, childValues);
-			break;
-
-		default:
-			this._computed.value = 0;
-			this._dom.value.innerHTML = "";
-			this._dom.value.style.display = "none";
-			return;
-			break;
-	}
-
-	this._computed.value = result;
-	this._dom.value.innerHTML = (Math.round(result) == result ? result : result.toFixed(3));
-}
+ 
 
 MM.Item.prototype._findLinks = function (node) {
 
