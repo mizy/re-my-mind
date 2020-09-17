@@ -130,7 +130,7 @@ MM.App = {
 	init: function (dom, options = {}) {
 		const container = document.createElement("div");
 		dom.appendChild(container);
-		dom.className+=`re-mind  ${MM.Theme.theme.className}`;
+		dom.className+=` re-mind  ${MM.Theme.theme.className}`;
 		this.container = dom;
 		this._port = container;
 		this._port.className += ` re-mind-scroll`;
