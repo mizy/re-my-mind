@@ -1203,6 +1203,18 @@ MM.Item.prototype.clone = function () {
   return this.constructor.fromJSON(data);
 };
 
+MM.Item.prototype.getDepth = function () {
+  var depth = 0;
+  var node = this;
+
+  while (node && !node.isRoot()) {
+    depth++;
+    node = node.getParent();
+  }
+
+  return depth;
+};
+
 MM.Item.prototype.select = function () {
   this._dom.node.classList.add("current");
 
@@ -2508,6 +2520,7 @@ MM.Action.Multi.prototype.undo = function () {
 MM.Action.InsertNewItem = function (parent, index) {
   this._parent = parent;
   this._index = index;
+  this.autoSelect = true;
   var options = {};
   var colors = MM.Theme.theme.colors || MM.App.options.colors;
   var color = colors[index % colors.length];
@@ -3187,7 +3200,11 @@ MM.Command.InsertSibling.execute = function () {
   }
 
   MM.App.action(action);
-  MM.Command.Edit.execute();
+
+  if (MM.App.options.autoEdit) {
+    MM.Command.Edit.execute();
+  }
+
   MM.publish("command-sibling");
 };
 
@@ -3209,7 +3226,11 @@ MM.Command.InsertChild.execute = function () {
   var item = MM.App.current;
   var action = new MM.Action.InsertNewItem(item, item.getChildren().length);
   MM.App.action(action);
-  MM.Command.Edit.execute();
+
+  if (MM.App.options.autoEdit) {
+    MM.Command.Edit.execute();
+  }
+
   MM.publish("command-child");
 };
 
@@ -5129,6 +5150,7 @@ MM.Mouse.handleEvent = function (e) {
       break;
 
     case "dblclick":
+      if (MM.App.options.disableEdit) return;
       var item = MM.App.map.getItemFor(e.target);
 
       if (item) {
@@ -5544,7 +5566,9 @@ __webpack_require__.r(__webpack_exports__);
  */
 MM.App = {
   options: {
+    autoEdit: true,
     disableDrag: false,
+    disableEdit: false,
     headTitle: " - 脑图",
     colors: ['#fec936', '#f88b15', '#fe7e4d', '#ec6d7a', '#ef3224', '#9bc039', '#67c97e', '#00a7cd', '#40b5c6', '#2da4ff', '#956fe7', '#882e99', '#FF84BA']
   },

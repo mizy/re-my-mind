@@ -20,6 +20,7 @@ MM.Action.Multi.prototype.undo = function () {
 MM.Action.InsertNewItem = function (parent, index) {
 	this._parent = parent;
 	this._index = index;
+	this.autoSelect = true;
 	const options = {};
 	const colors = MM.Theme.theme.colors || MM.App.options.colors;
 	let color = colors[index % colors.length];

@@ -71,7 +71,10 @@ MM.Command.InsertSibling.execute = function () {
 	}
 	MM.App.action(action);
 
-	MM.Command.Edit.execute();
+	if(MM.App.options.autoEdit){
+		MM.Command.Edit.execute();
+
+	}
 
 	MM.publish("command-sibling");
 }
@@ -89,8 +92,9 @@ MM.Command.InsertChild.execute = function () {
 	var item = MM.App.current;
 	var action = new MM.Action.InsertNewItem(item, item.getChildren().length);
 	MM.App.action(action);
-
+	if(MM.App.options.autoEdit){
 	MM.Command.Edit.execute();
+	}
 
 	MM.publish("command-child");
 }

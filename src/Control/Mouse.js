@@ -42,6 +42,7 @@ MM.Mouse.handleEvent = function (e) {
 			break;
 
 		case "dblclick":
+			if(MM.App.options.disableEdit)return;
 			var item = MM.App.map.getItemFor(e.target);
 			if (item) { MM.Command.Edit.execute(); }
 			break;

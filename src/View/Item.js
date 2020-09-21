@@ -48,7 +48,6 @@ MM.Item = function (options) {
 	this._dom.node.appendChild(this._dom.canvas);
 	this._dom.node.appendChild(this._dom.content);
 	this._dom.content.insertBefore(this._dom.icon, this._dom.content.firstChild);
-
 	this._dom.toggle.addEventListener("click", this);
 }
 
@@ -206,6 +205,15 @@ MM.Item.prototype.clone = function () {
 	removeId(data);
 
 	return this.constructor.fromJSON(data);
+}
+MM.Item.prototype.getDepth = function(){
+	let depth = 0;
+	let node = this;
+	while (node && !node.isRoot()) {
+		depth++;
+		node = node.getParent();
+	}
+	return depth;
 }
 
 MM.Item.prototype.select = function () {
