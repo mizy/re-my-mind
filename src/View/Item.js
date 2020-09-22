@@ -71,6 +71,7 @@ MM.Item.fromJSON = function (data) {
 
 MM.Item.prototype.toJSON = function () {
 	var data = {
+		...this._data,
 		id: this._id,
 		text: this.getText()
 	}
@@ -96,7 +97,6 @@ MM.Item.prototype.toJSON = function () {
 	if (content.style.backgroundColor) {
 		data.backgroundColor = content.style.backgroundColor;
 	}
-	this._data = data;
 	return data;
 }
 
@@ -226,9 +226,9 @@ MM.Item.prototype.select = function () {
 MM.Item.prototype.deselect = function () {
 	if (MM.App.editing) {
 		MM.Command.Finish.execute();
-
 	}
 	this._dom.node.classList.remove("current");
+	MM.publish("item-deselect", this);
 }
 
 
@@ -598,7 +598,7 @@ MM.Item.prototype.endNote = function (text) {
 }
 
 MM.Item.prototype.clearContentWidth = function () {
-	if (this._dom.text.clientHeight < 50) {// 先写死40像素，不同文字大小这个值不一样
+	if (this._dom.text.clientHeight < 35) {// 先写死40像素，不同文字大小这个值不一样
 		this._dom.text.className = "text";
 		this._dom.content.style.width = "auto";
 	} else {
