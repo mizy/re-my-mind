@@ -1688,7 +1688,7 @@ MM.Item.prototype.endNote = function (text) {
 };
 
 MM.Item.prototype.clearContentWidth = function () {
-  if (this._dom.text.clientHeight < 50) {
+  if (this._dom.text.clientHeight < 35) {
     // 先写死40像素，不同文字大小这个值不一样
     this._dom.text.className = "text";
     this._dom.content.style.width = "auto";

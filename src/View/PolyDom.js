@@ -4,9 +4,10 @@ MM.PolyDom = {
 		if (styleValue && styleValue !== "auto") {
 			return parseInt(styleValue.split("px")[0])
 		} else {
-			node.style[type] = "auto";// 回归默认，然后取宽度
-			const data = node.getBoundingClientRect();
-			const value = data[type];
+			node.style[type] = "auto"; // 回归默认，然后取宽度
+			const key = type[0].toUpperCase() + type.slice(1);
+			let value = node[`offset`+key];
+			// var value = data[type];
 			node.style[type] = value + "px";
 			return value;
 		}
