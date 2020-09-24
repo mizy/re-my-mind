@@ -334,6 +334,8 @@ MM.Command.Edit = Object.create(MM.Command, {
 MM.Command.Edit.execute = function () {
 	MM.App.current.startEditing();
 	MM.App.editing = true;
+	const text = MM.App.current.getText();
+	if(!text)return;
 	const range = document.createRange();
 	range.selectNodeContents(MM.App.current._dom.text);
 	const selection = window.getSelection();
@@ -348,11 +350,11 @@ MM.Command.Finish = Object.create(MM.Command, {
 MM.Command.Finish.execute = function () {
 	MM.App.editing = false;
 	var text = MM.App.current.stopEditing();
-	if (text) {
+	// if (text) {
 		var action = new MM.Action.SetText(MM.App.current, text, MM.App.current._oldText);
-	} else {
-		var action = new MM.Action.RemoveItem(MM.App.current);
-	}
+	// } else {
+		// var action = new MM.Action.RemoveItem(MM.App.current);
+	// }
 	MM.App.action(action);
 	MM.publish("item-change", MM.App.current);
 }

@@ -3617,6 +3617,8 @@ MM.Command.Edit = Object.create(MM.Command, {
 MM.Command.Edit.execute = function () {
   MM.App.current.startEditing();
   MM.App.editing = true;
+  var text = MM.App.current.getText();
+  if (!text) return;
   var range = document.createRange();
   range.selectNodeContents(MM.App.current._dom.text);
   var selection = window.getSelection();
@@ -3640,13 +3642,11 @@ MM.Command.Finish = Object.create(MM.Command, {
 
 MM.Command.Finish.execute = function () {
   MM.App.editing = false;
-  var text = MM.App.current.stopEditing();
+  var text = MM.App.current.stopEditing(); // if (text) {
 
-  if (text) {
-    var action = new MM.Action.SetText(MM.App.current, text, MM.App.current._oldText);
-  } else {
-    var action = new MM.Action.RemoveItem(MM.App.current);
-  }
+  var action = new MM.Action.SetText(MM.App.current, text, MM.App.current._oldText); // } else {
+  // var action = new MM.Action.RemoveItem(MM.App.current);
+  // }
 
   MM.App.action(action);
   MM.publish("item-change", MM.App.current);
@@ -5551,8 +5551,9 @@ MM.PolyDom = {
     } else {
       node.style[type] = "auto"; // 回归默认，然后取宽度
 
-      var data = node.getBoundingClientRect();
-      var value = data[type];
+      var key = type[0].toUpperCase() + type.slice(1);
+      var value = node["offset" + key]; // var value = data[type];
+
       node.style[type] = value + "px";
       return value;
     }
