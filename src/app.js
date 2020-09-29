@@ -136,7 +136,8 @@ MM.App = {
 		this.container = dom;
 		this._port = container;
 		this._port.className += ` re-mind-scroll`;
-		Object.assign(this.options, options)
+		Object.assign(this.options, options);
+		this.readonly = options.readonly;
 		this._menu = options.menu || this.initMenu();
 		MM.Keyboard.init();
 		MM.Menu.init(this);

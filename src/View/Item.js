@@ -554,6 +554,9 @@ MM.Item.prototype.removeChild = function (child) {
 }
 
 MM.Item.prototype.startEditing = function () {
+	if(this._data.disableEdit){
+		return;
+	}
 	this._oldText = this.getText();
 	this._dom.text.contentEditable = true;
 	this._dom.text.focus(); /* switch to 2b */

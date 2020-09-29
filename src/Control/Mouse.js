@@ -42,7 +42,7 @@ MM.Mouse.handleEvent = function (e) {
 			break;
 
 		case "dblclick":
-			if(MM.App.options.disableEdit)return;
+			if(MM.App.options.disableEdit||MM.App.readonly)return;
 			var item = MM.App.map.getItemFor(e.target);
 			if (item) { MM.Command.Edit.execute(); }
 			break;
@@ -149,7 +149,7 @@ MM.Mouse.isNote = function (target) {
 }
 
 MM.Mouse._startDrag = function (e, item) {
-	if(MM.App.disableDrag){return;}
+	if(MM.App.disableDrag||MM.App.readonly){return;}
 	if (e.type == "mousedown") {
 		e.preventDefault(); /* no selections allowed. only for mouse; preventing touchstart would prevent Safari from emulating clicks */
 		this._port.addEventListener("mousemove", this);
