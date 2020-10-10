@@ -41,9 +41,9 @@ MM.Theme = {
 
 	theme: {
 		main: "Ellipse",
-		second: "Box",
-		className: "default",
-		node: "Underline"
+			second: "Box",
+			className: "default",
+			node: "Underline"
 	},
 
 }

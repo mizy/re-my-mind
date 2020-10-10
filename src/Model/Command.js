@@ -71,7 +71,7 @@ MM.Command.InsertSibling.execute = function () {
 	}
 	MM.App.action(action);
 
-	if(MM.App.options.autoEdit){
+	if(MM.App.options.autoEdit&&!action._item._data.disableEdit){
 		MM.Command.Edit.execute();
 
 	}
@@ -92,8 +92,8 @@ MM.Command.InsertChild.execute = function () {
 	var item = MM.App.current;
 	var action = new MM.Action.InsertNewItem(item, item.getChildren().length);
 	MM.App.action(action);
-	if(MM.App.options.autoEdit){
-	MM.Command.Edit.execute();
+	if(MM.App.options.autoEdit&&!action._item._data.disableEdit){
+		MM.Command.Edit.execute();
 	}
 
 	MM.publish("command-child");
@@ -332,6 +332,7 @@ MM.Command.Edit = Object.create(MM.Command, {
 	}
 });
 MM.Command.Edit.execute = function () {
+	if (MM.App.current._data.disableEdit) return;
 	MM.App.current.startEditing();
 	MM.App.editing = true;
 	const text = MM.App.current.getText();

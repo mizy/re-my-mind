@@ -32,7 +32,6 @@ MM.Mouse.handleEvent = function (e) {
 		case "click":
 			var item = MM.App.map.getItemFor(e.target);
 			if (MM.App.editing && item._id == MM.App.current._id) {
-
 				return;
 			} /* ignore on edited node */
 			if (item) { MM.App.select(item); }
