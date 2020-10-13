@@ -1630,10 +1630,6 @@ MM.Item.prototype.removeChild = function (child) {
 };
 
 MM.Item.prototype.startEditing = function () {
-  if (this._data.disableEdit) {
-    return;
-  }
-
   this._oldText = this.getText();
   this._dom.text.contentEditable = true;
 
@@ -3214,7 +3210,7 @@ MM.Command.InsertSibling.execute = function () {
 
   MM.App.action(action);
 
-  if (MM.App.options.autoEdit) {
+  if (MM.App.options.autoEdit && !action._item._data.disableEdit) {
     MM.Command.Edit.execute();
   }
 
@@ -3240,7 +3236,7 @@ MM.Command.InsertChild.execute = function () {
   var action = new MM.Action.InsertNewItem(item, item.getChildren().length);
   MM.App.action(action);
 
-  if (MM.App.options.autoEdit) {
+  if (MM.App.options.autoEdit && !action._item._data.disableEdit) {
     MM.Command.Edit.execute();
   }
 
@@ -3619,6 +3615,7 @@ MM.Command.Edit = Object.create(MM.Command, {
 });
 
 MM.Command.Edit.execute = function () {
+  if (MM.App.current._data.disableEdit) return;
   MM.App.current.startEditing();
   MM.App.editing = true;
   var text = MM.App.current.getText();
@@ -5583,6 +5580,7 @@ MM.App = {
     autoEdit: true,
     disableDrag: false,
     disableEdit: false,
+    // 阻止触发该Item或所有的MM.Command.Edit
     headTitle: " - 脑图",
     colors: ['#fec936', '#f88b15', '#fe7e4d', '#ec6d7a', '#ef3224', '#9bc039', '#67c97e', '#00a7cd', '#40b5c6', '#2da4ff', '#956fe7', '#882e99', '#FF84BA']
   },

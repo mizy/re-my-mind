@@ -231,7 +231,6 @@ MM.Item.prototype.deselect = function () {
 	MM.publish("item-deselect", this);
 }
 
-
 MM.Item.prototype.update = function (doNotRecurse) {
 	var map = this.getMap();
 	if (!map || !map.isVisible()) { return this; }
