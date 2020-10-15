@@ -22,7 +22,6 @@ const MM = window.MM;
 class TopBar extends PureComponent {
 	state = {
 		scale: 1,
-
 		selectedKeys: ["3"],
 		show3dView: false
 	};

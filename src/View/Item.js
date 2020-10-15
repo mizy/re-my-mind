@@ -83,12 +83,12 @@ MM.Item.prototype.toJSON = function () {
 	if (this._status) { data.status = this._status; }
 	if (this._layout) { data.layout = this._layout.id; }
 	if (!this._autoShape) { data.shape = this._shape.id; }
-	if (this._collapsed) { data.collapsed = 1; }
-	if (this.note) {
-		data.note = this.note;
-	}
+	data.collapsed = this._collapsed;
+	data.note = this.note;
 	if (this._children.length) {
 		data.children = this._children.map(function (child) { return child.toJSON(); });
+	}else{
+		data.children = []
 	}
 	if (this.style && JSON.stringify(this.style) !== "{}") {
 		data.style = this.style;
