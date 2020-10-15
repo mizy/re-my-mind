@@ -2,6 +2,8 @@
 
 * 基于 [my-mind](http://my-mind.github.io/) 改造优化的脑图编辑器框架
 * base on my-mind
+* 具体效果请查看 dist 下 index.html 的 demo
+
 
 # demo
 
@@ -48,7 +50,7 @@ MM.App.map.toJSON();
 -   样式优化
 -   改为对称居中布局
 -   加入 map-right,map-left 布局
--   webpack工程化改造
+-   工程化结构改造
 -   去除 UI 依赖
 -   放大缩小改为 transform 方式
 -   增加多行文本功能
@@ -57,5 +59,5 @@ MM.App.map.toJSON();
 -   优化canvas绘制线逻辑
 -   增加备注功能
 -   增加节点布局模式
--   具体效果请查看 dist 下 index.html 的 demo
 -   添加主题支持
+-	增加部分事件和新API支持
