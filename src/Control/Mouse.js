@@ -30,8 +30,8 @@ MM.Mouse.handleEvent = function (e) {
 
 	switch (e.type) {
 		case "click":
-			var item = MM.App.map.getItemFor(e.target);
-			if (MM.App.editing && item._id == MM.App.current._id) {
+            var item = MM.App.map.getItemFor(e.target);
+			if (MM.App.editing && item && item._id == MM.App.current._id) {
 				return;
 			} /* ignore on edited node */
 			if (item) { MM.App.select(item); }
@@ -75,7 +75,7 @@ MM.Mouse.handleEvent = function (e) {
 				return;
 			}
 
-			if (e.type == "mousedown") { e.preventDefault(); } /* to prevent blurring the clipboard node */
+			// if (e.type == "mousedown") { e.preventDefault(); } /* to prevent blurring the clipboard node */
 
 			if (e.type == "touchstart") { /* context menu here, after we have the item */
 				this._touchTimeout = setTimeout(function () {

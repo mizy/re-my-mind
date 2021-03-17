@@ -1024,18 +1024,15 @@ MM.Item.prototype.toJSON = function () {
     data.shape = this._shape.id;
   }
 
-  if (this._collapsed) {
-    data.collapsed = 1;
-  }
-
-  if (this.note) {
-    data.note = this.note;
-  }
+  data.collapsed = this._collapsed;
+  data.note = this.note;
 
   if (this._children.length) {
     data.children = this._children.map(function (child) {
       return child.toJSON();
     });
+  } else {
+    data.children = [];
   }
 
   if (this.style && JSON.stringify(this.style) !== "{}") {
@@ -5154,6 +5151,7 @@ MM.Mouse.handleEvent = function (e) {
       }
 
       if (!item && MM.App.note.status !== "show") {
+        
         MM.App.current.deselect();
       }
 
@@ -5579,6 +5577,7 @@ MM.App = {
   options: {
     autoEdit: true,
     disableDrag: false,
+    showHeadTitle: false,
     disableEdit: false,
     // 阻止触发该Item或所有的MM.Command.Edit
     headTitle: " - 脑图",
@@ -5717,11 +5716,15 @@ MM.App = {
     window.addEventListener("resize", this);
     window.addEventListener("click", this);
     window.addEventListener("beforeunload", this);
-    MM.subscribe("item-change", function (publisher) {
-      if (publisher.isRoot() && publisher.getMap() == _this.map) {
-        document.title = _this.map.getName() + _this.options.headTitle;
-      }
-    });
+
+    if (this.options.showHeadTitle) {
+      MM.subscribe("item-change", function (publisher) {
+        if (publisher.isRoot() && publisher.getMap() == _this.map) {
+          document.title = _this.map.getName() + _this.options.headTitle;
+        }
+      });
+    }
+
     this.setMap(new MM.Map(options || {}));
     this.note = new MM.Note(this);
     return this;

@@ -58,9 +58,8 @@ MM.Menu = {
 		this._dom.node = app._port.querySelector(".menu");
 		var buttons = this._dom.node.querySelectorAll("[data-command]");
 
-		this._port.addEventListener("mousedown", this);
-		this._dom.node.addEventListener("mousedown", this);
-
+		this._port.addEventListener("click", this);
+		this._dom.node.addEventListener("click", this);
 		this.close();
 	}
 }
