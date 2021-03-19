@@ -3,7 +3,6 @@ import ReactDom from 'react-dom';
 import "./index.less";
 import "../src/index.js";
 import { Spin } from "antd";
-import { get } from "lodash";
 import MainText from "./MainText";
 import TopBar from "./TopBar";
 import RightBar from "./Rightbar";
@@ -122,7 +121,7 @@ class Minder extends PureComponent {
 			if (e.ctrlKey) {// 双指
 				let { scale } = this.topbar.state;
 				scale = scale * (1 - e.deltaY / 50);
-				if (scale < 0.05) return;
+				if (scale < 0.05||scale>10) return;
 				node.style.transform = `scale(${scale})`;
 				this.topbar.setState({
 					scale
