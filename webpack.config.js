@@ -1,7 +1,7 @@
 const webpack = require("webpack");
 const path = require("path");
 let webpackConfig = {
-	entry: "./MindMap/index.js",
+	entry: "./new/app.js",
 	output: {
 		filename: "index.js",
 		publicPath: "/"

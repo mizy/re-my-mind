@@ -1,28 +1,29 @@
-MM.Command = Object.create(MM.Repo, {
-	keys: { value: [] },
-	editMode: { value: false },
-	prevent: { value: true }, /* prevent default keyboard action? */
-	label: { value: "" }
-});
+const Command = {
+	keys:[],
+	editMode:false,
+	prevent: true , /* prevent default keyboard action? */
+	label:  "" 
+};
 
-MM.Command.isValid = function () {
-	if (MM.App.note.status === "show") {
+Command.isValid = function () {
+    const remind = this.remind;
+	if (remind.note.status === "show") {
 		return false;
 	}
-	if (!this.editMode && !MM.App.editing) {
+	if (!this.editMode && !remind.editing) {
 		return true;
 	}
 	if (this.editMode === null) {
 		return true;
 	}
-	if (this.editMode && MM.App.editing) {
+	if (this.editMode && remind.editing) {
 		return true;
 	}
 	return false
 }
-MM.Command.execute = function () { }
+Command.execute = function () { }
 
-MM.Command.Undo = Object.create(MM.Command, {
+Command.Undo = Object.create(Command, {
 	label: { value: "Undo" },
 	keys: {
 		value: [
@@ -30,16 +31,16 @@ MM.Command.Undo = Object.create(MM.Command, {
 			{ keyCode: "Z".charCodeAt(0), ctrlKey: true, shiftKey: false }]
 	}
 });
-MM.Command.Undo.isValid = function () {
-	return MM.Command.isValid.call(this) && !!MM.App.historyIndex;
+Command.Undo.isValid = function () {
+	return Command.isValid.call(this) && !!MM.App.historyIndex;
 }
-MM.Command.Undo.execute = function () {
+Command.Undo.execute = function () {
 	MM.App.history[MM.App.historyIndex - 1].undo();
 	MM.App.historyIndex--;
 	MM.publish("undo", MM.App.historyIndex)
 }
 
-MM.Command.Redo = Object.create(MM.Command, {
+Command.Redo = Object.create(Command, {
 	label: { value: "Redo" },
 	keys: {
 		value: [
@@ -47,39 +48,39 @@ MM.Command.Redo = Object.create(MM.Command, {
 			{ keyCode: "Z".charCodeAt(0), ctrlKey: true, shiftKey: true }]
 	},
 });
-MM.Command.Redo.isValid = function () {
-	return (MM.Command.isValid.call(this) && MM.App.historyIndex != MM.App.history.length);
+Command.Redo.isValid = function () {
+	return (Command.isValid.call(this) && MM.App.historyIndex != MM.App.history.length);
 }
-MM.Command.Redo.execute = function () {
+Command.Redo.execute = function () {
 	MM.App.history[MM.App.historyIndex].perform();
 	MM.App.historyIndex++;
 	MM.publish("redo", MM.App.historyIndex)
 }
 
-MM.Command.InsertSibling = Object.create(MM.Command, {
+Command.InsertSibling = Object.create(Command, {
 	label: { value: "Insert a sibling" },
 	keys: { value: [{ keyCode: 13 }] }
 });
-MM.Command.InsertSibling.execute = function () {
+Command.InsertSibling.execute = function () {
 	var item = MM.App.current;
 	if (item.isRoot()) {
-		var action = new MM.Action.InsertNewItem(item, item.getChildren().length);
+		var action = this.remind.action.InsertNewItem(item, item.getChildren().length);
 	} else {
 		var parent = item.getParent();
 		var index = parent.getChildren().indexOf(item);
-		var action = new MM.Action.InsertNewItem(parent, index + 1);
+		var action = this.remind.action.InsertNewItem(parent, index + 1);
 	}
 	MM.App.action(action);
 
 	if(MM.App.options.autoEdit&&!action._item._data.disableEdit){
-		MM.Command.Edit.execute();
+		Command.Edit.execute();
 
 	}
 
 	MM.publish("command-sibling");
 }
 
-MM.Command.InsertChild = Object.create(MM.Command, {
+Command.InsertChild = Object.create(Command, {
 	label: { value: "Insert a child" },
 	keys: {
 		value: [
@@ -88,30 +89,30 @@ MM.Command.InsertChild = Object.create(MM.Command, {
 		]
 	}
 });
-MM.Command.InsertChild.execute = function () {
+Command.InsertChild.execute = function () {
 	var item = MM.App.current;
-	var action = new MM.Action.InsertNewItem(item, item.getChildren().length);
+	var action = this.remind.action.InsertNewItem(item, item.getChildren().length);
 	MM.App.action(action);
 	if(MM.App.options.autoEdit&&!action._item._data.disableEdit){
-		MM.Command.Edit.execute();
+		Command.Edit.execute();
 	}
 
 	MM.publish("command-child");
 }
 
-MM.Command.Delete = Object.create(MM.Command, {
+Command.Delete = Object.create(Command, {
 	label: { value: "Delete an item" },
 	keys: { value: [{ keyCode: 46 }, { keyCode: 8 }] }
 });
-MM.Command.Delete.isValid = function () {
-	return MM.Command.isValid.call(this) && !MM.App.current.isRoot();
+Command.Delete.isValid = function () {
+	return Command.isValid.call(this) && !MM.App.current.isRoot();
 }
-MM.Command.Delete.execute = function () {
-	var action = new MM.Action.RemoveItem(MM.App.current);
+Command.Delete.execute = function () {
+	var action = this.remind.action.RemoveItem(MM.App.current);
 	MM.App.action(action);
 }
 
-MM.Command.Swap = Object.create(MM.Command, {
+Command.Swap = Object.create(Command, {
 	label: { value: "Swap sibling" },
 	keys: {
 		value: [
@@ -120,16 +121,16 @@ MM.Command.Swap = Object.create(MM.Command, {
 		]
 	}
 });
-MM.Command.Swap.execute = function (e) {
+Command.Swap.execute = function (e) {
 	var current = MM.App.current;
 	if (current.isRoot() || current.getParent().getChildren().length < 2) { return; }
 
 	var diff = (e.keyCode == 38 ? -1 : 1);
-	var action = new MM.Action.Swap(MM.App.current, diff);
+	var action = this.remind.action.Swap(MM.App.current, diff);
 	MM.App.action(action);
 }
 
-MM.Command.Side = Object.create(MM.Command, {
+Command.Side = Object.create(Command, {
 	label: { value: "Change side" },
 	keys: {
 		value: [
@@ -138,16 +139,16 @@ MM.Command.Side = Object.create(MM.Command, {
 		]
 	}
 });
-MM.Command.Side.execute = function (e) {
+Command.Side.execute = function (e) {
 	var current = MM.App.current;
 	if (current.isRoot() || !current.getParent().isRoot()) { return; }
 
 	var side = (e.keyCode == 37 ? "left" : "right");
-	var action = new MM.Action.SetSide(MM.App.current, side);
+	var action = this.remind.action.SetSide(MM.App.current, side);
 	MM.App.action(action);
 }
 
-MM.Command.Save = Object.create(MM.Command, {
+Command.Save = Object.create(Command, {
 	label: { value: "Save map" },
 	keys: {
 		value: [
@@ -155,28 +156,28 @@ MM.Command.Save = Object.create(MM.Command, {
 			{ keyCode: "S".charCodeAt(0), metaKey: true, shiftKey: false }]
 	}
 });
-MM.Command.Save.execute = function (e) {
+Command.Save.execute = function (e) {
 	e.preventDefault();
 	MM.publish("save", "command")
 }
 
-MM.Command.SaveAs = Object.create(MM.Command, {
+Command.SaveAs = Object.create(Command, {
 	label: { value: "Save as&hellip;" },
 	keys: { value: [{ keyCode: "S".charCodeAt(0), ctrlKey: true, shiftKey: true }] }
 });
-MM.Command.SaveAs.execute = function () {
+Command.SaveAs.execute = function () {
 	MM.App.io.show("save");
 }
 
-MM.Command.Load = Object.create(MM.Command, {
+Command.Load = Object.create(Command, {
 	label: { value: "Load map" },
 	keys: { value: [{ keyCode: "O".charCodeAt(0), ctrlKey: true }] }
 });
-MM.Command.Load.execute = function () {
+Command.Load.execute = function () {
 	MM.App.io.show("load");
 }
 
-MM.Command.Center = Object.create(MM.Command, {
+Command.Center = Object.create(Command, {
 	label: { value: "Center map" },
 	keys: {
 		value: [
@@ -184,39 +185,39 @@ MM.Command.Center = Object.create(MM.Command, {
 		]
 	}
 });
-MM.Command.Center.execute = function () {
+Command.Center.execute = function () {
 	MM.App.map.center();
 }
 
-// MM.Command.New = Object.create(MM.Command, {
+// Command.New = Object.create(Command, {
 // 	label: { value: "New map" },
 // 	keys: { value: [{ keyCode: "N".charCodeAt(0), ctrlKey: true }] }
 // });
-// MM.Command.New.execute = function () {
+// Command.New.execute = function () {
 // 	if (!confirm("Throw away your current map and start a new one?")) { return; }
 // 	var map = new MM.Map();
 // 	MM.App.setMap(map);
 // 	MM.publish("map-new", this);
 // }
 
-MM.Command.ZoomIn = Object.create(MM.Command, {
+Command.ZoomIn = Object.create(Command, {
 	label: { value: "Zoom in" },
 	keys: { value: [{ charCode: "+".charCodeAt(0) }] }
 });
-MM.Command.ZoomIn.execute = function () {
+Command.ZoomIn.execute = function () {
 	MM.App.zoom(1);
 }
 
-MM.Command.ZoomOut = Object.create(MM.Command, {
+Command.ZoomOut = Object.create(Command, {
 	label: { value: "Zoom out" },
 	keys: { value: [{ charCode: "-".charCodeAt(0) }] }
 });
-MM.Command.ZoomOut.execute = function () {
+Command.ZoomOut.execute = function () {
 	MM.App.zoom(-1);
 }
 
 
-MM.Command.Pan = Object.create(MM.Command, {
+Command.Pan = Object.create(Command, {
 	label: { value: "Pan the map" },
 	keys: {
 		value: [
@@ -228,7 +229,7 @@ MM.Command.Pan = Object.create(MM.Command, {
 	},
 	chars: { value: [] }
 });
-MM.Command.Pan.execute = function (e) {
+Command.Pan.execute = function (e) {
 	var ch = String.fromCharCode(e.keyCode);
 	var index = this.chars.indexOf(ch);
 	if (index > -1) { return; }
@@ -242,7 +243,7 @@ MM.Command.Pan.execute = function (e) {
 	this._step();
 }
 
-MM.Command.Pan._step = function () {
+Command.Pan._step = function () {
 	var dirs = {
 		"W": [0, 1],
 		"A": [-1, 0],
@@ -259,7 +260,7 @@ MM.Command.Pan._step = function () {
 	MM.App.map.moveBy(15 * offset[0], 15 * offset[1]);
 }
 
-MM.Command.Pan.handleEvent = function (e) {
+Command.Pan.handleEvent = function (e) {
 	var ch = String.fromCharCode(e.keyCode);
 	var index = this.chars.indexOf(ch);
 	if (index > -1) {
@@ -271,7 +272,7 @@ MM.Command.Pan.handleEvent = function (e) {
 	}
 }
 
-MM.Command.Copy = Object.create(MM.Command, {
+Command.Copy = Object.create(Command, {
 	label: { value: "Copy" },
 	prevent: { value: false },
 	keys: {
@@ -281,11 +282,11 @@ MM.Command.Copy = Object.create(MM.Command, {
 		]
 	}
 });
-MM.Command.Copy.execute = function () {
+Command.Copy.execute = function () {
 	MM.Clipboard.copy(MM.App.current);
 }
 
-MM.Command.Cut = Object.create(MM.Command, {
+Command.Cut = Object.create(Command, {
 	label: { value: "Cut" },
 	prevent: { value: false },
 	keys: {
@@ -295,11 +296,11 @@ MM.Command.Cut = Object.create(MM.Command, {
 		]
 	}
 });
-MM.Command.Cut.execute = function () {
+Command.Cut.execute = function () {
 	MM.Clipboard.cut(MM.App.current);
 }
 
-MM.Command.Paste = Object.create(MM.Command, {
+Command.Paste = Object.create(Command, {
 	label: { value: "Paste" },
 	prevent: { value: false },
 	keys: {
@@ -309,20 +310,20 @@ MM.Command.Paste = Object.create(MM.Command, {
 		]
 	}
 });
-MM.Command.Paste.execute = function () {
+Command.Paste.execute = function () {
 	MM.Clipboard.paste(MM.App.current);
 }
 
-MM.Command.Fold = Object.create(MM.Command, {
+Command.Fold = Object.create(Command, {
 	label: { value: "Fold/Unfold" },
 	keys: { value: [{ charCode: "f".charCodeAt(0), ctrlKey: false }] }
 });
-MM.Command.Fold.execute = function () {
+Command.Fold.execute = function () {
 	var item = MM.App.current;
 	if (item.isCollapsed()) { item.expand(); } else { item.collapse(); }
 	MM.App.map.ensureItemVisibility(item);
 }
-MM.Command.Edit = Object.create(MM.Command, {
+Command.Edit = Object.create(Command, {
 	label: { value: "Edit item" },
 	keys: {
 		value: [
@@ -331,7 +332,7 @@ MM.Command.Edit = Object.create(MM.Command, {
 		]
 	}
 });
-MM.Command.Edit.execute = function () {
+Command.Edit.execute = function () {
 	if (MM.App.current._data.disableEdit) return;
 	MM.App.current.startEditing();
 	MM.App.editing = true;
@@ -344,23 +345,23 @@ MM.Command.Edit.execute = function () {
 	selection.addRange(range)
 }
 
-MM.Command.Finish = Object.create(MM.Command, {
+Command.Finish = Object.create(Command, {
 	keys: { value: [{ keyCode: 13, altKey: false, ctrlKey: false, shiftKey: false }] },
 	editMode: { value: true }
 });
-MM.Command.Finish.execute = function () {
+Command.Finish.execute = function () {
 	MM.App.editing = false;
 	var text = MM.App.current.stopEditing();
 	// if (text) {
-		var action = new MM.Action.SetText(MM.App.current, text, MM.App.current._oldText);
+		var action = this.remind.action.SetText(MM.App.current, text, MM.App.current._oldText);
 	// } else {
-		// var action = new MM.Action.RemoveItem(MM.App.current);
+		// var action = this.remind.action.RemoveItem(MM.App.current);
 	// }
 	MM.App.action(action);
 	MM.publish("item-change", MM.App.current);
 }
 
-MM.Command.Newline = Object.create(MM.Command, {
+Command.Newline = Object.create(Command, {
 	label: { value: "Line break" },
 	keys: {
 		value: [
@@ -370,7 +371,7 @@ MM.Command.Newline = Object.create(MM.Command, {
 	},
 	editMode: { value: true }
 });
-MM.Command.Newline.execute = function () {
+Command.Newline.execute = function () {
 	var range = getSelection().getRangeAt(0);
 	var br = document.createElement("br");
 	range.insertNode(br);
@@ -378,69 +379,69 @@ MM.Command.Newline.execute = function () {
 	MM.App.current.updateSubtree();
 }
 
-MM.Command.Cancel = Object.create(MM.Command, {
+Command.Cancel = Object.create(Command, {
 	editMode: { value: true },
 	keys: { value: [{ keyCode: 27 }] }
 });
-MM.Command.Cancel.execute = function () {
+Command.Cancel.execute = function () {
 	MM.App.editing = false;
 	MM.App.current.stopEditing();//还原文字
 	var oldText = MM.App.current._oldText;
 	if (!oldText) { /* newly added node */
-		var action = new MM.Action.RemoveItem(MM.App.current);
+		var action = this.remind.action.RemoveItem(MM.App.current);
 		MM.App.action(action);
 	}
 }
 
-MM.Command.Style = Object.create(MM.Command, {
+Command.Style = Object.create(Command, {
 	editMode: { value: null },
 	command: { value: "" }
 });
 
-MM.Command.Style.execute = function () {
+Command.Style.execute = function () {
 	if (MM.App.editing) {
 		document.execCommand(this.command, null, null);
 	} else {
-		MM.Command.Edit.execute();
+		Command.Edit.execute();
 		var selection = getSelection();
 		var range = selection.getRangeAt(0);
 		range.selectNodeContents(MM.App.current.getDOM().text);
 		selection.removeAllRanges();
 		selection.addRange(range);
 		this.execute();
-		MM.Command.Finish.execute();
+		Command.Finish.execute();
 	}
 }
 
-MM.Command.Bold = Object.create(MM.Command.Style, {
+Command.Bold = Object.create(Command.Style, {
 	command: { value: "bold" },
 	label: { value: "Bold" },
 	keys: { value: [{ keyCode: "B".charCodeAt(0), ctrlKey: true }] }
 });
 
-MM.Command.Underline = Object.create(MM.Command.Style, {
+Command.Underline = Object.create(Command.Style, {
 	command: { value: "underline" },
 	label: { value: "Underline" },
 	keys: { value: [{ keyCode: "U".charCodeAt(0), ctrlKey: true }] }
 });
 
-MM.Command.Italic = Object.create(MM.Command.Style, {
+Command.Italic = Object.create(Command.Style, {
 	command: { value: "italic" },
 	label: { value: "Italic" },
 	keys: { value: [{ keyCode: "I".charCodeAt(0), ctrlKey: true }] }
 });
 
-MM.Command.Strikethrough = Object.create(MM.Command.Style, {
+Command.Strikethrough = Object.create(Command.Style, {
 	command: { value: "strikeThrough" },
 	label: { value: "Strike-through" },
 	keys: { value: [{ keyCode: "S".charCodeAt(0), ctrlKey: true, shiftKey: true }] }
 });
 
-MM.Command.Value = Object.create(MM.Command, {
+Command.Value = Object.create(Command, {
 	label: { value: "Set value" },
 	keys: { value: [{ charCode: "v".charCodeAt(0), ctrlKey: false, metaKey: false }] }
 });
-MM.Command.Value.execute = function () {
+Command.Value.execute = function () {
 	var item = MM.App.current;
 	var oldValue = item.getValue();
 	var newValue = prompt("Set item value", oldValue);
@@ -449,43 +450,43 @@ MM.Command.Value.execute = function () {
 	if (!newValue.length) { newValue = null; }
 
 	var numValue = parseFloat(newValue);
-	var action = new MM.Action.SetValue(item, isNaN(numValue) ? newValue : numValue);
+	var action = this.remind.action.SetValue(item, isNaN(numValue) ? newValue : numValue);
 	MM.App.action(action);
 }
 
-MM.Command.Yes = Object.create(MM.Command, {
+Command.Yes = Object.create(Command, {
 	label: { value: "Yes" },
 	keys: { value: [{ charCode: "y".charCodeAt(0), ctrlKey: false }] }
 });
-MM.Command.Yes.execute = function () {
+Command.Yes.execute = function () {
 	var item = MM.App.current;
 	var status = (item.getStatus() == "yes" ? null : "yes");
-	var action = new MM.Action.SetStatus(item, status);
+	var action = this.remind.action.SetStatus(item, status);
 	MM.App.action(action);
 }
 
-MM.Command.No = Object.create(MM.Command, {
+Command.No = Object.create(Command, {
 	label: { value: "No" },
 	keys: { value: [{ charCode: "n".charCodeAt(0), ctrlKey: false }] }
 });
-MM.Command.No.execute = function () {
+Command.No.execute = function () {
 	var item = MM.App.current;
 	var status = (item.getStatus() == "no" ? null : "no");
-	var action = new MM.Action.SetStatus(item, status);
+	var action = this.remind.action.SetStatus(item, status);
 	MM.App.action(action);
 }
 
-// MM.Command.Computed = Object.create(MM.Command, {
+// Command.Computed = Object.create(Command, {
 // 	label: { value: "Computed" },
 // 	keys: { value: [{ charCode: "c".charCodeAt(0), ctrlKey: false, metaKey: false }] }
 // });
-// MM.Command.Computed.execute = function () {
+// Command.Computed.execute = function () {
 // 	var item = MM.App.current;
 // 	var status = (item.getStatus() == "computed" ? null : "computed");
-// 	var action = new MM.Action.SetStatus(item, status);
+// 	var action = this.remind.action.SetStatus(item, status);
 // 	MM.App.action(action);
 // }
-MM.Command.Select = Object.create(MM.Command, {
+Command.Select = Object.create(Command, {
 	label: { value: "Move selection" },
 	keys: {
 		value: [
@@ -496,7 +497,7 @@ MM.Command.Select = Object.create(MM.Command, {
 		]
 	}
 });
-MM.Command.Select.execute = function (e) {
+Command.Select.execute = function (e) {
 	var dirs = {
 		37: "left",
 		38: "top",
@@ -510,31 +511,31 @@ MM.Command.Select.execute = function (e) {
 	MM.App.select(item);
 }
 
-MM.Command.SelectRoot = Object.create(MM.Command, {
+Command.SelectRoot = Object.create(Command, {
 	label: { value: "Select root" },
 	keys: { value: [{ keyCode: 36 }] }
 });
-MM.Command.SelectRoot.execute = function () {
+Command.SelectRoot.execute = function () {
 	var item = MM.App.current;
 	while (!item.isRoot()) { item = item.getParent(); }
 	MM.App.select(item);
 }
 
-MM.Command.SelectParent = Object.create(MM.Command, {
+Command.SelectParent = Object.create(Command, {
 	label: { value: "Select parent" },
 	keys: { value: [{ keyCode: 8 }] }
 });
-MM.Command.SelectParent.execute = function () {
+Command.SelectParent.execute = function () {
 	if (MM.App.current.isRoot()) { return; }
 	MM.App.select(MM.App.current.getParent());
 }
 
 
-MM.Command.DeleteIcon = Object.create(MM.Command, {
+Command.DeleteIcon = Object.create(Command, {
 	label: { value: "Delete Icon" },
 	keys: { value: [{ keyCode: "I".charCodeAt(0) }] }
 });
-MM.Command.DeleteIcon.execute = function (target) {
+Command.DeleteIcon.execute = function (target) {
 	const key = target.getAttribute("data-key")
 	if (key) {
 		var item = MM.App.current;
@@ -544,4 +545,4 @@ MM.Command.DeleteIcon.execute = function (target) {
 }
 
 
-export default MM.Command;
+export default Command;
