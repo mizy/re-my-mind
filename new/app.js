@@ -2,6 +2,7 @@ import Menu from "./View/Menu";
 import Command from './Control/Command';
 import Page from './Model/Page';
 import './index.less'
+// import MouseManager from './Control/Mou'
 /**
  * @class
  */
@@ -23,13 +24,15 @@ class Remind {
             showHeadTitle:false,
             disableEdit:false,// 阻止触发该Item或所有的MM.Command.Edit
             headTitle: " - 脑图",
+            spaceX:60,
+            spaceY:5,
             colors: ['#fec936', '#f88b15', '#fe7e4d', '#ec6d7a', '#ef3224', '#9bc039', '#67c97e', '#00a7cd', '#40b5c6', '#2da4ff', '#956fe7', '#882e99', '#FF84BA'],
         }, options);
         this.container = container;
 
         this.initDOM();
 
-        // this.command = new Command(this);
+        this.command = new Command(this);
         // this.menu = new Menu(this);
         // this.keyboard = new KeyBoard(this)
         // this.mouseManager = new MouseManager(this)
@@ -39,12 +42,6 @@ class Remind {
 
         this.addEvents();
 		return this;  
-    }
-
-    select(item){
-        if (this.current && this.current != item) { this.current.deselect(); }
-		this.current = item;
-		this.current.select();
     }
 
     deselect(){

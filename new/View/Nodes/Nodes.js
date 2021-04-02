@@ -1,11 +1,7 @@
 export default {
     nodes:{
-        default:(data,container)=>{
-            // 生成text
-            const text = document.createElement('div');
-            text.className = 'item-text';
-            text.innerHTML = data.text;
-            container.appendChild(text);
+        default:(item,container)=>{
+            const {data} = item;
             // 生成icon
             const iconDOM = document.createElement('ul');
             iconDOM.className = 'item-icon';
@@ -16,7 +12,22 @@ export default {
                     iconList += `<li class="${icon[key]}" data-key="${key}"></li>`;
             }
             iconDOM.innerHTML = iconList;
+            item.iconDOM = iconDOM;
             container.appendChild(iconDOM);
+            // 生成text
+            const text = document.createElement('div');
+            text.className = 'item-text';
+            text.innerHTML = data.text;
+            item.textDOM = text;
+            container.appendChild(text);
+             // 生成note
+             const note = document.createElement('div');
+             note.className = 'item-note';
+             note.innerHTML = data.note;
+             item.noteDOM = note;
+             note.style.display = data.note?'inline-block':'none'
+             container.appendChild(note);
+             
         }
     },
     

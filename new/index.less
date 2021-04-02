@@ -16,16 +16,38 @@
 	}
 	.remind-scroll{
 		position: relative;
-		display:flex;
-		justify-content: center;
-    	align-items: center;
-		@import "./style/item.less";
-		@import "./style/menu.less" ;
-
-	}
-	canvas {
-		position: absolute;
-		left: 0;
-		top: 0;
+        .remind-page{
+            position: absolute;
+            left:0;
+            top:0;
+            .remind-canvas{
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+            .remind-selection{
+                position: absolute;
+                left:0;
+                top:0;
+                z-index: 1;
+                display: none;
+                transition: all 100ms ease-out;
+                pointer-events: none;
+                &:after{
+                    transition: all 100ms ease-out;
+                    content:' ';
+                    display: block;
+                    width:calc(100% + 6px);
+                    height: calc(100% + 6px);
+                    position: absolute;
+                    left:-5px;
+                    top:-5px;
+                    border:2px solid blue;
+                }
+            }
+            @import "./style/item.less";
+            @import "./style/menu.less" ;
+        }
+       
 	}
 } 

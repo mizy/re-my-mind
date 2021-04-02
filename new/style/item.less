@@ -2,6 +2,13 @@
 	position: absolute;
     top:0;
     left:0;
+    padding:10px;
+    padding: 4px 10px;
+    background-color: #4a90e2;
+    color: #fff;
+    border-radius: 3px;
+    cursor: pointer;
+    user-select: none;
     .item-text{
         display: inline-block;
     }
@@ -9,65 +16,49 @@
 		z-index: 1;
 		display: inline-block;
 	}
-	.cut {
-		opacity: 0.5;
-	}
-	&.collapsed .children {
-		display: none;
-	}
-
-	.content {
-		display: flex;
-		position: absolute;
-		cursor: pointer;
-		padding: 5px;
-		border-radius: 5px;
-		
-		> * {
-			vertical-align: middle;
-		}
-		.text {
-			z-index:1;
-			min-width: 1px;
-			text-align: left;
-			display: inline-block;
-			min-height: 22px;
-			word-wrap: break-word;
-			white-space: nowrap;
-			word-break: break-all;
-			// line-height: 1.3em;
-			font-weight: normal;
-			outline: none;
-			user-select: none;
-			-webkit-user-select:none;
-			-moz-user-select:none;
-		}
-		.multi-line{
-			white-space: normal;
-		}
-
-		.value,.status {
-			margin-right: 0.2em;
-		}
-
-		.text ~ .value,.text ~ .status {
-			margin-left: 0.2em;
-			margin-right: 0;
-		}
-
-		.value {
-			opacity: 0.7;
-			display: none;
-		}
-
-		.value:not(:empty):before {
-			content: "(";
-		}
-
-		.value:not(:empty):after {
-			content: ")";
-		}
-	}
+    .remind-toggle{
+        position: absolute;
+        right:-15px;
+        top:calc(50% - 6px);
+        display: none;
+        cursor: pointer;
+        padding-left:15px;
+        >div{
+            width:12px;
+            height: 12px;
+            border:1px solid #4a90e2;
+            border-radius: 6px;
+            text-align: center;
+            display: inline-block;
+            background: #fff;
+            color: black;
+            font-size: 12px;
+            line-height: 8px;
+        }
+        >.toggle-off{
+            display: block;
+        }
+        >.toggle-on{
+            display: none;
+        }
+        &:hover{
+            display: block;
+        }
+        &.toggled{
+            display: block;
+            >.toggle-off{
+                display: none;
+            }
+            >.toggle-on{
+                display: block;
+            }
+        }
+    }
+    &:hover{
+        .remind-toggle{
+            display: block;
+        }
+    }
 }
 
 
