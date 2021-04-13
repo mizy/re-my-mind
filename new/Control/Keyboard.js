@@ -7,31 +7,31 @@ class Keyboard{
         this.init();
     }
     init = function () {
-        window.addEventListener("keydown", this);
-        window.addEventListener("keypress", this);
+        window.addEventListener("keydown", this.onKeyDown);
+        window.addEventListener("keypress", this.onKeyDown);
     }
     destroy = ()=>{
-        window.removeEventListener("keydown", this);
-        window.removeEventListener("keypress", this);
+        window.removeEventListener("keydown", this.onKeyDown);
+        window.removeEventListener("keypress", this.onKeyDown);
     }
     
-    handleEvent = function (e) {
-        /* mode 2a: ignore keyboard when the activeElement resides somewhere inside of the UI pane */
-        if (["TEXTAREA", "INPUT"].indexOf(document.activeElement.tagName) > -1 && document.activeElement.className !== "re-mind-clip") {
+    onKeyDown = (e)=> {
+        if (["TEXTAREA", "INPUT"].indexOf(document.activeElement.tagName) > -1 && document.activeElement.className !== "remind-clip") {
             return;
         }
         //只读模式
-        if(MM.App.readonly){
+        if(this.remind.options.readonly){
             return;
         }
         
-        var commands = MM.Command.getAll();
-        for (var i = 0; i < commands.length; i++) {
-            var command = commands[i];
-            if (!command.isValid()) { continue; }
-            var keys = command.keys;
-            for (var j = 0; j < keys.length; j++) {
-                if (this._keyOK(keys[j], e)) {
+        const {commandNames,commandMap} = this.remind.command;
+        for (let i = 0; i < commandNames.length; i++) {
+            const name = commandNames[i];
+            const command = commandMap.get(name);
+            if (!command||!command.isValid()) { continue; }
+            const keys = command.keys;
+            for (let j = 0; j < keys.length; j++) {
+                if (this.checkKey(keys[j], e)) {
                     command.prevent && e.preventDefault();
                     command.execute(e);
                     return;
@@ -40,10 +40,10 @@ class Keyboard{
         }
     }
     
-    _keyOK = function (key, e) {
+    checkKey = function (key, e) {
         if ("keyCode" in key && e.type != "keydown") { return false; }
         if ("charCode" in key && e.type != "keypress") { return false; }
-        for (var p in key) {
+        for (let p in key) {
             if (key[p] != e[p]) { return false; }
         }
         return true;

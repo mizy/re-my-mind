@@ -7,18 +7,18 @@ const Command = {
 
 Command.isValid = function () {
     const remind = this.remind;
-	if (remind.note.status === "show") {
-		return false;
-	}
-	if (!this.editMode && !remind.editing) {
-		return true;
-	}
-	if (this.editMode === null) {
-		return true;
-	}
-	if (this.editMode && remind.editing) {
-		return true;
-	}
+	// if (remind.note.status === "show") {
+	// 	return false;
+	// }
+	// if (!this.editMode && !remind.editing) {
+	// 	return true;
+	// }
+	// if (this.editMode === null) {
+	// 	return true;
+	// }
+	// if (this.editMode && remind.editing) {
+	// 	return true;
+	// }
 	return false
 }
 Command.execute = function () { }
@@ -90,13 +90,12 @@ Command.InsertChild = Object.create(Command, {
 	}
 });
 Command.InsertChild.execute = function () {
-	var item = MM.App.current;
-	var action = this.remind.action.InsertNewItem(item, item.getChildren().length);
-	MM.App.action(action);
+	const item = this.remind.page.current;
+	const action = this.remind.action.InsertNewItem(item, item.getChildren().length);
+	 
 	if(MM.App.options.autoEdit&&!action._item._data.disableEdit){
 		Command.Edit.execute();
 	}
-
 	MM.publish("command-child");
 }
 

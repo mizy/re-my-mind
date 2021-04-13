@@ -1,6 +1,10 @@
-import Menu from "./View/Menu";
+
 import Command from './Control/Command';
+import KeyBoard from './Control/Keyboard'
+
 import Page from './Model/Page';
+import Menu from "./View/Menu";
+
 import './index.less'
 // import MouseManager from './Control/Mou'
 /**
@@ -26,6 +30,7 @@ class Remind {
             headTitle: " - 脑图",
             spaceX:60,
             spaceY:5,
+            readonly:false,
             colors: ['#fec936', '#f88b15', '#fe7e4d', '#ec6d7a', '#ef3224', '#9bc039', '#67c97e', '#00a7cd', '#40b5c6', '#2da4ff', '#956fe7', '#882e99', '#FF84BA'],
         }, options);
         this.container = container;
@@ -34,7 +39,7 @@ class Remind {
 
         this.command = new Command(this);
         // this.menu = new Menu(this);
-        // this.keyboard = new KeyBoard(this)
+        this.keyboard = new KeyBoard(this)
         // this.mouseManager = new MouseManager(this)
         // this.clipManager = new ClipManager(this);
         this.page = new Page(this);

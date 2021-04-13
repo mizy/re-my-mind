@@ -134,6 +134,12 @@ class Item {
             this.toggleDOM.classList.remove('toggled')
         }
     }
+    
+    expand(){
+        if(this.data.shrink){
+            this.onToggleClick();
+        }
+    }
 
      /**
      * 更新样式
