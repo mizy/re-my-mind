@@ -1,30 +1,5 @@
 
-
-const Command = {
-	keys:[],
-	editMode:false,
-	prevent: true , /* prevent default keyboard action? */
-	label:  "" 
-};
-
-Command.isValid = function () {
-    const remind = this.remind;
-	// if (remind.note.status === "show") {
-	// 	return false;
-	// }
-	// if (!this.editMode && !remind.editing) {
-	// 	return true;
-	// }
-	// if (this.editMode === null) {
-	// 	return true;
-	// }
-	// if (this.editMode && remind.editing) {
-	// 	return true;
-	// }
-	return true
-}
-Command.execute = function () { }
-
+ 
 // Command.Undo = Object.create(Command, {
 // 	label: { value: "Undo" },
 // 	keys: {
@@ -58,27 +33,7 @@ Command.execute = function () { }
 // 	MM.App.historyIndex++;
 // 	MM.publish("redo", MM.App.historyIndex)
 // }
-
-Command.InsertSibling = Object.create(Command, {
-	label: { value: "Insert a sibling" },
-	keys: { value: [{ keyCode: 13 }] }
-});
-Command.InsertSibling.execute = function () {
-	var item = this.remind.page.current;
-	if (item.isRoot()) {
-		var action = this.remind.action.execute('InsertNewItem',item, item.getChildren().length);
-	} else {
-		var parent = item.getParent();
-		var index = parent.getChildren().indexOf(item);
-		var action = this.remind.action.InsertNewItem(parent, index + 1);
-	}
-
-	if(this.remind.options.autoEdit&&!action._item._data.disableEdit){
-		// Command.Edit.execute();
-
-	}
-
-}
+ 
 
 Command.InsertChild = Object.create(Command, {
 	label: { value: "Insert a child" },
@@ -322,27 +277,27 @@ Command.InsertChild.execute = function () {
 // 	if (item.isCollapsed()) { item.expand(); } else { item.collapse(); }
 // 	MM.App.map.ensureItemVisibility(item);
 // }
-// Command.Edit = Object.create(Command, {
-// 	label: { value: "Edit item" },
-// 	keys: {
-// 		value: [
-// 			{ keyCode: 32 },
-// 			{ keyCode: 113 }
-// 		]
-// 	}
-// });
-// Command.Edit.execute = function () {
-// 	if (MM.App.current._data.disableEdit) return;
-// 	MM.App.current.startEditing();
-// 	MM.App.editing = true;
-// 	const text = MM.App.current.getText();
-// 	if(!text)return;
-// 	const range = document.createRange();
-// 	range.selectNodeContents(MM.App.current._dom.text);
-// 	const selection = window.getSelection();
-// 	selection.removeAllRanges();
-// 	selection.addRange(range)
-// }
+Command.Edit = Object.create(Command, {
+	label: { value: "Edit item" },
+	keys: {
+		value: [
+			{ keyCode: 32 },
+			{ keyCode: 113 }
+		]
+	}
+});
+Command.Edit.execute = function () {
+	if (MM.App.current._data.disableEdit) return;
+	MM.App.current.startEditing();
+	MM.App.editing = true;
+	const text = MM.App.current.getText();
+	if(!text)return;
+	const range = document.createRange();
+	range.selectNodeContents(MM.App.current._dom.text);
+	const selection = window.getSelection();
+	selection.removeAllRanges();
+	selection.addRange(range)
+}
 
 // Command.Finish = Object.create(Command, {
 // 	keys: { value: [{ keyCode: 13, altKey: false, ctrlKey: false, shiftKey: false }] },

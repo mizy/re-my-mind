@@ -26,7 +26,8 @@ class Item {
     constructor(page,option={}){
         const {
             depth,
-            data={},
+            data={
+            },
             visible=true
         } = option;
         this.page = page;
