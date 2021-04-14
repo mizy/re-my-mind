@@ -6,7 +6,7 @@ class History{
     }
     
 	action(action) {
-		MM.fire("action",action);
+		this.remind.fire("action",action);
 		if(action.stop)return;
 		if (this.historyIndex < this.history.length) {
 			this.history.splice(this.historyIndex, this.history.length - this.historyIndex);
@@ -22,4 +22,4 @@ class History{
         this.historyIndex = 0;
     }
 }
-export default History();
+export default History;

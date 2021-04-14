@@ -23,11 +23,12 @@ class Item {
 
     rect = {} // 当前节点及下游所有节点的rect
     contentRect = undefined // 当前节点内容dom的rect
-    constructor(page,{
-        depth,
-        data,
-        visible=true
-    }){
+    constructor(page,option={}){
+        const {
+            depth,
+            data={},
+            visible=true
+        } = option;
         this.page = page;
         this.depth = depth;
         this.remind = page.remind;
@@ -75,7 +76,7 @@ class Item {
                 depth:this.depth+1,
                 visible:!shrink&&this.visible
             });
-            this.insertChild(childItem)
+            this.insertChild(childItem,undefined,false)
         })
     }
 
@@ -240,7 +241,7 @@ class Item {
         pageDOM.style.transform = `matrix(1, 0, 0, 1, ${scrollLeft+remindRect.width/2-this.x},${scrollTop+remindRect.height/2-this.y})`
     }
 
-    insertChild(child,index){
+    insertChild(child,index,ifUpdate=true){
         if(child.parent){
             child.parent.removeChild(child)
         }
@@ -253,6 +254,10 @@ class Item {
         child.depth = this.depth+1;
         child.parent = this;
         this.dom.appendChild(this.toggleDOM);
+        if(ifUpdate){
+            child.update();
+        }
+        return child;
     }
 
     removeChild(child){

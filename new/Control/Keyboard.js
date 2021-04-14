@@ -14,21 +14,36 @@ class Keyboard{
         window.removeEventListener("keydown", this.onKeyDown);
         window.removeEventListener("keypress", this.onKeyDown);
     }
+
+    isValid(){
+        const remind = this.remind;
+        // if (remind.note.status === "show") {
+        // 	return false;
+        // }
+        // if (!this.editMode && !remind.editing) {
+        // 	return true;
+        // }
+        // if (this.editMode === null) {
+        // 	return true;
+        // }
+        // if (this.editMode && remind.editing) {
+        // 	return true;
+        // }
+        return true
+    }
     
     onKeyDown = (e)=> {
         if (["TEXTAREA", "INPUT"].indexOf(document.activeElement.tagName) > -1 && document.activeElement.className !== "remind-clip") {
             return;
         }
         //只读模式
-        if(this.remind.options.readonly){
+        if(this.remind.options.readonly||!this.isValid()){
             return;
         }
         
-        const {commandNames,commandMap} = this.remind.command;
-        for (let i = 0; i < commandNames.length; i++) {
-            const name = commandNames[i];
-            const command = commandMap.get(name);
-            if (!command||!command.isValid()) { continue; }
+        const {commandMap} = this.remind.command;
+        commandMap.forEach(command=>{
+            if (!command||!command.isValid()) { return; }
             const keys = command.keys;
             for (let j = 0; j < keys.length; j++) {
                 if (this.checkKey(keys[j], e)) {
@@ -37,7 +52,7 @@ class Keyboard{
                     return;
                 }
             }
-        }
+        })
     }
     
     checkKey = function (key, e) {

@@ -3,7 +3,9 @@ import Command from './Control/Command';
 import KeyBoard from './Control/Keyboard'
 
 import Page from './Model/Page';
+import Action from './Control/Action';
 import Menu from "./View/Menu";
+import History from './Control/History';
 
 import './index.less'
 // import MouseManager from './Control/Mou'
@@ -38,6 +40,8 @@ class Remind {
         this.initDOM();
 
         this.command = new Command(this);
+        this.action = new Action(this);
+        this.history = new History(this);
         // this.menu = new Menu(this);
         this.keyboard = new KeyBoard(this)
         // this.mouseManager = new MouseManager(this)

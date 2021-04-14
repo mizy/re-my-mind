@@ -17,7 +17,7 @@ export default {
             // 生成text
             const text = document.createElement('div');
             text.className = 'item-text';
-            text.innerHTML = data.text;
+            text.innerHTML = data.text===undefined?'':data.text;
             item.textDOM = text;
             container.appendChild(text);
              // 生成note

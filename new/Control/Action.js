@@ -1,4 +1,4 @@
-import getAllActions from './Actions'
+import getAllActions from './Actions/Actions'
 
 /**
  * @class
@@ -16,6 +16,7 @@ class Action{
 
         const action = new ActionConstructor(...others);
         this.remind.history.action(action);
+        return action;
 	}
  
     destroy(){
