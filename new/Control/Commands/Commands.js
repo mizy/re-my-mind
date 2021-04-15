@@ -304,15 +304,15 @@ Command.Edit.execute = function () {
 // 	editMode: { value: true }
 // });
 // Command.Finish.execute = function () {
-// 	MM.App.editing = false;
-// 	var text = MM.App.current.stopEditing();
-// 	// if (text) {
-// 		var action = this.remind.action.SetText(MM.App.current, text, MM.App.current._oldText);
-// 	// } else {
-// 		// var action = this.remind.action.RemoveItem(MM.App.current);
-// 	// }
-// 	MM.App.action(action);
-// 	MM.publish("item-change", MM.App.current);
+	// MM.App.editing = false;
+	// var text = MM.App.current.stopEditing();
+	// // if (text) {
+	// 	var action = this.remind.action.SetText(MM.App.current, text, MM.App.current._oldText);
+	// // } else {
+	// 	// var action = this.remind.action.RemoveItem(MM.App.current);
+	// // }
+	// MM.App.action(action);
+	// MM.publish("item-change", MM.App.current);
 // }
 
 // Command.Newline = Object.create(Command, {

@@ -14,30 +14,14 @@ class Keyboard{
         window.removeEventListener("keydown", this.onKeyDown);
         window.removeEventListener("keypress", this.onKeyDown);
     }
-
-    isValid(){
-        const remind = this.remind;
-        // if (remind.note.status === "show") {
-        // 	return false;
-        // }
-        // if (!this.editMode && !remind.editing) {
-        // 	return true;
-        // }
-        // if (this.editMode === null) {
-        // 	return true;
-        // }
-        // if (this.editMode && remind.editing) {
-        // 	return true;
-        // }
-        return true
-    }
+ 
     
     onKeyDown = (e)=> {
         if (["TEXTAREA", "INPUT"].indexOf(document.activeElement.tagName) > -1 && document.activeElement.className !== "remind-clip") {
             return;
         }
         //只读模式
-        if(this.remind.options.readonly||!this.isValid()){
+        if(this.remind.options.readonly){
             return;
         }
         

@@ -60,7 +60,14 @@ class Item {
     }
 
     addEvents(){
-        this.dom.addEventListener("click",this.onClick)
+        this.dom.addEventListener("click",this.onClick);
+        this.dom.addEventListener("dblclick",this.onDoubleClick);
+        this.textDOM.addEventListener("keydown",this.onKeyDown);
+        this.textDOM.addEventListener("blur",this.onBlur);
+    }
+
+    onDoubleClick = (event)=>{
+        this.remind.command.execute("Edit")
     }
 
     onClick = (event)=>{
@@ -222,9 +229,39 @@ class Item {
         // this.toggleDOM.style.color = color;
         // this.toggleDOM.style.backgroundColor = color;
     }
+ 
+    startEdit=()=>{
+        this.oldText = this.data.text;
+        const {textDOM,dom} = this;
+        textDOM.contentEditable = true;
+        textDOM.focus();
+        dom.style.zIndex = 1000;//不会被盖住 
+    }
+
+    stopEdit = ()=>{
+        const {textDOM,dom} = this;
+        textDOM.contentEditable = false;
+        dom.style.zIndex = 0;//不会被盖住 
+        this.data.text = textDOM.innerHTML;
+        textDOM.blur();
+    }
+
+    setText(text){
+        this.data.text = text;
+        this.updateContent();
+        this.update();
+    }
+
+    onKeyDown=()=>{
+
+    }
+
+    onBlur=()=>{
+        this.remind.command.execute("Finish")
+    }
 
     getAutoShape(){
-        if(!this.depth){this.getDepth()}
+        if(!this.depth){this.depth}
         // switch (this.depth) {
         //     case 0: return MM.Shape[theme.main];
         //     case 1: return MM.Shape[theme.second];
@@ -232,11 +269,7 @@ class Item {
         // }
         return 'box'
     }
-
-    getDepth(){
-
-    }
-
+ 
     center(){
         const {scrollLeft,scrollTop,dom:pageDOM,remindRect} = this.page;
         pageDOM.style.transform = `matrix(1, 0, 0, 1, ${scrollLeft+remindRect.width/2-this.x},${scrollTop+remindRect.height/2-this.y})`
@@ -278,7 +311,10 @@ class Item {
 
     clearEvents(){
         if(this.dom){
-            this.dom.removeEventListener("click",this.onClick)
+            this.dom.removeEventListener("click",this.onClick);
+            this.dom.removeEventListener("dblclick",this.onDoubleClick)
+            this.textDOM.removeEventListener("keydown",this.onKeyDown)
+            this.textDOM.removeEventListener("blur",this.onBlur)
         }
     }
 

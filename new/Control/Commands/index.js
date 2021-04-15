@@ -1,27 +1,44 @@
-import getAllActions from "../Actions/Actions";
 
-const getAllCommands = (remind)=>[
+const getAllCommands = (remind)=>{
+    const isValid = ()=>{
+        // if (MM.App.note.status === "show") {
+        //     return false;
+        // }
+        // if (!this.editMode && !MM.App.editing) {
+        //     return true;
+        // }
+        // if (this.editMode === null) {
+        //     return true;
+        // }
+        // if (this.editMode && MM.App.editing) {
+        //     return true;
+        // }
+        return true;
+    }
+    return [
     {
         name:"InsertSibling",
         keys:[{ keyCode: 13 }],
         prevent:true,
+        isValid,
         execute : function () {
-            const item = this.remind.page.current;
+            const item = remind.page.current;
             if (item.isRoot()) {
                 var action = this.remind.action.execute('InsertNewItem',item, item.getChildren().length);
             } else {
                 var parent = item.getParent();
                 var index = parent.getChildren().indexOf(item);
-                var action = this.remind.action.InsertNewItem(parent, index + 1);
+                var action = remind.action.InsertNewItem(parent, index + 1);
             }
         
-            if(this.remind.options.autoEdit&&!action._item._data.disableEdit){
+            if(remind.options.autoEdit&&!action._item._data.disableEdit){
                 Command.Edit.execute();
             }
         }
     },
     {
         name:'InsertChild',
+        isValid,
         prevent:true,
         keys:[
 			{ keyCode: 9, ctrlKey: false },
@@ -43,8 +60,28 @@ const getAllCommands = (remind)=>[
 			{ keyCode: 113 }
 		],
         execute : function(){
-
+            if(remind.page.current){
+                const range = document.createRange();
+                range.selectNodeContents(remind.page.current.textDOM);
+                const selection = window.getSelection();
+                selection.removeAllRanges();
+                selection.addRange(range)
+                remind.page.current.startEdit();
+            }
+        }
+    },{
+        name:"Finish",
+        keys:[{ keyCode: 13, altKey: false, ctrlKey: false, shiftKey: false }],
+        execute : function(){
+            const item = remind.page.current;
+            item.stopEdit();
+            if(item.data.text===item.oldText){
+                return;
+            }
+            remind.action.execute('SetText',item, item.data.text, item.oldText);
+            remind.fire("item-change", item);
         }
     }
 ]
+}
 export default getAllCommands;
