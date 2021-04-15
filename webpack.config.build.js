@@ -42,7 +42,9 @@ let webpackConfig = {
 					{
 						loader: "less-loader",
 						options: {
-							javascriptEnabled: true
+							lessOptions:{
+								javascriptEnabled: true
+							}
 						}
 					}
 				]
