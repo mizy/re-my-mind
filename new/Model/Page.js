@@ -9,7 +9,6 @@ class Page {
         this.position = [0, 0]; 
         this.initDOM();
         this.initCanvas();
-        this.initSelection();
         if (this.options.data) {
             this.setData(this.options.data);
         } else {
@@ -52,13 +51,7 @@ class Page {
         this.canvas.className = 'remind-canvas'
         this.canvasContext = this.canvas.getContext('2d');
         this.dom.appendChild(this.canvas);
-    }
-
-    initSelection(){
-        this.selection = document.createElement('div');
-        this.selection.className = 'remind-selection';
-        this.dom.appendChild(this.selection)
-    }
+    } 
 
     setData(data){
         this.root&&this.root.destroy();
@@ -73,7 +66,7 @@ class Page {
 
     addEvents(){
         this.dom.addEventListener("click",this.onClickPage);
-        this.dom.addEventListener("mousedown",this.onMouseDown);
+        // this.dom.addEventListener("mousedown",this.onMouseDown);
     }
 
     onMouseDown(event){
@@ -98,19 +91,12 @@ class Page {
         if(item===this.current){
             return ;
         }
-        this.current = item;
-        const {contentRect,x,y} = item;
-        this.selection.style.width = contentRect.width+'px';
-        this.selection.style.height = contentRect.height+'px';
-        this.selection.style.left = x + 'px';
-        this.selection.style.top = y + 'px';
-        this.selection.style.display = 'block';
+        this.current = item; 
         this.current.dom.classList.add('active');
     }
 
     deselect(){
         if(!this.current)return;
-        this.selection.style.display = 'none';
         this.current.dom.classList.remove('active');
         this.current = undefined;
     }

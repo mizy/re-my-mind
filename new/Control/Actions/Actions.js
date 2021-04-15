@@ -165,16 +165,16 @@ const getAllActions = (remind) => {
 	};
 
 	Action.SetText = function (item, text, oldText) {
-		this._item = item;
-		this._text = text;
-		this._oldText = oldText === undefined ? item.getText() : oldText;
+		this.item = item;
+		this.text = text;
+		this.oldText = oldText === undefined ? item.data.text : oldText;
 	};
 	Action.SetText.prototype = Object.create(Action.prototype);
 	Action.SetText.prototype.perform = function () {
-		this._item.setText(this._text);
+		this.item.setText(this.text);
 	};
 	Action.SetText.prototype.undo = function () {
-		this._item.setText(this._oldText);
+		this.item.setText(this.oldText);
 	};
 
 	Action.SetIcon = function (item, icon, type) {
