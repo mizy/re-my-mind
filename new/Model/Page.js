@@ -19,6 +19,7 @@ class Page {
                     children:[{
                         text:'abc',
                         shrink:true,
+                        shape:"underline",
                         children:[
                             {
                                 text:'abc'
@@ -29,8 +30,10 @@ class Page {
                             }
                         ]
                     },{
+                        shape:"underline",
                         text:'abc2',
                     },{
+                        shape:"underline",
                         text:'abc3',
                     }]
                 },
@@ -131,6 +134,22 @@ class Page {
         this.updateCanvasStyle();
         this.updateRootWidth();
         this.render();
+        this.refusePosition();
+    }
+
+    rememberPosition(item){
+        this.oldPosition={
+            item,
+            x:item.x,
+            y:item.y
+        }
+    }
+
+    refusePosition(){
+        if(!this.oldPosition)return;
+        const {x,y,item} = this.oldPosition;
+        this.translate(this.x-(item.x-x),this.y-(item.y-y));
+        return this.oldPosition = undefined
     }
     
     updateCanvasStyle(){
@@ -150,8 +169,6 @@ class Page {
         this.remind.dom.style.height = height+'px';
         this.scrollLeft = (width-remindRect.width)/2;
         this.scrollTop = (height-remindRect.height)/2;
-        this.remind.remindDOM.scrollLeft = this.scrollLeft;
-        this.remind.remindDOM.scrollTop = this.scrollTop;
         /**
          * 最外层容器的rect
          * @var 
@@ -165,6 +182,11 @@ class Page {
         this.root.render();
     }
 
+    translate(x,y){
+        this.dom.style.transform = `matrix(1, 0, 0, 1, ${x},${y})`;
+        this.x = x;
+        this.y = y;
+    }
 
     resetTheme(reRender) {
         this.root.resetTheme();

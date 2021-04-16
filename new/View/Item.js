@@ -119,6 +119,7 @@ class Item {
     onToggleClick =()=>{
         this.data.shrink = !this.data.shrink;
         this.updateToggle();
+        this.page.rememberPosition(this);
         if(!this.data.shrink){
             this.updateVisible(this.children,true)
             this.update();
@@ -217,7 +218,7 @@ class Item {
     }
 
     getShape(){
-        return this.shape||this.getAutoShape();
+        return this.data.shape||this.getAutoShape();
     }
 
     getColor(){
@@ -229,21 +230,43 @@ class Item {
         // this.toggleDOM.style.color = color;
         // this.toggleDOM.style.backgroundColor = color;
     }
+
+    isVisible(){
+        const {x,y} = this;
+        const {remindRect,x:pageX,y:pageY} = this.page;
+        const {scrollLeft,scrollTop} = this.remind.remindDOM;
+        const globalX = x+pageX+this.contentRect.width/2;
+        const globalY = y+pageY+this.contentRect.height/2;
+        const right = scrollLeft+remindRect.width;
+        const bottom = scrollTop+remindRect.height;
+        if(globalX<right&&globalX>scrollLeft&&globalY>scrollTop&&globalY<bottom){
+            return true;
+        }
+        return false;
+    }
  
     startEdit=()=>{
         this.oldText = this.data.text;
         const {textDOM,dom} = this;
         textDOM.contentEditable = true;
         textDOM.focus();
+        if(!this.isVisible()){
+            this.center();
+        }
+        this.page.editing = true;
         dom.style.zIndex = 1000;//不会被盖住 
     }
 
     stopEdit = ()=>{
+        this.page.editing = false;
         const {textDOM,dom} = this;
         textDOM.contentEditable = false;
         dom.style.zIndex = 0;//不会被盖住 
         this.data.text = textDOM.innerHTML;
         textDOM.blur();
+        if(!this.data.text){
+            this.parent.removeChild(this)
+        }
     }
 
     setText(text){
@@ -252,8 +275,10 @@ class Item {
         this.update();
     }
 
-    onKeyDown=()=>{
-
+    onKeyDown=(e)=>{
+        if (e.keyCode == 9) { //tab
+            e.preventDefault(); 
+        }
     }
 
     onBlur=()=>{
@@ -271,9 +296,13 @@ class Item {
     }
  
     center(){
-        const {scrollLeft,scrollTop,dom:pageDOM,remindRect} = this.page;
-        pageDOM.style.transform = `matrix(1, 0, 0, 1, ${scrollLeft+remindRect.width/2-this.x},${scrollTop+remindRect.height/2-this.y})`
+        const {scrollLeft,scrollTop,remindRect} = this.page;
+        this.page.translate(scrollLeft+remindRect.width/2-this.x,scrollTop+remindRect.height/2-this.y)
+        this.remind.remindDOM.scrollLeft = scrollLeft;
+        this.remind.remindDOM.scrollTop = scrollTop;
     }
+
+    
 
     insertChild(child,index,ifUpdate=true){
         if(child.parent){

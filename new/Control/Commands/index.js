@@ -4,16 +4,16 @@ const getAllCommands = (remind)=>{
         // if (MM.App.note.status === "show") {
         //     return false;
         // }
-        // if (!this.editMode && !MM.App.editing) {
-        //     return true;
-        // }
+        if (!remind.page.editing) {
+            return true;
+        }
         // if (this.editMode === null) {
         //     return true;
         // }
         // if (this.editMode && MM.App.editing) {
         //     return true;
         // }
-        return true;
+        return false;
     }
     return [
     {
