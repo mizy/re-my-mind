@@ -9,7 +9,7 @@
 	"main": "dist/re-my-mind.js",
 	"scripts": {
 		"start": "webpack serve",
-		"build": "webpack -p --config webpack.config.build.js",
+		"build": "webpack --config webpack.config.build.js",
 		"build:demo": "webpack -p --config webpack.config.js",
 		"doc": "jsdoc -d doc src/**/*.js"
 	},
@@ -34,6 +34,7 @@
 		"babel-loader": "^8.2.2",
 		"babel-plugin-import": "^1.13.3",
 		"css-loader": "^5.2.1",
+		"eslint": "^7.24.0",
 		"file-loader": "^6.2.0",
 		"less": "^4.1.1",
 		"less-loader": "^8.1.0",

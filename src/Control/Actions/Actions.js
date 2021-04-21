@@ -63,17 +63,24 @@ const getAllActions = (remind) => {
 
 	Action.RemoveItem = function (item) {
 		this._item = item;
-		this._parent = item.getParent();
-		this._index = this._parent.getChildren().indexOf(this._item);
+		this._parent = item.parent;
+		this._index = this._parent.children.indexOf(this._item);
+		this.data = item.getData();
 	};
 	Action.RemoveItem.prototype = Object.create(Action.prototype);
 	Action.RemoveItem.prototype.perform = function () {
 		this._parent.removeChild(this._item);
-		MM.App.select(this._parent);
+		this._item.destroy();
+		remind.page.select(this._parent);
 	};
 	Action.RemoveItem.prototype.undo = function () {
-		this._parent.insertChild(this._item, this._index);
-		MM.App.select(this._item);
+		const childItem = new Item(remind.page,{
+			data:this.data,
+			depth:this._parent.depth+1,
+			visible:!this._parent.data.shrink&&this._parent.visible
+		});
+		this._parent.insertChild(childItem, this._index);
+		remind.page.select(this._item);
 	};
 
 	Action.MoveItem = function (item, newParent, newIndex, newSide) {

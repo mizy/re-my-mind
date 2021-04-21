@@ -1,0 +1,18 @@
+{
+    "extends": "eslint:recommended",
+    "rules":{
+        "space-infix-ops":"warn",
+        "no-unused-vars":"warn",
+        "no-undef":"off"
+    },
+    "parserOptions": {
+        "ecmaVersion": 8,
+        "sourceType": "module"
+    },
+    "env":{
+        "browser": true,
+        "node": true,
+        "es2020":true
+    },
+    "parser":"babel-eslint"
+}

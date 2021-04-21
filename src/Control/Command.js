@@ -1,4 +1,4 @@
-import getAllCommands from './Commands/'
+import getAllCommands from './Commands'
 
 /**
  * @class

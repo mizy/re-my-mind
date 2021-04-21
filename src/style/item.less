@@ -1,142 +1,105 @@
-.item {
+.remind-item {
 	position: absolute;
-	.re-mind-icon {
+    top:0;
+    left:0;
+    padding: 4px 10px;
+    color: #123;
+    border-radius: 3px;
+    cursor: pointer;
+    user-select: none;
+    // z-index: 1;
+    &::before{
+        content: ' ';
+        width:100%;
+        height: 100%;
+        position: absolute;
+        top:-4px;
+        left:-4px;
+        padding:2px;
+        display: none;
+    }
+    .item-text{
+        display: inline-block;
+        border:none;
+        outline: none;
+        white-space: nowrap;
+    }
+	.item-icon {
 		z-index: 1;
 		display: inline-block;
 	}
-	.cut {
-		opacity: 0.5;
-	}
-	&.collapsed .children {
-		display: none;
-	}
-
-	.content {
-		display: flex;
-		position: absolute;
-		cursor: pointer;
-		padding: 5px;
-		border-radius: 5px;
-		
-		> * {
-			vertical-align: middle;
-		}
-		.text {
-			z-index:1;
-			min-width: 1px;
-			text-align: left;
-			display: inline-block;
-			min-height: 22px;
-			word-wrap: break-word;
-			white-space: nowrap;
-			word-break: break-all;
-			// line-height: 1.3em;
-			font-weight: normal;
-			outline: none;
-			user-select: none;
-			-webkit-user-select:none;
-			-moz-user-select:none;
-		}
-		.multi-line{
-			white-space: normal;
-		}
-
-		.value,.status {
-			margin-right: 0.2em;
-		}
-
-		.text ~ .value,.text ~ .status {
-			margin-left: 0.2em;
-			margin-right: 0;
-		}
-
-		.value {
-			opacity: 0.7;
-			display: none;
-		}
-
-		.value:not(:empty):before {
-			content: "(";
-		}
-
-		.value:not(:empty):after {
-			content: ")";
-		}
-	}
+    .remind-toggle{
+        position: absolute;
+        right:-15px;
+        top:calc(50% - 6px);
+        display: none;
+        cursor: pointer;
+        padding-left:4px;
+        >div{
+            width:12px;
+            height: 12px;
+            border:1px solid #4a90e2;
+            border-radius: 6px;
+            text-align: center;
+            display: inline-block;
+            background: #fff;
+            color: black;
+            font-size: 12px;
+            line-height: 8px;
+        }
+        >.toggle-off{
+            display: block;
+        }
+        >.toggle-on{
+            display: none;
+        }
+        &:hover{
+            display: block;
+        }
+        &.toggled{
+            display: block;
+            >.toggle-off{
+                display: none;
+            }
+            >.toggle-on{
+                display: block;
+            }
+        }
+    }
+    &:hover{
+        .remind-toggle{
+            display: block;
+        }
+        &::before{
+            border:2px solid #779ecc;
+            display: block;
+        }
+    }
+    &.active{
+        .remind-toggle{
+            display: block;
+        }
+        &::before{
+            border:2px solid #0775f3;
+            display: block;
+        }
+    }
 }
-
+@import 'theme/index.less';
 
 .shape-box{
-	> .content {
-		padding: 4px 10px;
-		background-color: #4a90e2;
-		color: #fff;
-		border-radius: 3px;
-		.text,.note-button{
-			min-height: 25px;
-			font-size: 18px;
-		}
-	}
+    background-color: #4a90e2;
+	color:#fff;
 }
-.shape-ellipse {
-	> .content {
-		border: 1px solid transparent;
-		padding: 10px 20px;
-		color: #fff;
-		.text,.note-button{
-			min-height: 33px;
-			font-size: 24px;
-		}
-	}
+.shape-underline {
+	padding: 4px 5px;
 }
-
-/* root */
-> .item {
-	> .content {
-		font-weight: bold;
-		border-width: 2px;
-		font-size: 140%;
-		color: #fff;
-		border: 0;
-		background-color: rgb(80, 194, 139);
-	}
-	>.toggle{
-		display: none;
-	}
+.shape-ellipse{
+    padding: 10px 10px;
+	color:#fff;
+	background-color: #39ac03;
 }
-
-.current > .content {
-	&:before {
-		content: " ";
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		left: -6px;
-		top: -6px;
-		box-sizing: content-box;
-		border: 2px solid #7cb9ff;
-		padding: 4px;
-	}
-}
-// 第三级以后的节点外壳hover
-> .item > .children > .item > .children .current > .content:before {
-	left: -2px;
-	top: -2px;
-	padding: 0px;
-}
-.note-button::after{
-		font-family: "iconfont" !important;
-		font-style: normal;
-		content:"\e6db";
-}
-.note-button{
-	margin-left:5px;
-	z-index: 1;
-}
-:not(.current):not(.collapsed) > .toggle {
-	/* NOT display:none - we need to have non-zero dimensions for layouting */
-	visibility: hidden;
-}
+ 
 .mm-note{
 	display: flex;
 	flex-direction: column;

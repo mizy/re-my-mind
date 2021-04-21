@@ -4,6 +4,9 @@ const getAllCommands = (remind)=>{
         // if (MM.App.note.status === "show") {
         //     return false;
         // }
+        if(!remind.page.current) {
+            return
+        }
         if (!remind.page.editing) {
             return true;
         }
@@ -75,11 +78,26 @@ const getAllCommands = (remind)=>{
         execute : function(){
             const item = remind.page.current;
             item.stopEdit();
+            if(!item.data.text){
+                remind.action.execute('RemoveItem',item);
+                remind.fire("item-change", item);
+            }
             if(item.data.text===item.oldText){
                 return;
             }
             remind.action.execute('SetText',item, item.data.text, item.oldText);
             remind.fire("item-change", item);
+            
+        }
+    },{
+        name:"Delete",
+        keys:[{ keyCode: 46 }, { keyCode: 8 }],
+        isValid:function() {
+            return isValid() && !remind.page.current.isRoot();
+        },
+        execute:function () {
+            const item = remind.page.current;
+            remind.action.execute('RemoveItem',item);
         }
     }
 ]

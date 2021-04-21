@@ -54,17 +54,17 @@ Command.InsertChild.execute = function () {
 	MM.publish("command-child");
 }
 
-// Command.Delete = Object.create(Command, {
-// 	label: { value: "Delete an item" },
-// 	keys: { value: [{ keyCode: 46 }, { keyCode: 8 }] }
-// });
-// Command.Delete.isValid = function () {
-// 	return Command.isValid.call(this) && !MM.App.current.isRoot();
-// }
-// Command.Delete.execute = function () {
-// 	var action = this.remind.action.RemoveItem(MM.App.current);
-// 	MM.App.action(action);
-// }
+Command.Delete = Object.create(Command, {
+	label: { value: "Delete an item" },
+	keys: { value: [{ keyCode: 46 }, { keyCode: 8 }] }
+});
+Command.Delete.isValid = function () {
+	return Command.isValid.call(this) && !MM.App.current.isRoot();
+}
+Command.Delete.execute = function () {
+	var action = this.remind.action.RemoveItem(MM.App.current);
+	MM.App.action(action);
+}
 
 // Command.Swap = Object.create(Command, {
 // 	label: { value: "Swap sibling" },
