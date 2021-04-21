@@ -1,5 +1,5 @@
 {
-    "extends": "eslint:recommended",
+    "extends": ["eslint:recommended","plugin:react/recommended"],
     "rules":{
         "space-infix-ops":"warn",
         "no-unused-vars":"warn",
@@ -7,12 +7,17 @@
     },
     "parserOptions": {
         "ecmaVersion": 8,
-        "sourceType": "module"
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
     },
     "env":{
         "browser": true,
         "node": true,
         "es2020":true
     },
-    "parser":"babel-eslint"
+    "plugins": [
+        "react"
+    ]
 }
