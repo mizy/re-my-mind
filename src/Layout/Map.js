@@ -3,7 +3,7 @@ import Line from './Lines';
 class MapLayout {
     LINE_THICKNESS = 8;
     name = 'map';
-	constructor(page,direction='auto') {
+	constructor(page,direction = 'auto') {
 		this.page = page;
         this.line =  {...Line,...Line.map};
 		this.remind = page.remind;
@@ -11,14 +11,14 @@ class MapLayout {
 	}
 
 	update(item) {
-        if (!item.children || item.children.length < 1||item.data.shrink) {
+        if (!item.children || item.children.length < 1 || item.data.shrink) {
 			// 已经是最后一级的情况,容器bbox和item bbox相同
 			item.rect = item.contentRect;
             item.relativePos = {x:0,y:0};
             item.originPos = {x:0,y:0}
 			return false;
 		}
-        if(this.direction==='auto'&&item.isRoot()){
+        if(this.direction === 'auto' && item.isRoot()){
             return this.layoutAutoItem(item);
         }
 		this.layoutItem(item, this.direction);
@@ -42,43 +42,44 @@ class MapLayout {
         const rightChildren = [];
         const leftChildren = [];
         // 计算子元素的位置,两边布局
-        const offsetX = contentRect.width+2*spaceX;
+        const offsetX = contentRect.width + 2 * spaceX;
         item.children.forEach((child,index)=>{
-            if(index%2===0){
+            const {relativePos,contentRect} = child;
+            if(index % 2 === 0){
                 child.position = {
                     x:0,
                     y:rightBBox.height
                 }
                 rightChildren.push(child);
                 rightBBox.width = Math.max(rightBBox.width,child.rect.width);
-                rightBBox.height += child.rect.height + spaceY;
+                rightBBox.height += Math.max(child.rect.height,(relativePos.y * 2 + contentRect.height)) + spaceY;
             }else{
                 
                 child.position = {
-                    x:-child.rect.width-offsetX,
+                    x:-child.rect.width - offsetX,
                     y:leftBBox.height
                 }
                 leftChildren.push(child);
                 leftBBox.width = Math.max(leftBBox.width,child.rect.width);
-                leftBBox.height += child.rect.height + spaceY;
+                leftBBox.height += Math.max(child.rect.height,(relativePos.y * 2 + contentRect.height)) + spaceY;
             }
         })
-        if(rightBBox.height>0){
+        if(rightBBox.height > 0){
             rightBBox.height -= spaceY;
         }
-        if(leftBBox.height>0){
+        if(leftBBox.height > 0){
             leftBBox.height -= spaceY;
         }
         item.originPos = {
             x:leftBBox.width + offsetX,
             y:0
         }
-        let bigChildren =[];
+        let bigChildren = [];
         let smallChildren = [];
         let bigBBox = {};
-        const disY = 0.5*Math.abs(leftBBox.height - rightBBox.height);
+        const disY = 0.5 * Math.abs(leftBBox.height - rightBBox.height);
         // 高度小的一侧垂直居中
-        if(leftBBox.height>rightBBox.height){
+        if(leftBBox.height > rightBBox.height){
             bigChildren = leftChildren;
             smallChildren = rightChildren;
             bigBBox = leftBBox;
@@ -88,26 +89,26 @@ class MapLayout {
             bigBBox = rightBBox
         }
         smallChildren.forEach(child=>{
-            child.position.y+=disY;
+            child.position.y += disY;
         })
         // 居中当前节点
         const centerY = this.getCenterY(bigChildren,bigBBox);
         const centerDis = centerY - contentRect.height / 2
-        if(centerDis>0){
+        if(centerDis > 0){
             item.relativePos = {
-                x:-(contentRect.width+spaceX),
+                x:-(contentRect.width + spaceX),
                 y: centerDis,//自动布局的默认不会有下划线
             }
         }else{
-            item.children.forEach(child=>child.position.y-=centerDis);// 主节点特别大的情况
+            item.children.forEach(child=>child.position.y -= centerDis);// 主节点特别大的情况
             item.relativePos = {
-                x:-(contentRect.width+spaceX),
+                x:-(contentRect.width + spaceX),
                 y: 0 
             }
         }
         
         item.rect = {
-            width:spaceX*2+leftBBox.width+contentRect.width+rightBBox.width,
+            width:spaceX * 2 + leftBBox.width + contentRect.width + rightBBox.width,
             height:Math.max(bigBBox.height,contentRect.height)
         }
         item.leftChildren = leftChildren;
@@ -116,10 +117,10 @@ class MapLayout {
 
     getCenterY(children,bbox){
         const firstChild = children[0];
-        const lastChild = children[children.length-1];
-        const firstLineY = firstChild.getShape().indexOf('underline')>-1?firstChild.contentRect.height:firstChild.contentRect.height*0.5;
-        const lastLineY = bbox.height - (lastChild.getShape().indexOf('underline')>-1?0:lastChild.contentRect.height*0.5);
-        const centerY = (firstLineY+lastLineY)*0.5;
+        const lastChild = children[children.length - 1];
+        const firstLineY = firstChild.getShape().indexOf('underline') > -1 ? firstChild.contentRect.height : firstChild.contentRect.height * 0.5;
+        const lastLineY = bbox.height - (lastChild.getShape().indexOf('underline') > -1 ? 0 : lastChild.contentRect.height * 0.5);
+        const centerY = (firstLineY + lastLineY) * 0.5;
         return centerY;
     }
 
@@ -135,23 +136,33 @@ class MapLayout {
 		const { contentRect } = item;
         const { spaceX = 60 } = this.remind.options;
 
-        const itemDistanceX = spaceX + (direction==='right'?contentRect.width:0);
+        const itemDistanceX = spaceX + (direction === 'right' ? contentRect.width : 0);
         item.originPos = {
-            x:direction==='right'?itemDistanceX:bbox.width,
+            x:direction === 'right' ? itemDistanceX : bbox.width,
             y:0
         } 
         const centerY = this.getCenterY(item.children,bbox)
-        if (shape.indexOf('underline') == -1) {
-			item.relativePos = {
-				x: (direction==='right'?-1:1)*itemDistanceX,
-				y: centerY - contentRect.height / 2,
-			};
-		} else {
-			item.relativePos = {
-				x: (direction==='right'?-1:1)*itemDistanceX,
-				y: centerY - contentRect.height,
-			};
-		}
+        const centerDis = centerY - contentRect.height / 2
+        if(centerDis < 0){
+            item.children.forEach(child=>child.position.y -= centerDis);// 主节点特别大的情况
+            item.relativePos = {
+                x: (direction === 'right' ? -1 : 1) * itemDistanceX,
+                y: 0,
+            };
+        }else{
+            if (shape.indexOf('underline') == -1) {
+                item.relativePos = {
+                    x: (direction === 'right' ? -1 : 1) * itemDistanceX,
+                    y: centerY - contentRect.height / 2,
+                };
+            } else {
+                item.relativePos = {
+                    x: (direction === 'right' ? -1 : 1) * itemDistanceX,
+                    y: centerY - contentRect.height,
+                };
+            }
+        }
+       
         if(direction === 'right'){
             item.leftChildren = [];
             item.rightChildren = item.children;
@@ -159,9 +170,10 @@ class MapLayout {
             item.leftChildren = item.children;
             item.rightChildren = [];
         }
+       
 		item.rect = {
 			width: bbox.width + spaceX + contentRect.width,
-			height: Math.max(item.relativePos.y+contentRect.height, bbox.height),
+			height: Math.max(item.relativePos.y + contentRect.height, bbox.height),
 		};
 	}
 
@@ -175,7 +187,7 @@ class MapLayout {
 	 * |y
 	 * @param {*} items
 	 */
-	getChildrenBBox(items,direction='right') {
+	getChildrenBBox(items,direction = 'right') {
 		const { spaceY = 5 } = this.remind.options;
 		const bbox = {
 			width: 0,
@@ -183,17 +195,17 @@ class MapLayout {
 		};
 		for (let i = 0; i < items.length; i++) {
 			const child = items[i];
-			const {rect,relativePos,contentRect}= child;
+			const {rect,relativePos,contentRect} = child;
 			if (rect.width > bbox.width) {
 				bbox.width = rect.width;
 			}
             child.side = direction;
 			// 计算子元素在父容器的相对坐标
 			child.position = {
-				x: direction==='right'?0:-rect.width,
+				x: direction === 'right' ? 0 : -rect.width,
 				y: bbox.height,
 			};
-			bbox.height += Math.max(rect.height,(relativePos.y*2+contentRect.height)) + spaceY;// 让父节点在整个局部范围内垂直居中
+			bbox.height += Math.max(rect.height,(relativePos.y * 2 + contentRect.height)) + spaceY;// 让父节点在整个局部范围内垂直居中
 		}
 		bbox.height -= spaceY;
 		return bbox;
@@ -216,25 +228,25 @@ class MapLayout {
      */
     drawTaperingConnector(item){
         const itemPos = {
-            x:item.x+item.contentRect.width*0.5,
-            y:item.y+item.contentRect.height*0.5
+            x:item.x + item.contentRect.width * 0.5,
+            y:item.y + item.contentRect.height * 0.5
         }
         const {canvasContext:ctx} = this.page;
-        const halfThick = this.LINE_THICKNESS/2;
+        const halfThick = this.LINE_THICKNESS / 2;
         item.children.forEach(child=>{
             let x,y;
             const shape = child.getShape();
             x = child.x;
-            const isUnderLine = shape.indexOf('underline')>-1;
+            const isUnderLine = shape.indexOf('underline') > -1;
             // 下划线情况，终点坐标要不太一样
             if(isUnderLine){
-                y = child.y+child.contentRect.height;
+                y = child.y + child.contentRect.height;
             }else{
-                y = child.y+child.contentRect.height/2;
+                y = child.y + child.contentRect.height / 2;
             }
-            const angle = Math.atan2(y-itemPos.y,x-itemPos.x) + Math.PI/2;
-            const dx = Math.cos(angle)*halfThick;
-            const dy = Math.sin(angle)*halfThick;
+            const angle = Math.atan2(y - itemPos.y,x - itemPos.x) + Math.PI / 2;
+            const dx = Math.cos(angle) * halfThick;
+            const dy = Math.sin(angle) * halfThick;
             ctx.fillStyle = ctx.strokeStyle = child.getColor();
             ctx.beginPath();
             ctx.moveTo(itemPos.x - dx, itemPos.y - dy);

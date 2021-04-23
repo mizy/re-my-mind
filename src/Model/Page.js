@@ -4,28 +4,27 @@ const data = (()=>{
     const data = {
         root: {
             text:'Root',
-            layout: 'map',
+            layout: 'map-right',
+            color:"blue",
             children:[]
         }
     } 
-    let n = 0;
     function make(item,number,depth,index){
         let total = number;
-        while(number>0){
+        while(number > 0){
             const child = {
                 text:`${depth}-${index}-${number}`,
                 color:"red",
                 children:[]
             }
             item.children.push(child);
-            n++; 
             number--;
-            if(depth>0){
-                make(child,total,depth-1,item.children.length);
+            if(depth > 0){
+                make(child,total,depth - 1,item.children.length);
             }
         }
     }
-    make(data.root,1,1,1);
+    make(data.root,0,0,1);
     return data;
 })();
 class Page {
@@ -44,6 +43,7 @@ class Page {
         } else {
             this.setData(data);
         }
+        // 延时进行操作
         requestAnimationFrame(()=>{
             this.show();
         })
@@ -77,12 +77,14 @@ class Page {
         this.dom.appendChild(this.canvas);
         this.dom.appendChild(this.svg);
         const g = document.createElementNS("http://www.w3.org/2000/svg","g");
+        g.setAttribute("tansform",'translate(5px,5px)');
         this.svg.appendChild(g);
+        this.svg.classList.add("remind-canvas")
         this.svgConatiner = g;
     } 
 
     setData(data){
-        this.root&&this.root.destroy();
+        this.root && this.root.destroy();
         const root = new Item(this,{
             depth:0
         });
@@ -95,7 +97,6 @@ class Page {
     
 
     onMouseDown(event){
-        const startEvent = event;
         const onMouseUp = ()=>{
             window.removeEventListener("mousemove",onMouseMove);
             window.removeEventListener('mouseup',onMouseUp)
@@ -109,7 +110,7 @@ class Page {
 
     select(item){
         this.deselect();
-        if(item===this.current){
+        if(item === this.current){
             return ;
         }
         this.current = item; 
@@ -156,7 +157,7 @@ class Page {
     }
 
     rememberPosition(item){
-        this.oldPosition={
+        this.oldPosition = {
             item,
             x:item.x,
             y:item.y
@@ -166,19 +167,19 @@ class Page {
     refusePosition(){
         if(!this.oldPosition)return;
         const {x,y,item} = this.oldPosition;
-        this.translate(this.x-(item.x-x),this.y-(item.y-y));
+        this.translate(this.x - (item.x - x),this.y - (item.y - y));
         return this.oldPosition = undefined
     }
 
     updateRootWidth() {
         const rect = this.root.rect;
         const remindRect = this.remind.container.getBoundingClientRect();
-        const width = Math.max(rect.width*3,remindRect.width*3);
-        const height = Math.max(rect.height*3,remindRect.height*3)
-        this.remind.dom.style.width = width+'px';
-        this.remind.dom.style.height = height+'px';
-        this.scrollLeft = (width-remindRect.width)/2;
-        this.scrollTop = (height-remindRect.height)/2;
+        const width = Math.max(rect.width * 3,remindRect.width * 3);
+        const height = Math.max(rect.height * 3,remindRect.height * 3)
+        this.remind.dom.style.width = width + 'px';
+        this.remind.dom.style.height = height + 'px';
+        this.scrollLeft = (width - remindRect.width) / 2;
+        this.scrollTop = (height - remindRect.height) / 2;
         /**
          * 最外层容器的rect
          * @var 
@@ -188,8 +189,9 @@ class Page {
     }
 
     render(){
+        this.updateCanvasStyle();
         this.root.render();
-        if(this.options.renderEngine==='canvas'){
+        if(this.options.renderEngine === 'canvas'){
             this.renderCanvas();
         }else{
             this.renderSVG();
@@ -198,16 +200,17 @@ class Page {
 
     updateCanvasStyle(){
         const rect = this.root.rect;
-        this.canvas.width = rect.width+10;
-        this.canvas.height = rect.height+10;
-        this.canvas.style.width = rect.width+10+'px';
-        this.canvas.style.height = rect.height+10+'px';
-        this.svg.style.width = rect.width+10+'px';
-        this.svg.style.height = rect.height+10+'px';
+        this.canvas.width = rect.width + 10;
+        this.canvas.height = rect.height + 10;
+        this.canvas.style.width = rect.width + 10 + 'px';
+        this.canvas.style.height = rect.height + 10 + 'px';
+        this.svg.style.width = rect.width + 10 + 'px';
+        this.svg.style.height = rect.height + 10 + 'px';
+        this.dom.style.width = rect.width + 'px';
+        this.dom.style.height = rect.height + 'px';
     }
 
     renderCanvas(){
-        this.updateCanvasStyle();
         const ctx = this.canvasContext;
         ctx.clearRect(0,0,this.canvas.width,this.canvas.height)
         this.lines.forEach(line=>{
@@ -216,8 +219,8 @@ class Page {
             line.path.forEach(point=>{
                 const {x1,y1,x2,y2,x,y} = point
                 switch(point.type){
-                    case 'bezier3': ctx.bezierCurveTo(x1,y1,x2,y2,x,y);
-                    case 'moveTo': ctx.moveTo(x,y);
+                    case 'bezier3': ctx.bezierCurveTo(x1,y1,x2,y2,x,y);break;
+                    case 'moveTo': ctx.moveTo(x,y);break;
                     default: ctx.lineTo(x,y);break;
                 }
             })
@@ -227,7 +230,6 @@ class Page {
 
     paths = [];
     renderSVG(){
-        this.updateCanvasStyle();
         let end = 0;
         let allStr = '';
         this.lines.forEach((line,index)=>{ 
@@ -240,19 +242,19 @@ class Page {
             line.path.forEach(point=>{
                 const {x1,y1,x2,y2,x,y} = point
                 switch(point.type){
-                    case 'bezier3': pathStr+=` C${x1} ${y1} ${x2} ${y2} ${x} ${y}`;break;
-                    case 'moveTo': pathStr+=`M${x} ${y}`;break;
-                    default: pathStr+=` L${x} ${y}`;
+                    case 'bezier3': pathStr += ` C${x1} ${y1} ${x2} ${y2} ${x} ${y}`;break;
+                    case 'moveTo': pathStr += `M${x} ${y}`;break;
+                    default: pathStr += ` L${x} ${y}`;
                 }
             })
-            allStr+= `<path d='${pathStr}' fill="transparent" stroke='${line.color}' ></path>`
+            allStr += `<path d='${pathStr}' fill="transparent" stroke='${line.color}' ></path>`
             end = index;
         })
         this.svgConatiner.innerHTML = allStr;
         // for(let i = end;i<this.paths.length-end;i++){
         //     this.paths[i].parentElement.removeChild(this.paths[i]);
         // }
-        this.paths.splice(end,this.paths.length-end)
+        this.paths.splice(end,this.paths.length - end)
     }
 
     translate(x,y){

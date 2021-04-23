@@ -24,7 +24,7 @@ return /******/ (() => { // webpackBootstrap
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".re-mind.stright {\n  background-color: #f4f9fa;\n}\n.re-mind.stright .shape-ellipse > .content {\n  border-radius: 10px;\n  background-color: #ff383e;\n  border: 3px solid #ff8d8f;\n  padding: 20px;\n}\n.re-mind.stright .shape-ellipse > .content .text {\n  font-size: 28px;\n}\n.re-mind.box {\n  background-color: #1f2934;\n}\n.re-mind.box > .item > .content {\n  background-color: #1f2934;\n  border: 3px solid #20a5a1;\n  font-size: 48px;\n  padding: 20px;\n  color: #20a5a1;\n}\n.re-mind.box > .item > .content .text {\n  color: #20a5a1;\n  font-size: 28px;\n}\n.re-mind.box > .item > .children > .shape-box > .content {\n  background-color: #20a5a1;\n  color: #000;\n  padding: 10px 20px;\n  border-radius: 10px;\n}\n.re-mind.box > .item > .children > .shape-box > .children .shape-box > .content {\n  background-color: transparent;\n  border: none;\n  color: #20a5a1;\n  padding: 5px;\n  font-size: 22px;\n}\n.remind {\n  overflow: scroll;\n  width: 100%;\n  height: 100%;\n}\n.remind * {\n  box-sizing: border-box;\n}\n.remind ul,\n.remind li {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n}\n.remind ul li,\n.remind li li {\n  list-style: none;\n}\n.remind .remind-scroll {\n  position: relative;\n}\n.remind .remind-scroll .remind-page {\n  position: absolute;\n  left: 0;\n  top: 0;\n}\n.remind .remind-scroll .remind-page .remind-canvas {\n  position: absolute;\n  left: 0;\n  top: 0;\n}\n.remind .remind-scroll .remind-page .remind-selection {\n  position: absolute;\n  left: 0;\n  top: 0;\n  z-index: 1;\n  display: none;\n  transition: all 100ms ease-out;\n  pointer-events: none;\n}\n.remind .remind-scroll .remind-page .remind-selection:after {\n  transition: all 100ms ease-out;\n  content: ' ';\n  display: block;\n  width: calc(100% + 6px);\n  height: calc(100% + 6px);\n  position: absolute;\n  left: -5px;\n  top: -5px;\n  border: 2px solid blue;\n}\n.remind .remind-scroll .remind-page .remind-item {\n  position: absolute;\n  top: 0;\n  left: 0;\n  padding: 4px 10px;\n  color: #123;\n  border-radius: 3px;\n  cursor: pointer;\n  user-select: none;\n}\n.remind .remind-scroll .remind-page .remind-item::before {\n  content: ' ';\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  top: -4px;\n  left: -4px;\n  padding: 2px;\n  display: none;\n}\n.remind .remind-scroll .remind-page .remind-item .item-text {\n  display: inline-block;\n  border: none;\n  outline: none;\n}\n.remind .remind-scroll .remind-page .remind-item .item-icon {\n  z-index: 1;\n  display: inline-block;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle {\n  position: absolute;\n  right: -15px;\n  top: calc(50% - 6px);\n  display: none;\n  cursor: pointer;\n  padding-left: 5px;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle > div {\n  width: 12px;\n  height: 12px;\n  border: 1px solid #4a90e2;\n  border-radius: 6px;\n  text-align: center;\n  display: inline-block;\n  background: #fff;\n  color: black;\n  font-size: 12px;\n  line-height: 8px;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle > .toggle-off {\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle > .toggle-on {\n  display: none;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle:hover {\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle.toggled {\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle.toggled > .toggle-off {\n  display: none;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle.toggled > .toggle-on {\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item:hover .remind-toggle {\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item:hover::before {\n  border: 2px solid #779ecc;\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item.active .remind-toggle {\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item.active::before {\n  border: 2px solid #0775f3;\n  display: block;\n}\n.remind .remind-scroll .remind-page .shape-box {\n  background-color: #4a90e2;\n  color: #fff;\n}\n.remind .remind-scroll .remind-page .shape-underline {\n  padding: 4px 5px;\n}\n.remind .remind-scroll .remind-page .shape-ellipse {\n  padding: 10px 10px;\n  color: #fff;\n  background-color: #39ac03;\n}\n.remind .remind-scroll .remind-page .mm-note {\n  display: flex;\n  flex-direction: column;\n  position: absolute;\n  top: 80px;\n  left: 0px;\n  z-index: 2;\n  background: #fff;\n  transition: opacity, height 300ms ease-in;\n  overflow: hidden;\n  width: 300px;\n  border: 1px solid #efefef;\n  border-radius: 3px;\n  box-shadow: 2px 2px 20px 1px rgba(0, 0, 0, 0.2);\n}\n.remind .remind-scroll .remind-page .mm-note .note-util {\n  height: 30px;\n  width: 100%;\n  border-bottom: 1px solid #efefef;\n  padding-left: 10px;\n  padding-top: 4px;\n}\n.remind .remind-scroll .remind-page .mm-note .note-content {\n  height: 300px;\n  width: 100%;\n  overflow: scroll;\n}\n.remind .remind-scroll .remind-page .mm-note .note-content p {\n  white-space: pre-line;\n  padding: 10px;\n  outline: none;\n  height: 300px;\n  width: 100%;\n}\n.remind .remind-scroll .remind-page .mm-note.hide {\n  height: 0;\n  opacity: 0;\n}\n.remind .remind-scroll .remind-page .menu {\n  outline: none;\n  margin: 0;\n  padding: 5px 0;\n  list-style: none;\n  position: absolute;\n  left: 0;\n  top: 0;\n  z-index: 2;\n  background: #fff;\n  -webkit-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);\n  border-radius: 2px;\n  width: 200px;\n}\n.remind .remind-scroll .remind-page .menu > button {\n  height: 32px;\n  line-height: 32px;\n  padding: 0 20px;\n  color: #666;\n  font-size: 13px;\n  font-weight: 400;\n  cursor: pointer;\n  -webkit-transition: all 0.3s;\n  transition: all 0.3s;\n  white-space: nowrap;\n  display: block;\n  background-color: transparent;\n  border: none;\n  margin: 0;\n  width: 100%;\n  text-align: left;\n}\n.remind .remind-scroll .remind-page .menu > button:hover {\n  background: #efefef;\n}\n.remind .remind-scroll .remind-page .menu span {\n  display: block;\n  border-top: 1px solid #eee;\n  margin-top: 4px;\n  padding-top: 4px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".re-mind.stright {\n  background-color: #f4f9fa;\n}\n.re-mind.stright .shape-ellipse > .content {\n  border-radius: 10px;\n  background-color: #ff383e;\n  border: 3px solid #ff8d8f;\n  padding: 20px;\n}\n.re-mind.stright .shape-ellipse > .content .text {\n  font-size: 28px;\n}\n.re-mind.box {\n  background-color: #1f2934;\n}\n.re-mind.box > .item > .content {\n  background-color: #1f2934;\n  border: 3px solid #20a5a1;\n  font-size: 48px;\n  padding: 20px;\n  color: #20a5a1;\n}\n.re-mind.box > .item > .content .text {\n  color: #20a5a1;\n  font-size: 28px;\n}\n.re-mind.box > .item > .children > .shape-box > .content {\n  background-color: #20a5a1;\n  color: #000;\n  padding: 10px 20px;\n  border-radius: 10px;\n}\n.re-mind.box > .item > .children > .shape-box > .children .shape-box > .content {\n  background-color: transparent;\n  border: none;\n  color: #20a5a1;\n  padding: 5px;\n  font-size: 22px;\n}\n.remind {\n  overflow: scroll;\n  width: 100%;\n  height: 100%;\n}\n.remind * {\n  box-sizing: border-box;\n}\n.remind ul,\n.remind li {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n}\n.remind ul li,\n.remind li li {\n  list-style: none;\n}\n.remind .remind-scroll {\n  position: relative;\n}\n.remind .remind-scroll .remind-page {\n  position: absolute;\n  left: 0;\n  top: 0;\n}\n.remind .remind-scroll .remind-page .remind-canvas {\n  position: absolute;\n  left: 0;\n  top: 0;\n}\n.remind .remind-scroll .remind-page .remind-selection {\n  position: absolute;\n  left: 0;\n  top: 0;\n  z-index: 1;\n  display: none;\n  transition: all 100ms ease-out;\n  pointer-events: none;\n}\n.remind .remind-scroll .remind-page .remind-selection:after {\n  transition: all 100ms ease-out;\n  content: ' ';\n  display: block;\n  width: calc(100% + 6px);\n  height: calc(100% + 6px);\n  position: absolute;\n  left: -5px;\n  top: -5px;\n  border: 2px solid blue;\n}\n.remind .remind-scroll .remind-page .remind-item {\n  position: absolute;\n  top: 0;\n  left: 0;\n  padding: 4px 10px;\n  color: #123;\n  border-radius: 3px;\n  cursor: pointer;\n  user-select: none;\n}\n.remind .remind-scroll .remind-page .remind-item::before {\n  content: ' ';\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  top: -4px;\n  left: -4px;\n  padding: 2px;\n  display: none;\n}\n.remind .remind-scroll .remind-page .remind-item .item-text {\n  display: inline-block;\n  border: none;\n  outline: none;\n  white-space: nowrap;\n}\n.remind .remind-scroll .remind-page .remind-item .item-icon {\n  z-index: 1;\n  display: inline-block;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle {\n  position: absolute;\n  right: -15px;\n  top: calc(50% - 6px);\n  display: none;\n  cursor: pointer;\n  padding-left: 4px;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle > div {\n  width: 12px;\n  height: 12px;\n  border: 1px solid #4a90e2;\n  border-radius: 6px;\n  text-align: center;\n  display: inline-block;\n  background: #fff;\n  color: black;\n  font-size: 12px;\n  line-height: 8px;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle > .toggle-off {\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle > .toggle-on {\n  display: none;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle:hover {\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle.toggled {\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle.toggled > .toggle-off {\n  display: none;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle.toggled > .toggle-on {\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item:hover .remind-toggle {\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item:hover::before {\n  border: 2px solid #779ecc;\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item.active .remind-toggle {\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item.active::before {\n  border: 2px solid #0775f3;\n  display: block;\n}\n.remind .remind-scroll .remind-page .shape-box {\n  background-color: #4a90e2;\n  color: #fff;\n}\n.remind .remind-scroll .remind-page .shape-underline {\n  padding: 4px 5px;\n}\n.remind .remind-scroll .remind-page .shape-ellipse {\n  padding: 10px 10px;\n  color: #fff;\n  background-color: #39ac03;\n}\n.remind .remind-scroll .remind-page .mm-note {\n  display: flex;\n  flex-direction: column;\n  position: absolute;\n  top: 80px;\n  left: 0px;\n  z-index: 2;\n  background: #fff;\n  transition: opacity, height 300ms ease-in;\n  overflow: hidden;\n  width: 300px;\n  border: 1px solid #efefef;\n  border-radius: 3px;\n  box-shadow: 2px 2px 20px 1px rgba(0, 0, 0, 0.2);\n}\n.remind .remind-scroll .remind-page .mm-note .note-util {\n  height: 30px;\n  width: 100%;\n  border-bottom: 1px solid #efefef;\n  padding-left: 10px;\n  padding-top: 4px;\n}\n.remind .remind-scroll .remind-page .mm-note .note-content {\n  height: 300px;\n  width: 100%;\n  overflow: scroll;\n}\n.remind .remind-scroll .remind-page .mm-note .note-content p {\n  white-space: pre-line;\n  padding: 10px;\n  outline: none;\n  height: 300px;\n  width: 100%;\n}\n.remind .remind-scroll .remind-page .mm-note.hide {\n  height: 0;\n  opacity: 0;\n}\n.remind .remind-scroll .remind-page .menu {\n  outline: none;\n  margin: 0;\n  padding: 5px 0;\n  list-style: none;\n  position: absolute;\n  left: 0;\n  top: 0;\n  z-index: 2;\n  background: #fff;\n  -webkit-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);\n  border-radius: 2px;\n  width: 200px;\n}\n.remind .remind-scroll .remind-page .menu > button {\n  height: 32px;\n  line-height: 32px;\n  padding: 0 20px;\n  color: #666;\n  font-size: 13px;\n  font-weight: 400;\n  cursor: pointer;\n  -webkit-transition: all 0.3s;\n  transition: all 0.3s;\n  white-space: nowrap;\n  display: block;\n  background-color: transparent;\n  border: none;\n  margin: 0;\n  width: 100%;\n  text-align: left;\n}\n.remind .remind-scroll .remind-page .menu > button:hover {\n  background: #efefef;\n}\n.remind .remind-scroll .remind-page .menu span {\n  display: block;\n  border-top: 1px solid #eee;\n  margin-top: 4px;\n  padding-top: 4px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -502,10 +502,14 @@ function _defineProperty(obj, key, value) {
 }
 ;// CONCATENATED MODULE: ./src/Control/Commands/index.js
 var getAllCommands = function getAllCommands(remind) {
-  var isValid = function isValid() {
+  var _isValid = function isValid() {
     // if (MM.App.note.status === "show") {
     //     return false;
     // }
+    if (!remind.page.current) {
+      return;
+    }
+
     if (!remind.page.editing) {
       return true;
     } // if (this.editMode === null) {
@@ -525,7 +529,7 @@ var getAllCommands = function getAllCommands(remind) {
       keyCode: 13
     }],
     prevent: true,
-    isValid: isValid,
+    isValid: _isValid,
     execute: function execute() {
       var item = remind.page.current;
 
@@ -543,7 +547,7 @@ var getAllCommands = function getAllCommands(remind) {
     }
   }, {
     name: 'InsertChild',
-    isValid: isValid,
+    isValid: _isValid,
     prevent: true,
     keys: [{
       keyCode: 9,
@@ -588,12 +592,31 @@ var getAllCommands = function getAllCommands(remind) {
       var item = remind.page.current;
       item.stopEdit();
 
+      if (!item.data.text) {
+        remind.action.execute('RemoveItem', item);
+        remind.fire("item-change", item);
+      }
+
       if (item.data.text === item.oldText) {
         return;
       }
 
       remind.action.execute('SetText', item, item.data.text, item.oldText);
       remind.fire("item-change", item);
+    }
+  }, {
+    name: "Delete",
+    keys: [{
+      keyCode: 46
+    }, {
+      keyCode: 8
+    }],
+    isValid: function isValid() {
+      return _isValid() && !remind.page.current.isRoot();
+    },
+    execute: function execute() {
+      var item = remind.page.current;
+      remind.action.execute('RemoveItem', item);
     }
   }];
 };
@@ -791,490 +814,7 @@ var _this = undefined;
     _this.nodes[type] = func;
   }
 });
-;// CONCATENATED MODULE: ./src/Layout/Lines/bezier.js
-function bezier(item) {
-  var spaceX = this.remind.options.spaceX;
-  var isUnderLine = item.getShape().indexOf('underline') > -1;
-  var ctx = this.page.canvasContext;
-  var startPos = {
-    x: item.x + item.contentRect.width / 2 + spaceX / 3,
-    y: item.y + item.contentRect.height / 2
-  }; // 下划线的话给自己底部加上颜色
-
-  if (isUnderLine) {
-    this.line.common.renderUnderline.call(this, ctx, item, startPos);
-  }
-
-  if (item.data.shrink) {
-    return item;
-  }
-
-  item.children.forEach(function (child) {
-    var x, y;
-    var shape = child.getShape();
-    x = child.x;
-    var isUnderLine = shape.indexOf('underline') > -1; // 下划线情况，终点坐标要不太一样
-
-    if (isUnderLine) {
-      y = child.y + child.contentRect.height;
-    } else {
-      y = child.y + child.contentRect.height / 2;
-    }
-
-    var bezierPos = {
-      x1: (startPos.x + x) * 0.5,
-      y1: startPos.y,
-      x2: (startPos.x + x) * 0.5,
-      y2: y
-    };
-    ctx.strokeStyle = child.getColor();
-    ctx.beginPath();
-    ctx.moveTo(startPos.x, startPos.y);
-    ctx.bezierCurveTo(bezierPos.x1, bezierPos.y1, bezierPos.x2, bezierPos.y2, x, y);
-    ctx.stroke();
-  });
-} // 不得使用箭头函数
-
-
-/* harmony default export */ const Lines_bezier = (bezier);
-;// CONCATENATED MODULE: ./src/Layout/Lines/common.js
-function renderUnderline(ctx, item, startPos) {
-  startPos.x = item.x + item.contentRect.width;
-  startPos.y = item.y + item.contentRect.height;
-  ctx.strokeStyle = item.getColor();
-  ctx.beginPath();
-  ctx.moveTo(item.x, item.y + item.contentRect.height);
-  ctx.lineTo(startPos.x, startPos.y);
-  ctx.stroke();
-}
-
-function renderArrow(ctx, middle, end) {
-  var angle = Math.atan2(end.y - middle.y, end.x - middle.x);
-  var topAngle = Math.PI * 5 / 6 + angle;
-  var bottomAngle = -Math.PI * 5 / 6 + angle;
-  var length = 5;
-  var top = {
-    x: end.x + length * Math.cos(topAngle),
-    y: end.y - length * Math.sin(topAngle)
-  };
-  var bottom = {
-    x: end.x + length * Math.cos(bottomAngle),
-    y: end.y - length * Math.sin(bottomAngle)
-  };
-  ctx.moveTo(top.x, top.y);
-  ctx.lineTo(end.x, end.y);
-  ctx.lineTo(bottom.x, bottom.y);
-  console.log(top, end, bottom);
-}
-
-
-;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/readOnlyError.js
-function _readOnlyError(name) {
-  throw new TypeError("\"" + name + "\" is read-only");
-}
-;// CONCATENATED MODULE: ./src/Layout/Lines/polyline.js
-
-
-function polyline(item) {
-  var _this = this;
-
-  var spaceX = this.remind.options.spaceX;
-  var isUnderLine = item.getShape().indexOf('underline') > -1;
-  var ctx = this.page.canvasContext;
-  var startPos = {
-    x: item.x + item.contentRect.width / 2,
-    y: item.y + item.contentRect.height / 2
-  }; // 下划线的话给自己底部加上颜色
-
-  if (isUnderLine) {
-    this.line.common.renderUnderline.call(this, ctx, item, startPos);
-  } // 收缩不绘制子元素
-
-
-  if (item.data.shrink || item.children.length < 1) {
-    return item;
-  }
-
-  var firstChild = item.children[0];
-  var middle = {
-    x: firstChild.x - spaceX / 2,
-    y: startPos.y
-  };
-  var side = 'right';
-
-  if (firstChild.x > item.x) {//右边
-  } else {
-    //左边
-    side = 'left';
-    middle = (_readOnlyError("middle"), {
-      x: item.x - spaceX / 2,
-      y: startPos.y
-    });
-  }
-
-  ctx.beginPath();
-  ctx.strokeStyle = item.getColor();
-  ctx.moveTo(startPos.x, startPos.y);
-  ctx.lineTo(middle.x, middle.y);
-  ctx.stroke();
-  item.children.forEach(function (child, index) {
-    var x, y;
-    var shape = child.getShape();
-    x = child.x;
-    var isUnderLine = shape.indexOf('underline') > -1; // 下划线情况，终点坐标要不太一样
-
-    if (isUnderLine) {
-      y = child.y + child.contentRect.height;
-    } else {
-      y = child.y + child.contentRect.height / 2;
-    }
-
-    ctx.beginPath();
-    ctx.strokeStyle = child.getColor();
-
-    if (index === 0 || index === item.children.length - 1) {
-      ctx.moveTo(middle.x, middle.y);
-      ctx.lineTo(middle.x, y);
-    } else {
-      ctx.moveTo(middle.x, y);
-    }
-
-    ctx.lineTo(x, y);
-
-    _this.line.common.renderArrow.call(_this, ctx, {
-      x: middle.x,
-      y: y
-    }, {
-      x: x,
-      y: y
-    });
-
-    ctx.stroke();
-  });
-} // 不得使用箭头函数
-
-
-/* harmony default export */ const Lines_polyline = (polyline);
-;// CONCATENATED MODULE: ./src/Layout/Lines/index.js
-
-
-
-var Line = {
-  bezier: Lines_bezier,
-  polyline: Lines_polyline,
-  common: common_namespaceObject
-};
-/* harmony default export */ const Lines = (Line);
-;// CONCATENATED MODULE: ./src/Layout/Map.js
-
-
-
-
-var MapLayout = /*#__PURE__*/function () {
-  function MapLayout(page) {
-    _classCallCheck(this, MapLayout);
-
-    this.LINE_THICKNESS = 8;
-    this.page = page;
-    this.line = Lines;
-    this.remind = page.remind;
-  }
-
-  _createClass(MapLayout, [{
-    key: "update",
-    value: function update(item) {
-      var direction = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'right';
-
-      if (!item.children || item.children.length < 1 || item.data.shrink) {
-        // 已经是最后一级的情况,容器bbox和item bbox相同
-        item.rect = item.contentRect;
-        item.relativePos = {
-          x: 0,
-          y: 0
-        };
-        item.originPos = {
-          x: 0,
-          y: 0
-        };
-        return false;
-      }
-
-      if (direction === 'auto') {
-        return this.layoutAutoItem(item);
-      }
-
-      this.layoutItem(item, direction);
-    }
-    /**
-     * 两端布局
-     * @param  {} item
-     */
-
-  }, {
-    key: "layoutAutoItem",
-    value: function layoutAutoItem(item) {
-      var shape = item.getShape();
-      var _this$remind$options = this.remind.options,
-          spaceY = _this$remind$options.spaceY,
-          spaceX = _this$remind$options.spaceX;
-      var contentRect = item.contentRect;
-      var leftBBox = {
-        width: 0,
-        height: 0
-      };
-      var rightBBox = {
-        width: 0,
-        height: 0
-      };
-      var rightChildren = [];
-      var leftChildren = []; // 计算子元素的位置,两边布局
-
-      var offsetX = contentRect.width + 2 * spaceX;
-      item.children.forEach(function (child, index) {
-        if (index % 2 === 0) {
-          child.position = {
-            x: 0,
-            y: rightBBox.height
-          };
-          rightChildren.push(child);
-          rightBBox.width = Math.max(rightBBox.width, child.rect.width);
-          rightBBox.height += child.rect.height + spaceY;
-        } else {
-          child.position = {
-            x: -child.rect.width - offsetX,
-            y: childrenBBox.leftHeight
-          };
-          leftChildren.push(child);
-          leftBBox.width = Math.max(leftBBox.width, child.rect.width);
-          leftBBox.height += child.rect.height + spaceY;
-        }
-      });
-      rightBBox.height -= spaceY;
-      leftBBox.height -= spaceY;
-      item.originPos = {
-        x: leftBBox.width + offsetX,
-        y: 0
-      };
-      var bigChildren = [];
-      var bigBBox = {};
-      var disY = 0.5 * Math.abs(leftBBox.height - rightBBox.height); // 高度小的一侧垂直居中
-
-      if (childrenBBox.leftHeight > childrenBBox.rightHeight) {
-        bigChildren = leftChildren;
-        bigBBox = leftBBox;
-      } else {
-        bigChildren = rightChildren;
-        bigBBox = rightBBox;
-      }
-
-      bigChildren.forEach(function (child) {
-        child.position.y += disY;
-      }); // 居中当前节点
-
-      var centerY = this.getCenterY(bigChildren, bigBBox);
-      item.relativePos = {
-        x: -(contentRect.width + spaceX),
-        y: centerY - contentRect.height / 2 //自动布局的默认不会有下划线
-
-      };
-      item.rect = {
-        width: spaceX * 2 + leftBBox.width + rightBBox.height,
-        height: Math.max(bigBBox.height, contentRect.height)
-      };
-    }
-  }, {
-    key: "getCenterY",
-    value: function getCenterY(children, bbox) {
-      var firstChild = children[0];
-      var lastChild = children[children.length - 1];
-      var firstLineY = firstChild.getShape().indexOf('underline') > -1 ? firstChild.contentRect.height : firstChild.contentRect.height * 0.5;
-      var lastLineY = bbox.height - (lastChild.getShape().indexOf('underline') > -1 ? 0 : lastChild.contentRect.height * 0.5);
-      var centerY = (firstLineY + lastLineY) * 0.5;
-      return centerY;
-    }
-    /**
-     * 计算出当前item的rect
-     * @param {*} item 
-     * @param {*} direction 
-     */
-
-  }, {
-    key: "layoutItem",
-    value: function layoutItem(item, direction) {
-      var shape = item.getShape();
-      var bbox = this.getChildrenBBox(item.children, direction);
-      item.childrenBBox = bbox;
-      var contentRect = item.contentRect;
-      var _this$remind$options$ = this.remind.options.spaceX,
-          spaceX = _this$remind$options$ === void 0 ? 60 : _this$remind$options$;
-      var itemDistanceX = spaceX + contentRect.width;
-      item.originPos = {
-        x: direction === 'right' ? itemDistanceX : bbox.width,
-        y: 0
-      };
-      var centerY = this.getCenterY(item.children, bbox);
-
-      if (shape.indexOf('underline') == -1) {
-        item.relativePos = {
-          x: (direction === 'right' ? -1 : 1) * itemDistanceX,
-          y: centerY - contentRect.height / 2
-        };
-      } else {
-        item.relativePos = {
-          x: (direction === 'right' ? -1 : 1) * itemDistanceX,
-          y: centerY - contentRect.height
-        };
-      }
-
-      item.rect = {
-        width: bbox.width + Math.abs(item.relativePos.x),
-        height: Math.max(contentRect.height, bbox.height)
-      };
-    }
-    /**
-     * 以资源所第一个的左上角为原点建立相对坐标系
-     * |————————> x
-     * |[0,0]
-     * |[0,height+spaceY]
-     * |[]
-     * |
-     * |y
-     * @param {*} items
-     */
-
-  }, {
-    key: "getChildrenBBox",
-    value: function getChildrenBBox(items) {
-      var direction = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'right';
-      var _this$remind$options$2 = this.remind.options.spaceY,
-          spaceY = _this$remind$options$2 === void 0 ? 5 : _this$remind$options$2;
-      var bbox = {
-        width: 0,
-        height: 0
-      };
-
-      for (var i = 0; i < items.length; i++) {
-        var child = items[i];
-        var rect = child.rect;
-
-        if (rect.width > bbox.width) {
-          bbox.width = rect.width;
-        } // 计算子元素在父容器的相对坐标
-
-
-        child.position = {
-          x: direction === 'right' ? 0 : -rect.width,
-          y: bbox.height
-        };
-        bbox.height += rect.height + spaceY;
-      }
-
-      bbox.height -= spaceY;
-      return bbox;
-    }
-  }, {
-    key: "updateLine",
-    value: function updateLine(item) {
-      if (item.data.taper) {
-        // 如果当前元素是map则当前节点渐细
-        this.drawTaperingConnector(item);
-      } else {
-        // 默认用bezier线
-        var drawFunction = Lines[item.getLineShape()];
-        drawFunction.call(this, item);
-      }
-    }
-    /**
-     * 渲染渐细线
-     * @param {*} item 
-     */
-
-  }, {
-    key: "drawTaperingConnector",
-    value: function drawTaperingConnector(item) {
-      var itemPos = {
-        x: item.x + item.contentRect.width * 0.5,
-        y: item.y + item.contentRect.height * 0.5
-      };
-      var ctx = this.page.canvasContext;
-      var halfThick = this.LINE_THICKNESS / 2;
-      item.children.forEach(function (child) {
-        var x, y;
-        var shape = child.getShape();
-        x = child.x;
-        var isUnderLine = shape.indexOf('underline') > -1; // 下划线情况，终点坐标要不太一样
-
-        if (isUnderLine) {
-          y = child.y + child.contentRect.height;
-        } else {
-          y = child.y + child.contentRect.height / 2;
-        }
-
-        var angle = Math.atan2(y - itemPos.y, x - itemPos.x) + Math.PI / 2;
-        var dx = Math.cos(angle) * halfThick;
-        var dy = Math.sin(angle) * halfThick;
-        ctx.fillStyle = ctx.strokeStyle = child.getColor();
-        ctx.beginPath();
-        ctx.moveTo(itemPos.x - dx, itemPos.y - dy);
-        ctx.quadraticCurveTo((x + itemPos.x) / 2, y, x, y); // 贝塞尔过去
-        // 贝塞尔回来
-
-        ctx.quadraticCurveTo((x + itemPos.x) / 2, y, itemPos.x + dx, itemPos.y + dy);
-        ctx.fill();
-        ctx.stroke();
-        ctx.closePath();
-      });
-    }
-  }]);
-
-  return MapLayout;
-}();
-
-/* harmony default export */ const Layout_Map = (MapLayout);
-;// CONCATENATED MODULE: ./src/Layout/Graph.js
-
-
-var Graph = function Graph() {
-  _classCallCheck(this, Graph);
-};
-
-/* harmony default export */ const Layout_Graph = (Graph);
-;// CONCATENATED MODULE: ./src/Layout/Tree.js
-
-
-var TreeLayout = function TreeLayout() {
-  _classCallCheck(this, TreeLayout);
-};
-
-/* harmony default export */ const Tree = (TreeLayout);
-;// CONCATENATED MODULE: ./src/Layout/index.js
-
-
-
-/* harmony default export */ const Layout = ({
-  map: Layout_Map,
-  graph: Layout_Graph,
-  tree: Tree
-});
-;// CONCATENATED MODULE: ./src/View/Theme.js
-var theme = {
-  themes: {
-    "default": {
-      main: "ellipse",
-      second: "box",
-      className: "default",
-      node: "underline",
-      lineShape: "polyline"
-    }
-  },
-  registe: function registe(name, options) {
-    theme.thems[name] = Object.assign({}, options, theme.themes["default"]);
-  }
-};
-/* harmony default export */ const Theme = (theme);
 ;// CONCATENATED MODULE: ./src/View/Item.js
-
-
 
 
 
@@ -1314,10 +854,10 @@ var Item = /*#__PURE__*/function () {
     };
     this.x = 0;
     this.y = 0;
-    this.rect = {};
+    this.rect = undefined;
     this.contentRect = undefined;
 
-    this.onDoubleClick = function (event) {
+    this.onDoubleClick = function () {
       _this.remind.command.execute("Edit");
     };
 
@@ -1347,7 +887,7 @@ var Item = /*#__PURE__*/function () {
     };
 
     this.startEdit = function () {
-      _this.oldText = _this.data.text;
+      _this.oldText = _this.data.text || '';
       var textDOM = _this.textDOM,
           dom = _this.dom;
       textDOM.contentEditable = true;
@@ -1370,10 +910,6 @@ var Item = /*#__PURE__*/function () {
 
       _this.data.text = textDOM.innerHTML;
       textDOM.blur();
-
-      if (!_this.data.text) {
-        _this.parent.removeChild(_this);
-      }
     };
 
     this.onKeyDown = function (e) {
@@ -1408,16 +944,21 @@ var Item = /*#__PURE__*/function () {
       this.clear();
       this.data = data;
       this.dom = this.initDOM();
+      this.updateShape();
       this.initToggle();
       this.addEvents();
-      this.updateToggle();
-      this.updateContent(); //更新rect
+      this.updateToggle(); // this.updateContent();//更新rect
 
       if (this.data.layout) {
-        this.layout = new Layout[this.data.layout](this.page);
+        this.layout = this.page.layout[this.data.layout];
       }
 
       this.initChildren();
+    }
+  }, {
+    key: "getData",
+    value: function getData() {
+      return this.data;
     }
   }, {
     key: "addEvents",
@@ -1450,7 +991,6 @@ var Item = /*#__PURE__*/function () {
     key: "initDOM",
     value: function initDOM() {
       var dom = document.createElement('div');
-      dom.className = 'remind-item shape-' + this.getShape();
       this.page.dom.appendChild(dom);
       var _this$data$type = this.data.type,
           type = _this$data$type === void 0 ? 'default' : _this$data$type;
@@ -1526,6 +1066,7 @@ var Item = /*#__PURE__*/function () {
       this.children.forEach(function (item) {
         item.updateSubtree();
       });
+      this.updateContent();
       this.update(false);
     } // bfs 更新依赖树结构的相关数据和样式
 
@@ -1533,12 +1074,20 @@ var Item = /*#__PURE__*/function () {
     key: "update",
     value: function update() {
       var recurse = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+      if (!this.contentRect) this.updateContent(); // 避免编辑新增节点初始化时没有contentRect
+
+      this.updateShape();
       this.updateLayout();
       this.updateColor();
 
       if (recurse) {
         this.parent.update(recurse);
       }
+    }
+  }, {
+    key: "updateShape",
+    value: function updateShape() {
+      this.dom.className = 'remind-item shape-' + this.getShape();
     }
   }, {
     key: "updateLayout",
@@ -1565,7 +1114,16 @@ var Item = /*#__PURE__*/function () {
 
       this.updatePosition();
       this.dom.style.display = this.visible ? 'block' : 'none';
-      this.dom.style.transform = "matrix(1, 0, 0, 1, ".concat(this.x, ",").concat(this.y, ")");
+
+      if (this.side === 'left') {
+        this.dom.style.right = this.page.root.rect.width - this.x - this.contentRect.width + 'px';
+        this.dom.style.left = 'auto';
+        this.dom.style.transform = "matrix(1, 0, 0, 1, 0,".concat(this.y, ")");
+      } else {
+        this.dom.style.left = '0px';
+        this.dom.style.transform = "matrix(1, 0, 0, 1, ".concat(this.x, ",").concat(this.y, ")");
+      }
+
       this.children.forEach(function (child) {
         child.globalPos = {
           x: _this4.globalPos.x + _this4.originPos.x + child.position.x,
@@ -1588,7 +1146,20 @@ var Item = /*#__PURE__*/function () {
   }, {
     key: "getLayout",
     value: function getLayout() {
-      return this.layout || this.parent.getLayout();
+      var layout = this.layout || this.parent.getLayout();
+
+      if (layout.name === 'map' && layout.direction === 'auto' && !this.isRoot()) {
+        // 兼容一旦
+        var index = this.parent.children.indexOf(this);
+
+        if (index % 2 === 0) {
+          return this.page.layout['map-right'];
+        } else {
+          return this.page.layout['map-left'];
+        }
+      }
+
+      return layout;
     }
   }, {
     key: "getAutoShape",
@@ -1624,12 +1195,11 @@ var Item = /*#__PURE__*/function () {
   }, {
     key: "getColor",
     value: function getColor() {
-      return this.color ? this.color : this.parent.getColor();
+      return this.data.color ? this.data.color : this.parent.getColor();
     }
   }, {
     key: "updateColor",
-    value: function updateColor() {
-      var color = this.getColor(); // this.toggleDOM.style.color = color;
+    value: function updateColor() {// this.toggleDOM.style.color = color;
       // this.toggleDOM.style.backgroundColor = color;
     }
   }, {
@@ -1702,9 +1272,19 @@ var Item = /*#__PURE__*/function () {
   }, {
     key: "removeChild",
     value: function removeChild(child) {
+      var ifUpdate = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
       var index = this.children.indexOf(child);
       child.depth = 0;
+      child.parent = undefined;
       this.children.splice(index, 1);
+
+      if (this.children.length < 1) {
+        this.dom.removeChild(this.toggleDOM);
+      }
+
+      if (ifUpdate) {
+        this.update();
+      }
     }
   }, {
     key: "clear",
@@ -1713,7 +1293,7 @@ var Item = /*#__PURE__*/function () {
       this.clearEvents();
 
       if (this.dom) {
-        this.page.dom.removeChild(this.dom);
+        this.page.dom.removeChild(this.dom, false);
         this.dom = undefined;
       }
     }
@@ -1733,9 +1313,9 @@ var Item = /*#__PURE__*/function () {
       var _this5 = this;
 
       this.children.forEach(function (item) {
-        item.destroy();
+        _this5.removeChild(item, false);
 
-        _this5.removeChild(item);
+        item.destroy();
       });
       this.children = [];
     }
@@ -1747,7 +1327,11 @@ var Item = /*#__PURE__*/function () {
   }, {
     key: "destroy",
     value: function destroy() {
-      this.dom.parent.removeChild(this.dom);
+      if (this.parent) {
+        this.parent.removeChild(this, false);
+      }
+
+      this.dom.parentElement && this.dom.parentElement.removeChild(this.dom);
       this.clearChildren();
     }
   }]);
@@ -1756,10 +1340,718 @@ var Item = /*#__PURE__*/function () {
 }();
 
 /* harmony default export */ const View_Item = (Item);
+;// CONCATENATED MODULE: ./src/Layout/Lines/map/bezier.js
+
+
+function bezier_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function bezier_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { bezier_ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { bezier_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function bezier(item) {
+  var _this = this;
+
+  var spaceX = this.remind.options.spaceX;
+  var isUnderLine = item.getShape().indexOf('underline') > -1;
+  var startPos = {
+    x: item.x + item.contentRect.width,
+    y: item.y + item.contentRect.height / 2
+  }; // 下划线的话给自己底部加上颜色
+
+  if (isUnderLine) {
+    this.page.lines.push(this.line.common.renderUnderline.call(this, item, startPos));
+  }
+
+  if (item.data.shrink || !item.children.length) {
+    return item;
+  }
+
+  item.rightChildren.forEach(function (child) {
+    var x,
+        y,
+        start = startPos;
+    var shape = child.getShape();
+    x = child.x;
+    var isUnderLine = shape.indexOf('underline') > -1; // 下划线情况，终点坐标要不太一样
+
+    if (isUnderLine) {
+      y = child.y + child.contentRect.height;
+    } else {
+      y = child.y + child.contentRect.height / 2;
+    }
+
+    var bezierPos = {
+      x1: (start.x + x) * 0.5,
+      y1: start.y,
+      x2: (start.x + x) * 0.5,
+      y2: y
+    };
+    var data = {
+      path: [],
+      color: child.getColor()
+    };
+    data.path.push({
+      x: start.x,
+      y: start.y,
+      type: "moveTo"
+    });
+    data.path.push(bezier_objectSpread(bezier_objectSpread({}, bezierPos), {}, {
+      x: x,
+      y: y,
+      type: "bezier3"
+    }));
+
+    _this.page.lines.push(data);
+  });
+  var leftStartPos = {
+    x: item.x,
+    y: startPos.y
+  };
+  item.leftChildren.forEach(function (child) {
+    var x,
+        y,
+        start = leftStartPos;
+    var shape = child.getShape();
+    x = child.x + child.contentRect.width;
+    var isUnderLine = shape.indexOf('underline') > -1; // 下划线情况，终点坐标要不太一样
+
+    if (isUnderLine) {
+      y = child.y + child.contentRect.height;
+    } else {
+      y = child.y + child.contentRect.height / 2;
+    }
+
+    var bezierPos = {
+      x1: (start.x + x) * 0.5,
+      y1: start.y,
+      x2: (start.x + x) * 0.5,
+      y2: y
+    };
+    var data = {
+      path: [],
+      color: child.getColor()
+    };
+    data.path.push({
+      x: start.x,
+      y: start.y,
+      type: "moveTo"
+    });
+    data.path.push(bezier_objectSpread(bezier_objectSpread({}, bezierPos), {}, {
+      x: x,
+      y: y,
+      type: "bezier3"
+    }));
+
+    _this.page.lines.push(data);
+  });
+} // 不得使用箭头函数
+
+
+/* harmony default export */ const map_bezier = (bezier);
+;// CONCATENATED MODULE: ./src/Layout/Lines/common.js
+
+
+function common_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function common_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { common_ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { common_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function renderUnderline(item, startPos) {
+  startPos.x = item.x + item.contentRect.width;
+  startPos.y = item.y + item.contentRect.height;
+  var path = [];
+  path.push({
+    x: item.x,
+    y: item.y + item.contentRect.height,
+    type: "moveTo"
+  });
+  path.push({
+    x: startPos.x,
+    y: startPos.y
+  });
+  var color = item.getColor();
+  return {
+    path: path,
+    color: color
+  };
+}
+
+function renderArrow(middle, end) {
+  var angle = Math.atan2(end.y - middle.y, end.x - middle.x);
+  var topAngle = Math.PI * 5 / 6 + angle;
+  var bottomAngle = -Math.PI * 5 / 6 + angle;
+  var length = 5;
+  var top = {
+    x: end.x + length * Math.cos(topAngle),
+    y: end.y - length * Math.sin(topAngle)
+  };
+  var bottom = {
+    x: end.x + length * Math.cos(bottomAngle),
+    y: end.y - length * Math.sin(bottomAngle)
+  };
+  return {
+    path: [common_objectSpread(common_objectSpread({}, top), {}, {
+      type: "moveTo"
+    }), common_objectSpread({}, end), common_objectSpread({}, bottom)]
+  };
+}
+
+
+;// CONCATENATED MODULE: ./src/Layout/Lines/map/polyline.js
+
+
+function polyline_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function polyline_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { polyline_ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { polyline_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function polyline(item) {
+  var _this = this;
+
+  var spaceX = this.remind.options.spaceX;
+  var isUnderLine = item.getShape().indexOf('underline') > -1;
+  var color = item.getColor();
+  var startPos = {
+    x: item.x + item.contentRect.width / 2,
+    y: item.y + item.contentRect.height / 2
+  }; // 下划线的话给自己底部加上颜色
+
+  var underlineData = {
+    path: [],
+    color: color
+  };
+
+  if (isUnderLine) {
+    underlineData = this.line.common.renderUnderline.call(this, item, startPos);
+    this.page.lines.push(underlineData);
+  } // 收缩不绘制子元素
+
+
+  if (item.data.shrink || item.children.length < 1) {
+    return item;
+  } // 绘制左右两边的链接中线
+
+
+  var firstChild = item.rightChildren[0];
+
+  if (firstChild) {
+    var middle = {
+      x: firstChild.x - spaceX / 2,
+      y: startPos.y
+    };
+    var lineData = {
+      path: [],
+      color: color
+    };
+    lineData.path.push(polyline_objectSpread(polyline_objectSpread({}, startPos), {}, {
+      type: "moveTo"
+    }), middle);
+    this.page.lines.push(lineData); // 绘制右边子节点的连接线
+
+    item.rightChildren.forEach(function (child, index) {
+      var x, y;
+      var shape = child.getShape();
+      x = child.x;
+      var isUnderLine = shape.indexOf('underline') > -1; // 下划线情况，终点坐标要不太一样
+
+      if (isUnderLine) {
+        y = child.y + child.contentRect.height;
+      } else {
+        y = child.y + child.contentRect.height / 2;
+      }
+
+      var lineData = {
+        path: [],
+        color: color
+      };
+
+      if (index === 0 || index === item.children.length - 1) {
+        lineData.path.push(polyline_objectSpread(polyline_objectSpread({}, middle), {}, {
+          type: 'moveTo'
+        }), {
+          x: middle.x,
+          y: y
+        });
+      } else {
+        lineData.path.push({
+          type: "moveTo",
+          x: middle.x,
+          y: y
+        });
+      }
+
+      lineData.path.push({
+        x: x,
+        y: y
+      }); // 箭头
+
+      if (_this.remind.options.showArrow) {
+        var arrowData = _this.line.common.renderArrow.call(_this, {
+          x: middle.x,
+          y: y
+        }, {
+          x: x,
+          y: y
+        });
+
+        arrowData.color = color;
+
+        _this.page.lines.push(arrowData);
+      }
+
+      _this.page.lines.push(lineData);
+    });
+  }
+
+  firstChild = item.leftChildren[0];
+
+  if (firstChild) {
+    var _middle = {
+      x: item.x - spaceX / 2,
+      y: startPos.y
+    };
+    startPos.x = item.x;
+    this.page.lines.push({
+      path: [polyline_objectSpread(polyline_objectSpread({}, startPos), {}, {
+        type: "moveTo"
+      }), _middle],
+      color: color
+    }); // 绘制左边子节点的线
+
+    item.leftChildren.forEach(function (child, index) {
+      var x, y;
+      var shape = child.getShape();
+      x = child.x + child.contentRect.width;
+      var isUnderLine = shape.indexOf('underline') > -1; // 下划线情况，终点坐标要不太一样
+
+      if (isUnderLine) {
+        y = child.y + child.contentRect.height;
+      } else {
+        y = child.y + child.contentRect.height / 2;
+      }
+
+      var lineData = {
+        path: [],
+        color: color
+      };
+
+      if (index === 0 || index === item.children.length - 1) {
+        lineData.path.push(polyline_objectSpread(polyline_objectSpread({}, _middle), {}, {
+          type: 'moveTo'
+        }), {
+          x: _middle.x,
+          y: y
+        });
+      } else {
+        lineData.path.push({
+          type: "moveTo",
+          x: _middle.x,
+          y: y
+        });
+      }
+
+      lineData.path.push({
+        x: x,
+        y: y
+      }); // 箭头
+
+      if (_this.remind.options.showArrow) {
+        var arrowData = _this.line.common.renderArrow.call(_this, {
+          x: _middle.x,
+          y: y
+        }, {
+          x: x,
+          y: y
+        });
+
+        arrowData.color = lineData.color;
+
+        _this.page.lines.push(arrowData);
+      }
+
+      _this.page.lines.push(lineData);
+    });
+  }
+} // 不得使用箭头函数
+
+
+/* harmony default export */ const map_polyline = (polyline);
+;// CONCATENATED MODULE: ./src/Layout/Lines/index.js
+
+
+
+var Line = {
+  map: {
+    bezier: map_bezier,
+    polyline: map_polyline
+  },
+  common: common_namespaceObject
+};
+/* harmony default export */ const Lines = (Line);
+;// CONCATENATED MODULE: ./src/Layout/Map.js
+
+
+
+
+function Map_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function Map_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { Map_ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { Map_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+
+
+var MapLayout = /*#__PURE__*/function () {
+  function MapLayout(page) {
+    var direction = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'auto';
+
+    _classCallCheck(this, MapLayout);
+
+    this.LINE_THICKNESS = 8;
+    this.name = 'map';
+    this.page = page;
+    this.line = Map_objectSpread(Map_objectSpread({}, Lines), Lines.map);
+    this.remind = page.remind;
+    this.direction = direction;
+  }
+
+  _createClass(MapLayout, [{
+    key: "update",
+    value: function update(item) {
+      if (!item.children || item.children.length < 1 || item.data.shrink) {
+        // 已经是最后一级的情况,容器bbox和item bbox相同
+        item.rect = item.contentRect;
+        item.relativePos = {
+          x: 0,
+          y: 0
+        };
+        item.originPos = {
+          x: 0,
+          y: 0
+        };
+        return false;
+      }
+
+      if (this.direction === 'auto' && item.isRoot()) {
+        return this.layoutAutoItem(item);
+      }
+
+      this.layoutItem(item, this.direction);
+    }
+    /**
+     * 两端布局
+     * @param  {} item
+     */
+
+  }, {
+    key: "layoutAutoItem",
+    value: function layoutAutoItem(item) {
+      var _this$remind$options = this.remind.options,
+          spaceY = _this$remind$options.spaceY,
+          spaceX = _this$remind$options.spaceX;
+      var contentRect = item.contentRect;
+      var leftBBox = {
+        width: 0,
+        height: 0
+      };
+      var rightBBox = {
+        width: 0,
+        height: 0
+      };
+      var rightChildren = [];
+      var leftChildren = []; // 计算子元素的位置,两边布局
+
+      var offsetX = contentRect.width + 2 * spaceX;
+      item.children.forEach(function (child, index) {
+        var relativePos = child.relativePos,
+            contentRect = child.contentRect;
+
+        if (index % 2 === 0) {
+          child.position = {
+            x: 0,
+            y: rightBBox.height
+          };
+          rightChildren.push(child);
+          rightBBox.width = Math.max(rightBBox.width, child.rect.width);
+          rightBBox.height += Math.max(child.rect.height, relativePos.y * 2 + contentRect.height) + spaceY;
+        } else {
+          child.position = {
+            x: -child.rect.width - offsetX,
+            y: leftBBox.height
+          };
+          leftChildren.push(child);
+          leftBBox.width = Math.max(leftBBox.width, child.rect.width);
+          leftBBox.height += Math.max(child.rect.height, relativePos.y * 2 + contentRect.height) + spaceY;
+        }
+      });
+
+      if (rightBBox.height > 0) {
+        rightBBox.height -= spaceY;
+      }
+
+      if (leftBBox.height > 0) {
+        leftBBox.height -= spaceY;
+      }
+
+      item.originPos = {
+        x: leftBBox.width + offsetX,
+        y: 0
+      };
+      var bigChildren = [];
+      var smallChildren = [];
+      var bigBBox = {};
+      var disY = 0.5 * Math.abs(leftBBox.height - rightBBox.height); // 高度小的一侧垂直居中
+
+      if (leftBBox.height > rightBBox.height) {
+        bigChildren = leftChildren;
+        smallChildren = rightChildren;
+        bigBBox = leftBBox;
+      } else {
+        bigChildren = rightChildren;
+        smallChildren = leftChildren;
+        bigBBox = rightBBox;
+      }
+
+      smallChildren.forEach(function (child) {
+        child.position.y += disY;
+      }); // 居中当前节点
+
+      var centerY = this.getCenterY(bigChildren, bigBBox);
+      var centerDis = centerY - contentRect.height / 2;
+
+      if (centerDis > 0) {
+        item.relativePos = {
+          x: -(contentRect.width + spaceX),
+          y: centerDis //自动布局的默认不会有下划线
+
+        };
+      } else {
+        item.children.forEach(function (child) {
+          return child.position.y -= centerDis;
+        }); // 主节点特别大的情况
+
+        item.relativePos = {
+          x: -(contentRect.width + spaceX),
+          y: 0
+        };
+      }
+
+      item.rect = {
+        width: spaceX * 2 + leftBBox.width + contentRect.width + rightBBox.width,
+        height: Math.max(bigBBox.height, contentRect.height)
+      };
+      item.leftChildren = leftChildren;
+      item.rightChildren = rightChildren;
+    }
+  }, {
+    key: "getCenterY",
+    value: function getCenterY(children, bbox) {
+      var firstChild = children[0];
+      var lastChild = children[children.length - 1];
+      var firstLineY = firstChild.getShape().indexOf('underline') > -1 ? firstChild.contentRect.height : firstChild.contentRect.height * 0.5;
+      var lastLineY = bbox.height - (lastChild.getShape().indexOf('underline') > -1 ? 0 : lastChild.contentRect.height * 0.5);
+      var centerY = (firstLineY + lastLineY) * 0.5;
+      return centerY;
+    }
+    /**
+     * 计算出当前item的rect
+     * @param {*} item 
+     * @param {*} direction 
+     */
+
+  }, {
+    key: "layoutItem",
+    value: function layoutItem(item, direction) {
+      var shape = item.getShape();
+      var bbox = this.getChildrenBBox(item.children, direction);
+      item.childrenBBox = bbox;
+      var contentRect = item.contentRect;
+      var _this$remind$options$ = this.remind.options.spaceX,
+          spaceX = _this$remind$options$ === void 0 ? 60 : _this$remind$options$;
+      var itemDistanceX = spaceX + (direction === 'right' ? contentRect.width : 0);
+      item.originPos = {
+        x: direction === 'right' ? itemDistanceX : bbox.width,
+        y: 0
+      };
+      var centerY = this.getCenterY(item.children, bbox);
+      var centerDis = centerY - contentRect.height / 2;
+
+      if (centerDis < 0) {
+        item.children.forEach(function (child) {
+          return child.position.y -= centerDis;
+        }); // 主节点特别大的情况
+
+        item.relativePos = {
+          x: (direction === 'right' ? -1 : 1) * itemDistanceX,
+          y: 0
+        };
+      } else {
+        if (shape.indexOf('underline') == -1) {
+          item.relativePos = {
+            x: (direction === 'right' ? -1 : 1) * itemDistanceX,
+            y: centerY - contentRect.height / 2
+          };
+        } else {
+          item.relativePos = {
+            x: (direction === 'right' ? -1 : 1) * itemDistanceX,
+            y: centerY - contentRect.height
+          };
+        }
+      }
+
+      if (direction === 'right') {
+        item.leftChildren = [];
+        item.rightChildren = item.children;
+      } else {
+        item.leftChildren = item.children;
+        item.rightChildren = [];
+      }
+
+      item.rect = {
+        width: bbox.width + spaceX + contentRect.width,
+        height: Math.max(item.relativePos.y + contentRect.height, bbox.height)
+      };
+    }
+    /**
+     * 以资源所第一个的左上角为原点建立相对坐标系
+     * |————————> x
+     * |[0,0]
+     * |[0,height+spaceY]
+     * |[]
+     * |
+     * |y
+     * @param {*} items
+     */
+
+  }, {
+    key: "getChildrenBBox",
+    value: function getChildrenBBox(items) {
+      var direction = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'right';
+      var _this$remind$options$2 = this.remind.options.spaceY,
+          spaceY = _this$remind$options$2 === void 0 ? 5 : _this$remind$options$2;
+      var bbox = {
+        width: 0,
+        height: 0
+      };
+
+      for (var i = 0; i < items.length; i++) {
+        var child = items[i];
+        var rect = child.rect,
+            relativePos = child.relativePos,
+            contentRect = child.contentRect;
+
+        if (rect.width > bbox.width) {
+          bbox.width = rect.width;
+        }
+
+        child.side = direction; // 计算子元素在父容器的相对坐标
+
+        child.position = {
+          x: direction === 'right' ? 0 : -rect.width,
+          y: bbox.height
+        };
+        bbox.height += Math.max(rect.height, relativePos.y * 2 + contentRect.height) + spaceY; // 让父节点在整个局部范围内垂直居中
+      }
+
+      bbox.height -= spaceY;
+      return bbox;
+    }
+  }, {
+    key: "updateLine",
+    value: function updateLine(item) {
+      if (item.data.taper) {
+        // 如果当前元素是map则当前节点渐细
+        this.drawTaperingConnector(item);
+      } else {
+        // 默认用bezier线
+        var drawFunction = this.line[item.getLineShape()];
+        drawFunction.call(this, item);
+      }
+    }
+    /**
+     * 渲染渐细线
+     * @param {*} item 
+     */
+
+  }, {
+    key: "drawTaperingConnector",
+    value: function drawTaperingConnector(item) {
+      var itemPos = {
+        x: item.x + item.contentRect.width * 0.5,
+        y: item.y + item.contentRect.height * 0.5
+      };
+      var ctx = this.page.canvasContext;
+      var halfThick = this.LINE_THICKNESS / 2;
+      item.children.forEach(function (child) {
+        var x, y;
+        var shape = child.getShape();
+        x = child.x;
+        var isUnderLine = shape.indexOf('underline') > -1; // 下划线情况，终点坐标要不太一样
+
+        if (isUnderLine) {
+          y = child.y + child.contentRect.height;
+        } else {
+          y = child.y + child.contentRect.height / 2;
+        }
+
+        var angle = Math.atan2(y - itemPos.y, x - itemPos.x) + Math.PI / 2;
+        var dx = Math.cos(angle) * halfThick;
+        var dy = Math.sin(angle) * halfThick;
+        ctx.fillStyle = ctx.strokeStyle = child.getColor();
+        ctx.beginPath();
+        ctx.moveTo(itemPos.x - dx, itemPos.y - dy);
+        ctx.quadraticCurveTo((x + itemPos.x) / 2, y, x, y); // 贝塞尔过去
+        // 贝塞尔回来
+
+        ctx.quadraticCurveTo((x + itemPos.x) / 2, y, itemPos.x + dx, itemPos.y + dy);
+        ctx.fill();
+        ctx.stroke();
+        ctx.closePath();
+      });
+    }
+  }]);
+
+  return MapLayout;
+}();
+
+/* harmony default export */ const Layout_Map = (MapLayout);
+;// CONCATENATED MODULE: ./src/Layout/index.js
+
+
+
+
 ;// CONCATENATED MODULE: ./src/Model/Page.js
 
 
 
+
+
+var data = function () {
+  var data = {
+    root: {
+      text: 'Root',
+      layout: 'map-right',
+      color: "blue",
+      children: []
+    }
+  };
+
+  function make(item, number, depth, index) {
+    var total = number;
+
+    while (number > 0) {
+      var child = {
+        text: "".concat(depth, "-").concat(index, "-").concat(number),
+        color: "red",
+        children: []
+      };
+      item.children.push(child);
+      number--;
+
+      if (depth > 0) {
+        make(child, total, depth - 1, item.children.length);
+      }
+    }
+  }
+
+  make(data.root, 0, 0, 1);
+  return data;
+}();
 
 var Page = /*#__PURE__*/function () {
   function Page(remind) {
@@ -1767,50 +2059,39 @@ var Page = /*#__PURE__*/function () {
 
     _classCallCheck(this, Page);
 
-    this.onClickPage = function (e) {
-      _this.deselect();
-    };
-
+    this.lines = [];
+    this.paths = [];
     this.remind = remind;
     this.options = remind.options;
     this.root = null;
     this.visible = false;
     this.position = [0, 0];
     this.initDOM();
+    this.initLayout();
     this.initCanvas();
 
     if (this.options.data) {
       this.setData(this.options.data);
     } else {
-      this.setData({
-        root: {
-          text: this.options.rootName || 'Root',
-          layout: 'map',
-          children: [{
-            text: 'abc',
-            shrink: true,
-            shape: "underline",
-            children: [{
-              text: 'abc'
-            }, {
-              text: 'abc'
-            }, {
-              text: 'abc'
-            }]
-          }, {
-            text: 'abc2'
-          }, {
-            text: 'abc3'
-          }]
-        }
-      });
-    }
+      this.setData(data);
+    } // 延时进行操作
 
-    this.show();
-    this.addEvents();
+
+    requestAnimationFrame(function () {
+      _this.show();
+    });
   }
 
   _createClass(Page, [{
+    key: "initLayout",
+    value: function initLayout() {
+      this.layout = {
+        map: new Layout_Map(this),
+        'map-right': new Layout_Map(this, 'right'),
+        'map-left': new Layout_Map(this, 'left')
+      };
+    }
+  }, {
     key: "initDOM",
     value: function initDOM() {
       this.dom = document.createElement("div");
@@ -1821,9 +2102,18 @@ var Page = /*#__PURE__*/function () {
     key: "initCanvas",
     value: function initCanvas() {
       this.canvas = document.createElement("canvas");
+      this.svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      this.svg.innerHTML = "\n        <symbol id=\"arrow\" viewBox=\"0 0 10 10\">\n            <path d=\"M-5 5 L0 0 L-5 -5\" />\n        </symbol>\n        "; // this.svg.className = 'remind-canvas';
+
       this.canvas.className = 'remind-canvas';
       this.canvasContext = this.canvas.getContext('2d');
       this.dom.appendChild(this.canvas);
+      this.dom.appendChild(this.svg);
+      var g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      g.setAttribute("tansform", 'translate(5px,5px)');
+      this.svg.appendChild(g);
+      this.svg.classList.add("remind-canvas");
+      this.svgConatiner = g;
     }
   }, {
     key: "setData",
@@ -1838,15 +2128,8 @@ var Page = /*#__PURE__*/function () {
       this.theme = data.theme;
     }
   }, {
-    key: "addEvents",
-    value: function addEvents() {
-      this.dom.addEventListener("click", this.onClickPage); // this.dom.addEventListener("mousedown",this.onMouseDown);
-    }
-  }, {
     key: "onMouseDown",
     value: function onMouseDown(event) {
-      var startEvent = event;
-
       var onMouseUp = function onMouseUp() {
         window.removeEventListener("mousemove", onMouseMove);
         window.removeEventListener('mouseup', onMouseUp);
@@ -1910,7 +2193,7 @@ var Page = /*#__PURE__*/function () {
   }, {
     key: "update",
     value: function update() {
-      this.updateCanvasStyle();
+      this.lines = [];
       this.updateRootWidth();
       this.render();
       this.refusePosition();
@@ -1936,15 +2219,6 @@ var Page = /*#__PURE__*/function () {
       return this.oldPosition = undefined;
     }
   }, {
-    key: "updateCanvasStyle",
-    value: function updateCanvasStyle() {
-      var rect = this.root.rect;
-      this.canvas.width = rect.width + 10;
-      this.canvas.height = rect.height + 10;
-      this.canvas.style.width = rect.width + 10 + 'px';
-      this.canvas.style.height = rect.height + 10 + 'px';
-    }
-  }, {
     key: "updateRootWidth",
     value: function updateRootWidth() {
       var rect = this.root.rect;
@@ -1966,8 +2240,102 @@ var Page = /*#__PURE__*/function () {
   }, {
     key: "render",
     value: function render() {
-      this.canvasContext.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      this.updateCanvasStyle();
       this.root.render();
+
+      if (this.options.renderEngine === 'canvas') {
+        this.renderCanvas();
+      } else {
+        this.renderSVG();
+      }
+    }
+  }, {
+    key: "updateCanvasStyle",
+    value: function updateCanvasStyle() {
+      var rect = this.root.rect;
+      this.canvas.width = rect.width + 10;
+      this.canvas.height = rect.height + 10;
+      this.canvas.style.width = rect.width + 10 + 'px';
+      this.canvas.style.height = rect.height + 10 + 'px';
+      this.svg.style.width = rect.width + 10 + 'px';
+      this.svg.style.height = rect.height + 10 + 'px';
+      this.dom.style.width = rect.width + 'px';
+      this.dom.style.height = rect.height + 'px';
+    }
+  }, {
+    key: "renderCanvas",
+    value: function renderCanvas() {
+      var ctx = this.canvasContext;
+      ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      this.lines.forEach(function (line) {
+        ctx.beginPath();
+        ctx.fillStyle = 'red';
+        line.path.forEach(function (point) {
+          var x1 = point.x1,
+              y1 = point.y1,
+              x2 = point.x2,
+              y2 = point.y2,
+              x = point.x,
+              y = point.y;
+
+          switch (point.type) {
+            case 'bezier3':
+              ctx.bezierCurveTo(x1, y1, x2, y2, x, y);
+              break;
+
+            case 'moveTo':
+              ctx.moveTo(x, y);
+              break;
+
+            default:
+              ctx.lineTo(x, y);
+              break;
+          }
+        });
+        ctx.stroke();
+      });
+    }
+  }, {
+    key: "renderSVG",
+    value: function renderSVG() {
+      var end = 0;
+      var allStr = '';
+      this.lines.forEach(function (line, index) {
+        if (!line) return; // if(!path.parentElement){
+        //     this.svg.appendChild(path);
+        //     this.paths.push(path)
+        // };
+
+        var pathStr = '';
+        line.path.forEach(function (point) {
+          var x1 = point.x1,
+              y1 = point.y1,
+              x2 = point.x2,
+              y2 = point.y2,
+              x = point.x,
+              y = point.y;
+
+          switch (point.type) {
+            case 'bezier3':
+              pathStr += " C".concat(x1, " ").concat(y1, " ").concat(x2, " ").concat(y2, " ").concat(x, " ").concat(y);
+              break;
+
+            case 'moveTo':
+              pathStr += "M".concat(x, " ").concat(y);
+              break;
+
+            default:
+              pathStr += " L".concat(x, " ").concat(y);
+          }
+        });
+        allStr += "<path d='".concat(pathStr, "' fill=\"transparent\" stroke='").concat(line.color, "' ></path>");
+        end = index;
+      });
+      this.svgConatiner.innerHTML = allStr; // for(let i = end;i<this.paths.length-end;i++){
+      //     this.paths[i].parentElement.removeChild(this.paths[i]);
+      // }
+
+      this.paths.splice(end, this.paths.length - end);
     }
   }, {
     key: "translate",
@@ -2113,8 +2481,9 @@ var getAllActions = function getAllActions(remind) {
 
   Action.RemoveItem = function (item) {
     this._item = item;
-    this._parent = item.getParent();
-    this._index = this._parent.getChildren().indexOf(this._item);
+    this._parent = item.parent;
+    this._index = this._parent.children.indexOf(this._item);
+    this.data = item.getData();
   };
 
   Action.RemoveItem.prototype = Object.create(Action.prototype);
@@ -2122,13 +2491,21 @@ var getAllActions = function getAllActions(remind) {
   Action.RemoveItem.prototype.perform = function () {
     this._parent.removeChild(this._item);
 
-    MM.App.select(this._parent);
+    this._item.destroy();
+
+    remind.page.select(this._parent);
   };
 
   Action.RemoveItem.prototype.undo = function () {
-    this._parent.insertChild(this._item, this._index);
+    var childItem = new View_Item(remind.page, {
+      data: this.data,
+      depth: this._parent.depth + 1,
+      visible: !this._parent.data.shrink && this._parent.visible
+    });
 
-    MM.App.select(this._item);
+    this._parent.insertChild(childItem, this._index);
+
+    remind.page.select(this._item);
   };
 
   Action.MoveItem = function (item, newParent, newIndex, newSide) {
@@ -2451,6 +2828,22 @@ var History = /*#__PURE__*/function () {
 }();
 
 /* harmony default export */ const Control_History = (History);
+;// CONCATENATED MODULE: ./src/View/Theme.js
+var theme = {
+  themes: {
+    "default": {
+      main: "ellipse",
+      second: "box",
+      className: "default",
+      node: "underline",
+      lineShape: "bezier"
+    }
+  },
+  registe: function registe(name, options) {
+    theme.thems[name] = Object.assign({}, options, theme.themes["default"]);
+  }
+};
+/* harmony default export */ const Theme = (theme);
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(379);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
@@ -2517,7 +2910,10 @@ var Remind = /*#__PURE__*/function () {
         // 阻止触发该Item或所有的MM.Command.Edit
         headTitle: " - 脑图",
         spaceX: 60,
-        spaceY: 10,
+        spaceY: 8,
+        showArrow: true,
+        // 是否显示线的箭头
+        renderEngine: 'svg',
         readonly: false,
         theme: 'default',
         colors: ['#fec936', '#f88b15', '#fe7e4d', '#ec6d7a', '#ef3224', '#9bc039', '#67c97e', '#00a7cd', '#40b5c6', '#2da4ff', '#956fe7', '#882e99', '#FF84BA']
@@ -2566,6 +2962,10 @@ var Remind = /*#__PURE__*/function () {
           }
         });
       }
+
+      this.dom.addEventListener("click", function () {
+        _this.page.deselect();
+      });
     }
   }, {
     key: "clear",
@@ -2629,7 +3029,8 @@ var Remind = /*#__PURE__*/function () {
 
 window.Remind = Remind;
 Remind.theme = Theme;
-Remind.line = Lines;
+Remind.line = Lines; // 暴露出去可用复写
+
 /* harmony default export */ const app = (Remind);
 })();
 

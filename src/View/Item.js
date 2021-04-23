@@ -1,6 +1,5 @@
 import Nodes from './Nodes/Nodes'
 import Page from '../Model/Page';
-import theme from './Theme'
 class Item {
     children = [];
     position = {
@@ -23,12 +22,12 @@ class Item {
 
     rect = undefined // 当前节点及下游所有节点的rect
     contentRect = undefined // 当前节点内容dom的rect
-    constructor(page,option={}){
+    constructor(page,option = {}){
         const {
             depth,
-            data={
+            data = {
             },
-            visible=true
+            visible = true
         } = option;
         this.page = page;
         this.depth = depth;
@@ -45,6 +44,7 @@ class Item {
         this.data = data;
        
         this.dom = this.initDOM();
+        this.updateShape();
         this.initToggle();
         this.addEvents();
 
@@ -68,7 +68,7 @@ class Item {
         this.textDOM.addEventListener("blur",this.onBlur);
     }
 
-    onDoubleClick = (event)=>{
+    onDoubleClick = ()=>{
         this.remind.command.execute("Edit")
     }
 
@@ -83,8 +83,8 @@ class Item {
         children.forEach(child=>{
             const childItem = new Item(this.page,{
                 data:child,
-                depth:this.depth+1,
-                visible:!shrink&&this.visible
+                depth:this.depth + 1,
+                visible:!shrink && this.visible
             });
             this.insertChild(childItem,undefined,false)
         })
@@ -92,9 +92,8 @@ class Item {
 
     initDOM(){
         const dom = document.createElement('div');
-        dom.className='remind-item shape-'+this.getShape();
         this.page.dom.appendChild(dom);
-        const {type='default'} = this.data;
+        const {type = 'default'} = this.data;
         try{
             Nodes.nodes[type](this,dom);
         }catch(e){
@@ -131,7 +130,7 @@ class Item {
         }
     }
 
-    updateVisible(children=[],visible){
+    updateVisible(children = [],visible){
         children.forEach(child=>{
             child.visible = visible;
             this.updateVisible(child.children,visible)
@@ -139,7 +138,7 @@ class Item {
     }
 
     updateToggle(){
-        const {shrink=false} = this.data;
+        const {shrink = false} = this.data;
         if(shrink){
             this.toggleDOM.classList.add('toggled');
         }else{
@@ -167,18 +166,23 @@ class Item {
         this.children.forEach(item=>{
             item.updateSubtree()
         })
-        if(!this.contentRect)  this.updateContent();
+        this.updateContent();
         this.update(false)
     }
 
     // bfs 更新依赖树结构的相关数据和样式
-    update(recurse=true){
-        if(!this.contentRect)this.updateContent();// 避免编辑初始化时没有contentRect
+    update(recurse = true){
+        if(!this.contentRect)this.updateContent();// 避免编辑新增节点初始化时没有contentRect
+        this.updateShape();
         this.updateLayout();
         this.updateColor();
         if(recurse){
             this.parent.update(recurse);
         }
+    }
+
+    updateShape(){
+        this.dom.className = 'remind-item shape-' + this.getShape();
     }
 
     updateLayout(){
@@ -197,9 +201,9 @@ class Item {
     // dfs
     render(){
         this.updatePosition();
-        this.dom.style.display=this.visible?'block':'none';
-        if(this.side==='left'){
-            this.dom.style.right = this.page.root.rect.width - this.x -this.contentRect.width + 'px';
+        this.dom.style.display = this.visible ? 'block' : 'none';
+        if(this.side === 'left'){
+            this.dom.style.right = this.page.root.rect.width - this.x - this.contentRect.width + 'px';
             this.dom.style.left = 'auto'
             this.dom.style.transform = `matrix(1, 0, 0, 1, 0,${this.y})`;
         }else{
@@ -226,10 +230,10 @@ class Item {
     }
 
     getLayout(){
-        const layout =  this.layout||this.parent.getLayout();
-        if(layout.name==='map'&&layout.direction === 'auto'&&!this.isRoot()){// 兼容一旦
+        const layout =  this.layout || this.parent.getLayout();
+        if(layout.name === 'map' && layout.direction === 'auto' && !this.isRoot()){// 兼容一旦
             const index = this.parent.children.indexOf(this);
-            if(index%2===0){
+            if(index % 2 === 0){
                 return this.page.layout['map-right']
             }else{
                 return this.page.layout['map-left']
@@ -249,20 +253,19 @@ class Item {
     }
  
     getShape(){
-        return this.data.shape||this.getAutoShape();
+        return this.data.shape || this.getAutoShape();
     }
 
     getLineShape(){
         const {theme} = this.remind;
-        return this.data.lineShape||theme.lineShape||"bezier";
+        return this.data.lineShape || theme.lineShape || "bezier";
     }
 
     getColor(){
-        return this.data.color?this.data.color:this.parent.getColor();
+        return this.data.color ? this.data.color : this.parent.getColor();
     }
 
     updateColor(){
-        const color = this.getColor();
         // this.toggleDOM.style.color = color;
         // this.toggleDOM.style.backgroundColor = color;
     }
@@ -271,18 +274,18 @@ class Item {
         const {x,y} = this;
         const {remindRect,x:pageX,y:pageY} = this.page;
         const {scrollLeft,scrollTop} = this.remind.remindDOM;
-        const globalX = x+pageX+this.contentRect.width/2;
-        const globalY = y+pageY+this.contentRect.height/2;
-        const right = scrollLeft+remindRect.width;
-        const bottom = scrollTop+remindRect.height;
-        if(globalX<right&&globalX>scrollLeft&&globalY>scrollTop&&globalY<bottom){
+        const globalX = x + pageX + this.contentRect.width / 2;
+        const globalY = y + pageY + this.contentRect.height / 2;
+        const right = scrollLeft + remindRect.width;
+        const bottom = scrollTop + remindRect.height;
+        if(globalX < right && globalX > scrollLeft && globalY > scrollTop && globalY < bottom){
             return true;
         }
         return false;
     }
  
     startEdit=()=>{
-        this.oldText = this.data.text||'';
+        this.oldText = this.data.text || '';
         const {textDOM,dom} = this;
         textDOM.contentEditable = true;
         textDOM.focus();
@@ -320,12 +323,12 @@ class Item {
 
     center(){
         const {scrollLeft,scrollTop,remindRect} = this.page;
-        this.page.translate(scrollLeft+remindRect.width/2-this.x,scrollTop+remindRect.height/2-this.y)
+        this.page.translate(scrollLeft + remindRect.width / 2 - this.x,scrollTop + remindRect.height / 2 - this.y)
         this.remind.remindDOM.scrollLeft = scrollLeft;
         this.remind.remindDOM.scrollTop = scrollTop;
     }
 
-    insertChild(child,index,ifUpdate=true){
+    insertChild(child,index,ifUpdate = true){
         if(child.parent){
             child.parent.removeChild(child)
         }
@@ -335,7 +338,7 @@ class Item {
             this.children.push(child);
         }
         // 挂载父元素到子元素上
-        child.depth = this.depth+1;
+        child.depth = this.depth + 1;
         child.parent = this;
         this.dom.appendChild(this.toggleDOM);
         if(ifUpdate){
@@ -344,12 +347,12 @@ class Item {
         return child;
     }
 
-    removeChild(child,ifUpdate=true){
+    removeChild(child,ifUpdate = true){
         const index = this.children.indexOf(child);
         child.depth = 0;
         child.parent = undefined;
         this.children.splice(index,1);
-        if(this.children.length<1){
+        if(this.children.length < 1){
             this.dom.removeChild(this.toggleDOM);
         }
         if(ifUpdate){
@@ -377,8 +380,8 @@ class Item {
 
     clearChildren(){
         this.children.forEach(item=>{
+            this.removeChild(item,false);
             item.destroy();
-            this.removeChild(item);
         })
         this.children = [];
     }
@@ -389,9 +392,9 @@ class Item {
 
     destroy(){
         if(this.parent){
-            this.parent.removeChild(this)
+            this.parent.removeChild(this,false)
         }
-        this.dom.parentElement&&this.dom.parentElement.removeChild(this.dom);
+        this.dom.parentElement && this.dom.parentElement.removeChild(this.dom);
         this.clearChildren();
     }
 }
