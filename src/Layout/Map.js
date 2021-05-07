@@ -212,14 +212,13 @@ class MapLayout {
 	}
 
 	updateLine(item) {
-
-        if(item.data.taper){// 如果当前元素是map则当前节点渐细
-            this.drawTaperingConnector(item);
-        }else{
-            // 默认用bezier线
-            const drawFunction = this.line[item.getLineShape()];
-            drawFunction.call(this,item);
+        // 默认用bezier线
+        let shape = item.getLineShape();
+        if(shape === 'taper' && item.depth > 0){
+            shape = 'bezier';
         }
+        const drawFunction = this.line[shape];
+        drawFunction.call(this,item);
     }
 
     /**

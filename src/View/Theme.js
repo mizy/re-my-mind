@@ -5,12 +5,12 @@ const theme = {
 			second: "box",
 			className: "default",
 			node: "underline",
-			lineShape:"bezier"
+			lineShape:"taper"
 		}
 	},
 
 	registe(name,options){
-		theme.thems[name] = Object.assign({},options,theme.themes.default)
+		theme.themes[name] = Object.assign({},theme.themes.default,{className:name},options);
 	}
 }
 

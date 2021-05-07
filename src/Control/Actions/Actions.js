@@ -54,11 +54,11 @@ const getAllActions = (remind) => {
 	Action.AppendItem.prototype = Object.create(Action.prototype);
 	Action.AppendItem.prototype.perform = function () {
 		this._parent.insertChild(this._item);
-		MM.App.select(this._item);
+		remind.page.select(this._item);
 	};
 	Action.AppendItem.prototype.undo = function () {
 		this._parent.removeChild(this._item);
-		MM.App.select(this._parent);
+		remind.page.selectt(this._parent);
 	};
 
 	Action.RemoveItem = function (item) {
@@ -76,8 +76,8 @@ const getAllActions = (remind) => {
 	Action.RemoveItem.prototype.undo = function () {
 		const childItem = new Item(remind.page,{
 			data:this.data,
-			depth:this._parent.depth+1,
-			visible:!this._parent.data.shrink&&this._parent.visible
+			depth:this._parent.depth + 1,
+			visible:!this._parent.data.shrink && this._parent.visible
 		});
 		this._parent.insertChild(childItem, this._index);
 		remind.page.select(this._item);
@@ -91,7 +91,7 @@ const getAllActions = (remind) => {
 		this._oldParent = item.getParent();
 		this._oldIndex = this._oldParent.getChildren().indexOf(item);
 		this._oldSide = item.getSide();
-		const colors = MM.Theme.theme.colors || MM.App.options.colors;
+		const colors = remind.theme.colors || remind.options.colors;
 		if (newParent.isRoot()) {
 			let color = colors[newIndex % colors.length];
 
@@ -106,12 +106,12 @@ const getAllActions = (remind) => {
 		} else {
 			this._newParent.insertChild(this._item, this._newIndex);
 		}
-		MM.App.select(this._item);
+		remind.page.select(this._item);
 	};
 	Action.MoveItem.prototype.undo = function () {
 		this._item.setSide(this._oldSide);
 		this._oldParent.insertChild(this._item, this._oldIndex);
-		MM.App.select(this._newParent);
+		remind.page.select(this._newParent);
 	};
 
 	Action.Swap = function (item, diff) {
@@ -219,20 +219,6 @@ const getAllActions = (remind) => {
 	Action.SetSide.prototype.undo = function () {
 		this._item.setSide(this._oldSide);
 		this._item.getMap().update();
-	};
-
-	Action.SetData = function (data) {
-		this.data = data;
-		this.oldData = MM.App.map.toJSON();
-	};
-	Action.SetData.prototype = Object.create(Action.prototype);
-	Action.SetData.prototype.perform = function () {
-		MM.App.options.data = this.data;
-		MM.App.setMap(new MM.Map(MM.App.options));
-	};
-	Action.SetData.prototype.undo = function () {
-		MM.App.options.data = this.oldData;
-		MM.App.setMap(new MM.Map(MM.App.options));
 	};
 
 	Action.SetNote = function (item, note) {

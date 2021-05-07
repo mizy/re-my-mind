@@ -133,7 +133,9 @@ class Item {
     updateVisible(children = [],visible){
         children.forEach(child=>{
             child.visible = visible;
-            this.updateVisible(child.children,visible)
+            if(!child.data.shrink){
+                this.updateVisible(child.children,visible)
+            }
         })
     }
 

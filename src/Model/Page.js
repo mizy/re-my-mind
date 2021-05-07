@@ -4,7 +4,7 @@ const data = (()=>{
     const data = {
         root: {
             text:'Root',
-            layout: 'map-right',
+            layout: 'map',
             color:"blue",
             children:[]
         }
@@ -24,7 +24,7 @@ const data = (()=>{
             }
         }
     }
-    make(data.root,0,0,1);
+    make(data.root,2,2,1);
     return data;
 })();
 class Page {
@@ -215,11 +215,14 @@ class Page {
         ctx.clearRect(0,0,this.canvas.width,this.canvas.height)
         this.lines.forEach(line=>{
             ctx.beginPath();
-            ctx.fillStyle = 'red';
+            const {fill,color} = line;
+            ctx.fillStyle = fill;
+            ctx.strokeStyle = color;
             line.path.forEach(point=>{
                 const {x1,y1,x2,y2,x,y} = point
                 switch(point.type){
                     case 'bezier3': ctx.bezierCurveTo(x1,y1,x2,y2,x,y);break;
+                    case 'bezier2': ctx.quadraticCurveTo(x1,y1,x,y);break;
                     case 'moveTo': ctx.moveTo(x,y);break;
                     default: ctx.lineTo(x,y);break;
                 }
@@ -234,26 +237,21 @@ class Page {
         let allStr = '';
         this.lines.forEach((line,index)=>{ 
             if(!line)return;
-            // if(!path.parentElement){
-            //     this.svg.appendChild(path);
-            //     this.paths.push(path)
-            // };
             let pathStr = '';
+            const {fill,color} = line;
             line.path.forEach(point=>{
                 const {x1,y1,x2,y2,x,y} = point
                 switch(point.type){
                     case 'bezier3': pathStr += ` C${x1} ${y1} ${x2} ${y2} ${x} ${y}`;break;
+                    case 'bezier2': pathStr += ` Q${x1} ${y1} ${x} ${y}`;break;
                     case 'moveTo': pathStr += `M${x} ${y}`;break;
                     default: pathStr += ` L${x} ${y}`;
                 }
             })
-            allStr += `<path d='${pathStr}' fill="transparent" stroke='${line.color}' ></path>`
+            allStr += `<path data-name="${line.name || ''}" d='${pathStr}' fill="${fill ? fill : 'transparent'}" stroke='${color ? color : 'transparent'}' ></path>`
             end = index;
         })
         this.svgConatiner.innerHTML = allStr;
-        // for(let i = end;i<this.paths.length-end;i++){
-        //     this.paths[i].parentElement.removeChild(this.paths[i]);
-        // }
         this.paths.splice(end,this.paths.length - end)
     }
 
@@ -266,6 +264,10 @@ class Page {
     resetTheme(reRender) {
         this.root.resetTheme();
         return this;
+    }
+
+    removeChild(){
+        this.root = undefined;
     }
 
     destroy(){

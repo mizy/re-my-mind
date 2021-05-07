@@ -73,8 +73,8 @@ MM.Layout._anchorCanvas = function (item) {
 
 MM.Layout._anchorToggle = function (item, x, y, side) {
 	var node = item.getDOM().toggle;
-	var w = 12||node.offsetWidth;
-	var h = 12||node.offsetHeight;
+	var w = 12 || node.offsetWidth;
+	var h = 12 || node.offsetHeight;
 	var l = x;
 	var t = y;
 

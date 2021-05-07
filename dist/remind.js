@@ -1514,6 +1514,7 @@ function polyline(item) {
   }; // 下划线的话给自己底部加上颜色
 
   var underlineData = {
+    name: "underline",
     path: [],
     color: color
   };
@@ -1559,6 +1560,7 @@ function polyline(item) {
 
       var lineData = {
         path: [],
+        name: 'connect',
         color: color
       };
 
@@ -1592,6 +1594,7 @@ function polyline(item) {
         });
 
         arrowData.color = color;
+        arrowData.name = 'arrow';
 
         _this.page.lines.push(arrowData);
       }
@@ -1629,6 +1632,7 @@ function polyline(item) {
 
       var lineData = {
         path: [],
+        name: 'connect',
         color: color
       };
 
@@ -1662,6 +1666,7 @@ function polyline(item) {
         });
 
         arrowData.color = lineData.color;
+        arrowData.name = 'arrow';
 
         _this.page.lines.push(arrowData);
       }
@@ -2301,11 +2306,7 @@ var Page = /*#__PURE__*/function () {
       var end = 0;
       var allStr = '';
       this.lines.forEach(function (line, index) {
-        if (!line) return; // if(!path.parentElement){
-        //     this.svg.appendChild(path);
-        //     this.paths.push(path)
-        // };
-
+        if (!line) return;
         var pathStr = '';
         line.path.forEach(function (point) {
           var x1 = point.x1,
@@ -2328,13 +2329,10 @@ var Page = /*#__PURE__*/function () {
               pathStr += " L".concat(x, " ").concat(y);
           }
         });
-        allStr += "<path d='".concat(pathStr, "' fill=\"transparent\" stroke='").concat(line.color, "' ></path>");
+        allStr += "<path data-name=\"".concat(line.name, "\" d='").concat(pathStr, "' fill=\"transparent\" stroke='").concat(line.color, "' ></path>");
         end = index;
       });
-      this.svgConatiner.innerHTML = allStr; // for(let i = end;i<this.paths.length-end;i++){
-      //     this.paths[i].parentElement.removeChild(this.paths[i]);
-      // }
-
+      this.svgConatiner.innerHTML = allStr;
       this.paths.splice(end, this.paths.length - end);
     }
   }, {
@@ -2349,6 +2347,11 @@ var Page = /*#__PURE__*/function () {
     value: function resetTheme(reRender) {
       this.root.resetTheme();
       return this;
+    }
+  }, {
+    key: "removeChild",
+    value: function removeChild() {
+      this.root = undefined;
     }
   }, {
     key: "destroy",
@@ -2470,13 +2473,13 @@ var getAllActions = function getAllActions(remind) {
   Action.AppendItem.prototype.perform = function () {
     this._parent.insertChild(this._item);
 
-    MM.App.select(this._item);
+    remind.page.select(this._item);
   };
 
   Action.AppendItem.prototype.undo = function () {
     this._parent.removeChild(this._item);
 
-    MM.App.select(this._parent);
+    remind.page.selectt(this._parent);
   };
 
   Action.RemoveItem = function (item) {
@@ -2516,7 +2519,7 @@ var getAllActions = function getAllActions(remind) {
     this._oldParent = item.getParent();
     this._oldIndex = this._oldParent.getChildren().indexOf(item);
     this._oldSide = item.getSide();
-    var colors = MM.Theme.theme.colors || MM.App.options.colors;
+    var colors = remind.theme.colors || remind.options.colors;
 
     if (newParent.isRoot()) {
       var color = colors[newIndex % colors.length];
@@ -2536,7 +2539,7 @@ var getAllActions = function getAllActions(remind) {
       this._newParent.insertChild(this._item, this._newIndex);
     }
 
-    MM.App.select(this._item);
+    remind.page.select(this._item);
   };
 
   Action.MoveItem.prototype.undo = function () {
@@ -2544,7 +2547,7 @@ var getAllActions = function getAllActions(remind) {
 
     this._oldParent.insertChild(this._item, this._oldIndex);
 
-    MM.App.select(this._newParent);
+    remind.page.select(this._newParent);
   };
 
   Action.Swap = function (item, diff) {
@@ -2682,23 +2685,6 @@ var getAllActions = function getAllActions(remind) {
     this._item.setSide(this._oldSide);
 
     this._item.getMap().update();
-  };
-
-  Action.SetData = function (data) {
-    this.data = data;
-    this.oldData = MM.App.map.toJSON();
-  };
-
-  Action.SetData.prototype = Object.create(Action.prototype);
-
-  Action.SetData.prototype.perform = function () {
-    MM.App.options.data = this.data;
-    MM.App.setMap(new MM.Map(MM.App.options));
-  };
-
-  Action.SetData.prototype.undo = function () {
-    MM.App.options.data = this.oldData;
-    MM.App.setMap(new MM.Map(MM.App.options));
   };
 
   Action.SetNote = function (item, note) {
@@ -2840,7 +2826,9 @@ var theme = {
     }
   },
   registe: function registe(name, options) {
-    theme.thems[name] = Object.assign({}, options, theme.themes["default"]);
+    theme.themes[name] = Object.assign({}, theme.themes["default"], {
+      className: name
+    }, options);
   }
 };
 /* harmony default export */ const Theme = (theme);

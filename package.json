@@ -1,12 +1,12 @@
 {
-	"name": "re-my-mind",
-	"version": "1.2.0",
+	"name": "@tntx/remind",
+	"version": "2.0.2",
 	"description": "脑图编辑器",
 	"keywords": [
 		"脑图",
 		"流程图"
 	],
-	"main": "dist/re-my-mind.js",
+	"main": "dist/remind.js",
 	"scripts": {
 		"start": "webpack serve",
 		"build": "webpack --config webpack.config.build.js",
@@ -14,7 +14,7 @@
 		"doc": "jsdoc -d doc src/**/*.js"
 	},
 	"files": [
-		"dist"
+		"dist/remind.js"
 	],
 	"td": {
 		"type": "block",
@@ -44,14 +44,15 @@
 		"url-loader": "^4.1.1",
 		"webpack": "^5.33.2",
 		"webpack-cli": "^4.6.0",
-		"webpack-dev-server": "^3.11.2"
-	},
-	"dependencies": {
+		"webpack-dev-server": "^3.11.2",
 		"antd": "^4.15.1",
 		"file-saver": "^2.0.5",
 		"html2canvas": "^1.0.0-rc.7",
 		"react": "^17.0.2",
 		"react-color": "^2.19.3",
 		"react-dom": "^17.0.2"
+	},
+	"dependencies": {
+		
 	}
 }

@@ -27,7 +27,7 @@ class Keyboard{
         
         const {commandMap} = this.remind.command;
         commandMap.forEach(command=>{
-            if (!command||!command.isValid()) { return; }
+            if (!command || !command.isValid()) { return; }
             const keys = command.keys;
             for (let j = 0; j < keys.length; j++) {
                 if (this.checkKey(keys[j], e)) {
@@ -47,6 +47,6 @@ class Keyboard{
         }
         return true;
     }
-};
+}
 
 export default Keyboard;

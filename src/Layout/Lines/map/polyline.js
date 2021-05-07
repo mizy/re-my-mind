@@ -9,6 +9,7 @@ function polyline(item){
     }
     // 下划线的话给自己底部加上颜色
     let underlineData = {
+        name:"underline",
         path:[],
         color,
     }
@@ -52,6 +53,7 @@ function polyline(item){
             
             const lineData = {
                 path:[],
+                name:'connect',
                 color
             }
             if(index === 0 || index === item.children.length - 1){
@@ -80,6 +82,7 @@ function polyline(item){
                     },
                     {x,y});
                 arrowData.color = color;
+                arrowData.name = 'arrow';
                 this.page.lines.push(arrowData)
             }
             this.page.lines.push(lineData)
@@ -113,6 +116,7 @@ function polyline(item){
             }
             const lineData = {
                 path:[],
+                name:'connect',
                 color
             }
             if(index === 0 || index === item.children.length - 1){
@@ -141,6 +145,7 @@ function polyline(item){
                     },
                     {x ,y});
                 arrowData.color = lineData.color;
+                arrowData.name = 'arrow';
                 this.page.lines.push(arrowData)
             }
             this.page.lines.push(lineData)

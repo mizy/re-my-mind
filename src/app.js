@@ -15,7 +15,7 @@ import './index.less'
  * @class
  */
 class Remind {
-    constructor(container,options={}){
+    constructor(container,options = {}){
         if(container){
             return this.init(container,options)
         }
@@ -25,7 +25,7 @@ class Remind {
      * @param  {} container
      * @param  {} options={}
      */
-    init(container,options={}){
+    init(container,options = {}){
         this.options = Object.assign({
             autoEdit:true,
             disableDrag:false,
@@ -64,7 +64,7 @@ class Remind {
  
     initDOM(){
         const remindDOM = document.createElement("div");
-        remindDOM.className =` remind  theme-${this.options.theme||''}`;
+        remindDOM.className = ` remind  theme-${this.options.theme || ''}`;
         this.remindDOM = remindDOM;
         this.container.appendChild(remindDOM);
 
