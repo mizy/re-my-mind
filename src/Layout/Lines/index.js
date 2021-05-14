@@ -9,6 +9,18 @@ const Line = {
         polyline,
         taper
     },
+    site:{
+        bezier:require('./site/bezier').default,
+        polyline:require('./site/polyline').default,
+        taper:require('./site/taper').default
+    },
+    tree:{
+        bezier:require('./tree/bezier').default,
+    },
+    fish:{
+        root:require('./fish/root').default,
+        item:require('./fish/item').default
+    },
     common
 
 }

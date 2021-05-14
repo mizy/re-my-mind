@@ -1,27 +1,28 @@
-function renderUnderline(item,startPos){
-    startPos.x = item.x+item.contentRect.width;
-    startPos.y = item.y+item.contentRect.height;
-    const path=[];
-    path.push({x:item.x,y:item.y+item.contentRect.height,type:"moveTo"});
+function renderUnderline(item,startPos,isTop = true){
+    startPos.x = item.x + item.contentRect.width;
+    startPos.y = !isTop ? item.y : (item.y + item.contentRect.height);
+    const path = [];
+    path.push({x:item.x,y:startPos.y,type:"moveTo"});
     path.push({x:startPos.x,y:startPos.y});
     const color = item.getColor();
     return {
+        name:"underline",
         path,color
     }
 }
 
 function renderArrow(middle,end){
-    const angle = Math.atan2(end.y-middle.y,end.x-middle.x);
-    const topAngle = Math.PI*5/6+angle;
-    const bottomAngle = -Math.PI*5/6+angle;
+    const angle = Math.atan2(end.y - middle.y,end.x - middle.x);
+    const topAngle = Math.PI * 5 / 6 + angle;
+    const bottomAngle = -Math.PI * 5 / 6 + angle;
     const length = 5;
     const top = {
-        x:end.x + length*Math.cos(topAngle),
-        y:end.y -length*Math.sin(topAngle)
+        x:end.x + length * Math.cos(topAngle),
+        y:end.y + length * Math.sin(topAngle)
     }
     const bottom = {
-        x:end.x + length*Math.cos(bottomAngle),
-        y:end.y - length*Math.sin(bottomAngle)
+        x:end.x + length * Math.cos(bottomAngle),
+        y:end.y + length * Math.sin(bottomAngle)
     }
     return {
         path:[{

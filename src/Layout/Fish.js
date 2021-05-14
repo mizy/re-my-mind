@@ -1,0 +1,268 @@
+
+import Line from './Lines';
+class FishLayout {
+    LINE_THICKNESS = 8;
+    name = 'fish';
+	constructor(page,direction = 'right') {
+		this.page = page;
+        this.line =  {...Line,...Line.fish};
+		this.remind = page.remind;
+        this.direction = direction;
+	}
+
+	update(item) {
+        if(item.isRoot()){
+            return this.layoutRoot(item,this.direction);
+        }
+        if(item.depth % 2 === 1){
+            this.layoutVerticalItem(item, this.direction);
+        }else{
+            this.layoutHorizonalItem(item, this.direction)
+        }
+	}
+  
+    layoutRoot(item,direction){
+        const { minFishWidth = 200,minFishHeight = 50,fishTailWidth = 50,headGap = 50} = this.remind.options.fish;
+        const {contentRect} = item;
+        if (!item.children || item.children.length < 1 || item.data.shrink) {
+			// 已经是最后一级的情况,容器bbox和item bbox相同
+			item.rect = {
+                width:contentRect.width + minFishWidth + fishTailWidth,
+                height:Math.max(contentRect.height ,minFishHeight)
+            }
+            item.originPos = {
+                x:0,
+                y:0
+            };
+            item.relativePos = {
+                x:direction === 'right' ? item.rect.width - contentRect.width : contentRect.width ,
+                y:(item.rect.height - contentRect.height) / 2
+            }
+			return false;
+		}
+        const bbox = this.getRootChildrenBBox(item.children,direction);
+        item.rect = {
+            width:Math.max(minFishWidth,bbox.width + headGap) + contentRect.width + fishTailWidth,
+            height:Math.max(contentRect.height / 2 ,minFishHeight / 2,bbox.topHeight) + Math.max(bbox.bottomHeight,minFishHeight / 2,contentRect.height / 2)
+        }
+        item.relativePos = {
+            x:headGap,
+            y:-contentRect.height / 2
+        };
+        item.originPos = {
+            x:item.rect.width - headGap - contentRect.width,
+            y:bbox.topHeight
+        };
+        item.childrenBBox = bbox;
+        return ;
+    }
+
+    isTop(item){
+        let parent = item;
+        while(!parent.parent.isRoot()){
+            parent = parent.parent;
+        }
+        if(parent.data.side){
+            return parent.data.side === 'top'
+        }
+        const children = parent.parent.children;
+        let top = 0,bottom = 0;
+        children.forEach(child=>{
+            if(child.data.side){
+                child.data.side === 'top' ? top++ : bottom++
+            }else{
+                if(top > bottom){
+                    bottom++;
+                    child.data.side = 'bottom'
+                }else{
+                    top++;
+                    child.data.side = 'top'
+                } 
+            }
+        })
+        return parent.data.side === 'top';
+    }
+
+    /**
+     * 计算出当前item的rect
+     * @param {*} item 
+     * @param {*} direction 
+     */
+	layoutVerticalItem(item, direction) {
+        const { angle,one:{headGap = 50,tailGap = 10}} = this.remind.options.fish;
+        const isTop = this.isTop(item);
+        const bbox = this.getVerticalChildrenBBox(item.children,direction,isTop,item);
+        const {contentRect} = item;
+        const k = Math.tan(angle);
+        item.childrenBBox = bbox;
+        item.relativePos = {
+            x: direction === 'right' ? -(headGap / k + contentRect.width / 2) : (headGap / k - contentRect.width / 2),
+            y: isTop ? -(contentRect.height + headGap) : (headGap)
+        };
+        const maxRight = Math.max((bbox.height + tailGap + headGap) / k,contentRect.width / 2 );
+        const maxLeft =  Math.max(bbox.maxDisWidth - headGap / k,contentRect.width / 2)
+		item.rect = {
+            // 右，左部分相加
+			width: maxLeft + maxRight,
+			height: contentRect.height + bbox.height + headGap + tailGap,
+		};
+        item.originPos = {
+            x:direction === 'right' ? (maxLeft + headGap / k) : (maxRight - headGap / k),
+            y:isTop ? (contentRect.height + headGap) : (bbox.height + tailGap)
+        } 
+	}
+
+    layoutHorizonalItem(item,direction){
+        const { other:{headGap ,tailGap }} = this.remind.options.fish;
+        const bbox = this.getHorizonalChildrenBBox(item.children,direction);
+        const isTop = this.isTop(item);
+        const {contentRect} = item;
+
+        const shape = item.getShape();
+        const isUnderLine = shape.indexOf("underline") > -1;
+        item.childrenBBox = bbox;
+        item.relativePos = {
+            x: direction === 'right' ? -(headGap + contentRect.width ) : headGap ,
+            y: isTop ? (-contentRect.height * (isUnderLine ? 1 : 0.5)) : (isUnderLine ? 0 : 0.5 * contentRect)
+        };
+		item.rect = {
+			width: bbox.width + tailGap + headGap + contentRect.width,
+			height: Math.max(contentRect.height * (isUnderLine ? 0  : 0.5) + bbox.height,contentRect.height) ,
+		};
+        item.originPos = {
+            x:direction === 'right' ? (contentRect.width + headGap) : (bbox.width + tailGap),
+            y:isTop ? (item.rect.height - contentRect.height * (isUnderLine ? 0 : 0.5)) : (isUnderLine ? 0 : contentRect.height / 2)
+        } 
+    }
+
+	/**
+	 * 以资源所第一个的左上角为原点建立相对坐标系
+	 * |————————> x
+	 * |[0,0]
+	 * |[0,height+spaceY]
+	 * |[]
+	 * |
+	 * |y
+	 * @param {*} items
+	 */
+	getRootChildrenBBox(items,direction = 'right') {
+		const { root:{spaceX = 5},bottomLineDis = 10} = this.remind.options.fish;
+        const top = {
+			width: 0,
+			height: 0,
+            children:[]
+		};
+        const bottom = {
+            width: 0,
+			height: 0,
+            children:[]
+        }
+        const bbox = {
+            width:0,
+            height:0
+        }
+        items.forEach((item,i)=>{
+            (i % 2 === 0 ? top : bottom).children.push(item)
+        })
+		const helfLength = Math.max(top.children.length,bottom.children.length);
+
+		for (let i = 0; i < helfLength; i++) {
+             const topItem = top.children[i];
+             const bottomItem = bottom.children[i];
+             let width = 0;
+             if(!bottomItem){
+                width = topItem.rect.width;
+             }else if(!topItem){
+                width = bottomItem.rect.width;
+             }else{
+                width = Math.max(topItem.rect.width,bottomItem.rect.width + Math.abs(bottomLineDis));
+            } 
+            if(topItem){
+                topItem.position = {
+                    x:direction === 'right' ? -(bbox.width + topItem.rect.width) : bbox.width ,
+                    y:-topItem.rect.height,
+                }
+                top.height = Math.max(top.height,topItem.rect.height)
+                topItem.data.side = 'top';
+            }
+            if(bottomItem){
+                bottomItem.position = {
+                    x:direction === 'right' ? -(bbox.width + bottomItem.rect.width + bottomLineDis) : (bbox.width + bottomLineDis),
+                    y:0
+                }
+                bottomItem.data.side = 'bottom';
+                bottom.height = Math.max(bottom.height,bottomItem.rect.height);
+            }
+            bbox.width += width + spaceX;
+		}
+        bbox.bottomHeight = bottom.height;
+        bbox.topHeight = top.height;
+        bbox.height = top.height + bottom.height
+
+		return bbox;
+	}
+
+    // 原点位置调整
+    getVerticalChildrenBBox(items,direction = 'right',isTop,parent){
+        const { one:{spaceY = 8,minLength },other:{minLength:otherMinLength,spaceY:otherSpaceY},angle  } = this.remind.options.fish;
+		const bbox = {
+			width: 0,
+			height: 0,
+            maxDisWidth:0
+		};
+        const isOne = parent.depth === 1;
+        const k = Math.tan(angle);
+        const space = isOne ? spaceY : otherSpaceY;
+		for (let i = 0; i < items.length; i++) {
+			const child = items[i];
+			const {rect} = child;
+			
+			// 计算子元素在父容器的相对坐标
+            const x = bbox.height / k;
+            bbox.maxDisWidth = Math.max(rect.width - x,bbox.maxDisWidth)
+			child.position = {
+				x: (direction === 'left' ? -x : x - rect.width),
+				y: isTop ? bbox.height : (-bbox.height - rect.height),
+			};
+			bbox.height += rect.height + space; 
+		}
+        
+        bbox.width = bbox.maxDisWidth + bbox.height / k;
+		bbox.height -= space;
+        bbox.height = Math.max(bbox.height, (isOne ? minLength : otherMinLength) * Math.cos(angle))
+		return bbox;
+    }
+
+    getHorizonalChildrenBBox(items,direction = 'right'){
+        const { other:{spaceX = 8,minLength = 100},angle  } = this.remind.options.fish;
+		const bbox = {
+			width: 0,
+			height: 0
+		};
+		for (let i = 0; i < items.length; i++) {
+			const child = items[i];
+			const {rect} = child;
+            bbox.height = Math.max(rect.height,bbox.height);
+			// 计算子元素在父容器的相对坐标
+            const isTop = this.isTop(child);
+			child.position = {
+				x: direction === 'right' ? bbox.width : -bbox.width,
+				y: isTop ? - rect.height : 0
+			};
+			bbox.width += spaceX + rect.width; 
+		}
+		bbox.width -= spaceX;
+		return bbox;
+    }
+
+	updateLine(item) {
+        if(item.isRoot()){
+            this.line.root.call(this,item)
+        }else{
+            this.line.item.call(this,item)
+        }
+    }
+
+
+}
+export default FishLayout;

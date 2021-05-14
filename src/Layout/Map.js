@@ -11,14 +11,24 @@ class MapLayout {
 	}
 
 	update(item) {
-        if (!item.children || item.children.length < 1 || item.data.shrink) {
-			// 已经是最后一级的情况,容器bbox和item bbox相同
-			item.rect = item.contentRect;
-            item.relativePos = {x:0,y:0};
-            item.originPos = {x:0,y:0}
-			return false;
-		}
-        if(this.direction === 'auto' && item.isRoot()){
+        if(this.direction === 'auto' ){
+            if(!item.isRoot()){// 非根节点的情况，要自适应方向
+                let rootSon = item;// 获取儿子节点
+                while(!rootSon.parent.isRoot()){
+                    rootSon = rootSon.parent;
+                }
+                // 把所有rootSon没有方向的都加上方向,这段逻辑只会执行一次，因为有任何一个儿子没方向，都会把全部儿子检查一便
+                if(!rootSon.data.direction){
+                    let left = 0;let right = 0;
+                    rootSon.parent.children.forEach(item=>{
+                        if(!item.data.direction){
+                            item.data.direction = right > left ? 'left' : 'right';
+                        }
+                        item.data.direction === 'right' ? right++ : left++;
+                    })
+                }
+                return this.layoutItem(item,rootSon.data.direction);
+            }
             return this.layoutAutoItem(item);
         }
 		this.layoutItem(item, this.direction);
@@ -29,7 +39,14 @@ class MapLayout {
      * @param  {} item
      */
     layoutAutoItem(item){
-        const {spaceY,spaceX} = this.remind.options;
+        if (!item.children || item.children.length < 1 || item.data.shrink) {
+			// 已经是最后一级的情况,容器bbox和item bbox相同
+			item.rect = item.contentRect;
+            item.relativePos = {x:0,y:0};
+            item.originPos = {x:0,y:0}
+			return false;
+		}
+        const {spaceY,spaceX} = this.remind.options.map;
         const {contentRect} = item;
         const leftBBox = {
 			width: 0,
@@ -45,7 +62,7 @@ class MapLayout {
         const offsetX = contentRect.width + 2 * spaceX;
         item.children.forEach((child,index)=>{
             const {relativePos,contentRect} = child;
-            if(index % 2 === 0){
+            if(child.data.direction === 'right'){
                 child.position = {
                     x:0,
                     y:rightBBox.height
@@ -54,7 +71,6 @@ class MapLayout {
                 rightBBox.width = Math.max(rightBBox.width,child.rect.width);
                 rightBBox.height += Math.max(child.rect.height,(relativePos.y * 2 + contentRect.height)) + spaceY;
             }else{
-                
                 child.position = {
                     x:-child.rect.width - offsetX,
                     y:leftBBox.height
@@ -130,11 +146,18 @@ class MapLayout {
      * @param {*} direction 
      */
 	layoutItem(item, direction) {
+        if (!item.children || item.children.length < 1 || item.data.shrink) {
+			// 已经是最后一级的情况,容器bbox和item bbox相同
+			item.rect = item.contentRect;
+            item.relativePos = {x:0,y:0};
+            item.originPos = {x:0,y:0}
+			return false;
+		}
 		const shape = item.getShape();
 		const bbox = this.getChildrenBBox(item.children,direction);
 		item.childrenBBox = bbox;
 		const { contentRect } = item;
-        const { spaceX = 60 } = this.remind.options;
+        const { spaceX = 60 } = this.remind.options.map;
 
         const itemDistanceX = spaceX + (direction === 'right' ? contentRect.width : 0);
         item.originPos = {
@@ -188,7 +211,7 @@ class MapLayout {
 	 * @param {*} items
 	 */
 	getChildrenBBox(items,direction = 'right') {
-		const { spaceY = 5 } = this.remind.options;
+		const { spaceY = 5 } = this.remind.options.site;
 		const bbox = {
 			width: 0,
 			height: 0,
@@ -199,7 +222,6 @@ class MapLayout {
 			if (rect.width > bbox.width) {
 				bbox.width = rect.width;
 			}
-            child.side = direction;
 			// 计算子元素在父容器的相对坐标
 			child.position = {
 				x: direction === 'right' ? 0 : -rect.width,
@@ -221,42 +243,6 @@ class MapLayout {
         drawFunction.call(this,item);
     }
 
-    /**
-     * 渲染渐细线
-     * @param {*} item 
-     */
-    drawTaperingConnector(item){
-        const itemPos = {
-            x:item.x + item.contentRect.width * 0.5,
-            y:item.y + item.contentRect.height * 0.5
-        }
-        const {canvasContext:ctx} = this.page;
-        const halfThick = this.LINE_THICKNESS / 2;
-        item.children.forEach(child=>{
-            let x,y;
-            const shape = child.getShape();
-            x = child.x;
-            const isUnderLine = shape.indexOf('underline') > -1;
-            // 下划线情况，终点坐标要不太一样
-            if(isUnderLine){
-                y = child.y + child.contentRect.height;
-            }else{
-                y = child.y + child.contentRect.height / 2;
-            }
-            const angle = Math.atan2(y - itemPos.y,x - itemPos.x) + Math.PI / 2;
-            const dx = Math.cos(angle) * halfThick;
-            const dy = Math.sin(angle) * halfThick;
-            ctx.fillStyle = ctx.strokeStyle = child.getColor();
-            ctx.beginPath();
-            ctx.moveTo(itemPos.x - dx, itemPos.y - dy);
-            ctx.quadraticCurveTo((x + itemPos.x) / 2, y, x, y);// 贝塞尔过去
-            // 贝塞尔回来
-            ctx.quadraticCurveTo((x + itemPos.x) / 2, y, itemPos.x + dx, itemPos.y + dy);
-            ctx.fill();
-            ctx.stroke();
-            ctx.closePath();
-        })
-    }
 
 }
 export default MapLayout;

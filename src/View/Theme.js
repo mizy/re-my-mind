@@ -5,7 +5,8 @@ const theme = {
 			second: "box",
 			className: "default",
 			node: "underline",
-			lineShape:"taper"
+			lineShape:"polyline",
+            colors: ['#fec936', '#f88b15', '#fe7e4d', '#ec6d7a', '#ef3224', '#9bc039', '#67c97e', '#00a7cd', '#40b5c6', '#2da4ff', '#956fe7', '#882e99', '#FF84BA']
 		}
 	},
 

@@ -1,5 +1,4 @@
 function bezier(item){
-        const { spaceX } = this.remind.options;
         const isUnderLine = item.getShape().indexOf('underline') > -1;
 
         let startPos = {

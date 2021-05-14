@@ -1,36 +1,12 @@
 import Item from "../View/Item";
-import {MapLayout} from '../Layout';
-const data = (()=>{
-    const data = {
-        root: {
-            text:'Root',
-            layout: 'map',
-            color:"blue",
-            children:[]
-        }
-    } 
-    function make(item,number,depth,index){
-        let total = number;
-        while(number > 0){
-            const child = {
-                text:`${depth}-${index}-${number}`,
-                color:"red",
-                children:[]
-            }
-            item.children.push(child);
-            number--;
-            if(depth > 0){
-                make(child,total,depth - 1,item.children.length);
-            }
-        }
-    }
-    make(data.root,2,2,1);
-    return data;
-})();
+import {MapLayout,SiteLayout,TreeLayout,FishLayout} from '../Layout';
+import theme from '../View/Theme';
+
 class Page {
     lines=[];
     constructor(remind){
         this.remind = remind;
+        this.page = remind.page;
         this.options = remind.options;
         this.root = null;
         this.visible = false;
@@ -41,7 +17,13 @@ class Page {
         if (this.options.data) {
             this.setData(this.options.data);
         } else {
-            this.setData(data);
+            this.setData({
+                root: {
+                    text:'Root',
+                    layout: 'map',
+                    children:[]
+                }
+            } );
         }
         // 延时进行操作
         requestAnimationFrame(()=>{
@@ -53,7 +35,14 @@ class Page {
         this.layout = {
             map:new MapLayout(this),
             'map-right':new MapLayout(this,'right'),
-            'map-left':new MapLayout(this,'left')
+            'map-left':new MapLayout(this,'left'),
+            site:new SiteLayout(this),
+            'site-bottom':new SiteLayout(this,'bottom'),
+            'site-top':new SiteLayout(this,'top'),
+            'tree-right':new TreeLayout(this,'right'),
+            'tree-left':new TreeLayout(this,'left'),
+            'fish-right':new FishLayout(this,'right'),
+            'fish-left':new FishLayout(this,'left')
         };
     }
 
@@ -85,16 +74,23 @@ class Page {
 
     setData(data){
         this.root && this.root.destroy();
+        this.data = data;
+        this.setTheme(data.theme);
+
         const root = new Item(this,{
             depth:0
         });
         root.setData(data.root);
         this.root = root;
         this.root.parent = this;
-        this.theme = data.theme;
+       
     }
 
-    
+    setTheme(value = 'default'){
+        this.theme = theme.themes[value];
+        this.remind.className = `remind theme-${theme}`;
+        this.data.theme = value;
+    }
 
     onMouseDown(event){
         const onMouseUp = ()=>{
@@ -124,13 +120,15 @@ class Page {
     }
 
     getColor(){
+        const {theme:{colors}} = this;
+        
         return '#999'
     }
  
     toJSON(){
         const data = {
             root: this.root.toJSON(),
-            theme: this.theme
+            theme: this.data.theme
         };
         return data;
     }

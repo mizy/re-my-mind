@@ -24,7 +24,7 @@ return /******/ (() => { // webpackBootstrap
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".re-mind.stright {\n  background-color: #f4f9fa;\n}\n.re-mind.stright .shape-ellipse > .content {\n  border-radius: 10px;\n  background-color: #ff383e;\n  border: 3px solid #ff8d8f;\n  padding: 20px;\n}\n.re-mind.stright .shape-ellipse > .content .text {\n  font-size: 28px;\n}\n.re-mind.box {\n  background-color: #1f2934;\n}\n.re-mind.box > .item > .content {\n  background-color: #1f2934;\n  border: 3px solid #20a5a1;\n  font-size: 48px;\n  padding: 20px;\n  color: #20a5a1;\n}\n.re-mind.box > .item > .content .text {\n  color: #20a5a1;\n  font-size: 28px;\n}\n.re-mind.box > .item > .children > .shape-box > .content {\n  background-color: #20a5a1;\n  color: #000;\n  padding: 10px 20px;\n  border-radius: 10px;\n}\n.re-mind.box > .item > .children > .shape-box > .children .shape-box > .content {\n  background-color: transparent;\n  border: none;\n  color: #20a5a1;\n  padding: 5px;\n  font-size: 22px;\n}\n.remind {\n  overflow: scroll;\n  width: 100%;\n  height: 100%;\n}\n.remind * {\n  box-sizing: border-box;\n}\n.remind ul,\n.remind li {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n}\n.remind ul li,\n.remind li li {\n  list-style: none;\n}\n.remind .remind-scroll {\n  position: relative;\n}\n.remind .remind-scroll .remind-page {\n  position: absolute;\n  left: 0;\n  top: 0;\n}\n.remind .remind-scroll .remind-page .remind-canvas {\n  position: absolute;\n  left: 0;\n  top: 0;\n}\n.remind .remind-scroll .remind-page .remind-selection {\n  position: absolute;\n  left: 0;\n  top: 0;\n  z-index: 1;\n  display: none;\n  transition: all 100ms ease-out;\n  pointer-events: none;\n}\n.remind .remind-scroll .remind-page .remind-selection:after {\n  transition: all 100ms ease-out;\n  content: ' ';\n  display: block;\n  width: calc(100% + 6px);\n  height: calc(100% + 6px);\n  position: absolute;\n  left: -5px;\n  top: -5px;\n  border: 2px solid blue;\n}\n.remind .remind-scroll .remind-page .remind-item {\n  position: absolute;\n  top: 0;\n  left: 0;\n  padding: 4px 10px;\n  color: #123;\n  border-radius: 3px;\n  cursor: pointer;\n  user-select: none;\n}\n.remind .remind-scroll .remind-page .remind-item::before {\n  content: ' ';\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  top: -4px;\n  left: -4px;\n  padding: 2px;\n  display: none;\n}\n.remind .remind-scroll .remind-page .remind-item .item-text {\n  display: inline-block;\n  border: none;\n  outline: none;\n  white-space: nowrap;\n}\n.remind .remind-scroll .remind-page .remind-item .item-icon {\n  z-index: 1;\n  display: inline-block;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle {\n  position: absolute;\n  right: -15px;\n  top: calc(50% - 6px);\n  display: none;\n  cursor: pointer;\n  padding-left: 4px;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle > div {\n  width: 12px;\n  height: 12px;\n  border: 1px solid #4a90e2;\n  border-radius: 6px;\n  text-align: center;\n  display: inline-block;\n  background: #fff;\n  color: black;\n  font-size: 12px;\n  line-height: 8px;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle > .toggle-off {\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle > .toggle-on {\n  display: none;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle:hover {\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle.toggled {\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle.toggled > .toggle-off {\n  display: none;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle.toggled > .toggle-on {\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item:hover .remind-toggle {\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item:hover::before {\n  border: 2px solid #779ecc;\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item.active .remind-toggle {\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item.active::before {\n  border: 2px solid #0775f3;\n  display: block;\n}\n.remind .remind-scroll .remind-page .shape-box {\n  background-color: #4a90e2;\n  color: #fff;\n}\n.remind .remind-scroll .remind-page .shape-underline {\n  padding: 4px 5px;\n}\n.remind .remind-scroll .remind-page .shape-ellipse {\n  padding: 10px 10px;\n  color: #fff;\n  background-color: #39ac03;\n}\n.remind .remind-scroll .remind-page .mm-note {\n  display: flex;\n  flex-direction: column;\n  position: absolute;\n  top: 80px;\n  left: 0px;\n  z-index: 2;\n  background: #fff;\n  transition: opacity, height 300ms ease-in;\n  overflow: hidden;\n  width: 300px;\n  border: 1px solid #efefef;\n  border-radius: 3px;\n  box-shadow: 2px 2px 20px 1px rgba(0, 0, 0, 0.2);\n}\n.remind .remind-scroll .remind-page .mm-note .note-util {\n  height: 30px;\n  width: 100%;\n  border-bottom: 1px solid #efefef;\n  padding-left: 10px;\n  padding-top: 4px;\n}\n.remind .remind-scroll .remind-page .mm-note .note-content {\n  height: 300px;\n  width: 100%;\n  overflow: scroll;\n}\n.remind .remind-scroll .remind-page .mm-note .note-content p {\n  white-space: pre-line;\n  padding: 10px;\n  outline: none;\n  height: 300px;\n  width: 100%;\n}\n.remind .remind-scroll .remind-page .mm-note.hide {\n  height: 0;\n  opacity: 0;\n}\n.remind .remind-scroll .remind-page .menu {\n  outline: none;\n  margin: 0;\n  padding: 5px 0;\n  list-style: none;\n  position: absolute;\n  left: 0;\n  top: 0;\n  z-index: 2;\n  background: #fff;\n  -webkit-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);\n  border-radius: 2px;\n  width: 200px;\n}\n.remind .remind-scroll .remind-page .menu > button {\n  height: 32px;\n  line-height: 32px;\n  padding: 0 20px;\n  color: #666;\n  font-size: 13px;\n  font-weight: 400;\n  cursor: pointer;\n  -webkit-transition: all 0.3s;\n  transition: all 0.3s;\n  white-space: nowrap;\n  display: block;\n  background-color: transparent;\n  border: none;\n  margin: 0;\n  width: 100%;\n  text-align: left;\n}\n.remind .remind-scroll .remind-page .menu > button:hover {\n  background: #efefef;\n}\n.remind .remind-scroll .remind-page .menu span {\n  display: block;\n  border-top: 1px solid #eee;\n  margin-top: 4px;\n  padding-top: 4px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".re-mind.stright {\n  background-color: #f4f9fa;\n}\n.re-mind.stright .shape-ellipse > .content {\n  border-radius: 10px;\n  background-color: #ff383e;\n  border: 3px solid #ff8d8f;\n  padding: 20px;\n}\n.re-mind.stright .shape-ellipse > .content .text {\n  font-size: 28px;\n}\n.re-mind.box {\n  background-color: #1f2934;\n}\n.re-mind.box > .item > .content {\n  background-color: #1f2934;\n  border: 3px solid #20a5a1;\n  font-size: 48px;\n  padding: 20px;\n  color: #20a5a1;\n}\n.re-mind.box > .item > .content .text {\n  color: #20a5a1;\n  font-size: 28px;\n}\n.re-mind.box > .item > .children > .shape-box > .content {\n  background-color: #20a5a1;\n  color: #000;\n  padding: 10px 20px;\n  border-radius: 10px;\n}\n.re-mind.box > .item > .children > .shape-box > .children .shape-box > .content {\n  background-color: transparent;\n  border: none;\n  color: #20a5a1;\n  padding: 5px;\n  font-size: 22px;\n}\n.remind {\n  overflow: scroll;\n  width: 100%;\n  height: 100%;\n}\n.remind * {\n  box-sizing: border-box;\n}\n.remind ul,\n.remind li {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n}\n.remind ul li,\n.remind li li {\n  list-style: none;\n}\n.remind .remind-scroll {\n  position: relative;\n}\n.remind .remind-scroll .remind-page {\n  position: absolute;\n  left: 0;\n  top: 0;\n}\n.remind .remind-scroll .remind-page .remind-canvas {\n  position: absolute;\n  left: 0;\n  top: 0;\n}\n.remind .remind-scroll .remind-page .remind-selection {\n  position: absolute;\n  left: 0;\n  top: 0;\n  z-index: 1;\n  display: none;\n  transition: all 100ms ease-out;\n  pointer-events: none;\n}\n.remind .remind-scroll .remind-page .remind-selection:after {\n  transition: all 100ms ease-out;\n  content: ' ';\n  display: block;\n  width: calc(100% + 6px);\n  height: calc(100% + 6px);\n  position: absolute;\n  left: -5px;\n  top: -5px;\n  border: 2px solid blue;\n}\n.remind .remind-scroll .remind-page .remind-item {\n  position: absolute;\n  top: 0;\n  left: 0;\n  padding: 4px 10px;\n  color: #123;\n  border-radius: 3px;\n  cursor: pointer;\n  user-select: none;\n}\n.remind .remind-scroll .remind-page .remind-item::before {\n  content: ' ';\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  top: -4px;\n  left: -4px;\n  padding: 2px;\n  display: none;\n  box-sizing: content-box;\n}\n.remind .remind-scroll .remind-page .remind-item .item-text {\n  display: inline-block;\n  border: none;\n  outline: none;\n  white-space: nowrap;\n}\n.remind .remind-scroll .remind-page .remind-item .item-icon {\n  z-index: 1;\n  display: inline-block;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle {\n  position: absolute;\n  right: -15px;\n  top: calc(50% - 6px);\n  display: none;\n  cursor: pointer;\n  padding-left: 4px;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle > div {\n  width: 12px;\n  height: 12px;\n  border: 1px solid #4a90e2;\n  border-radius: 6px;\n  text-align: center;\n  display: inline-block;\n  background: #fff;\n  color: black;\n  font-size: 12px;\n  line-height: 8px;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle > .toggle-off {\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle > .toggle-on {\n  display: none;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle:hover {\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle.toggled {\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle.toggled > .toggle-off {\n  display: none;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle.toggled > .toggle-on {\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item:hover .remind-toggle {\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item:hover::before {\n  border: 2px solid #779ecc;\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item.active .remind-toggle {\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item.active::before {\n  border: 2px solid #0775f3;\n  display: block;\n}\n.remind .remind-scroll .remind-page .shape-box {\n  background-color: #4a90e2;\n  color: #fff;\n}\n.remind .remind-scroll .remind-page .shape-underline {\n  padding: 4px 5px;\n}\n.remind .remind-scroll .remind-page .shape-ellipse {\n  padding: 10px 10px;\n  color: #fff;\n  background-color: #39ac03;\n}\n.remind .remind-scroll .remind-page .mm-note {\n  display: flex;\n  flex-direction: column;\n  position: absolute;\n  top: 80px;\n  left: 0px;\n  z-index: 2;\n  background: #fff;\n  transition: opacity, height 300ms ease-in;\n  overflow: hidden;\n  width: 300px;\n  border: 1px solid #efefef;\n  border-radius: 3px;\n  box-shadow: 2px 2px 20px 1px rgba(0, 0, 0, 0.2);\n}\n.remind .remind-scroll .remind-page .mm-note .note-util {\n  height: 30px;\n  width: 100%;\n  border-bottom: 1px solid #efefef;\n  padding-left: 10px;\n  padding-top: 4px;\n}\n.remind .remind-scroll .remind-page .mm-note .note-content {\n  height: 300px;\n  width: 100%;\n  overflow: scroll;\n}\n.remind .remind-scroll .remind-page .mm-note .note-content p {\n  white-space: pre-line;\n  padding: 10px;\n  outline: none;\n  height: 300px;\n  width: 100%;\n}\n.remind .remind-scroll .remind-page .mm-note.hide {\n  height: 0;\n  opacity: 0;\n}\n.remind .remind-scroll .remind-page .menu {\n  outline: none;\n  margin: 0;\n  padding: 5px 0;\n  list-style: none;\n  position: absolute;\n  left: 0;\n  top: 0;\n  z-index: 2;\n  background: #fff;\n  -webkit-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);\n  border-radius: 2px;\n  width: 200px;\n}\n.remind .remind-scroll .remind-page .menu > button {\n  height: 32px;\n  line-height: 32px;\n  padding: 0 20px;\n  color: #666;\n  font-size: 13px;\n  font-weight: 400;\n  cursor: pointer;\n  -webkit-transition: all 0.3s;\n  transition: all 0.3s;\n  white-space: nowrap;\n  display: block;\n  background-color: transparent;\n  border: none;\n  margin: 0;\n  width: 100%;\n  text-align: left;\n}\n.remind .remind-scroll .remind-page .menu > button:hover {\n  background: #efefef;\n}\n.remind .remind-scroll .remind-page .menu span {\n  display: block;\n  border-top: 1px solid #eee;\n  margin-top: 4px;\n  padding-top: 4px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -464,7 +464,7 @@ __webpack_require__.d(common_namespaceObject, {
 });
 
 ;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-function _classCallCheck(instance, Constructor) {
+function classCallCheck_classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
   }
@@ -480,13 +480,13 @@ function _defineProperties(target, props) {
   }
 }
 
-function _createClass(Constructor, protoProps, staticProps) {
+function createClass_createClass(Constructor, protoProps, staticProps) {
   if (protoProps) _defineProperties(Constructor.prototype, protoProps);
   if (staticProps) _defineProperties(Constructor, staticProps);
   return Constructor;
 }
 ;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/defineProperty.js
-function _defineProperty(obj, key, value) {
+function defineProperty_defineProperty(obj, key, value) {
   if (key in obj) {
     Object.defineProperty(obj, key, {
       value: value,
@@ -507,11 +507,11 @@ var getAllCommands = function getAllCommands(remind) {
     //     return false;
     // }
     if (!remind.page.current) {
-      return;
+      return false;
     }
 
-    if (!remind.page.editing) {
-      return true;
+    if (remind.page.editing) {
+      return false;
     } // if (this.editMode === null) {
     //     return true;
     // }
@@ -520,7 +520,7 @@ var getAllCommands = function getAllCommands(remind) {
     // }
 
 
-    return false;
+    return true;
   };
 
   return [{
@@ -529,16 +529,18 @@ var getAllCommands = function getAllCommands(remind) {
       keyCode: 13
     }],
     prevent: true,
-    isValid: _isValid,
+    isValid: function isValid() {
+      return _isValid() && !remind.options.readonly;
+    },
     execute: function execute() {
       var item = remind.page.current;
 
       if (item.isRoot()) {
-        var action = this.remind.action.execute('InsertNewItem', item, item.getChildren().length);
+        this.remind.action.execute('InsertNewItem', item, item.getChildren().length);
       } else {
         var parent = item.getParent();
         var index = parent.getChildren().indexOf(item);
-        var action = remind.action.InsertNewItem(parent, index + 1);
+        remind.action.InsertNewItem(parent, index + 1);
       }
 
       if (remind.options.autoEdit && !action._item._data.disableEdit) {
@@ -629,7 +631,7 @@ var getAllCommands = function getAllCommands(remind) {
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { defineProperty_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 
 /**
@@ -638,7 +640,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 var Command_Command = /*#__PURE__*/function () {
   function Command(remind) {
-    _classCallCheck(this, Command);
+    classCallCheck_classCallCheck(this, Command);
 
     this.remind = remind;
     var commandMap = new Map();
@@ -656,7 +658,7 @@ var Command_Command = /*#__PURE__*/function () {
     this.commandMap = commandMap;
   }
 
-  _createClass(Command, [{
+  createClass_createClass(Command, [{
     key: "execute",
     value: function execute(name) {
       var command = this.commandMap.get(name);
@@ -682,7 +684,7 @@ var Command_Command = /*#__PURE__*/function () {
 var Keyboard = function Keyboard(remind) {
   var _this = this;
 
-  _classCallCheck(this, Keyboard);
+  classCallCheck_classCallCheck(this, Keyboard);
 
   this.init = function () {
     window.addEventListener("keydown", this.onKeyDown);
@@ -744,7 +746,6 @@ var Keyboard = function Keyboard(remind) {
   this.init();
 };
 
-;
 /* harmony default export */ const Control_Keyboard = (Keyboard);
 ;// CONCATENATED MODULE: ./src/View/Nodes/Nodes.js
 var _this = undefined;
@@ -832,7 +833,7 @@ var Item = /*#__PURE__*/function () {
 
     var option = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-    _classCallCheck(this, Item);
+    classCallCheck_classCallCheck(this, Item);
 
     this.children = [];
     this.position = {
@@ -938,7 +939,7 @@ var Item = /*#__PURE__*/function () {
     }
   }
 
-  _createClass(Item, [{
+  createClass_createClass(Item, [{
     key: "setData",
     value: function setData(data) {
       this.clear();
@@ -1027,7 +1028,9 @@ var Item = /*#__PURE__*/function () {
       children.forEach(function (child) {
         child.visible = visible;
 
-        _this3.updateVisible(child.children, visible);
+        if (!child.data.shrink) {
+          _this3.updateVisible(child.children, visible);
+        }
       });
     }
   }, {
@@ -1345,7 +1348,7 @@ var Item = /*#__PURE__*/function () {
 
 function bezier_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function bezier_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { bezier_ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { bezier_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function bezier_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { bezier_ownKeys(Object(source), true).forEach(function (key) { defineProperty_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { bezier_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function bezier(item) {
   var _this = this;
@@ -1452,7 +1455,7 @@ function bezier(item) {
 
 function common_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function common_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { common_ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { common_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function common_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { common_ownKeys(Object(source), true).forEach(function (key) { defineProperty_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { common_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function renderUnderline(item, startPos) {
   startPos.x = item.x + item.contentRect.width;
@@ -1500,7 +1503,7 @@ function renderArrow(middle, end) {
 
 function polyline_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function polyline_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { polyline_ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { polyline_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function polyline_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { polyline_ownKeys(Object(source), true).forEach(function (key) { defineProperty_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { polyline_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function polyline(item) {
   var _this = this;
@@ -1678,18 +1681,123 @@ function polyline(item) {
 
 
 /* harmony default export */ const map_polyline = (polyline);
+;// CONCATENATED MODULE: ./src/Layout/Lines/map/taper.js
+function taper(item) {
+  var _this = this;
+
+  if (item.data.shrink || !item.children.length) {
+    return item;
+  }
+
+  var itemPos = {
+    x: item.x + item.contentRect.width * 0.5,
+    y: item.y + item.contentRect.height * 0.5
+  };
+  var halfThick = this.LINE_THICKNESS / 2;
+  item.rightChildren.forEach(function (child) {
+    var x, y;
+    var shape = child.getShape();
+    x = child.x;
+    var isUnderLine = shape.indexOf('underline') > -1; // 下划线情况，终点坐标要不太一样
+
+    if (isUnderLine) {
+      y = child.y + child.contentRect.height;
+    } else {
+      y = child.y + child.contentRect.height / 2;
+    }
+
+    var angle = Math.atan2(y - itemPos.y, x - itemPos.x) + Math.PI / 2;
+    var dx = Math.cos(angle) * halfThick;
+    var dy = Math.sin(angle) * halfThick;
+    var color = child.getColor();
+    var data = {
+      path: [],
+      fill: color,
+      color: color
+    };
+    data.path.push({
+      x: itemPos.x - dx,
+      y: itemPos.y - dy,
+      type: "moveTo"
+    });
+    data.path.push({
+      x1: (x + itemPos.x) / 2,
+      y1: y,
+      x: x,
+      y: y,
+      type: "bezier2"
+    });
+    data.path.push({
+      x1: (x + itemPos.x) / 2,
+      y1: y,
+      x: itemPos.x + dx,
+      y: itemPos.y + dy,
+      type: "bezier2"
+    });
+
+    _this.page.lines.push(data);
+  });
+  item.leftChildren.forEach(function (child) {
+    var x, y;
+    var shape = child.getShape();
+    x = child.x + child.contentRect.width;
+    var isUnderLine = shape.indexOf('underline') > -1; // 下划线情况，终点坐标要不太一样
+
+    if (isUnderLine) {
+      y = child.y + child.contentRect.height;
+    } else {
+      y = child.y + child.contentRect.height / 2;
+    }
+
+    var angle = Math.atan2(y - itemPos.y, x - itemPos.x) + Math.PI / 2;
+    var dx = Math.cos(angle) * halfThick;
+    var dy = Math.sin(angle) * halfThick;
+    var color = child.getColor();
+    var data = {
+      path: [],
+      fill: color,
+      color: color
+    };
+    data.path.push({
+      x: itemPos.x - dx,
+      y: itemPos.y - dy,
+      type: "moveTo"
+    });
+    data.path.push({
+      x1: (x + itemPos.x) / 2,
+      y1: y,
+      x: x,
+      y: y,
+      type: "bezier2"
+    });
+    data.path.push({
+      x1: (x + itemPos.x) / 2,
+      y1: y,
+      x: itemPos.x + dx,
+      y: itemPos.y + dy,
+      type: "bezier2"
+    });
+
+    _this.page.lines.push(data);
+  });
+} // 不得使用箭头函数
+
+
+/* harmony default export */ const map_taper = (taper);
 ;// CONCATENATED MODULE: ./src/Layout/Lines/index.js
 
 
 
-var Line = {
+
+var Lines_Line = {
   map: {
     bezier: map_bezier,
-    polyline: map_polyline
+    polyline: map_polyline,
+    taper: map_taper
   },
   common: common_namespaceObject
 };
-/* harmony default export */ const Lines = (Line);
+/* harmony default export */ const Lines = (Lines_Line);
 ;// CONCATENATED MODULE: ./src/Layout/Map.js
 
 
@@ -1697,7 +1805,7 @@ var Line = {
 
 function Map_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function Map_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { Map_ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { Map_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function Map_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { Map_ownKeys(Object(source), true).forEach(function (key) { defineProperty_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { Map_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 
 
@@ -1705,7 +1813,7 @@ var MapLayout = /*#__PURE__*/function () {
   function MapLayout(page) {
     var direction = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'auto';
 
-    _classCallCheck(this, MapLayout);
+    classCallCheck_classCallCheck(this, MapLayout);
 
     this.LINE_THICKNESS = 8;
     this.name = 'map';
@@ -1715,7 +1823,333 @@ var MapLayout = /*#__PURE__*/function () {
     this.direction = direction;
   }
 
-  _createClass(MapLayout, [{
+  createClass_createClass(MapLayout, [{
+    key: "update",
+    value: function update(item) {
+      if (!item.children || item.children.length < 1 || item.data.shrink) {
+        // 已经是最后一级的情况,容器bbox和item bbox相同
+        item.rect = item.contentRect;
+        item.relativePos = {
+          x: 0,
+          y: 0
+        };
+        item.originPos = {
+          x: 0,
+          y: 0
+        };
+        return false;
+      }
+
+      if (this.direction === 'auto' && item.isRoot()) {
+        return this.layoutAutoItem(item);
+      }
+
+      this.layoutItem(item, this.direction);
+    }
+    /**
+     * 两端布局
+     * @param  {} item
+     */
+
+  }, {
+    key: "layoutAutoItem",
+    value: function layoutAutoItem(item) {
+      var _this$remind$options = this.remind.options,
+          spaceY = _this$remind$options.spaceY,
+          spaceX = _this$remind$options.spaceX;
+      var contentRect = item.contentRect;
+      var leftBBox = {
+        width: 0,
+        height: 0
+      };
+      var rightBBox = {
+        width: 0,
+        height: 0
+      };
+      var rightChildren = [];
+      var leftChildren = []; // 计算子元素的位置,两边布局
+
+      var offsetX = contentRect.width + 2 * spaceX;
+      item.children.forEach(function (child, index) {
+        var relativePos = child.relativePos,
+            contentRect = child.contentRect;
+
+        if (index % 2 === 0) {
+          child.position = {
+            x: 0,
+            y: rightBBox.height
+          };
+          rightChildren.push(child);
+          rightBBox.width = Math.max(rightBBox.width, child.rect.width);
+          rightBBox.height += Math.max(child.rect.height, relativePos.y * 2 + contentRect.height) + spaceY;
+        } else {
+          child.position = {
+            x: -child.rect.width - offsetX,
+            y: leftBBox.height
+          };
+          leftChildren.push(child);
+          leftBBox.width = Math.max(leftBBox.width, child.rect.width);
+          leftBBox.height += Math.max(child.rect.height, relativePos.y * 2 + contentRect.height) + spaceY;
+        }
+      });
+
+      if (rightBBox.height > 0) {
+        rightBBox.height -= spaceY;
+      }
+
+      if (leftBBox.height > 0) {
+        leftBBox.height -= spaceY;
+      }
+
+      item.originPos = {
+        x: leftBBox.width + offsetX,
+        y: 0
+      };
+      var bigChildren = [];
+      var smallChildren = [];
+      var bigBBox = {};
+      var disY = 0.5 * Math.abs(leftBBox.height - rightBBox.height); // 高度小的一侧垂直居中
+
+      if (leftBBox.height > rightBBox.height) {
+        bigChildren = leftChildren;
+        smallChildren = rightChildren;
+        bigBBox = leftBBox;
+      } else {
+        bigChildren = rightChildren;
+        smallChildren = leftChildren;
+        bigBBox = rightBBox;
+      }
+
+      smallChildren.forEach(function (child) {
+        child.position.y += disY;
+      }); // 居中当前节点
+
+      var centerY = this.getCenterY(bigChildren, bigBBox);
+      var centerDis = centerY - contentRect.height / 2;
+
+      if (centerDis > 0) {
+        item.relativePos = {
+          x: -(contentRect.width + spaceX),
+          y: centerDis //自动布局的默认不会有下划线
+
+        };
+      } else {
+        item.children.forEach(function (child) {
+          return child.position.y -= centerDis;
+        }); // 主节点特别大的情况
+
+        item.relativePos = {
+          x: -(contentRect.width + spaceX),
+          y: 0
+        };
+      }
+
+      item.rect = {
+        width: spaceX * 2 + leftBBox.width + contentRect.width + rightBBox.width,
+        height: Math.max(bigBBox.height, contentRect.height)
+      };
+      item.leftChildren = leftChildren;
+      item.rightChildren = rightChildren;
+    }
+  }, {
+    key: "getCenterY",
+    value: function getCenterY(children, bbox) {
+      var firstChild = children[0];
+      var lastChild = children[children.length - 1];
+      var firstLineY = firstChild.getShape().indexOf('underline') > -1 ? firstChild.contentRect.height : firstChild.contentRect.height * 0.5;
+      var lastLineY = bbox.height - (lastChild.getShape().indexOf('underline') > -1 ? 0 : lastChild.contentRect.height * 0.5);
+      var centerY = (firstLineY + lastLineY) * 0.5;
+      return centerY;
+    }
+    /**
+     * 计算出当前item的rect
+     * @param {*} item 
+     * @param {*} direction 
+     */
+
+  }, {
+    key: "layoutItem",
+    value: function layoutItem(item, direction) {
+      var shape = item.getShape();
+      var bbox = this.getChildrenBBox(item.children, direction);
+      item.childrenBBox = bbox;
+      var contentRect = item.contentRect;
+      var _this$remind$options$ = this.remind.options.spaceX,
+          spaceX = _this$remind$options$ === void 0 ? 60 : _this$remind$options$;
+      var itemDistanceX = spaceX + (direction === 'right' ? contentRect.width : 0);
+      item.originPos = {
+        x: direction === 'right' ? itemDistanceX : bbox.width,
+        y: 0
+      };
+      var centerY = this.getCenterY(item.children, bbox);
+      var centerDis = centerY - contentRect.height / 2;
+
+      if (centerDis < 0) {
+        item.children.forEach(function (child) {
+          return child.position.y -= centerDis;
+        }); // 主节点特别大的情况
+
+        item.relativePos = {
+          x: (direction === 'right' ? -1 : 1) * itemDistanceX,
+          y: 0
+        };
+      } else {
+        if (shape.indexOf('underline') == -1) {
+          item.relativePos = {
+            x: (direction === 'right' ? -1 : 1) * itemDistanceX,
+            y: centerY - contentRect.height / 2
+          };
+        } else {
+          item.relativePos = {
+            x: (direction === 'right' ? -1 : 1) * itemDistanceX,
+            y: centerY - contentRect.height
+          };
+        }
+      }
+
+      if (direction === 'right') {
+        item.leftChildren = [];
+        item.rightChildren = item.children;
+      } else {
+        item.leftChildren = item.children;
+        item.rightChildren = [];
+      }
+
+      item.rect = {
+        width: bbox.width + spaceX + contentRect.width,
+        height: Math.max(item.relativePos.y + contentRect.height, bbox.height)
+      };
+    }
+    /**
+     * 以资源所第一个的左上角为原点建立相对坐标系
+     * |————————> x
+     * |[0,0]
+     * |[0,height+spaceY]
+     * |[]
+     * |
+     * |y
+     * @param {*} items
+     */
+
+  }, {
+    key: "getChildrenBBox",
+    value: function getChildrenBBox(items) {
+      var direction = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'right';
+      var _this$remind$options$2 = this.remind.options.spaceY,
+          spaceY = _this$remind$options$2 === void 0 ? 5 : _this$remind$options$2;
+      var bbox = {
+        width: 0,
+        height: 0
+      };
+
+      for (var i = 0; i < items.length; i++) {
+        var child = items[i];
+        var rect = child.rect,
+            relativePos = child.relativePos,
+            contentRect = child.contentRect;
+
+        if (rect.width > bbox.width) {
+          bbox.width = rect.width;
+        }
+
+        child.side = direction; // 计算子元素在父容器的相对坐标
+
+        child.position = {
+          x: direction === 'right' ? 0 : -rect.width,
+          y: bbox.height
+        };
+        bbox.height += Math.max(rect.height, relativePos.y * 2 + contentRect.height) + spaceY; // 让父节点在整个局部范围内垂直居中
+      }
+
+      bbox.height -= spaceY;
+      return bbox;
+    }
+  }, {
+    key: "updateLine",
+    value: function updateLine(item) {
+      // 默认用bezier线
+      var shape = item.getLineShape();
+
+      if (shape === 'taper' && item.depth > 0) {
+        shape = 'bezier';
+      }
+
+      var drawFunction = this.line[shape];
+      drawFunction.call(this, item);
+    }
+    /**
+     * 渲染渐细线
+     * @param {*} item 
+     */
+
+  }, {
+    key: "drawTaperingConnector",
+    value: function drawTaperingConnector(item) {
+      var itemPos = {
+        x: item.x + item.contentRect.width * 0.5,
+        y: item.y + item.contentRect.height * 0.5
+      };
+      var ctx = this.page.canvasContext;
+      var halfThick = this.LINE_THICKNESS / 2;
+      item.children.forEach(function (child) {
+        var x, y;
+        var shape = child.getShape();
+        x = child.x;
+        var isUnderLine = shape.indexOf('underline') > -1; // 下划线情况，终点坐标要不太一样
+
+        if (isUnderLine) {
+          y = child.y + child.contentRect.height;
+        } else {
+          y = child.y + child.contentRect.height / 2;
+        }
+
+        var angle = Math.atan2(y - itemPos.y, x - itemPos.x) + Math.PI / 2;
+        var dx = Math.cos(angle) * halfThick;
+        var dy = Math.sin(angle) * halfThick;
+        ctx.fillStyle = ctx.strokeStyle = child.getColor();
+        ctx.beginPath();
+        ctx.moveTo(itemPos.x - dx, itemPos.y - dy);
+        ctx.quadraticCurveTo((x + itemPos.x) / 2, y, x, y); // 贝塞尔过去
+        // 贝塞尔回来
+
+        ctx.quadraticCurveTo((x + itemPos.x) / 2, y, itemPos.x + dx, itemPos.y + dy);
+        ctx.fill();
+        ctx.stroke();
+        ctx.closePath();
+      });
+    }
+  }]);
+
+  return MapLayout;
+}();
+
+/* harmony default export */ const Layout_Map = (MapLayout);
+;// CONCATENATED MODULE: ./src/Layout/Tree.js
+
+
+
+
+function Tree_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function Tree_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { Tree_ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { Tree_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+
+
+var TreeLayout = /*#__PURE__*/(/* unused pure expression or super */ null && (function () {
+  function TreeLayout(page) {
+    var direction = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'auto';
+
+    _classCallCheck(this, TreeLayout);
+
+    this.LINE_THICKNESS = 8;
+    this.name = 'map';
+    this.page = page;
+    this.line = Tree_objectSpread(Tree_objectSpread({}, Line), Line.map);
+    this.remind = page.remind;
+    this.direction = direction;
+  }
+
+  _createClass(TreeLayout, [{
     key: "update",
     value: function update(item) {
       if (!item.children || item.children.length < 1 || item.data.shrink) {
@@ -2011,10 +2445,10 @@ var MapLayout = /*#__PURE__*/function () {
     }
   }]);
 
-  return MapLayout;
-}();
+  return TreeLayout;
+}()));
 
-/* harmony default export */ const Layout_Map = (MapLayout);
+/* harmony default export */ const Tree = ((/* unused pure expression or super */ null && (TreeLayout)));
 ;// CONCATENATED MODULE: ./src/Layout/index.js
 
 
@@ -2030,7 +2464,7 @@ var data = function () {
   var data = {
     root: {
       text: 'Root',
-      layout: 'map-right',
+      layout: 'map',
       color: "blue",
       children: []
     }
@@ -2054,7 +2488,7 @@ var data = function () {
     }
   }
 
-  make(data.root, 0, 0, 1);
+  make(data.root, 2, 2, 1);
   return data;
 }();
 
@@ -2062,7 +2496,7 @@ var Page = /*#__PURE__*/function () {
   function Page(remind) {
     var _this = this;
 
-    _classCallCheck(this, Page);
+    classCallCheck_classCallCheck(this, Page);
 
     this.lines = [];
     this.paths = [];
@@ -2087,7 +2521,7 @@ var Page = /*#__PURE__*/function () {
     });
   }
 
-  _createClass(Page, [{
+  createClass_createClass(Page, [{
     key: "initLayout",
     value: function initLayout() {
       this.layout = {
@@ -2274,7 +2708,10 @@ var Page = /*#__PURE__*/function () {
       ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
       this.lines.forEach(function (line) {
         ctx.beginPath();
-        ctx.fillStyle = 'red';
+        var fill = line.fill,
+            color = line.color;
+        ctx.fillStyle = fill;
+        ctx.strokeStyle = color;
         line.path.forEach(function (point) {
           var x1 = point.x1,
               y1 = point.y1,
@@ -2286,6 +2723,10 @@ var Page = /*#__PURE__*/function () {
           switch (point.type) {
             case 'bezier3':
               ctx.bezierCurveTo(x1, y1, x2, y2, x, y);
+              break;
+
+            case 'bezier2':
+              ctx.quadraticCurveTo(x1, y1, x, y);
               break;
 
             case 'moveTo':
@@ -2308,6 +2749,8 @@ var Page = /*#__PURE__*/function () {
       this.lines.forEach(function (line, index) {
         if (!line) return;
         var pathStr = '';
+        var fill = line.fill,
+            color = line.color;
         line.path.forEach(function (point) {
           var x1 = point.x1,
               y1 = point.y1,
@@ -2321,6 +2764,10 @@ var Page = /*#__PURE__*/function () {
               pathStr += " C".concat(x1, " ").concat(y1, " ").concat(x2, " ").concat(y2, " ").concat(x, " ").concat(y);
               break;
 
+            case 'bezier2':
+              pathStr += " Q".concat(x1, " ").concat(y1, " ").concat(x, " ").concat(y);
+              break;
+
             case 'moveTo':
               pathStr += "M".concat(x, " ").concat(y);
               break;
@@ -2329,7 +2776,7 @@ var Page = /*#__PURE__*/function () {
               pathStr += " L".concat(x, " ").concat(y);
           }
         });
-        allStr += "<path data-name=\"".concat(line.name, "\" d='").concat(pathStr, "' fill=\"transparent\" stroke='").concat(line.color, "' ></path>");
+        allStr += "<path data-name=\"".concat(line.name || '', "\" d='").concat(pathStr, "' fill=\"").concat(fill ? fill : 'transparent', "\" stroke='").concat(color ? color : 'transparent', "' ></path>");
         end = index;
       });
       this.svgConatiner.innerHTML = allStr;
@@ -2640,7 +3087,7 @@ var getAllActions = function getAllActions(remind) {
     this._item = item;
 
     if (icon) {
-      this._icon = Object.assign({}, item._icon, _defineProperty({}, type, icon));
+      this._icon = Object.assign({}, item._icon, defineProperty_defineProperty({}, type, icon));
     } else {
       this._icon = Object.assign({}, item._icon);
       delete this._icon[type];
@@ -2740,13 +3187,13 @@ var getAllActions = function getAllActions(remind) {
 
 var Action = /*#__PURE__*/function () {
   function Action(remind) {
-    _classCallCheck(this, Action);
+    classCallCheck_classCallCheck(this, Action);
 
     this.remind = remind;
     this.actions = Actions(remind);
   }
 
-  _createClass(Action, [{
+  createClass_createClass(Action, [{
     key: "execute",
     value: function execute(name) {
       var ActionConstructor = this.actions[name];
@@ -2778,14 +3225,14 @@ var Action = /*#__PURE__*/function () {
 
 var History = /*#__PURE__*/function () {
   function History(remind) {
-    _classCallCheck(this, History);
+    classCallCheck_classCallCheck(this, History);
 
     this.history = [];
     this.historyIndex = 0;
     this.remind = remind;
   }
 
-  _createClass(History, [{
+  createClass_createClass(History, [{
     key: "action",
     value: function action(_action) {
       this.remind.fire("action", _action);
@@ -2822,7 +3269,7 @@ var theme = {
       second: "box",
       className: "default",
       node: "underline",
-      lineShape: "bezier"
+      lineShape: "taper"
     }
   },
   registe: function registe(name, options) {
@@ -2872,7 +3319,7 @@ var Remind = /*#__PURE__*/function () {
   function Remind(container) {
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-    _classCallCheck(this, Remind);
+    classCallCheck_classCallCheck(this, Remind);
 
     this._subscribers = {};
 
@@ -2886,7 +3333,7 @@ var Remind = /*#__PURE__*/function () {
    */
 
 
-  _createClass(Remind, [{
+  createClass_createClass(Remind, [{
     key: "init",
     value: function init(container) {
       var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};

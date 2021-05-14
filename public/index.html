@@ -14,6 +14,39 @@
 	<script src="/index.js"></script>
 </body>
 	<script>
-        remind = new Remind(document.getElementById("root"))
+
+	const data = (()=>{
+		const data = {
+			root: {
+				text:'Root',
+				layout: 'site',
+				children:[]
+			}
+		} 
+		function make(item,number,depth,index){
+			let total = number;
+			while(number > 0){
+				const child = {
+					text:`${depth}-${index}-${number}`,
+					icon:{
+						'tnt-icon-plus':true
+					},
+					children:[]
+				}
+				item.children.push(child);
+				number--;
+				if(depth > 0){
+					make(child,total,depth - 1,item.children.length);
+				}
+			}
+		}
+		make(data.root,1,0,1);
+		return data;
+	})();
+	data.root.children[0].side = 'top'
+
+	remind = new Remind(document.getElementById("root"),{
+		data
+	})
     </script>
 </html>

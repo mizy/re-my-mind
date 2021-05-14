@@ -6,8 +6,8 @@ import Page from './Model/Page';
 import Action from './Control/Action';
 import Menu from "./View/Menu";
 import History from './Control/History';
-import theme from './View/Theme';
 import line from './Layout/Lines'
+import theme from './View/Theme'
 
 import './index.less'
 // import MouseManager from './Control/Mou'
@@ -37,11 +37,45 @@ class Remind {
             showArrow:true,// 是否显示线的箭头
             renderEngine:'svg',
             readonly:false,
-            theme:'default',
-            colors: ['#fec936', '#f88b15', '#fe7e4d', '#ec6d7a', '#ef3224', '#9bc039', '#67c97e', '#00a7cd', '#40b5c6', '#2da4ff', '#956fe7', '#882e99', '#FF84BA'],
+            site:{
+                spaceX:8,
+                spaceY:60
+            },
+            map:{
+                spaceX:60,
+                spaceY:8
+            },
+            tree:{
+                spaceX:20,
+                spaceY:8,
+                dx:10
+            },
+            fish:{
+                minFishWidth: 250,
+                minFishHeight: 50,
+                fishTailWidth : 50,
+                headGap : 50,
+                angle:Math.PI / 3,
+                root:{
+                    spaceX:5,
+                    minLength:80
+                },
+                one:{
+                    minLength:80,
+                    spaceY:8,
+                    tailGap:10,
+                    headGap:10,
+                },
+                other:{
+                    spaceX:8,
+                    spaceY:4,
+                    tailGap:10,
+                    headGap:10,
+                    minLength:0
+                }
+            }
         }, options);
         this.container = container;
-        this.theme = theme.themes[this.options.theme];
         this.initDOM();
 
         this.command = new Command(this);
@@ -64,7 +98,7 @@ class Remind {
  
     initDOM(){
         const remindDOM = document.createElement("div");
-        remindDOM.className = ` remind  theme-${this.options.theme || ''}`;
+        remindDOM.className = ` remind`;
         this.remindDOM = remindDOM;
         this.container.appendChild(remindDOM);
 

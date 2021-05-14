@@ -1,5 +1,5 @@
 function polyline(item){
-    const { spaceX } = this.remind.options;
+    const { spaceX } = this.remind.options.map;
     const isUnderLine = item.getShape().indexOf('underline') > -1;
 
     const color = item.getColor();

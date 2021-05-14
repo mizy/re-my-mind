@@ -43,13 +43,14 @@ class Item {
         this.clear();
         this.data = data;
        
-        this.dom = this.initDOM();
+        this.dom = document.createElement('div');
+        this.page.dom.appendChild(this.dom);
+        this.updateContent();
         this.updateShape();
         this.initToggle();
         this.addEvents();
 
         this.updateToggle();
-        // this.updateContent();//更新rect
 
         if(this.data.layout){
             this.layout = this.page.layout[this.data.layout]; 
@@ -90,17 +91,14 @@ class Item {
         })
     }
 
-    initDOM(){
-        const dom = document.createElement('div');
-        this.page.dom.appendChild(dom);
+    updateContent(){
         const {type = 'default'} = this.data;
         try{
-            Nodes.nodes[type](this,dom);
+            Nodes.nodes[type](this,this.dom);
         }catch(e){
             console.warn("解析节点错误，请检查节点类型是否注册")
             throw e;
         }
-        return dom;
     }
 
     initToggle(){
@@ -168,13 +166,13 @@ class Item {
         this.children.forEach(item=>{
             item.updateSubtree()
         })
-        this.updateContent();
+        this.updateContentRect();
         this.update(false)
     }
 
     // bfs 更新依赖树结构的相关数据和样式
     update(recurse = true){
-        if(!this.contentRect)this.updateContent();// 避免编辑新增节点初始化时没有contentRect
+        if(!this.contentRect)this.updateContentRect();// 避免编辑新增节点初始化时没有contentRect
         this.updateShape();
         this.updateLayout();
         this.updateColor();
@@ -191,7 +189,7 @@ class Item {
         this.getLayout().update(this);
     }
 
-    updateContent(){
+    updateContentRect(){
         const rect = this.dom.getBoundingClientRect();
         // 本体节点rect
         this.contentRect = rect;
@@ -204,7 +202,8 @@ class Item {
     render(){
         this.updatePosition();
         this.dom.style.display = this.visible ? 'block' : 'none';
-        if(this.side === 'left'){
+        const layout = this.getLayout();
+        if(layout.direction === 'left'){
             this.dom.style.right = this.page.root.rect.width - this.x - this.contentRect.width + 'px';
             this.dom.style.left = 'auto'
             this.dom.style.transform = `matrix(1, 0, 0, 1, 0,${this.y})`;
@@ -233,20 +232,13 @@ class Item {
 
     getLayout(){
         const layout =  this.layout || this.parent.getLayout();
-        if(layout.name === 'map' && layout.direction === 'auto' && !this.isRoot()){// 兼容一旦
-            const index = this.parent.children.indexOf(this);
-            if(index % 2 === 0){
-                return this.page.layout['map-right']
-            }else{
-                return this.page.layout['map-left']
-            }
-        }
+        
         return layout;
     }
 
     getAutoShape(){
         if(!this.depth){this.depth}
-        const {theme} = this.remind;
+        const {theme} = this.page;
         switch (this.depth) {
             case 0: return theme.main;
             case 1: return theme.second;
@@ -259,12 +251,21 @@ class Item {
     }
 
     getLineShape(){
-        const {theme} = this.remind;
+        const {theme} = this.page;
         return this.data.lineShape || theme.lineShape || "bezier";
     }
 
-    getColor(){
-        return this.data.color ? this.data.color : this.parent.getColor();
+    getColor(child){
+        if(this.data.color){
+            return this.data.color;
+        }
+        if(this.isRoot() && child){
+            const index = this.children.indexOf(child);
+            const {theme:{colors}} = this.page;
+            child.data.color = colors[ index % colors.length];
+            return child.data.color;
+        }
+        return this.parent.getColor(this);
     }
 
     updateColor(){
@@ -309,7 +310,7 @@ class Item {
 
     setText(text){
         this.data.text = text;
-        this.updateContent();
+        this.updateContentRect();
         this.update();
     }
 
@@ -368,7 +369,7 @@ class Item {
         if(this.dom){
             this.page.dom.removeChild(this.dom,false)
             this.dom = undefined
-        }   
+        }
     }
 
     clearEvents(){
@@ -381,9 +382,9 @@ class Item {
     }
 
     clearChildren(){
-        this.children.forEach(item=>{
-            this.removeChild(item,false);
-            item.destroy();
+        let childrenCopy = [...this.children];
+        childrenCopy.forEach(item=>{
+            item.destroy(false);
         })
         this.children = [];
     }
@@ -394,7 +395,7 @@ class Item {
 
     destroy(){
         if(this.parent){
-            this.parent.removeChild(this,false)
+            this.parent.removeChild(this,false);
         }
         this.dom.parentElement && this.dom.parentElement.removeChild(this.dom);
         this.clearChildren();

@@ -1,7 +1,11 @@
 import MapLayout from "./Map";
 
-import GraphLayout from './Graph';
 import TreeLayout from './Tree'
+import SiteLayout from './Site'
+import FishLayout from './Fish'
 export {
-    MapLayout
+    MapLayout,
+    SiteLayout,
+    TreeLayout,
+    FishLayout
 }
