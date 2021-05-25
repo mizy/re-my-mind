@@ -211,7 +211,7 @@ class MapLayout {
 	 * @param {*} items
 	 */
 	getChildrenBBox(items,direction = 'right') {
-		const { spaceY = 5 } = this.remind.options.site;
+		const { spaceY = 5 } = this.remind.options.map;
 		const bbox = {
 			width: 0,
 			height: 0,

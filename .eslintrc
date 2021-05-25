@@ -1,5 +1,5 @@
 {
-    "extends": ["eslint:recommended","plugin:react/recommended"],
+    "extends": ["eslint:recommended"],
     "rules":{
         "space-infix-ops":"warn",
         "no-unused-vars":"warn",

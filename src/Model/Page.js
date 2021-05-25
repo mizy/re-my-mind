@@ -11,6 +11,7 @@ class Page {
         this.root = null;
         this.visible = false;
         this.position = [0, 0]; 
+        this.controller = remind.controller;
         this.initDOM();
         this.initLayout();
         this.initCanvas();
@@ -127,14 +128,14 @@ class Page {
  
     toJSON(){
         const data = {
-            root: this.root.toJSON(),
+            root: this.root.getData(),
             theme: this.data.theme
         };
         return data;
     }
 
     show(){
-        this.updateSubtree();
+        this.updateSubtree(false);// 统一更新
         this.update();
         this.root.center();
         this.select(this.root);
@@ -143,7 +144,7 @@ class Page {
 
     // 更新节点树信息
     updateSubtree(){
-        this.root.updateSubtree();
+        this.root.updateSubtree(false);
     }
 
     // 渲染
@@ -157,18 +158,26 @@ class Page {
     rememberPosition(item){
         this.oldPosition = {
             item,
-            x:item.x,
-            y:item.y
+            x:this.x + item.x,
+            y:this.y + item.y
         }
     }
 
     refusePosition(){
         if(!this.oldPosition)return;
         const {x,y,item} = this.oldPosition;
-        this.translate(this.x - (item.x - x),this.y - (item.y - y));
+        const scrollLeft = this.controller.x + (this.x + item.x - x);
+        const scrollTop = this.controller.y + (this.y + item.y - y);
+        // 拯救scroll不能取小数的偏移
+        const disX = scrollLeft - Math.floor(scrollLeft);
+        const disY = scrollTop - Math.floor(scrollTop);
+        this.x -= disX;
+        this.y -= disY
+        this.controller.translate(Math.floor(scrollLeft),Math.floor(scrollTop));
         return this.oldPosition = undefined
     }
 
+    // 更新根节点宽高
     updateRootWidth() {
         const rect = this.root.rect;
         const remindRect = this.remind.container.getBoundingClientRect();
@@ -178,11 +187,15 @@ class Page {
         this.remind.dom.style.height = height + 'px';
         this.scrollLeft = (width - remindRect.width) / 2;
         this.scrollTop = (height - remindRect.height) / 2;
+        this.x = this.scrollLeft + (remindRect.width - rect.width) / 2;
+        this.y = this.scrollTop + (remindRect.height - rect.height) / 2;
         /**
          * 最外层容器的rect
          * @var 
          */
         this.remindRect = remindRect;
+        // 让root居中
+        this.dom.style.transform = `matrix(1, 0, 0, 1, ${this.x},${this.y})`;
         return;
     }
 
@@ -253,10 +266,25 @@ class Page {
         this.paths.splice(end,this.paths.length - end)
     }
 
-    translate(x,y){
-        this.dom.style.transform = `matrix(1, 0, 0, 1, ${x},${y})`;
-        this.x = x;
-        this.y = y;
+    getByEvent(e){
+        let item = e.target;
+        while(item && item.className.indexOf("remind-item") === -1){
+            item = item.parent
+        }
+        if(!item)return false;
+        let res ;
+        const dfs = (items)=>{
+            if(res)return;
+            for(let i = 0 ;i < items.length;i++){
+                if(items[i].dom === item){
+                    res = items[i];
+                    break;
+                }
+                dfs(items[i].children)
+            }
+        }
+        dfs([this.root]);
+        return res;
     }
 
     resetTheme(reRender) {

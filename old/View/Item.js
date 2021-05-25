@@ -363,8 +363,8 @@ MM.Item.prototype.center = function(){
 	const {left,top} =  this.getDOM().content.getBoundingClientRect();
 	if(!this.beforePos){
 		this.beforePos = {
-			left:MM.App.container.clientWidth/2,
-			top:MM.App.container.clientHeight/2
+			left:MM.App.container.clientWidth / 2,
+			top:MM.App.container.clientHeight / 2
 		}
 	}
 	MM.App.container.scrollLeft -= this.beforePos.left - left;

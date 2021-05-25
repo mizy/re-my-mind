@@ -25,9 +25,9 @@ export default {
              // 生成note
             const note = document.createElement('div');
             note.className = 'item-note';
-            note.innerHTML = data.note;
+            // note.innerHTML = data.note||"";
             item.noteDOM = note;
-            note.style.display = data.note ? 'inline-block' : 'none'
+            note.style.display = data.note !== undefined ? 'inline-block' : 'none'
             container.appendChild(note);
         }
  

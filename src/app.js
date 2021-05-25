@@ -6,8 +6,10 @@ import Page from './Model/Page';
 import Action from './Control/Action';
 import Menu from "./View/Menu";
 import History from './Control/History';
-import line from './Layout/Lines'
-import theme from './View/Theme'
+import line from './Layout/Lines';
+import theme from './View/Theme';
+import Controller from './Control/Controller'
+import Note from './View/Note'
 
 import './index.less'
 // import MouseManager from './Control/Mou'
@@ -32,8 +34,6 @@ class Remind {
             showHeadTitle:false,
             disableEdit:false,// 阻止触发该Item或所有的MM.Command.Edit
             headTitle: " - 脑图",
-            spaceX:60,
-            spaceY:8,
             showArrow:true,// 是否显示线的箭头
             renderEngine:'svg',
             readonly:false,
@@ -51,7 +51,7 @@ class Remind {
                 dx:10
             },
             fish:{
-                minFishWidth: 250,
+                minFishWidth: 300,
                 minFishHeight: 50,
                 fishTailWidth : 50,
                 headGap : 50,
@@ -81,12 +81,12 @@ class Remind {
         this.command = new Command(this);
         this.action = new Action(this);
         this.history = new History(this);
-        // this.menu = new Menu(this);
+        this.menu = new Menu(this);
         this.keyboard = new KeyBoard(this)
-        // this.mouseManager = new MouseManager(this)
         // this.clipManager = new ClipManager(this);
+        this.controller = new Controller(this);
         this.page = new Page(this);
-        // this.note = new Note(this);
+        this.note = new Note(this);
 
         this.addEvents();
 		return this;  

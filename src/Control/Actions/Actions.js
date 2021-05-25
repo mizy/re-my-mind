@@ -135,14 +135,16 @@ const getAllActions = (remind) => {
 	Action.SetLayout = function (item, layout) {
 		this._item = item;
 		this._layout = layout;
-		this._oldLayout = item.getOwnLayout();
+		this._oldLayout = item.data.layout;
 	};
 	Action.SetLayout.prototype = Object.create(Action.prototype);
 	Action.SetLayout.prototype.perform = function () {
 		this._item.setLayout(this._layout);
+        this._item.parent.updateSubtree();
 	};
 	Action.SetLayout.prototype.undo = function () {
 		this._item.setLayout(this._oldLayout);
+		this._item.parent.updateSubtree();
 	};
 
 	Action.SetShape = function (item, shape) {

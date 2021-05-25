@@ -29,15 +29,15 @@ const getAllCommands = (remind)=>{
         execute : function () {
             const item = remind.page.current;
             if (item.isRoot()) {
-                this.remind.action.execute('InsertNewItem',item, item.getChildren().length);
+                remind.action.execute('InsertNewItem',item, item.children.length);
             } else {
-                var parent = item.getParent();
-                var index = parent.getChildren().indexOf(item);
-                remind.action.InsertNewItem(parent, index + 1);
+                var parent = item.parent;
+                var index = parent.children.indexOf(item);
+                remind.action.execute("InsertNewItem",parent, index + 1);
             }
         
-            if(remind.options.autoEdit && !action._item._data.disableEdit){
-                Command.Edit.execute();
+            if(remind.options.autoEdit){
+                remind.command.execute("Edit")
             }
         }
     },
@@ -88,7 +88,7 @@ const getAllCommands = (remind)=>{
                 return;
             }
             remind.action.execute('SetText',item, item.data.text, item.oldText);
-            remind.fire("item-change", item);
+            remind.fire("item:change", item);
             
         }
     },{
@@ -100,6 +100,12 @@ const getAllCommands = (remind)=>{
         execute:function () {
             const item = remind.page.current;
             remind.action.execute('RemoveItem',item);
+        }
+    },{
+        name:"Center",
+        keys:[{ key: 'c' }],
+        execute:function () {
+            (remind.page.current || remind.page.root).center()
         }
     }
 ]

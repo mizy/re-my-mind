@@ -53,17 +53,28 @@ class Item {
         this.updateToggle();
 
         if(this.data.layout){
-            this.layout = this.page.layout[this.data.layout]; 
+            this.setLayout(this.data.layout) 
         } 
         this.initChildren();
     }
 
+    setLayout(layout){
+        this.data.layout = layout;
+        this.layout = this.page.layout[this.data.layout]; 
+    }
+
     getData(){
+        const children = [];
+        this.children.forEach(item=>{
+            children.push(item.getData())
+        })
+        this.data.children = children;
         return this.data;
     }
 
     addEvents(){
         this.dom.addEventListener("click",this.onClick);
+        this.dom.addEventListener("contextmenu",this.onContextMenu)
         this.dom.addEventListener("dblclick",this.onDoubleClick);
         this.textDOM.addEventListener("keydown",this.onKeyDown);
         this.textDOM.addEventListener("blur",this.onBlur);
@@ -76,6 +87,9 @@ class Item {
     onClick = (event)=>{
         event.preventDefault();
         event.stopPropagation();
+        this.page.select(this)
+    }
+    onContextMenu=(event)=>{
         this.page.select(this)
     }
 
@@ -116,6 +130,7 @@ class Item {
     }
 
     onToggleClick =()=>{
+        this.remind.fire("item:beforeToggle",this)
         this.data.shrink = !this.data.shrink;
         this.updateToggle();
         this.page.rememberPosition(this);
@@ -126,6 +141,7 @@ class Item {
             this.updateVisible(this.children,false)
             this.update();
         }
+        this.remind.fire("item:afterToggle",this)
     }
 
     updateVisible(children = [],visible){
@@ -162,12 +178,13 @@ class Item {
     /**
      * 更新下属和自己节点的布局信息
      */
-    updateSubtree(){
+    updateSubtree(recurse = true){
         this.children.forEach(item=>{
-            item.updateSubtree()
+            item.updateSubtree(false)
         })
         this.updateContentRect();
-        this.update(false)
+        this.update(recurse)
+ 
     }
 
     // bfs 更新依赖树结构的相关数据和样式
@@ -202,15 +219,14 @@ class Item {
     render(){
         this.updatePosition();
         this.dom.style.display = this.visible ? 'block' : 'none';
-        const layout = this.getLayout();
-        if(layout.direction === 'left'){
-            this.dom.style.right = this.page.root.rect.width - this.x - this.contentRect.width + 'px';
-            this.dom.style.left = 'auto'
-            this.dom.style.transform = `matrix(1, 0, 0, 1, 0,${this.y})`;
-        }else{
+        // if(layout.direction === 'left'){
+        //     this.dom.style.right = this.page.root.rect.width - this.x - this.contentRect.width + 'px';
+        //     this.dom.style.left = 'auto'
+        //     this.dom.style.transform = `matrix(1, 0, 0, 1, 0,${this.y})`;
+        // }else{
             this.dom.style.left = '0px'
             this.dom.style.transform = `matrix(1, 0, 0, 1, ${this.x},${this.y})`;
-        }   
+        // }   
         this.children.forEach(child=>{
             child.globalPos = {
                 x:this.globalPos.x + this.originPos.x + child.position.x,
@@ -308,6 +324,20 @@ class Item {
         textDOM.blur();
     }
 
+    startNote = function () {
+        this.data.note = '';
+        // 更新
+        this.updateContent();
+        this.remind.note.show(this)
+        delete this.contentRect
+        this.update();
+    }
+    
+    endNote = function (text) {
+        if (text === this.data.note) return;
+        this.data.note = text;
+    }
+
     setText(text){
         this.data.text = text;
         this.updateContentRect();
@@ -325,10 +355,10 @@ class Item {
     }
 
     center(){
-        const {scrollLeft,scrollTop,remindRect} = this.page;
-        this.page.translate(scrollLeft + remindRect.width / 2 - this.x,scrollTop + remindRect.height / 2 - this.y)
-        this.remind.remindDOM.scrollLeft = scrollLeft;
-        this.remind.remindDOM.scrollTop = scrollTop;
+        const {scrollLeft,scrollTop,remindRect,x,y,root} = this.page;
+        const pageX = x + this.x;
+        const pageY = y + this.y
+        this.remind.controller.translate( pageX + this.contentRect.width / 2 - remindRect.width / 2, pageY + this.contentRect.height / 2 - remindRect.height / 2) 
     }
 
     insertChild(child,index,ifUpdate = true){

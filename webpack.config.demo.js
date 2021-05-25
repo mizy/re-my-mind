@@ -1,7 +1,8 @@
 const webpack = require("webpack");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require("path");
 let webpackConfig = {
-	entry: "./src/app.js",
+	entry: "./MindMap/index.js",
 	output: {
 		filename: "index.js",
 		publicPath: "/"
@@ -19,7 +20,7 @@ let webpackConfig = {
 		open: true,
 		host: "0.0.0.0",
 		contentBase: "./public",
-		openPage: "./index.html",
+		// openPage: "./index.html",
 		hot: true,
 		publicPath: "/"
 	},
@@ -74,7 +75,17 @@ let webpackConfig = {
 				loader: "url-loader"
 			},
 		]
-	}
+	},
+	plugins: [
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: './public/demo.html',
+            publicPath: '/' 
+        }),
+        new webpack.ProvidePlugin({
+            React: 'react'
+        })
+    ]
 
 };
 module.exports = webpackConfig;

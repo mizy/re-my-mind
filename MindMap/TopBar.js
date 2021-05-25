@@ -14,10 +14,10 @@ import {
 	message,
 	Tooltip
 } from "antd";
+import {MoreOutlined,StarOutlined,HighlightOutlined,ZoomOutOutlined,ZoomInOutlined} from '@ant-design/icons'
 import CommandKey from "./Modals/CommandKey";
 import ImportFile from "./Import/ImportFile";
 import History from "./Modals/History/index.js";
-const MM = window.MM;
 
 class TopBar extends PureComponent {
 	state = {
@@ -27,8 +27,9 @@ class TopBar extends PureComponent {
 	};
 
 	componentDidMount() {
-		this.oldData = JSON.stringify(this.props.nowData);
-		const { root = {} } = this.props.nowData || {};
+		const {nowData,app} = this.props;
+		this.oldData = JSON.stringify(nowData);
+		const { root = {} } = nowData || {};
 		const { children = [] } = root;
 		const noFold = children.find(item => item.collapsed !== 1);
 		if (!noFold) {
@@ -37,26 +38,29 @@ class TopBar extends PureComponent {
 			});
 		}
 		this.setState({
-			selectedKeys: [MM.App.current.getLayout().id]
+			selectedKeys: [app.page.root.getLayout().name]
 		});
-		MM.subscribe("item-select", item => {
+		app.on("item-select", item => {
 			this.setState({
-				selectedKeys: [item.getLayout().id]
+				selectedKeys: [item.getLayout().name]
 			});
 		});
-		MM.subscribe("redo", index => {
+		app.on("redo", index => {
 			this.setState({
 				historyIndex: index
 			});
 		});
-		MM.subscribe("undo", index => {
+		app.on("undo", index => {
 			console.log(index);
 			this.setState({
 				historyIndex: index
 			});
 		});
-		MM.subscribe("save", () => {
+		app.on("save", () => {
 			this.save();
+		});
+		app.on("zoom", (scale) => {
+			this.setState({scale})
 		});
 
 		window.addEventListener("resize", this.resize);
@@ -71,21 +75,21 @@ class TopBar extends PureComponent {
 		if (this.props.readonly) return;
 		this.timeout && clearTimeout(this.timeout);
 		this.timeout = setTimeout(() => {
-			this.save(false);
+			// this.save(false);
 			this.startTimeout();
 		}, 120000);
 	}
 
 	save = async () => {
 		const { record = {} } = this.props;
-		let data = this.props.app.map.toJSON();
+		let data = this.props.app.page.toJSON();
 		this.getBackgroundData(data);
-		const json = JSON.stringify(data);
-		// 一样的话直接保存
-		if (this.oldData === json) return message.success("保存成功");
-		this.oldData = json;
-
-
+		Modal.info({
+			title:"保存数据",
+			content:<pre style={{fontSize:12,maxHeight:400,maxWidth:400,overflow:'auto'}}>
+				{JSON.stringify(data,undefined,4)}
+			</pre>
+		})
 		message.success("保存成功");
 	};
 
@@ -115,67 +119,47 @@ class TopBar extends PureComponent {
 	};
 
 	add = () => {
-		const item = MM.App.current;
-		const action = new MM.Action.InsertNewItem(
-			item,
-			item.getChildren().length
-		);
-		this.props.app.action(action);
-		MM.Command.Edit.execute();
-		MM.publish("command-child");
+		const {app} = this.props;
+		if(!app.page.current){
+			app.page.root.select()
+		}
+		app.command.execute("InsertChild")
+		app.fire("command-child");
 	};
 
 	addItem = () => {
-		var item = MM.App.current;
-		let action;
-		if (item.isRoot()) {
-			action = new MM.Action.InsertNewItem(
-				item,
-				item.getChildren().length
-			);
-		} else {
-			const parent = item.getParent();
-			const index = parent.getChildren().indexOf(item);
-			action = new MM.Action.InsertNewItem(parent, index + 1);
+		const {app} = this.props;
+		if(!app.page.current){
+			app.page.root.select()
 		}
-		MM.App.action(action);
-		MM.Command.Edit.execute();
-		MM.publish("command-sibling");
+		app.command.execute("InsertSibling")
+		app.fire("command-sibling");
 	};
 
 	zoom = val => {
-		let { scale } = this.state;
+		let { app } = this.props;
+		let scale = app.controller.scale;
 		scale = scale * val;
-		if (scale < 0.05) return;
-		const node = this.props.app.map.getRoot().getDOM().node;
-		node.style.transition = "transform 0.3s ease-in";
-		node.style.transform = `scale(${scale})`;
-		clearTimeout(this.transitionTimeout);
-		this.transitionTimeout = setTimeout(() => {
-			node.style.transition = "";
-		}, 500);
+		if (scale < 0.05) return; 
+		app.controller.scale = scale;
+		app.controller.update();
 		this.setState({
 			scale
 		});
 	};
 
 	changeNodeType = (value, key) => {
-		const layout = MM.Layout.getById(value);
-		const action = new MM.Action.SetLayout(MM.App.current, layout);
-		MM.App.action(action);
+		const {app} = this.props;
+		const item = app.page.current || app.page.root;
+		app.action.execute('SetLayout',item,value)
 		this.setState({
 			selectedKeys: [value]
 		});
 	};
 
 	format = () => {
-		const root = MM.App.map.getRoot();
-		root._dom.node.style.transition = "left 0.3s ease-in,top 0.3s ease-in";
-		MM.App.map.center();
-		clearTimeout(this.transitionTimeout);
-		this.transitionTimeout = setTimeout(() => {
-			root._dom.node.style.transition = "";
-		}, 500);
+		const {app} = this.props;
+		(app.page.current || app.page.root).center()
 	};
 
 	goback = () => {
@@ -199,7 +183,7 @@ class TopBar extends PureComponent {
 	};
 
 	addNote = () => {
-		MM.App.current.startNote();
+		this.props.app.page.current.startNote();
 	};
 
 	resize = () => {
@@ -273,12 +257,11 @@ class TopBar extends PureComponent {
 				foldStatus: !foldStatus
 			});
 		}, 100);
-
 	}
 
 	render() {
 		const { scale, fullscreen, foldStatus } = this.state;
-		const { type, mind, mindType = "mind", readonly, record = {} } = this.props;
+		const { type,app, mind, mindType = "mind", readonly, record = {} } = this.props;
 		const { book = {} } = record;
 		const { projectVersion = {} } = book;
 		return (
@@ -310,7 +293,6 @@ class TopBar extends PureComponent {
 				</div>
 
 				<div className="button-area">
-					{!readonly && (
 						<Fragment>
 							<div className="handle-button">
 								<Tooltip title="保存为版本">
@@ -325,26 +307,26 @@ class TopBar extends PureComponent {
 							<div className={"handle-button"}>
 								<i
 									className={`iconfont icon-editor-undo ${
-										MM.App.historyIndex > 0
+										app.history.historyIndex > 0
 											? ""
 											: "disabled"
 										}`}
 									onClick={
-										MM.App.historyIndex > 0 && this.undo
+										app.history.historyIndex > 0 ? this.undo : undefined
 									}
 								/>
 							</div>
 							<div className={"handle-button "}>
 								<i
 									className={`iconfont icon-editor-redo ${
-										MM.App.historyIndex <
-											MM.App.history.length
+										app.history.historyIndex <
+											app.history.history.length
 											? ""
 											: "disabled"
 										}`}
 									onClick={
-										MM.App.historyIndex <
-										MM.App.history.length && this.redo
+										app.history.historyIndex <
+										app.history.history.length ? this.redo : undefined
 									}
 								/>
 							</div>
@@ -396,17 +378,11 @@ class TopBar extends PureComponent {
 												脑图-左
 											</Menu.Item>
 											<Menu.Divider />
-											<Menu.Item key="graph-top">
+											<Menu.Item key="site-top">
 												架构图-上
 											</Menu.Item>
-											<Menu.Item key="graph-bottom">
+											<Menu.Item key="site-bottom">
 												架构图-下
-											</Menu.Item>
-											<Menu.Item key="graph-left">
-												架构图-左
-											</Menu.Item>
-											<Menu.Item key="graph-right">
-												架构图-右
 											</Menu.Item>
 											<Menu.Divider />
 											<Menu.Item key="tree-right">
@@ -415,6 +391,9 @@ class TopBar extends PureComponent {
 											<Menu.Item key="tree-left">
 												树图-左
 											</Menu.Item>
+											<Menu.Item key="fish-right">
+												鱼骨图-右
+											</Menu.Item>
 										</Menu>
 									}
 								>
@@ -422,7 +401,6 @@ class TopBar extends PureComponent {
 								</Dropdown>
 							</div>
 						</Fragment>
-					)}
 					<div className="handle-button">
 						<Tooltip title="归位">
 							<i
@@ -433,30 +411,27 @@ class TopBar extends PureComponent {
 					</div>
 
 					<div className="handle-button">
-						<Tooltip title="放大">
-							<Icon
-								type="zoom-in"
-								onClick={() => {
-									this.zoom(1.2);
-								}}
-							/>
+						<Tooltip title="放大" >
+							<i onClick={() => {
+									this.zoom(1.1);
+								}}>
+								<ZoomInOutlined style={{fontSize:14}} />
+							</i>
 						</Tooltip>
 					</div>
 					<div className="handle-button">
 						<Tooltip title="缩小">
-							<Icon
-								type="zoom-out"
-								onClick={() => {
-									this.zoom(0.8);
-								}}
-							/>
+							<i className="iconfont " onClick={() => {
+								this.zoom(0.9);
+							}}> <ZoomOutOutlined style={{fontSize:14}} />
+							</i>
 						</Tooltip>
 					</div>
 					<div className="handle-button">
 						<Tooltip title="恢复成100%">
 							<i
 								className="iconfont "
-								style={{ fontSize: 14 }}
+								style={{ fontSize: 14,userSelect:"none" }}
 								onClick={() => {
 									this.zoom(1 / scale);
 								}}
@@ -493,21 +468,21 @@ class TopBar extends PureComponent {
 					{!readonly && <Tooltip title="图标">
 						<Button
 							type={type === "icon" ? "primary" : "default"}
+							icon={<StarOutlined />}
 							onClick={() => {
 								this.props.mind.showRightPanel("icon");
 							}}
 						>
-							<Icon type="star" />
 						</Button>
 					</Tooltip>}
 					{!readonly && <Tooltip title="格式">
 						<Button
 							type={type === "format" ? "primary" : "default"}
+							icon={<HighlightOutlined />}
 							onClick={() => {
 								this.props.mind.showRightPanel("format");
 							}}
 						>
-							<Icon type="highlight" />
 						</Button>
 					</Tooltip>}
 					<Dropdown
@@ -556,7 +531,7 @@ class TopBar extends PureComponent {
 						overlayClassName="tnt-dropdown"
 						placement="bottomRight"
 					>
-						<Button icon="more" />
+						<Button icon={<MoreOutlined />} />
 					</Dropdown>
 				</Button.Group>
 				{readonly && <div className="read-only-bar">预览中</div>}

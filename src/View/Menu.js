@@ -14,12 +14,13 @@ class Menu {
 
 		this.dom.addEventListener("click", this.onClick);
         this.remind.dom.addEventListener("click", this.onClick);
+        this.remind.dom.addEventListener("contextmenu", this.onShow);
 		this.close();
 	}
 
 	initMenu =function (dom) {
         if(dom){
-            dom.className+="menu";
+            dom.className += "menu";
             this.remind.dom.appendChild(dom);
             this.dom = dom;
             return ;
@@ -35,16 +36,26 @@ class Menu {
 			<button data-command="Edit">编辑</button>
 			<span></span>
 			<button data-command="Undo">撤销</button>
-			<button data-command="Redo">重置</button>
-			<button data-command="Center">调整布局</button>
+			<button data-command="Redo">重做</button>
+			<button data-command="Center">居中</button>
 		`
 		this.remind.dom.appendChild(_menu);
         this.dom = _menu;
 		return _menu
 	}
 
-    onClick(e){
-        if (e.currentTarget != this.dom) {
+	onShow = (e)=>{
+		e.preventDefault()
+		// const item = this.remind.page.getByEvent(e);
+
+		// if(item){
+		// const {x,y} = item.dom.getBoundingClientRect();
+		this.open(e.layerX,e.layerY,e.target)
+		// }
+	}
+
+    onClick = (e)=>{
+        if (e.currentTarget !== this.dom) {
 			this.close();
 			return;
 		}
@@ -52,9 +63,7 @@ class Menu {
 		e.preventDefault(); 
 		let command = e.target.getAttribute("data-command");
 		if (!command) { return; }
-		command = this.remind.command[command];
-		if (!command.isValid()) { return; }
-		command.execute(this.nowTarget);
+		command = this.remind.command.execute(command,this.remind.page.current);
 		this.close();
     }
     
@@ -65,32 +74,20 @@ class Menu {
      * @public
 	 */
 	open = function (x, y, target) {
-		this._dom.node.style.display = "";
-		var w = this._dom.node.offsetWidth;
-		var h = this._dom.node.offsetHeight;
-		const {left:containerX,top:containerY} = this.app.container.getBoundingClientRect();
-		var left = x - containerX;
-		var top = y - containerY;
-
-		if (left > (this.app.container.offsetWidth  - w)) { left -= w; }
-		if (top >  (this.app.container.offsetHeight -h)) { top -= h; }
-		this.nowTarget = target;
-		left = left+this.app.container.scrollLeft;
-		top = top +this.app.container.scrollTop;
-
-		this._dom.node.style.transform = `translate(${left}px,${top}px)`; 
+		this.dom.style.display = 'block';
+		this.dom.style.transform = `translate(${x}px,${y}px)`; 
 		
-		const iconCommand = this._dom.node.querySelector("[data-command=DeleteIcon]");
+		const iconCommand = this.dom.querySelector("[data-command=DeleteIcon]");
 
 		if (!iconCommand) return;
 	
 		if (target.getAttribute("data-key")) {
-		  iconCommand.style.display = 'block';
+			iconCommand.style.display = 'block';
 		} else {
-		  iconCommand.style.display = 'none';
+			iconCommand.style.display = 'none';
 		}
 	}
-	 
+
 	close() {
 		this.dom.style.display = "none";
 	}
