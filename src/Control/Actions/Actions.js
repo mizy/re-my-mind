@@ -140,11 +140,13 @@ const getAllActions = (remind) => {
 	Action.SetLayout.prototype = Object.create(Action.prototype);
 	Action.SetLayout.prototype.perform = function () {
 		this._item.setLayout(this._layout);
-        this._item.parent.updateSubtree();
+		remind.page.rememberPosition(this._item);
+        this._item.updateSubtree();
 	};
 	Action.SetLayout.prototype.undo = function () {
 		this._item.setLayout(this._oldLayout);
-		this._item.parent.updateSubtree();
+		remind.page.rememberPosition(this._item);
+		this._item.updateSubtree();
 	};
 
 	Action.SetShape = function (item, shape) {
@@ -181,9 +183,11 @@ const getAllActions = (remind) => {
 	Action.SetText.prototype = Object.create(Action.prototype);
 	Action.SetText.prototype.perform = function () {
 		this.item.setText(this.text);
+		remind.page.select(this.item)
 	};
 	Action.SetText.prototype.undo = function () {
 		this.item.setText(this.oldText);
+		remind.page.select(this.item)
 	};
 
 	Action.SetIcon = function (item, icon, type) {

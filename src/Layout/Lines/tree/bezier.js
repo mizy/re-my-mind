@@ -1,6 +1,6 @@
 const radius = 4;
 function bezier(item){
-    const { spaceX,spaceY,dx } = this.remind.options.tree;
+    const { spaceX } = this.remind.options.tree;
     const {direction} = this;
     const isUnderLine = item.getShape().indexOf('underline') > -1;
 
@@ -13,7 +13,7 @@ function bezier(item){
         return item;
     }
     const startPos = {
-        x:item.x + (direction === 'right' ? dx : (item.contentRect.width - dx)),
+        x:item.x + (direction === 'right' ? spaceX : (item.contentRect.width - spaceX)),
         y:item.y + item.contentRect.height
     }
 

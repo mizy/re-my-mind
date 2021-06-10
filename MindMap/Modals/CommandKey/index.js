@@ -75,10 +75,6 @@ export default class CommandKey extends PureComponent {
 								<span>C</span>
 							</div>
 							<div>
-								<span>移动脑图</span>
-								<span>W/A/S/D</span>
-							</div>
-							<div>
 								<span>放大缩小</span>
 								<span>ctrl+鼠标滚轮</span>
 							</div>

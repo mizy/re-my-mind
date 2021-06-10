@@ -57,7 +57,7 @@ class Remind {
                 headGap : 50,
                 angle:Math.PI / 3,
                 root:{
-                    spaceX:5,
+                    spaceX:0,
                     minLength:80
                 },
                 one:{
@@ -69,7 +69,7 @@ class Remind {
                 other:{
                     spaceX:8,
                     spaceY:4,
-                    tailGap:10,
+                    tailGap:5,
                     headGap:10,
                     minLength:0
                 }
@@ -107,6 +107,7 @@ class Remind {
 		this.dom = dom;
 		this.dom.className += ` remind-scroll`;
     }
+
 
     addEvents(){
 		if(this.options.showHeadTitle){

@@ -26,7 +26,7 @@ class Minder extends PureComponent {
 		this.init({
 			root: {
 				text: "demo",
-				layout: "map-right",
+				layout: "fish-right",
 				children: [{
 					text:"女儿",
 					children:[{
@@ -92,7 +92,7 @@ class Minder extends PureComponent {
 		this.app = new Remind(this.appRef, {
 			data
 		});
-
+		window.app = this.app;
 		this.app.readonly = this.readonly;
 
 		this.setState({
@@ -159,7 +159,7 @@ class Minder extends PureComponent {
 
 	};
 
-	showMindText(value) {
+	showMindText = (value)=> {
 		this.setState({
 			mindType: value
 		});
@@ -206,7 +206,7 @@ class Minder extends PureComponent {
 								this.appRef = ref;
 							}}
 						/>
-						{/* <MainText mindType={mindType} nowData={nowData} /> */}
+						<MainText app={this.app} mindType={mindType} showMindText={this.showMindText} nowData={nowData} />
 						<div
 							className="rightbar"
 							style={{
@@ -214,7 +214,7 @@ class Minder extends PureComponent {
 								height: "calc(100vh - 60px)",
 								display: mindType === "mind" ? "block" : "none"
 							}}>
-							{/* {this.app && <RightBar nowData={nowData} mind={this} type={type} />} */}
+							{this.app && <RightBar app={this.app} nowData={nowData} mind={this} type={type} />}
 						</div>
 					</div>
 				</div>

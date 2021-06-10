@@ -24,7 +24,8 @@ class Controller{
 			}
         })
         remindDOM.addEventListener("mousedown",(e)=>{
-			if (e.currentTarget === remindDOM) { /* context menu here, after we have the item */
+
+			if (!e.path.find(item=>item.tagName === "DIV" && (item.className.indexOf("remind-item") > -1 || item.className.indexOf("mm-note")) > -1)) { /* context menu here, after we have the item */
 				return this.startMove(e);
 			}
         })
@@ -65,10 +66,30 @@ class Controller{
         window.document.removeEventListener("mouseup",this.onEndMove)
     }
 
-    translate(x,y){
-        this.x = x;
-        this.y = y;
-        this.update()
+    translate(x,y,animate){
+        if(!animate || !this.x || !this.y){
+            this.x = x;
+            this.y = y ;
+            this.update();
+            return
+        }
+        const disX = (x - this.x) / 14;
+        const disY = (y - this.y) / 14;
+        const update = ()=>requestAnimationFrame(()=>{
+            this.x += disX;
+            this.y += disY;
+            if((disX > 0 && this.x > x) || (disX < 0 && this.x < x)){
+                this.x = x;
+            }
+            if((disY > 0 && this.y > y) || (disY < 0 && this.y < y)){
+                this.y = y;
+            }
+            this.update();
+            if(this.x !== x || this.y !== y){
+                update();
+            }
+        })
+        update()
     }
 
     update(){

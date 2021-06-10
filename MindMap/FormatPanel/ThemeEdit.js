@@ -12,41 +12,14 @@ export default class ThemeEdit extends PureComponent {
 
 	componentDidMount() {
 		this.setState({
-			theme: MM.Theme.theme.className || "default"
+			theme: this.props.app.page.data.theme || "default"
 		});
 	}
 
 	async setTheme(theme) {
-		MM.Theme.theme = MM.Theme.themes[theme];
-		this.props.mind.setState({
-			loading: true
-		});
-		MM.App.map.resetTheme();
-		const children = MM.App.map.getRoot().getChildren() || [];
-		children.map(item => {
-			item._color = undefined;
-			item._data.color = undefined;
-		});
-		this.props.mind.state.backgroundColor = undefined;
-
-		//!!! 无刷新切换主题性能消耗大，建议保存后重载页面
-
-		// await this.props.mind.topbar.save(false);
-		// window.location.reload();
-
-		MM.App._port.className = `re-mind ${theme}`;
-		const colors = MM.Theme.theme.colors || MM.App.options.colors;
-		if (colors) {
-			const root = MM.App.map.getRoot();
-			const subChildren = root.getChildren();
-			subChildren.map((item, index) => {
-				item._color = colors[index % colors.length];
-			});
-		}
-		MM.App.map.resetTheme();
-		this.props.mind.setState({
-			loading: false
-		});
+		const {page} = this.props.app;
+		page.setTheme(theme); 
+		page.updateSubtree();
 		this.setState({
 			theme
 		});

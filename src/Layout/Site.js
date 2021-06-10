@@ -165,7 +165,9 @@ class SiteLayout {
 	updateLine(item) {
         // 默认用bezier线
         let shape = item.getLineShape();
-        
+		if(shape === 'taper' && item.depth > 0){
+            shape = 'bezier';
+        }
         const drawFunction = this.line[shape];
 		if(item.isRoot() && this.direction === 'auto'){
 			const children = item.children;

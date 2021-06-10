@@ -10,7 +10,7 @@ class Note {
 		note.innerHTML = `<div class="note-util">备注</div><div  class="note-content"><p /></div>`;
 		this.remind.page.dom.appendChild(note);
 		this.note = note;
-		this.content = this.note.querySelector(".note-content")
+		this.content = this.note.querySelector(".note-content p")
         this.remind.dom.addEventListener("click", this.onOutClick);
 	}
 
@@ -25,7 +25,8 @@ class Note {
 		this.note.style.top = item.y + item.contentRect.height + "px";
 		this.note.style.left = item.x + "px";
 		this.note.className = "mm-note";
-		this.content.setAttribute("contenteditable",true)
+		this.content.setAttribute("contenteditable",true);
+		this.content.innerHTML = decodeURIComponent(item.data.note || '')
 		this.item = item;
 		
 		setTimeout(() => {
@@ -33,7 +34,7 @@ class Note {
 			const range = selection.getRangeAt(0);
 			selection.removeAllRanges();
 			range.selectNodeContents(this.content);
-			// selection.addRange(range);
+			selection.addRange(range);
 
 			this.content.focus();
 
@@ -41,9 +42,10 @@ class Note {
 	}
 
 	hide() {
+		if(this.status === 'hide')return
 		this.status = "hide";
 		this.note.className = "mm-note hide";
-		const content = this.note.querySelector(".note-content p");
+		const content = this.content;
 		const note = encodeURIComponent(content.innerHTML);
 		if(!this.item)return;
 		this.item.endNote(note);

@@ -1,5 +1,6 @@
 import Nodes from './Nodes/Nodes'
 import Page from '../Model/Page';
+import { v4 as uuidv4 } from 'uuid';
 class Item {
     children = [];
     position = {
@@ -42,7 +43,9 @@ class Item {
     setData(data){
         this.clear();
         this.data = data;
-       
+        if(!this.data.uuid){
+            this.data.uuid = uuidv4();
+        }
         this.dom = document.createElement('div');
         this.page.dom.appendChild(this.dom);
         this.updateContent();
@@ -51,7 +54,6 @@ class Item {
         this.addEvents();
 
         this.updateToggle();
-
         if(this.data.layout){
             this.setLayout(this.data.layout) 
         } 
@@ -60,7 +62,7 @@ class Item {
 
     setLayout(layout){
         this.data.layout = layout;
-        this.layout = this.page.layout[this.data.layout]; 
+        this.layout = this.page.layout[this.data.layout];
     }
 
     getData(){
@@ -73,21 +75,37 @@ class Item {
     }
 
     addEvents(){
+        this.dom.addEventListener("mousedown",this.onMouseDown);
         this.dom.addEventListener("click",this.onClick);
         this.dom.addEventListener("contextmenu",this.onContextMenu)
         this.dom.addEventListener("dblclick",this.onDoubleClick);
-        this.textDOM.addEventListener("keydown",this.onKeyDown);
-        this.textDOM.addEventListener("blur",this.onBlur);
+       
     }
 
     onDoubleClick = ()=>{
         this.remind.command.execute("Edit")
     }
 
+    onMouseDown=(event)=>{
+        if(event.button !== 0)return;
+        this.mouseStartEvent = event;
+        this.remind.remindDOM.addEventListener("mousemove",this.onMouseMove)
+    }
+
+    onMouseMove=(event)=>{
+        if(Math.abs(this.mouseStartEvent.clientX - event.clientX) > 10){//激活拖拽模式
+            event.preventDefault();
+            this.page.dragTool.startDrag(this.mouseStartEvent,event,this);
+            this.remind.remindDOM.removeEventListener("mousemove",this.onMouseMove)
+        }
+    }
+
     onClick = (event)=>{
         event.preventDefault();
         event.stopPropagation();
-        this.page.select(this)
+        this.remind.remindDOM.removeEventListener("mousemove",this.onMouseMove)
+        this.page.select(this);
+        this.remind.fire("item-click",this)
     }
     onContextMenu=(event)=>{
         this.page.select(this)
@@ -106,12 +124,17 @@ class Item {
     }
 
     updateContent(){
-        const {type = 'default'} = this.data;
+        const {type = 'default',active} = this.data;
+       
         try{
             Nodes.nodes[type](this,this.dom);
+            delete this.contentRect;
         }catch(e){
             console.warn("解析节点错误，请检查节点类型是否注册")
             throw e;
+        }
+        if(active){
+            this.page.select(this)
         }
     }
 
@@ -133,7 +156,7 @@ class Item {
         this.remind.fire("item:beforeToggle",this)
         this.data.shrink = !this.data.shrink;
         this.updateToggle();
-        this.page.rememberPosition(this);
+        // this.page.rememberPosition(this);
         if(!this.data.shrink){
             this.updateVisible(this.children,true)
             this.update();
@@ -198,6 +221,14 @@ class Item {
         }
     }
 
+    updateData(data){
+        if(data){
+            Object.assign(this.data,data)
+        }
+        this.updateContent();
+        this.update();
+    }
+
     updateShape(){
         this.dom.className = 'remind-item shape-' + this.getShape();
     }
@@ -213,12 +244,12 @@ class Item {
     } 
 
     updateLine(){
-        this.getLayout().updateLine(this)
+        this.getLayout()?.updateLine(this)
     }
     // dfs
     render(){
         this.updatePosition();
-        this.dom.style.display = this.visible ? 'block' : 'none';
+        this.dom.style.display = this.visible ? 'flex' : 'none';
         // if(layout.direction === 'left'){
         //     this.dom.style.right = this.page.root.rect.width - this.x - this.contentRect.width + 'px';
         //     this.dom.style.left = 'auto'
@@ -247,7 +278,7 @@ class Item {
     }
 
     getLayout(){
-        const layout =  this.layout || this.parent.getLayout();
+        const layout =  this.layout || this.parent?.getLayout();
         
         return layout;
     }
@@ -325,21 +356,25 @@ class Item {
     }
 
     startNote = function () {
-        this.data.note = '';
+        if(!this.data.note)this.data.note = '';// 把undefind置为空，用来显示note图标
         // 更新
         this.updateContent();
         this.remind.note.show(this)
-        delete this.contentRect
         this.update();
     }
     
     endNote = function (text) {
         if (text === this.data.note) return;
-        this.data.note = text;
+        this.data.note = text === '' ? undefined : text;
+        if(this.data.note === undefined){
+            this.updateContent();
+            this.update();
+        }
     }
 
     setText(text){
         this.data.text = text;
+        this.updateContent();
         this.updateContentRect();
         this.update();
     }
@@ -355,17 +390,27 @@ class Item {
     }
 
     center(){
-        const {scrollLeft,scrollTop,remindRect,x,y,root} = this.page;
+        const { remindRect,x,y } = this.page;
         const pageX = x + this.x;
         const pageY = y + this.y
-        this.remind.controller.translate( pageX + this.contentRect.width / 2 - remindRect.width / 2, pageY + this.contentRect.height / 2 - remindRect.height / 2) 
+        this.remind.controller.translate( pageX + this.contentRect.width / 2 - remindRect.width / 2, pageY + this.contentRect.height / 2 - remindRect.height / 2,true) 
+    }
+
+    select(){
+        this.page.select(this)
+    }
+
+    get index(){
+        return (this.parent && this.parent.children) ? this.parent.children.indexOf(this) : undefined
     }
 
     insertChild(child,index,ifUpdate = true){
         if(child.parent){
-            child.parent.removeChild(child)
+            const oldParent = child.parent;
+            oldParent.removeChild(child,false);
+            oldParent.update(false)
         }
-        if(index){
+        if(index !== undefined){
             this.children.splice(index,0,child)
         }else{
             this.children.push(child);

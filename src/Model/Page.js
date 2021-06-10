@@ -1,6 +1,7 @@
 import Item from "../View/Item";
 import {MapLayout,SiteLayout,TreeLayout,FishLayout} from '../Layout';
 import theme from '../View/Theme';
+import DragTool from "./DragTool";
 
 class Page {
     lines=[];
@@ -30,6 +31,8 @@ class Page {
         requestAnimationFrame(()=>{
             this.show();
         })
+        this.dragTool = new DragTool(this);
+
     }
 
     initLayout(){
@@ -84,7 +87,11 @@ class Page {
         root.setData(data.root);
         this.root = root;
         this.root.parent = this;
-       
+    }
+
+    updateContainerStyle(){
+        if(this.data.style)
+        Object.assign(this.remind.remindDOM.style,this.data.style);
     }
 
     setTheme(value = 'default'){
@@ -111,13 +118,17 @@ class Page {
             return ;
         }
         this.current = item; 
+        this.current.data.active = true;
         this.current.dom.classList.add('active');
+        this.remind.fire("item:select")
     }
 
     deselect(){
         if(!this.current)return;
         this.current.dom.classList.remove('active');
+        delete this.current.data.active;
         this.current = undefined;
+        this.remind.fire("item:deselect")
     }
 
     getColor(){
@@ -127,9 +138,10 @@ class Page {
     }
  
     toJSON(){
+        const {root,...others} = this.data;
         const data = {
             root: this.root.getData(),
-            theme: this.data.theme
+            ...others
         };
         return data;
     }
@@ -137,7 +149,11 @@ class Page {
     show(){
         this.updateSubtree(false);// 统一更新
         this.update();
-        this.root.center();
+        if(this.root.getLayout().name === "fish"){
+            this.root.getLayout().center();
+        }else{
+            this.root.center();
+        }
         this.select(this.root);
         return this;
     }
@@ -149,21 +165,31 @@ class Page {
 
     // 渲染
     update(){
-        this.lines = []
+        this.lines = [];
+        this.remember();
         this.updateRootWidth();
         this.render();
-        this.refusePosition();
+        this.refuse();
     }
 
-    rememberPosition(item){
-        this.oldPosition = {
-            item,
-            x:this.x + item.x,
-            y:this.y + item.y
+    remember(){
+        const item = this.current;
+        if(item){
+            this.oldPosition = {
+                item,
+                x:this.x + item.x,
+                y:this.y + item.y
+            }
+        }else{
+            this.oldPosition = undefined;
         }
+        
     }
 
-    refusePosition(){
+    refuse(){
+        if(this.current){
+            this.select(this.current)
+        }
         if(!this.oldPosition)return;
         const {x,y,item} = this.oldPosition;
         const scrollLeft = this.controller.x + (this.x + item.x - x);
@@ -287,6 +313,22 @@ class Page {
         return res;
     }
 
+    getItemByUUID(uuid){
+        let res ;
+        function dfs(now){
+            if(now.data.uuid === uuid){
+                res = now;
+                return;
+            }else{
+                now.children.forEach(child=>{
+                    !res && dfs(child)
+                })
+            }
+        }
+        dfs(this.root)
+        return res; 
+    }
+
     resetTheme(reRender) {
         this.root.resetTheme();
         return this;
@@ -295,6 +337,7 @@ class Page {
     removeChild(){
         this.root = undefined;
     }
+    
 
     destroy(){
         this.root.destroy();

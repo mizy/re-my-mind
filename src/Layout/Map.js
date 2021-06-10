@@ -18,16 +18,16 @@ class MapLayout {
                     rootSon = rootSon.parent;
                 }
                 // 把所有rootSon没有方向的都加上方向,这段逻辑只会执行一次，因为有任何一个儿子没方向，都会把全部儿子检查一便
-                if(!rootSon.data.direction){
+                if(!rootSon.data.side){
                     let left = 0;let right = 0;
                     rootSon.parent.children.forEach(item=>{
-                        if(!item.data.direction){
-                            item.data.direction = right > left ? 'left' : 'right';
+                        if(!item.data.side){
+                            item.data.side = right > left ? 'left' : 'right';
                         }
-                        item.data.direction === 'right' ? right++ : left++;
+                        item.data.side === 'right' ? right++ : left++;
                     })
                 }
-                return this.layoutItem(item,rootSon.data.direction);
+                return this.layoutItem(item,rootSon.data.side);
             }
             return this.layoutAutoItem(item);
         }
@@ -62,7 +62,7 @@ class MapLayout {
         const offsetX = contentRect.width + 2 * spaceX;
         item.children.forEach((child,index)=>{
             const {relativePos,contentRect} = child;
-            if(child.data.direction === 'right'){
+            if(child.data.side === 'right'){
                 child.position = {
                     x:0,
                     y:rightBBox.height

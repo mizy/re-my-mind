@@ -46,11 +46,11 @@ class FishLayout {
             height:Math.max(contentRect.height / 2 ,minFishHeight / 2,bbox.topHeight) + Math.max(bbox.bottomHeight,minFishHeight / 2,contentRect.height / 2)
         }
         item.relativePos = {
-            x:headGap,
+            x:direction === "right" ? headGap : -(headGap + contentRect.width),
             y:-contentRect.height / 2
         };
         item.originPos = {
-            x:item.rect.width - headGap - contentRect.width,
+            x:direction === 'right' ? (item.rect.width - headGap - contentRect.width) : (headGap + contentRect.width),
             y:bbox.topHeight
         };
         item.childrenBBox = bbox;
@@ -162,7 +162,15 @@ class FishLayout {
             height:0
         }
         items.forEach((item,i)=>{
-            (i % 2 === 0 ? top : bottom).children.push(item)
+            if(item.data.side){
+                if(item.data.side === "top"){
+                    top.children.push(item);
+                }else{
+                    bottom.children.push(item);
+                }
+            }else{
+                top.length > bottom.length ? bottom.children.push(item) : top.children.push(item);
+            }
         })
 		const helfLength = Math.max(top.children.length,bottom.children.length);
 
@@ -246,7 +254,7 @@ class FishLayout {
 			// 计算子元素在父容器的相对坐标
             const isTop = this.isTop(child);
 			child.position = {
-				x: direction === 'right' ? bbox.width : -bbox.width,
+				x: direction === 'right' ? bbox.width : -(bbox.width + child.contentRect.width),
 				y: isTop ? - rect.height : 0
 			};
 			bbox.width += spaceX + rect.width; 
@@ -263,6 +271,12 @@ class FishLayout {
         }
     }
 
+    center(){
+        const {remindRect,x,y,root} = this.page;
+        const pageX = x + root.rect.width / 2;
+        const pageY = y + root.rect.height / 2;
+        this.remind.controller.translate( pageX  - remindRect.width / 2, pageY  - remindRect.height / 2,true) 
+    }
 
 }
 export default FishLayout;

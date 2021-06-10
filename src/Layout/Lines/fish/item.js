@@ -19,11 +19,11 @@ function drawItem(item){
     }
     const endPos = {
         x:direction === 'right' ? ((rect.height - contentRect.height) / k + item.x + contentRect.width / 2) : item.globalPos.x,
-        y:direction === 'right' ? (item.globalPos.y + (isTop ? rect.height : 0)) : item.globalPos.y
+        y:item.globalPos.y + (isTop ? rect.height : 0)
     };
      
      if(item.depth % 2 !== 1){// 水平
-        startPos.x = item.x + (direction === 'right' ? 0 : item.contentRect);
+        startPos.x = item.x + (direction === 'right' ? 0 : item.contentRect.width);
         endPos.x = startPos.x + (direction === 'right' ? 1 : -1) * (item.rect.width + item.rect.height / k);
      }
      const bodyData = {
@@ -31,6 +31,13 @@ function drawItem(item){
         color
     }
      this.page.lines.push(bodyData);
+    //  if(item.children.length){
+    //      item.children.forEach(child=>{
+    //          if(child.data.layout && child.data.layout !== 'fish'){
+    //             drawItem.call(this,child)
+    //          }
+    //      })
+    //  }
 }
 // 不得使用箭头函数
 export default drawItem

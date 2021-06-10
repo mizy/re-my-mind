@@ -1,14 +1,15 @@
 import React, { PureComponent, Fragment } from "react";
 import { Button, Dropdown, Icon, Upload, Checkbox, Modal } from "antd";
-const MM = window.MM;
-
+import {DeleteOutlined} from '@ant-design/icons';
 import { SketchPicker } from "react-color";
+
 export default class CanvasEdit extends PureComponent {
 	state = {
 		fileList: []
 	}
 	componentDidMount() {
 		const imageUrl = this.props.mind.state.backgroundImage;
+		this.app = this.props.app;
 		const fileList = imageUrl ? [{
 			uid: "-1",
 			name: "背景",
@@ -22,6 +23,15 @@ export default class CanvasEdit extends PureComponent {
 			repeat: this.props.mind.state.backgroundRepeat === "repeat",
 			size: this.props.mind.state.backgroundSize === "100% 100%"
 		});
+		if(!this.app.page.data.style ){
+			this.app.page.data.style  = {}
+		}
+		
+	}
+
+	changeStyle(key,value){
+		this.app.page.data.style[key] = value;
+		this.app.page.updateContainerStyle();
 	}
 
 	changeBackGroundColor = e => {
@@ -30,9 +40,8 @@ export default class CanvasEdit extends PureComponent {
 		this.setState({
 			color
 		});
-		this.props.mind.setState({
-			backgroundColor: color
-		});
+		this.app.page.data.style.backgroundColor = color;
+		this.app.page.updateContainerStyle();
 	};
 
 	clearBack = () => {
@@ -40,14 +49,12 @@ export default class CanvasEdit extends PureComponent {
 		this.setState({
 			color
 		});
-		this.props.mind.setState({
-			backgroundColor: null
-		});
+		this.app.page.data.style.backgroundColor = null;
+		this.app.page.updateContainerStyle();
 	}
 
 	handlePreview = async file => {
 		this.setState({
-			previewImage: file.url,
 			previewVisible: true
 		});
 	};
@@ -59,46 +66,37 @@ export default class CanvasEdit extends PureComponent {
 	}
 
 	changeBackUrl = info => {
-		this.setState({
-			fileList: info.fileList
-		});
-		if (info.fileList.length < 1) {
-			this.props.mind.setState({
-				backgroundImage: null
-			});
-		}
-
-		if (info.file.status === "uploading") {
-			this.setState({ loading: true });
-			return;
-		}
-		if (info.file.status === "done") {
+		
+		if(!info.fileList || !info.fileList.length){
 			this.setState({
-				imageUrl: info.file.response.data.url,
-				loading: false
-			});
-			this.props.mind.setState({
-				backgroundImage: info.file.response.data.url
-			});
+				fileList:undefined
+			})
+			this.changeStyle("backgroundImage",null)
+			return 	false
 		}
+		const interval = setInterval(()=>{
+			if(info.fileList[0].thumbUrl)
+			{
+				clearInterval(interval);
+				this.setState({ loading: true ,fileList:info.fileList});
+				this.changeStyle("backgroundImage",`url(${info.fileList[0].thumbUrl})`)
+			}			
+		},30)
+
 	}
 
 	onSizeChange = (e) => {
 		this.setState({
 			size: e.target.checked
 		});
-		this.props.mind.setState({
-			backgroundSize: e.target.checked ? "100% 100%" : "auto"
-		});
+		this.changeStyle("backgroundSize",e.target.checked ? "100% 100%" : "auto") 
 	}
 
 	onRepeatChange = (e) => {
 		this.setState({
 			repeat: e.target.checked
 		});
-		this.props.mind.setState({
-			backgroundRepeat: e.target.checked ? "repeat" : "no-repeat"
-		});
+		this.changeStyle("backgroundRepeat",e.target.checked ? "repeat" : "no-repeat") 
 	}
 
 	render() {
@@ -108,26 +106,23 @@ export default class CanvasEdit extends PureComponent {
 			<Fragment>
 				<div className="right-panel-card">
 					<div className="panel-title">背景色</div>
-					<Dropdown
-						trigger="click"
-						overlay={
-							<SketchPicker
-								color={color}
-								onChangeComplete={this.changeBackGroundColor}
-							/>
-						}>
-						<div className="right-panel-card-children">
-							<div className="color-pick-demo" style={{ backgroundColor: color }}></div>
-							<Button.Group>
-								<Button>
-									<Icon fill={color} type="bg-colors" />
-								</Button>
-								<Button onClick={this.clearBack}>
-									<Icon type="delete" />
-								</Button>
-							</Button.Group>
+					<div className="right-panel-card-children">
+						<Dropdown
+							trigger="click"
+							overlay={
+								<SketchPicker
+									color={color}
+									onChangeComplete={this.changeBackGroundColor}
+								/>
+							}>
+							<div
+								className="color-pick-demo"
+								style={{ backgroundColor: color }}></div>
+						</Dropdown>
+						<div >
+							<DeleteOutlined onClick={this.clearBack} style={{ cursor: "pointer" }} />
 						</div>
-					</Dropdown>
+					</div>
 				</div >
 				<div className="right-panel-card">
 					<div className="panel-title">背景图片</div>
@@ -137,18 +132,18 @@ export default class CanvasEdit extends PureComponent {
 							listType="picture-card"
 							className="avatar-uploader"
 							fileList={fileList}
-							onPreview={this.handlePreview}
-							action="/api/bucket/upload"
 							onChange={this.changeBackUrl}
+							onPreview={this.handlePreview}
+							beforeUpload={()=>{this.setState({fileList:undefined});return false}}
 						>
-							{fileList.length > 0 ? null
+							{(fileList || []).length > 0 ? null
 								: <div>
 									<Icon type={this.state.loading ? "loading" : "plus"} />
 									<div className="ant-upload-text">上传</div>
 								</div>}
 						</Upload>
 						<Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
-							<img alt="example" style={{ width: "100%" }} src={previewImage} />
+							<img alt="example" style={{ width: "100%" }} src={fileList && fileList[0] ? fileList[0].url : false} />
 						</Modal>
 						<div >
 							<Checkbox

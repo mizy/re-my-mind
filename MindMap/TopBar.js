@@ -63,6 +63,11 @@ class TopBar extends PureComponent {
 			this.setState({scale})
 		});
 
+		app.on("change",()=>{
+			this.setState({
+				historyIndex:app.history.historyIndex
+			})
+		})
 		window.addEventListener("resize", this.resize);
 		this.startTimeout();
 	}
@@ -103,18 +108,20 @@ class TopBar extends PureComponent {
 	}
 
 	undo = () => {
-		this.props.app.history[this.props.app.historyIndex - 1].undo();
-		this.props.app.historyIndex--;
+		const {history} = this.props.app;
+		history.history[history.historyIndex - 1].undo();
+		history.historyIndex--;
 		this.setState({
-			historyIndex: this.props.app.historyIndex
+			historyIndex: history.historyIndex
 		});
 	};
 
 	redo = () => {
-		this.props.app.history[this.props.app.historyIndex].perform();
-		this.props.app.historyIndex++;
+		const {history} = this.props.app;
+		history.history[history.historyIndex].perform();
+		history.historyIndex++;
 		this.setState({
-			historyIndex: this.props.app.historyIndex
+			historyIndex: history.historyIndex
 		});
 	};
 
@@ -172,12 +179,23 @@ class TopBar extends PureComponent {
 		});
 	};
 
-	export = () => {
-		html2canvas(document.querySelector(".re-mind .item"), {
+	export = () => { 
+		html2canvas(document.querySelector(".remind-page"), {
 			useCORS: true
 		}).then(canvas => {
-			canvas.toBlob(blob => {
-				saveAs(blob, this.state.name + ".png");
+			const c = document.createElement("canvas");
+			const ctx = c.getContext("2d");
+			c.width = canvas.width / window.devicePixelRatio + 40;
+			c.height = canvas.height / window.devicePixelRatio + 40;
+			ctx.fillStyle = '#ffffff';
+			ctx.fillRect(0,0,c.width,c.height);
+			ctx.drawImage(canvas,20,20,canvas.width / window.devicePixelRatio,canvas.height / window.devicePixelRatio);
+			
+			// canvas.width +=  40 ;
+			// canvas.height += 40;
+
+			c.toBlob(blob => {
+				saveAs(blob, (this.state.name || '脑图') + ".png");
 			});
 		});
 	};
@@ -393,6 +411,9 @@ class TopBar extends PureComponent {
 											</Menu.Item>
 											<Menu.Item key="fish-right">
 												鱼骨图-右
+											</Menu.Item>
+											<Menu.Item key="fish-left">
+												鱼骨图-左
 											</Menu.Item>
 										</Menu>
 									}

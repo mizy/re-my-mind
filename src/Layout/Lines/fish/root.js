@@ -36,6 +36,13 @@ function drawRoot(item){
         }],
         color
      });
+    //  if(item.children.length){
+    //     item.children.forEach(child=>{
+    //         if(child.data.layout && child.data.layout !== 'fish'){
+    //            this.line.item.call(this,child)
+    //         }
+    //     })
+    // }
 }
 // 不得使用箭头函数
 export default drawRoot

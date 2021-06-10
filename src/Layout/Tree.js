@@ -52,7 +52,7 @@ class TreeLayout {
             y:contentRect.height + spaceY
         } 
         item.relativePos = {
-            x:direction === 'right' ? 0 : -(item.contentRect.width - itemDistanceX),
+            x:direction === 'right' ? -itemDistanceX : -(item.contentRect.width - itemDistanceX),
             y:-item.originPos.y
         }
 	}

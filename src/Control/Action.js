@@ -16,6 +16,7 @@ class Action{
 
         const action = new ActionConstructor(...others);
         this.remind.history.action(action);
+        this.remind.fire("change",action)
         return action;
 	}
  
