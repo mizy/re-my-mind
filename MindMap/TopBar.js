@@ -3,7 +3,6 @@ import { get } from "lodash";
 import html2canvas from "html2canvas";
 import { saveAs } from "file-saver";
 import {
-	Icon,
 	Popover,
 	Button,
 	Modal,
@@ -18,6 +17,7 @@ import {MoreOutlined,StarOutlined,HighlightOutlined,ZoomOutOutlined,ZoomInOutlin
 import CommandKey from "./Modals/CommandKey";
 import ImportFile from "./Import/ImportFile";
 import History from "./Modals/History/index.js";
+import {SaveOutlined,FullscreenOutlined,FolderOpenOutlined,FolderOutlined,FileImageOutlined,ImportOutlined,ExportOutlined,CloudDownloadOutlined,UploadOutlined } from '@ant-design/icons'
 
 class TopBar extends PureComponent {
 	state = {
@@ -80,32 +80,28 @@ class TopBar extends PureComponent {
 		if (this.props.readonly) return;
 		this.timeout && clearTimeout(this.timeout);
 		this.timeout = setTimeout(() => {
-			// this.save(false);
+			this.save(false);
 			this.startTimeout();
-		}, 120000);
+		}, 30000);
 	}
 
-	save = async () => {
-		const { record = {} } = this.props;
+	save = async (flag) => {
 		let data = this.props.app.page.toJSON();
-		this.getBackgroundData(data);
-		Modal.info({
-			title:"保存数据",
-			content:<pre style={{fontSize:12,maxHeight:400,maxWidth:400,overflow:'auto'}}>
-				{JSON.stringify(data,undefined,4)}
-			</pre>
-		})
+		const res = await fetch('/remind-api/save',{
+			method:"POST",
+			body:JSON.stringify(data)
+		}).then(res=>res.json()).then(res=>{
+			if(!res.success){
+				message.error("保存失败!",res.message);
+				return false;
+			}
+			return true;
+		}).catch(err=>{
+			message.error(err.message)
+		});
+		if(flag && res)
 		message.success("保存成功");
 	};
-
-	getBackgroundData(data) {
-		data.background = {
-			color: this.props.mind.state.backgroundColor,
-			image: this.props.mind.state.backgroundImage,
-			repeat: this.props.mind.state.backgroundRepeat,
-			size: this.props.mind.state.backgroundSize
-		};
-	}
 
 	undo = () => {
 		const {history} = this.props.app;
@@ -463,7 +459,7 @@ class TopBar extends PureComponent {
 					</div>
 					<div className="handle-button">
 						<Tooltip title="全屏">
-							<Icon
+							<FullscreenOutlined 
 								type={
 									!fullscreen
 										? "fullscreen"
@@ -476,11 +472,12 @@ class TopBar extends PureComponent {
 					</div>
 					<div className="handle-button">
 						<Tooltip title="折叠2级节点">
-							<Icon
-								type={foldStatus ? "folder" : "folder-open"}
+							{foldStatus ? <FolderOutlined 
 								onClick={this.fold}
 								style={{ fontSize: 14 }}
-							/>
+							/> : <FolderOpenOutlined
+							onClick={this.fold}
+							style={{ fontSize: 14 }} />}
 						</Tooltip>
 					</div>
 				</div>
@@ -519,7 +516,7 @@ class TopBar extends PureComponent {
 										this.export();
 									}}
 								>
-									<Icon type="export" />
+									<FileImageOutlined />
 									导出为图片
 								</Menu.Item>
 								{!readonly && <Menu.Item
@@ -527,7 +524,7 @@ class TopBar extends PureComponent {
 										this.importFile.show();
 									}}
 								>
-									<Icon type="upload" />
+									<ImportOutlined />
 									从xmind文件导入
 								</Menu.Item>}
 								<Menu.Item
@@ -535,16 +532,32 @@ class TopBar extends PureComponent {
 										message.success("服务端完成")
 									}}
 								>
-									<Icon type="download" />
+									<ExportOutlined />
 									导出为xmind
+								</Menu.Item>
+								<Menu.Item
+									onClick={() => {
+										message.success("服务端完成")
+									}}
+								>
+									<CloudDownloadOutlined />
+									下载
+								</Menu.Item>
+								<Menu.Item
+									onClick={() => {
+										message.success("服务端完成")
+									}}
+								>
+									<UploadOutlined />
+									上传
 								</Menu.Item>
 								<Menu.Item
 									onClick={() => {
 										this.history.show();
 									}}
 								>
-									<Icon type="history" />
-									历史记录
+									<SaveOutlined />
+									另存为
 								</Menu.Item>
 							</Menu>
 						}

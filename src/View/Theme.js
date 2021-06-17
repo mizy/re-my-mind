@@ -22,10 +22,10 @@ const theme = {
 			main: "ellipse",
 			second: "box",
 			className: "box",
-			node: "underline",
+			node: "blank",
 			lineShape:"taper",
 			lineShape2:"bezier",
-            colors: ['#fec936', '#f88b15', '#fe7e4d', '#ec6d7a', '#ef3224', '#9bc039', '#67c97e', '#00a7cd', '#40b5c6', '#2da4ff', '#956fe7', '#882e99', '#FF84BA']
+            colors:  ["#5bd4ff", "#38b2ff", "#2589e5", "#1579b5"]
 		}
 	},
 

@@ -72,7 +72,7 @@ export default class MainText extends PureComponent {
 		}]
 		return (
 			<Fragment>
-				<div onDoubleClick={()=>{e.preventDefault();e.stopPropagation(); this.onDoubleClick(item)}} className="mainText-content">
+				<div onDoubleClick={(e)=>{e.preventDefault();e.stopPropagation(); this.onDoubleClick(item)}} className="mainText-content">
 					<Input.Search placeholder="请输入搜索" value={this.state.searchValue} style={{ width: "100%" }} onChange={this.changeSearch} />
 					<Tree treeData={treeData} className="main-text-tree" defaultExpandAll={true} />
 				</div>

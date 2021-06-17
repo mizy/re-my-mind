@@ -19,10 +19,17 @@ export default class ThemeEdit extends PureComponent {
 	async setTheme(theme) {
 		const {page} = this.props.app;
 		page.setTheme(theme); 
-		page.updateSubtree();
+		
+		page.updateSubtree('updateShape');//所有节点更新形状
+		requestAnimationFrame(()=>{
+			page.updateSubtree('updateContentRect');//所有节点更新宽高
+			page.updateSubtree();// 所有节点更新布局位置
+			page.update();
+		})
 		this.setState({
 			theme
 		});
+	
 	}
 
 	render() {
@@ -32,7 +39,7 @@ export default class ThemeEdit extends PureComponent {
 			<div className="theme-save">
 				<ul>
 					{themes.map(item => (
-						<li onClick={() => { this.setTheme(item[0]); }} className={theme === item[0] ? "active" : ""}>
+						<li key={item[0]} onClick={() => { this.setTheme(item[0]); }} className={theme === item[0] ? "active" : ""}>
 							<img src={item[1]} />
 						</li>
 					))}

@@ -1,0 +1,8 @@
+{
+    "extends": ["eslint:recommended"],
+    "rules":{
+        "space-infix-ops":"warn",
+        "no-unused-vars":"warn",
+        "no-undef":"off"
+    }
+}

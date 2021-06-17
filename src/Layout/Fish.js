@@ -123,7 +123,7 @@ class FishLayout {
         item.childrenBBox = bbox;
         item.relativePos = {
             x: direction === 'right' ? -(headGap + contentRect.width ) : headGap ,
-            y: isTop ? (-contentRect.height * (isUnderLine ? 1 : 0.5)) : (isUnderLine ? 0 : 0.5 * contentRect)
+            y: isTop ? (-contentRect.height * (isUnderLine ? 1 : 0.5)) : (isUnderLine ? 0 : -0.5 * contentRect.height)
         };
 		item.rect = {
 			width: bbox.width + tailGap + headGap + contentRect.width,

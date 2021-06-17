@@ -4,8 +4,8 @@ const path = require("path");
 let webpackConfig = {
 	entry: "./MindMap/index.js",
 	output: {
-		filename: "index.js",
-		publicPath: "/"
+		filename: "[name].[chunkhash].js",
+		publicPath: "/remind"
 	},
 	mode: "development",
 	resolve: {
@@ -24,6 +24,19 @@ let webpackConfig = {
 		hot: true,
 		publicPath: "/"
 	},
+	optimization: {
+        runtimeChunk: 'single',
+        splitChunks: {
+            cacheGroups: {
+              vendor: {
+                test: /[\\/]node_modules[\\/]/,
+                name: 'vendors',
+				maxSize:400000,
+                chunks: 'all'
+              }
+            }
+        }
+    },
 	module: {
 		rules: [
 			{
@@ -80,7 +93,7 @@ let webpackConfig = {
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: './public/demo.html',
-            publicPath: '/' 
+            publicPath: '/remind' 
         }),
         new webpack.ProvidePlugin({
             React: 'react'

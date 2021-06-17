@@ -201,21 +201,19 @@ class Item {
     /**
      * 更新下属和自己节点的布局信息
      */
-    updateSubtree(recurse = true){
+    updateSubtree(recurse = true,func){
         this.children.forEach(item=>{
-            item.updateSubtree(false)
+            item.updateSubtree(false,func)
         })
-        this.updateContentRect();
-        this.update(recurse)
- 
+        func ? this[func](recurse) : this.update(recurse);
     }
+    
 
     // bfs 更新依赖树结构的相关数据和样式
     update(recurse = true){
-        if(!this.contentRect)this.updateContentRect();// 避免编辑新增节点初始化时没有contentRect
         this.updateShape();
+        if(!this.contentRect)this.updateContentRect();// 避免编辑新增节点初始化时没有contentRect
         this.updateLayout();
-        this.updateColor();
         if(recurse){
             this.parent.update(recurse);
         }
@@ -314,11 +312,7 @@ class Item {
         }
         return this.parent.getColor(this);
     }
-
-    updateColor(){
-        // this.toggleDOM.style.color = color;
-        // this.toggleDOM.style.backgroundColor = color;
-    }
+  
 
     isVisible(){
         const {x,y} = this;

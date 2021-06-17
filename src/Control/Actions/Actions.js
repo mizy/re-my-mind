@@ -140,12 +140,12 @@ const getAllActions = (remind) => {
 	Action.SetLayout.prototype = Object.create(Action.prototype);
 	Action.SetLayout.prototype.perform = function () {
 		this._item.setLayout(this._layout);
-		remind.page.rememberPosition(this._item);
+		remind.page.remember(this._item);
         this._item.updateSubtree();
 	};
 	Action.SetLayout.prototype.undo = function () {
 		this._item.setLayout(this._oldLayout);
-		remind.page.rememberPosition(this._item);
+		remind.page.remember(this._item);
 		this._item.updateSubtree();
 	};
 

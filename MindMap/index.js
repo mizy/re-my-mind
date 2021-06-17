@@ -2,10 +2,11 @@ import React, { PureComponent } from "react";
 import ReactDom from 'react-dom';
 import "./index.less";
 import Remind from "../src/app.js";
-import { Spin } from "antd";
+import { message, Spin } from "antd";
 import MainText from "./MainText";
 import TopBar from "./TopBar";
 import RightBar from "./Rightbar";
+import axios from 'axios'
 
 window.updateTimes = 0;
 window.layoutItemTimes = 0;
@@ -23,46 +24,58 @@ class Minder extends PureComponent {
 	readonly = false
 
 	componentDidMount() {
-		this.init({
-			root: {
-				text: "demo",
-				layout: "fish-right",
-				children: [{
-					text:"女儿",
-					children:[{
-						text:"女婿"
-					}]
-				},{
-					text:"儿子",
-					children:[{
-						text:"儿媳"
-					}]
-				},{
-					text:"父亲",
-					children:[{
-						text:"爷爷",
+		axios.get("/remind-api/get").then(res=>{
+			if(res.success){
+				this.init(res.data)
+			}else{
+				throw new Error(res.message)
+			}
+		}).catch(err=>{
+			this.init({
+				root: {
+					text: "demo",
+					layout: "fish-right",
+					children: [{
+						text:"女儿",
 						children:[{
-							text:"姑奶奶"
+							text:"女婿"
 						}]
-					},
-					{
-						text:"奶奶"
 					},{
-						text:"叔叔"
+						text:"儿子",
+						children:[{
+							text:"儿媳"
+						}]
+					}
+					,{
+						text:"父亲",
+						children:[{
+							text:"爷爷",
+							children:[{
+								text:"姑奶奶"
+							}]
+						},
+						{
+							text:"奶奶"
+						},{
+							text:"叔叔"
+						},{
+							text:"姑姑"
+						}]
 					},{
-						text:"姑姑"
-					}]
-				},{
-					text:"母亲",
-					children:[{
-						text:"舅舅"
-					},{
-						text:"阿姨"
-					}]
-				}]
-			},
-			theme:"default"
+						text:"母亲",
+						children:[{
+							text:"舅舅"
+						},{
+							text:"阿姨"
+						}]
+					}
+				]
+				},
+				theme:"default"
+			});
+			message.error(err.message)
 		});
+		
 	}
 
 	setData(res) { 
@@ -72,18 +85,8 @@ class Minder extends PureComponent {
 			nowData: data
 		});
 	}
-
-	initData(data) {
-		if (!data) {
-			return data;
-		}
-		// 初始化背景
-		this.initBackground(data);
-		return data;
-	}
-
+ 
 	init(data) {
-		this.initData(data);
 		// 更改主题颜色
 		Remind.theme.themes.default.colors = this.colors;
 		Remind.theme.themes.default.lineShape = 'taper';
@@ -92,7 +95,7 @@ class Minder extends PureComponent {
 		this.app = new Remind(this.appRef, {
 			data
 		});
-		window.app = this.app;
+		window.remind = this.remind;
 		this.app.readonly = this.readonly;
 
 		this.setState({
@@ -119,20 +122,6 @@ class Minder extends PureComponent {
 					nowData: this.app.page.toJSON()
 				});
 			}, 500);
-		});
-	}
-
-	/**
-	 * 初始化背景板
-	 * @param {*} data
-	 */
-	initBackground(data = {}) {
-		if (!data.background) return false;
-		this.setState({
-			backgroundRepeat: data.background.repeat,
-			backgroundSize: data.background.size,
-			backgroundImage: data.background.image,
-			backgroundColor: data.background.color || undefined
 		});
 	}
 

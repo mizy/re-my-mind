@@ -96,7 +96,7 @@ class Page {
 
     setTheme(value = 'default'){
         this.theme = theme.themes[value];
-        this.remind.className = `remind theme-${theme}`;
+        this.remind.remindDOM.className = `remind theme-${value}`;
         this.data.theme = value;
     }
 
@@ -159,8 +159,8 @@ class Page {
     }
 
     // 更新节点树信息
-    updateSubtree(){
-        this.root.updateSubtree(false);
+    updateSubtree(func){
+        this.root.updateSubtree(false,func);
     }
 
     // 渲染
