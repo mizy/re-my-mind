@@ -5,9 +5,9 @@ let webpackConfig = {
 	entry: "./MindMap/index.js",
 	output: {
 		filename: "[name].[chunkhash].js",
-		publicPath: "/remind"
+		publicPath: "/"
 	},
-	mode: "development",
+	mode:  process.NODE_ENV,
 	resolve: {
 		extensions: [".js", ".json"],
 		alias: {
@@ -93,7 +93,7 @@ let webpackConfig = {
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: './public/demo.html',
-            publicPath: '/remind' 
+            publicPath: process.NODE_ENV === 'production' ? '/remind' : '/' 
         }),
         new webpack.ProvidePlugin({
             React: 'react'
