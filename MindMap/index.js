@@ -1,4 +1,5 @@
 import React, { PureComponent } from "react";
+import 'antd/dist/antd.css'
 import ReactDom from 'react-dom';
 import "./index.less";
 import Remind from "../src/app.js";
@@ -24,9 +25,13 @@ class Minder extends PureComponent {
 	readonly = false
 
 	componentDidMount() {
-		axios.get("/remind-api/get").then(res=>{
+		axios.get("/remind-api/get",{
+			data:{
+				path:"reminds/text.remind"
+			}
+		}).then(res=>{
 			if(res.success){
-				this.init(res.data)
+				this.init(JSON.parse(res.data))
 			}else{
 				throw new Error(res.message)
 			}

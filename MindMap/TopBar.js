@@ -1,5 +1,4 @@
 import React, { PureComponent, Fragment } from "react";
-import { get } from "lodash";
 import html2canvas from "html2canvas";
 import { saveAs } from "file-saver";
 import {
@@ -89,7 +88,10 @@ class TopBar extends PureComponent {
 		let data = this.props.app.page.toJSON();
 		const res = await fetch('/remind-api/save',{
 			method:"POST",
-			body:JSON.stringify(data)
+			body:JSON.stringify({
+				path:'reminds/test.remind',
+				data:JSON.stringify(data)
+			})
 		}).then(res=>res.json()).then(res=>{
 			if(!res.success){
 				message.error("保存失败!",res.message);

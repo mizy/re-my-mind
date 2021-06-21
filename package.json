@@ -10,8 +10,8 @@
 	"scripts": {
 		"start": "webpack serve",
 		"demo": "webpack serve --config webpack.config.demo.js",
-		"build": "process.NODE_ENV=production && webpack --config webpack.config.build.js",
-		"build:demo": "webpack --config webpack.config.demo.js",
+		"build": " webpack --node-env production --config webpack.config.build.js",
+		"build:demo": "webpack --node-env production --config webpack.config.demo.js",
 		"doc": "jsdoc -d doc src/**/*.js"
 	},
 	"files": [
@@ -53,9 +53,9 @@
 		"url-loader": "^4.1.1",
 		"webpack": "^5.33.2",
 		"webpack-cli": "^4.6.0",
-		"webpack-dev-server": "^1.16.5"
+		"webpack-dev-server": "^3.11.2"
 	},
 	"dependencies": {
-		"uuid": "^3.4.0"
+		"uuid": "^7.0.0"
 	}
 }

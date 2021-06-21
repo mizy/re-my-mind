@@ -7,7 +7,7 @@ let webpackConfig = {
 		filename: "[name].[chunkhash].js",
 		publicPath: "/"
 	},
-	mode:  process.NODE_ENV,
+	mode:  process.env.NODE_ENV??'development',
 	resolve: {
 		extensions: [".js", ".json"],
 		alias: {
@@ -44,23 +44,7 @@ let webpackConfig = {
 				exclude: /(node_modules|bower_components)/,
 				use: [
 					{
-						loader: "babel-loader",
-						options: {
-							presets: [["@babel/preset-env"], "@babel/preset-react"],
-							plugins: [
-								["@babel/plugin-proposal-decorators", { legacy: true }],
-								["@babel/plugin-proposal-class-properties", { loose: true }],
-								[
-									"import",
-									{
-										libraryName: "antd",
-										libraryDirectory: "lib",
-										style: true
-									}
-								],
-								"@babel/plugin-transform-runtime"
-							]
-						}
+						loader: "babel-loader?cacheDirectory=true",
 					}
 				]
 			},
@@ -93,7 +77,7 @@ let webpackConfig = {
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: './public/demo.html',
-            publicPath: process.NODE_ENV === 'production' ? '/remind' : '/' 
+            publicPath: process.env.NODE_ENV === 'production' ? '/remind' : '/' 
         }),
         new webpack.ProvidePlugin({
             React: 'react'

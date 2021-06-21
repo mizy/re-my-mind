@@ -21,6 +21,8 @@ class Router {
         }
         const route = this.findRoute(path,req.method);
         if(route){
+            req.setEncoding('utf8');
+            res.setHeader('Content-Type', 'application/json;chartset=utf-8')
             route.handle(req,res,this);
         }else{
             res.statusCode = 404;

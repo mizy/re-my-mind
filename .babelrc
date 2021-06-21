@@ -1,11 +1,7 @@
 {
 	"presets": [
 		[
-			"@babel/preset-env",
-			{
-				"useBuiltIns": "usage",
-				"corejs": 2
-			}
+			"@babel/preset-env"
 		],
 		"@babel/preset-react"
 	],
@@ -15,16 +11,6 @@
 		},
 		"production": {
 			"plugins": [
-				[
-					"transform-remove-console",
-					{
-						"exclude": [
-							"error",
-							"warn",
-							"info"
-						]
-					}
-				]
 			]
 		}
 	},
@@ -36,10 +22,7 @@
 			}
 		],
 		[
-			"@babel/plugin-proposal-class-properties",
-			{
-				"loose": true
-			}
+			"@babel/plugin-proposal-class-properties"
 		],
 		"@babel/plugin-transform-runtime"
 	]
