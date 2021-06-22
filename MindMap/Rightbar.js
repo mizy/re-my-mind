@@ -1,9 +1,10 @@
 import React, { PureComponent, Fragment } from "react";
-import { Tabs, Icon, message } from "antd";
+import { Tabs, message } from "antd";
 import TextEdit from "./FormatPanel/TextEdit";
 import CanvasEdit from "./FormatPanel/CanvasEdit";
 import ItemStyle from "./FormatPanel/ItemStyle";
 import iconList from "./icon";
+import {DeleteOutlined} from '@ant-design/icons'
 import ThemeEdit from "./FormatPanel/ThemeEdit";
 const { TabPane } = Tabs;
 export default class Rightbar extends PureComponent {
@@ -67,7 +68,7 @@ export default class Rightbar extends PureComponent {
 			const type = (
 				<div className="icon-item">
 					<span>
-						{iconItem.name} <Icon onClick={() => this.deleteIconClick(key)} type="delete" />
+						{iconItem.name} <DeleteOutlined  onClick={() => this.deleteIconClick(key)} type="delete" />
 					</span>
 					<div className="icon-list">{list}</div>
 				</div>

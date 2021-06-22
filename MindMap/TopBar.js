@@ -15,8 +15,9 @@ import {
 import {MoreOutlined,StarOutlined,HighlightOutlined,ZoomOutOutlined,ZoomInOutlined} from '@ant-design/icons'
 import CommandKey from "./Modals/CommandKey";
 import ImportFile from "./Import/ImportFile";
-import History from "./Modals/History/index.js";
-import {SaveOutlined,FullscreenOutlined,FolderOpenOutlined,FolderOutlined,FileImageOutlined,ImportOutlined,ExportOutlined,CloudDownloadOutlined,UploadOutlined } from '@ant-design/icons'
+// import History from "./Modals/History/index.js";
+import {MenuOutlined ,SaveOutlined,FullscreenOutlined,FolderOpenOutlined,FolderOutlined,FileImageOutlined,ImportOutlined,ExportOutlined,CloudDownloadOutlined,UploadOutlined } from '@ant-design/icons'
+import FileManager from "./Modals/FileManager";
 
 class TopBar extends PureComponent {
 	state = {
@@ -89,7 +90,7 @@ class TopBar extends PureComponent {
 		const res = await fetch('/remind-api/save',{
 			method:"POST",
 			body:JSON.stringify({
-				path:'reminds/test.remind',
+				path:'reminds/main.remind',
 				data:JSON.stringify(data)
 			})
 		}).then(res=>res.json()).then(res=>{
@@ -164,7 +165,7 @@ class TopBar extends PureComponent {
 
 	format = () => {
 		const {app} = this.props;
-		(app.page.current || app.page.root).center()
+		app.page.center();
 	};
 
 	goback = () => {
@@ -258,13 +259,13 @@ class TopBar extends PureComponent {
 		this.props.mind.setState({
 			loading: true
 		});
+		const {app:remind} = this.props;
 		setTimeout(() => {
-			const children = MM.App.map.getRoot().getChildren();
+			const children = remind.page.root.children;
 			children.forEach(item => {
-				item._collapsed = !foldStatus;
-				item.update(true);
+				item.updateVisible(item.children,foldStatus)
 			});
-			MM.App.map.getRoot().update();
+			remind.page.root.updateSubtree()
 			this.format();
 			this.props.mind.setState({
 				loading: false
@@ -282,7 +283,7 @@ class TopBar extends PureComponent {
 		const { projectVersion = {} } = book;
 		return (
 			<div className="minder-header">
-
+				<MenuOutlined />
 				<div className="main-mind-tab">
 					<Tooltip title="切换至思维导图">
 						<div
@@ -310,6 +311,7 @@ class TopBar extends PureComponent {
 
 				<div className="button-area">
 						<Fragment>
+							 
 							<div className="handle-button">
 								<Tooltip title="保存为版本">
 									<i
@@ -461,6 +463,7 @@ class TopBar extends PureComponent {
 					</div>
 					<div className="handle-button">
 						<Tooltip title="全屏">
+							<i>
 							<FullscreenOutlined 
 								type={
 									!fullscreen
@@ -470,16 +473,17 @@ class TopBar extends PureComponent {
 								onClick={this.fullScreen}
 								style={{ fontSize: 14 }}
 							/>
+							</i>
 						</Tooltip>
 					</div>
 					<div className="handle-button">
 						<Tooltip title="折叠2级节点">
-							{foldStatus ? <FolderOutlined 
+							<i>{foldStatus ? <FolderOutlined 
 								onClick={this.fold}
 								style={{ fontSize: 14 }}
 							/> : <FolderOpenOutlined
 							onClick={this.fold}
-							style={{ fontSize: 14 }} />}
+							style={{ fontSize: 14 }} />}</i>
 						</Tooltip>
 					</div>
 				</div>
@@ -508,11 +512,14 @@ class TopBar extends PureComponent {
 					<Dropdown
 						overlay={
 							<Menu
+								className="more-options"
 								onClick={({ domEvent }) =>
 									domEvent.stopPropagation()
 								}
-							>
-								{/* <Divider /> */}
+							> 
+								<Menu.Item onClick={()=>{this.saveFile()}}>
+									 <SaveOutlined />另存为
+								</Menu.Item> 
 								<Menu.Item
 									onClick={() => {
 										this.export();
@@ -552,15 +559,7 @@ class TopBar extends PureComponent {
 								>
 									<UploadOutlined />
 									上传
-								</Menu.Item>
-								<Menu.Item
-									onClick={() => {
-										this.history.show();
-									}}
-								>
-									<SaveOutlined />
-									另存为
-								</Menu.Item>
+								</Menu.Item> 
 							</Menu>
 						}
 						class="project-action-more"
@@ -571,13 +570,7 @@ class TopBar extends PureComponent {
 					</Dropdown>
 				</Button.Group>
 				{readonly && <div className="read-only-bar">预览中</div>}
-				<History
-					mind={mind}
-					id={this.props.id}
-					ref={ref => {
-						this.history = ref;
-					}}
-				/>
+				
 				<ImportFile
 					mind={mind}
 					id={this.props.id}

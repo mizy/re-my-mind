@@ -19,3 +19,6 @@ router.add('/remind-api/save',require('./Routes/save'),{
 router.add('/remind-api/get',require('./Routes/read'),{
     method:"GET"
 });
+router.add('/remind-api/path',require('./Routes/path'),{
+    method:"GET"
+});

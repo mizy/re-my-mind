@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64px" height="72px" viewBox="0 0 64 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 57.1 (83088) - https://sketch.com -->
+    <title>矩形 4</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="62" height="69.75" rx="2"></rect>
+        <filter x="-2.4%" y="-2.2%" width="104.8%" height="104.3%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="0.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.261343521   0 0 0 0 0.297004017   0 0 0 0 0.403985507  0 0 0 1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="司南-项目管理-交互" transform="translate(-1051.000000, -268.000000)">
+            <g id="right" transform="translate(612.000000, 90.000000)">
+                <g id="文章" transform="translate(431.000000, 174.000000)">
+                    <g id="编组-4">
+                        <g id="矩形-4" transform="translate(9.000000, 5.000000)">
+                            <g id="矩形">
+                                <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                                <use fill="#F5F7FD" fill-rule="evenodd" xlink:href="#path-1"></use>
+                            </g>
+                            <path d="M51.925,46.5 L51.925,48.825 L10.075,48.825 L10.075,46.5 L51.925,46.5 Z M51.925,39.525 L51.925,41.85 L10.075,41.85 L10.075,39.525 L51.925,39.525 Z M51.925,32.55 L51.925,34.875 L10.075,34.875 L10.075,32.55 L51.925,32.55 Z M51.925,25.575 L51.925,27.9 L10.075,27.9 L10.075,25.575 L51.925,25.575 Z M39.525,17.825 L39.525,20.15 L10.075,20.15 L10.075,17.825 L39.525,17.825 Z M34.875,7.75 L34.875,10.075 L10.075,10.075 L10.075,7.75 L34.875,7.75 Z" id="矩形-7" fill="#CBD0DF"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

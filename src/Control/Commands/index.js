@@ -1,21 +1,18 @@
 
 const getAllCommands = (remind)=>{
     const isValid = ()=>{
-        // if (MM.App.note.status === "show") {
-        //     return false;
-        // }
+        if (remind.note.status === "show") {
+            return false;
+        }
         if(!remind.page.current) {
             return false
         }
         if (remind.page.editing) {
             return false;
         }
-        // if (this.editMode === null) {
-        //     return true;
-        // }
-        // if (this.editMode && MM.App.editing) {
-        //     return true;
-        // }
+        if (remind.options.readonly) {
+            return false;
+        } 
         return true;
     }
     return [
@@ -107,7 +104,43 @@ const getAllCommands = (remind)=>{
         execute:function () {
             (remind.page.current || remind.page.root).center()
         }
-    }
+    },
+    {
+        name:"Save",
+        keys:[
+            { keyCode: "s", ctrlKey: true, shiftKey: false },
+			{ keyCode: "s", metaKey: true, shiftKey: false }
+        ],
+        execute:function () {
+            remind.fire("save")
+        }
+    },
+    {
+        name:"Undo",
+        keys:[
+            { keyCode: "z", ctrlKey: true, shiftKey: false },
+			{ keyCode: "z", metaKey: true, shiftKey: false }
+        ],
+        execute:function () {
+            const {history} = remind;
+            history.history[history.historyIndex - 1].undo();
+            history.historyIndex--;
+            remind.fire("undo",history.historyIndex)
+        }
+    },
+    {
+        name:"Redo",
+        keys:[
+            { keyCode: "z", ctrlKey: true, shiftKey: true },
+			{ keyCode: "z", metaKey: true, shiftKey: true }
+        ],
+        execute:function () {
+            const {history} = remind;
+            history.history[history.historyIndex].perform();
+            history.historyIndex++;
+            remind.fire("redo",history.historyIndex)
+        }
+    },
 ]
 }
 export default getAllCommands;

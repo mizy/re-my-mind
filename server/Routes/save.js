@@ -18,7 +18,11 @@ const save = async (req,res)=>{
                   message:"请选择合法路径"
               }))
           }
-          fs.writeFileSync(path.resolve(__dirname,'../',params.path),params.data)
+
+          const savePath = path.resolve(params.path);
+          fs.writeFileSync(savePath,params.data,{
+            charset:"utf-8"
+          });
           res.end(JSON.stringify({
               success:true,
               message:"保存成功"

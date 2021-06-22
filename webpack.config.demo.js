@@ -22,7 +22,10 @@ let webpackConfig = {
 		contentBase: "./public",
 		// openPage: "./index.html",
 		hot: true,
-		publicPath: "/"
+		publicPath: "/",
+		proxy:{
+			'/remind-api':'http://0.0.0.0:7001'
+		}
 	},
 	optimization: {
         runtimeChunk: 'single',

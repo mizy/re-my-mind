@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64px" height="49px" viewBox="0 0 64 49" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 57.1 (83088) - https://sketch.com -->
+    <title>矩形 4备份 10</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="62" height="46.5" rx="2"></rect>
+        <filter x="-2.4%" y="-3.2%" width="104.8%" height="106.5%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="0.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.262745098   0 0 0 0 0.298039216   0 0 0 0 0.403921569  0 0 0 1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="new" transform="translate(-1057.000000, -416.000000)">
+            <g id="right" transform="translate(621.000000, 70.000000)">
+                <g id="todo备份" transform="translate(437.000000, 347.000000)">
+                    <g id="矩形-4备份-10">
+                        <g id="矩形">
+                            <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                            <use fill="#F5F7FD" fill-rule="evenodd" xlink:href="#path-1"></use>
+                        </g>
+                        <path d="M13,31.550207 C14.3333333,20.5167357 17,15.3333333 21,16 C27,17 25,32 29,31.550207 C33,31.100414 33.2857143,8.15131109 40,10 C44.1376622,11.13925 40.699254,19.548881 49,32 C50.3333333,34 51.6666667,35 53,35" id="路径-11" stroke="#ABC7EE" stroke-width="4" stroke-linecap="round"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

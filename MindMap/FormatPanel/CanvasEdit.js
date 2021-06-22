@@ -2,6 +2,7 @@ import React, { PureComponent, Fragment } from "react";
 import { Button, Dropdown, Icon, Upload, Checkbox, Modal } from "antd";
 import {DeleteOutlined} from '@ant-design/icons';
 import { SketchPicker } from "react-color";
+import {LoadingOutlined,PlusOutlined} from '@ant-design/icons'
 
 export default class CanvasEdit extends PureComponent {
 	state = {
@@ -138,7 +139,7 @@ export default class CanvasEdit extends PureComponent {
 						>
 							{(fileList || []).length > 0 ? null
 								: <div>
-									<Icon type={this.state.loading ? "loading" : "plus"} />
+									{this.state.loading?<LoadingOutlined />:<PlusOutlined />}
 									<div className="ant-upload-text">上传</div>
 								</div>}
 						</Upload>

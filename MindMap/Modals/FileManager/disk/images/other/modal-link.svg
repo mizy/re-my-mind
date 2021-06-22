@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64px" height="49px" viewBox="0 0 64 49" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 57.1 (83088) - https://sketch.com -->
+    <title>矩形 4备份 11</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="62" height="46.5" rx="2"></rect>
+        <filter x="-2.4%" y="-3.2%" width="104.8%" height="106.5%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="0.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.262745098   0 0 0 0 0.298039216   0 0 0 0 0.403921569  0 0 0 1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="new" transform="translate(-1179.000000, -414.000000)">
+            <g id="right" transform="translate(621.000000, 70.000000)">
+                <g id="todo备份-2" transform="translate(559.000000, 345.000000)">
+                    <g id="矩形-4备份-11">
+                        <g id="矩形">
+                            <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                            <use fill="#F5F7FD" fill-rule="evenodd" xlink:href="#path-1"></use>
+                        </g>
+                        <g id="弹窗" transform="translate(45.000000, 30.000000)" fill="#D6D9E0" fill-rule="nonzero">
+                            <path d="M4.28892687,11.1837161 C3.44912413,11.1837161 2.75752469,10.492114 2.75752469,9.65231397 L2.75752469,6.49070287 L0.979112467,6.49070287 C0.534510778,6.49070287 0.139309732,6.88590391 0.139309732,7.3305056 L0.139309732,13.159735 C0.139309732,13.6043367 0.534510778,13.9995378 0.979112467,13.9995378 L6.80834191,13.9995378 C7.2529436,13.9995378 7.64814464,13.6043367 7.64814464,13.159735 L7.64814464,11.183723 L4.2889337,11.183723 L4.28892687,11.1837161 Z" id="路径"></path>
+                            <path d="M4.68412654,9.99810343 L13.0821539,9.99810343 C13.5267556,9.99810343 13.8725574,9.65230166 13.8725574,9.20769997 L13.8725574,0.809672622 C13.8725574,0.365070933 13.5267556,0.019269163 13.0821539,0.019269163 L4.68412654,0.019269163 C4.23952486,0.019269163 3.89372309,0.365070933 3.89372309,0.809672622 L3.89372309,9.20769997 C3.89372309,9.65230166 4.23952486,9.99810343 4.68412654,9.99810343 Z M4.88172775,1.896469 C4.88172775,1.40246667 5.2769288,1.00726563 5.77093113,1.00726563 L12.0447568,1.00726563 C12.5387591,1.00726563 12.9339602,1.40246667 12.9339602,1.896469 L12.9339602,8.17029466 C12.9339602,8.664297 12.5387591,9.05949804 12.0447568,9.05949804 L5.77093113,9.05949804 C5.2769288,9.05949804 4.88172775,8.664297 4.88172775,8.17029466 L4.88172775,1.896469 Z" id="形状"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -5,6 +5,8 @@ import DragTool from "./DragTool";
 
 class Page {
     lines=[];
+    x=0;
+    y=0;
     constructor(remind){
         this.remind = remind;
         this.page = remind.page;
@@ -149,13 +151,21 @@ class Page {
     show(){
         this.updateSubtree(false);// 统一更新
         this.update();
+       
+        this.select(this.root);
+        this.center();
+        return this;
+    }
+
+    center(){
+        if(this.current!==this.root){
+            return this.current.center();
+        }
         if(this.root.getLayout().name === "fish"){
             this.root.getLayout().center();
         }else{
             this.root.center();
         }
-        this.select(this.root);
-        return this;
     }
 
     // 更新节点树信息
