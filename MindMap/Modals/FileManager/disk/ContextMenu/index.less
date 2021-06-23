@@ -1,0 +1,64 @@
+.disk-item-context-menu {
+    & {
+        position: fixed;
+        z-index: 999;
+    }
+
+    ul {
+        & {
+            outline: none;
+            margin: 0;
+            padding: 5px 0;
+            list-style: none;
+            background: #fff;
+            box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
+            border-radius: 2px;
+            width: 200px;
+        }
+
+        .ant-divider {
+            margin: 10px 0;
+            background-color: #e5e5e5;
+        }
+
+        li {
+            & {
+                list-style: none;
+                height: 32px;
+                line-height: 32px;
+                padding: 0 20px;
+                color: #666;
+                font-size: 13px;
+                font-weight: normal;
+                cursor: pointer;
+                -webkit-transition: all 0.3s;
+                transition: all 0.3s;
+                white-space: nowrap;
+            }
+
+            &:hover {
+                background: #efefef;
+            }
+
+            i {
+                width: 20px;
+                height: 20px;
+                min-width: 20px;
+                min-height: 20px;
+                margin-right: 8px;
+                text-align: center;
+                display: inline-block;
+                color: #696d71;
+            }
+
+            .red {
+                color: #E35B66;
+            }
+        }
+    }
+
+    .disabled,.disabled i {
+        cursor: not-allowed;
+        color: #ccc;
+    }
+}

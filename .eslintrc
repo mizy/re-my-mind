@@ -1,9 +1,11 @@
 {
-    "extends": ["eslint:recommended"],
+    "extends": ["eslint:recommended", "plugin:react/recommended"],
     "rules":{
         "space-infix-ops":"warn",
         "no-unused-vars":"warn",
-        "no-undef":"off"
+        "no-undef":"off",
+        "react/react-in-jsx-scope":false,
+        "react/prop-types":false
     },
     "parserOptions": {
         "sourceType": "module",

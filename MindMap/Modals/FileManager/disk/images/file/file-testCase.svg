@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64px" height="49px" viewBox="0 0 64 49" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 57.1 (83088) - https://sketch.com -->
+    <title>矩形 4备份</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="62" height="46.5" rx="2"></rect>
+        <filter x="-2.4%" y="-3.2%" width="104.8%" height="106.5%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="0.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.448069108   0 0 0 0 0.482330986   0 0 0 0 0.585116621  0 0 0 1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="司南-项目管理" transform="translate(-807.000000, -417.000000)">
+            <g id="right" transform="translate(615.000000, 70.000000)">
+                <g id="流程图备份" transform="translate(193.000000, 348.000000)">
+                    <g id="矩形-4备份">
+                        <g id="矩形">
+                            <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                            <use fill="#F5F7FD" fill-rule="evenodd" xlink:href="#path-1"></use>
+                        </g>
+                        <g id="编组-3" transform="translate(18.075000, 12.750000)" fill="#7DD481">
+                            <path d="M0.443530241,10.9616361 L25.6287306,10.9616361 L25.6287306,20.3735008 L0.443530241,20.3735008 L0.443530241,10.9616361 L0.443530241,10.9616361 Z M4.04148297,5.66756848 L22.0307486,5.66756848 L22.0307486,8.02053464 L4.04148297,8.02053464 L4.04148297,5.66756848 L4.04148297,5.66756848 Z M7.63925992,0.37350081 L18.4329716,0.37350081 L18.4329716,2.72646697 L7.63925992,2.72646697 L7.63925992,0.37350081 Z" id="Fill-1"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
