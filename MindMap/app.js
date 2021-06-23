@@ -24,37 +24,37 @@ class Minder extends PureComponent {
 	readonly = false
 
 	componentDidMount() {
-		axios.get("/remind-api/get?path="+"reminds/main.remind").then(({data})=>{
-			if(data.success){
+		axios.get("/remind-api/get?path=" + "reminds/main.remind").then(({ data }) => {
+			if (data.success) {
 				this.init(JSON.parse(data.data))
-			}else{
+			} else {
 				throw new Error(data.message)
 			}
-		}).catch(err=>{
+		}).catch(err => {
 			this.init({
 				root: {
 					text: "Remind",
 				},
-				theme:"default"
+				theme: "default"
 			});
 			message.error(err.message)
 		});
-		
+
 	}
 
-	setData(res) { 
+	setData(res) {
 		this.setState({
 			rootName: res.title,
 			loading: false,
 			nowData: data
 		});
 	}
- 
+
 	init(data) {
 		// 更改主题颜色
 		Remind.theme.themes.default.colors = this.colors;
 		Remind.theme.themes.default.lineShape = 'taper';
-		
+
 		// 初始化脑图
 		this.app = new Remind(this.appRef, {
 			data
@@ -112,7 +112,7 @@ class Minder extends PureComponent {
 
 	};
 
-	showMindText = (value)=> {
+	showMindText = (value) => {
 		this.setState({
 			mindType: value
 		});
@@ -152,7 +152,7 @@ class Minder extends PureComponent {
 								flex: 1,
 								backgroundRepeat, backgroundSize, backgroundColor, backgroundImage: backgroundImage ? `url(${backgroundImage})` : 'none',
 								display: mindType === "mind" ? "block" : "none",
-								overflow:"hidden",
+								overflow: "hidden",
 
 							}}
 							ref={ref => {
@@ -176,7 +176,7 @@ class Minder extends PureComponent {
 	}
 
 	componentWillUnmount() {
-		
+
 		this.app && this.app.destroy();
 	}
 }

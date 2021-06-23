@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from "react";
+import { PureComponent, Fragment } from "react";
 import html2canvas from "html2canvas";
 import { saveAs } from "file-saver";
 import {
@@ -12,12 +12,12 @@ import {
 	message,
 	Tooltip
 } from "antd";
-import {MoreOutlined,StarOutlined,HighlightOutlined,ZoomOutOutlined,ZoomInOutlined} from '@ant-design/icons'
+import { MoreOutlined, StarOutlined, HighlightOutlined, ZoomOutOutlined, ZoomInOutlined } from '@ant-design/icons'
 import CommandKey from "./Modals/CommandKey";
 import ImportFile from "./Import/ImportFile";
+import FileManager from './Modals/FileManager';
 // import History from "./Modals/History/index.js";
-import {MenuOutlined ,SaveOutlined,FullscreenOutlined,FolderOpenOutlined,FolderOutlined,FileImageOutlined,ImportOutlined,ExportOutlined,CloudDownloadOutlined,UploadOutlined } from '@ant-design/icons'
-import FileManager from "./Modals/FileManager";
+import { SaveOutlined, FullscreenOutlined, FolderOpenOutlined, FolderOutlined, FileImageOutlined, ImportOutlined, ExportOutlined, CloudDownloadOutlined, UploadOutlined } from '@ant-design/icons'
 
 class TopBar extends PureComponent {
 	state = {
@@ -27,7 +27,7 @@ class TopBar extends PureComponent {
 	};
 
 	componentDidMount() {
-		const {nowData,app} = this.props;
+		const { nowData, app } = this.props;
 		this.oldData = JSON.stringify(nowData);
 		const { root = {} } = nowData || {};
 		const { children = [] } = root;
@@ -60,12 +60,12 @@ class TopBar extends PureComponent {
 			this.save();
 		});
 		app.on("zoom", (scale) => {
-			this.setState({scale})
+			this.setState({ scale })
 		});
 
-		app.on("change",()=>{
+		app.on("change", () => {
 			this.setState({
-				historyIndex:app.history.historyIndex
+				historyIndex: app.history.historyIndex
 			})
 		})
 		window.addEventListener("resize", this.resize);
@@ -87,27 +87,27 @@ class TopBar extends PureComponent {
 
 	save = async (flag) => {
 		let data = this.props.app.page.toJSON();
-		const res = await fetch('/remind-api/save',{
-			method:"POST",
-			body:JSON.stringify({
-				path:'reminds/main.remind',
-				data:JSON.stringify(data)
+		const res = await fetch('/remind-api/save', {
+			method: "POST",
+			body: JSON.stringify({
+				path: 'reminds/main.remind',
+				data: JSON.stringify(data)
 			})
-		}).then(res=>res.json()).then(res=>{
-			if(!res.success){
-				message.error("保存失败!",res.message);
+		}).then(res => res.json()).then(res => {
+			if (!res.success) {
+				message.error("保存失败!", res.message);
 				return false;
 			}
 			return true;
-		}).catch(err=>{
+		}).catch(err => {
 			message.error(err.message)
 		});
-		if(flag && res)
-		message.success("保存成功");
+		if (flag && res)
+			message.success("保存成功");
 	};
 
 	undo = () => {
-		const {history} = this.props.app;
+		const { history } = this.props.app;
 		history.history[history.historyIndex - 1].undo();
 		history.historyIndex--;
 		this.setState({
@@ -116,7 +116,7 @@ class TopBar extends PureComponent {
 	};
 
 	redo = () => {
-		const {history} = this.props.app;
+		const { history } = this.props.app;
 		history.history[history.historyIndex].perform();
 		history.historyIndex++;
 		this.setState({
@@ -125,8 +125,8 @@ class TopBar extends PureComponent {
 	};
 
 	add = () => {
-		const {app} = this.props;
-		if(!app.page.current){
+		const { app } = this.props;
+		if (!app.page.current) {
 			app.page.root.select()
 		}
 		app.command.execute("InsertChild")
@@ -134,8 +134,8 @@ class TopBar extends PureComponent {
 	};
 
 	addItem = () => {
-		const {app} = this.props;
-		if(!app.page.current){
+		const { app } = this.props;
+		if (!app.page.current) {
 			app.page.root.select()
 		}
 		app.command.execute("InsertSibling")
@@ -146,7 +146,7 @@ class TopBar extends PureComponent {
 		let { app } = this.props;
 		let scale = app.controller.scale;
 		scale = scale * val;
-		if (scale < 0.05) return; 
+		if (scale < 0.05) return;
 		app.controller.scale = scale;
 		app.controller.update();
 		this.setState({
@@ -155,16 +155,16 @@ class TopBar extends PureComponent {
 	};
 
 	changeNodeType = (value, key) => {
-		const {app} = this.props;
+		const { app } = this.props;
 		const item = app.page.current || app.page.root;
-		app.action.execute('SetLayout',item,value)
+		app.action.execute('SetLayout', item, value)
 		this.setState({
 			selectedKeys: [value]
 		});
 	};
 
 	format = () => {
-		const {app} = this.props;
+		const { app } = this.props;
 		app.page.center();
 	};
 
@@ -178,7 +178,7 @@ class TopBar extends PureComponent {
 		});
 	};
 
-	export = () => { 
+	export = () => {
 		html2canvas(document.querySelector(".remind-page"), {
 			useCORS: true
 		}).then(canvas => {
@@ -187,9 +187,9 @@ class TopBar extends PureComponent {
 			c.width = canvas.width / window.devicePixelRatio + 40;
 			c.height = canvas.height / window.devicePixelRatio + 40;
 			ctx.fillStyle = '#ffffff';
-			ctx.fillRect(0,0,c.width,c.height);
-			ctx.drawImage(canvas,20,20,canvas.width / window.devicePixelRatio,canvas.height / window.devicePixelRatio);
-			
+			ctx.fillRect(0, 0, c.width, c.height);
+			ctx.drawImage(canvas, 20, 20, canvas.width / window.devicePixelRatio, canvas.height / window.devicePixelRatio);
+
 			// canvas.width +=  40 ;
 			// canvas.height += 40;
 
@@ -259,11 +259,11 @@ class TopBar extends PureComponent {
 		this.props.mind.setState({
 			loading: true
 		});
-		const {app:remind} = this.props;
+		const { app: remind } = this.props;
 		setTimeout(() => {
 			const children = remind.page.root.children;
 			children.forEach(item => {
-				item.updateVisible(item.children,foldStatus)
+				item.updateVisible(item.children, foldStatus)
 			});
 			remind.page.root.updateSubtree()
 			this.format();
@@ -278,12 +278,12 @@ class TopBar extends PureComponent {
 
 	render() {
 		const { scale, fullscreen, foldStatus } = this.state;
-		const { type,app, mind, mindType = "mind", readonly, record = {} } = this.props;
+		const { type, app, mind, mindType = "mind", readonly, record = {} } = this.props;
 		const { book = {} } = record;
 		const { projectVersion = {} } = book;
 		return (
 			<div className="minder-header">
-				<MenuOutlined />
+				<FileManager />
 				<div className="main-mind-tab">
 					<Tooltip title="切换至思维导图">
 						<div
@@ -310,118 +310,116 @@ class TopBar extends PureComponent {
 				</div>
 
 				<div className="button-area">
-						<Fragment>
-							 
-							<div className="handle-button">
-								<Tooltip title="保存为版本">
-									<i
-										className="iconfont icon-editor-save"
-										onClick={() => {
-											this.save(true);
-										}}
-									></i>
-								</Tooltip>
-							</div>
-							<div className={"handle-button"}>
-								<i
-									className={`iconfont icon-editor-undo ${
-										app.history.historyIndex > 0
-											? ""
-											: "disabled"
-										}`}
-									onClick={
-										app.history.historyIndex > 0 ? this.undo : undefined
-									}
-								/>
-							</div>
-							<div className={"handle-button "}>
-								<i
-									className={`iconfont icon-editor-redo ${
-										app.history.historyIndex <
-											app.history.history.length
-											? ""
-											: "disabled"
-										}`}
-									onClick={
-										app.history.historyIndex <
-										app.history.history.length ? this.redo : undefined
-									}
-								/>
-							</div>
+					<Fragment>
 
-							<div className="handle-button">
-								<Tooltip title="插入子主题">
-									<i
-										className="iconfont icon-editor-insert-child"
-										onClick={this.add}
-									></i>
-								</Tooltip>
-							</div>
-							<div className="handle-button">
-								<Tooltip title="插入同级主题">
-									<i
-										className="iconfont icon-editor-insert-brother"
-										onClick={this.addItem}
-									></i>
-								</Tooltip>
-							</div>
-							<div className="handle-button">
-								<Tooltip title="备注">
-									<i
-										className="iconfont icon-biji"
-										onClick={this.addNote}
-									></i>
-								</Tooltip>
-							</div>
-							<div className="handle-button">
-								<Dropdown
-									overlayClassName="tnt-dropdown"
-									overlay={
-										<Menu
-											style={{ width: 120 }}
-											onClick={({ item, key }) => {
-												this.changeNodeType(key);
-											}}
-											selectedKeys={
-												this.state.selectedKeys
-											}
-										>
-											<Menu.Item key="map">
-												脑图
+						<div className="handle-button">
+							<Tooltip title="保存为版本">
+								<i
+									className="iconfont icon-editor-save"
+									onClick={() => {
+										this.save(true);
+									}}
+								></i>
+							</Tooltip>
+						</div>
+						<div className={"handle-button"}>
+							<i
+								className={`iconfont icon-editor-undo ${app.history.historyIndex > 0
+									? ""
+									: "disabled"
+									}`}
+								onClick={
+									app.history.historyIndex > 0 ? this.undo : undefined
+								}
+							/>
+						</div>
+						<div className={"handle-button "}>
+							<i
+								className={`iconfont icon-editor-redo ${app.history.historyIndex <
+									app.history.history.length
+									? ""
+									: "disabled"
+									}`}
+								onClick={
+									app.history.historyIndex <
+										app.history.history.length ? this.redo : undefined
+								}
+							/>
+						</div>
+
+						<div className="handle-button">
+							<Tooltip title="插入子主题">
+								<i
+									className="iconfont icon-editor-insert-child"
+									onClick={this.add}
+								></i>
+							</Tooltip>
+						</div>
+						<div className="handle-button">
+							<Tooltip title="插入同级主题">
+								<i
+									className="iconfont icon-editor-insert-brother"
+									onClick={this.addItem}
+								></i>
+							</Tooltip>
+						</div>
+						<div className="handle-button">
+							<Tooltip title="备注">
+								<i
+									className="iconfont icon-biji"
+									onClick={this.addNote}
+								></i>
+							</Tooltip>
+						</div>
+						<div className="handle-button">
+							<Dropdown
+								overlayClassName="tnt-dropdown"
+								overlay={
+									<Menu
+										style={{ width: 120 }}
+										onClick={({ item, key }) => {
+											this.changeNodeType(key);
+										}}
+										selectedKeys={
+											this.state.selectedKeys
+										}
+									>
+										<Menu.Item key="map">
+											脑图
 											</Menu.Item>
-											<Menu.Item key="map-right">
-												脑图-右
+										<Menu.Item key="map-right">
+											脑图-右
 											</Menu.Item>
-											<Menu.Item key="map-left">
-												脑图-左
+										<Menu.Item key="map-left">
+											脑图-左
 											</Menu.Item>
-											<Menu.Divider />
-											<Menu.Item key="site-top">
-												架构图-上
+										<Menu.Divider />
+										<Menu.Item key="site-top">
+											架构图-上
 											</Menu.Item>
-											<Menu.Item key="site-bottom">
-												架构图-下
+										<Menu.Item key="site-bottom">
+											架构图-下
 											</Menu.Item>
-											<Menu.Divider />
-											<Menu.Item key="tree-right">
-												树图-右
+										<Menu.Divider />
+										<Menu.Item key="tree-right">
+											树图-右
 											</Menu.Item>
-											<Menu.Item key="tree-left">
-												树图-左
+										<Menu.Item key="tree-left">
+											树图-左
 											</Menu.Item>
-											<Menu.Item key="fish-right">
-												鱼骨图-右
+										<Menu.Item key="fish-right">
+											鱼骨图-右
 											</Menu.Item>
-											<Menu.Item key="fish-left">
-												鱼骨图-左
+										<Menu.Item key="fish-left">
+											鱼骨图-左
 											</Menu.Item>
-										</Menu>
-									}
-								>
-									<i className="iconfont icon-editor-org"></i>
-								</Dropdown>
-							</div>
-						</Fragment>
+									</Menu>
+								}
+							>
+								<i className="iconfont icon-editor-org"></i>
+							</Dropdown>
+						</div>
+					</Fragment>
 					<div className="handle-button">
 						<Tooltip title="归位">
 							<i
@@ -434,9 +432,9 @@ class TopBar extends PureComponent {
 					<div className="handle-button">
 						<Tooltip title="放大" >
 							<i onClick={() => {
-									this.zoom(1.1);
-								}}>
-								<ZoomInOutlined style={{fontSize:14}} />
+								this.zoom(1.1);
+							}}>
+								<ZoomInOutlined style={{ fontSize: 14 }} />
 							</i>
 						</Tooltip>
 					</div>
@@ -444,7 +442,7 @@ class TopBar extends PureComponent {
 						<Tooltip title="缩小">
 							<i className="iconfont " onClick={() => {
 								this.zoom(0.9);
-							}}> <ZoomOutOutlined style={{fontSize:14}} />
+							}}> <ZoomOutOutlined style={{ fontSize: 14 }} />
 							</i>
 						</Tooltip>
 					</div>
@@ -452,7 +450,7 @@ class TopBar extends PureComponent {
 						<Tooltip title="恢复成100%">
 							<i
 								className="iconfont "
-								style={{ fontSize: 14,userSelect:"none" }}
+								style={{ fontSize: 14, userSelect: "none" }}
 								onClick={() => {
 									this.zoom(1 / scale);
 								}}
@@ -464,26 +462,26 @@ class TopBar extends PureComponent {
 					<div className="handle-button">
 						<Tooltip title="全屏">
 							<i>
-							<FullscreenOutlined 
-								type={
-									!fullscreen
-										? "fullscreen"
-										: "fullscreen-exit"
-								}
-								onClick={this.fullScreen}
-								style={{ fontSize: 14 }}
-							/>
+								<FullscreenOutlined
+									type={
+										!fullscreen
+											? "fullscreen"
+											: "fullscreen-exit"
+									}
+									onClick={this.fullScreen}
+									style={{ fontSize: 14 }}
+								/>
 							</i>
 						</Tooltip>
 					</div>
 					<div className="handle-button">
 						<Tooltip title="折叠2级节点">
-							<i>{foldStatus ? <FolderOutlined 
+							<i>{foldStatus ? <FolderOutlined
 								onClick={this.fold}
 								style={{ fontSize: 14 }}
 							/> : <FolderOpenOutlined
-							onClick={this.fold}
-							style={{ fontSize: 14 }} />}</i>
+								onClick={this.fold}
+								style={{ fontSize: 14 }} />}</i>
 						</Tooltip>
 					</div>
 				</div>
@@ -516,10 +514,10 @@ class TopBar extends PureComponent {
 								onClick={({ domEvent }) =>
 									domEvent.stopPropagation()
 								}
-							> 
-								<Menu.Item onClick={()=>{this.saveFile()}}>
-									 <SaveOutlined />另存为
-								</Menu.Item> 
+							>
+								<Menu.Item onClick={() => { this.saveFile() }}>
+									<SaveOutlined />另存为
+								</Menu.Item>
 								<Menu.Item
 									onClick={() => {
 										this.export();
@@ -559,7 +557,7 @@ class TopBar extends PureComponent {
 								>
 									<UploadOutlined />
 									上传
-								</Menu.Item> 
+								</Menu.Item>
 							</Menu>
 						}
 						class="project-action-more"
@@ -570,7 +568,7 @@ class TopBar extends PureComponent {
 					</Dropdown>
 				</Button.Group>
 				{readonly && <div className="read-only-bar">预览中</div>}
-				
+
 				<ImportFile
 					mind={mind}
 					id={this.props.id}
