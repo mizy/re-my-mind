@@ -24,22 +24,26 @@ class Minder extends PureComponent {
 	readonly = false
 
 	componentDidMount() {
-		axios.get("/remind-api/get?path=" + "reminds/main.remind").then(({ data }) => {
+		this.init({
+			root: {
+				text: "Remind",
+				layout:"map"
+			},
+			theme: "default"
+		});
+	}
+
+	queryData(path = "reminds/main.remind"){
+		axios.get("/remind-api/get?path=" + path).then(({ data }) => {
 			if (data.success) {
-				this.init(JSON.parse(data.data))
+				this.app.page.setData(JSON.parse(data.data));
+				this.app.page.asyncShow();
 			} else {
 				throw new Error(data.message)
 			}
 		}).catch(err => {
-			this.init({
-				root: {
-					text: "Remind",
-				},
-				theme: "default"
-			});
 			message.error(err.message)
 		});
-
 	}
 
 	setData(res) {
@@ -48,6 +52,7 @@ class Minder extends PureComponent {
 			loading: false,
 			nowData: data
 		});
+		
 	}
 
 	init(data) {

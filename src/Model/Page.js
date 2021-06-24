@@ -30,11 +30,14 @@ class Page {
             } );
         }
         // 延时进行操作
+        this.asyncShow();
+        this.dragTool = new DragTool(this);
+    }
+
+    asyncShow(){
         requestAnimationFrame(()=>{
             this.show();
         })
-        this.dragTool = new DragTool(this);
-
     }
 
     initLayout(){
@@ -158,7 +161,7 @@ class Page {
     }
 
     center(){
-        if(this.current!==this.root){
+        if(this.current !== this.root){
             return this.current.center();
         }
         if(this.root.getLayout().name === "fish"){

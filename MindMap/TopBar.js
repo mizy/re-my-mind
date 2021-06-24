@@ -17,7 +17,7 @@ import CommandKey from "./Modals/CommandKey";
 import ImportFile from "./Import/ImportFile";
 import FileManager from './Modals/FileManager';
 // import History from "./Modals/History/index.js";
-import { SaveOutlined, FullscreenOutlined, FolderOpenOutlined, FolderOutlined, FileImageOutlined, ImportOutlined, ExportOutlined, CloudDownloadOutlined, UploadOutlined } from '@ant-design/icons'
+import { MenuOutlined,LaptopOutlined , SaveOutlined, FullscreenOutlined, FolderOpenOutlined, FolderOutlined, FileImageOutlined, ImportOutlined, ExportOutlined, CloudDownloadOutlined, UploadOutlined } from '@ant-design/icons'
 
 class TopBar extends PureComponent {
 	state = {
@@ -86,6 +86,9 @@ class TopBar extends PureComponent {
 	}
 
 	save = async (flag) => {
+		if(!this.nowPath){
+			return this.saveFile();
+		}
 		let data = this.props.app.page.toJSON();
 		const res = await fetch('/remind-api/save', {
 			method: "POST",
@@ -102,7 +105,7 @@ class TopBar extends PureComponent {
 		}).catch(err => {
 			message.error(err.message)
 		});
-		if (flag && res)
+		if (flag !== false && res)
 			message.success("保存成功");
 	};
 
@@ -189,10 +192,7 @@ class TopBar extends PureComponent {
 			ctx.fillStyle = '#ffffff';
 			ctx.fillRect(0, 0, c.width, c.height);
 			ctx.drawImage(canvas, 20, 20, canvas.width / window.devicePixelRatio, canvas.height / window.devicePixelRatio);
-
-			// canvas.width +=  40 ;
-			// canvas.height += 40;
-
+ 
 			c.toBlob(blob => {
 				saveAs(blob, (this.state.name || '脑图') + ".png");
 			});
@@ -276,6 +276,21 @@ class TopBar extends PureComponent {
 		}, 100);
 	}
 
+	openFile = (item)=>{
+		if(item.subType === 'mind'){
+			this.props.queryData(item.path)
+		}
+	}
+
+	saveFile = ()=>{
+		this.fileManager.show(this.saveToDir,true)
+	}
+
+	saveToDir = (path)=>{
+		this.nowPath = path;
+		this.save();
+	}
+
 	render() {
 		const { scale, fullscreen, foldStatus } = this.state;
 		const { type, app, mind, mindType = "mind", readonly, record = {} } = this.props;
@@ -283,7 +298,7 @@ class TopBar extends PureComponent {
 		const { projectVersion = {} } = book;
 		return (
 			<div className="minder-header">
-				<FileManager />
+				<FileManager ref={ref=>{this.fileManager = ref}} />
 				<div className="main-mind-tab">
 					<Tooltip title="切换至思维导图">
 						<div
@@ -485,7 +500,9 @@ class TopBar extends PureComponent {
 						</Tooltip>
 					</div>
 				</div>
+				
 				{!readonly && <CommandKey />}
+				
 				<Button.Group className="button-area-footer">
 					{!readonly && <Tooltip title="图标">
 						<Button
@@ -497,6 +514,7 @@ class TopBar extends PureComponent {
 						>
 						</Button>
 					</Tooltip>}
+
 					{!readonly && <Tooltip title="格式">
 						<Button
 							type={type === "format" ? "primary" : "default"}
@@ -506,6 +524,9 @@ class TopBar extends PureComponent {
 							}}
 						>
 						</Button>
+					</Tooltip>}
+					{!readonly && <Tooltip title="格式">
+						<Button onClick={()=>{this.fileManager.show(this.openFile)}} icon={<LaptopOutlined style={{cursor:"pointer"}} />} />
 					</Tooltip>}
 					<Dropdown
 						overlay={

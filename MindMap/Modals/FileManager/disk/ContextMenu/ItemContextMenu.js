@@ -70,7 +70,7 @@ export default (function (props) {
 								if (!item.disabled) {
 									onContextMenuClick(item.value, props);
 									onCancel();
-								};
+								}
 							},
 							style: { color: item.color || 'inherit' }
 						},

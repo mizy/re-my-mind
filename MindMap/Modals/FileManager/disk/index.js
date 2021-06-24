@@ -33,14 +33,14 @@ var Disk = function Disk(_ref) {
 		setContextMenuInfo(defaultContextMenuInfo);
 	};
 
-	console.log('currentItemKey', currentItemKey);
+
 
 	return React.createElement(
 		'div',
 		{ className: 'tntd-disk-wrap' },
 		React.Children.map(children, function (child) {
 			return React.cloneElement(child, {
-				currentItemKey: currentItemKey,
+				currentItemKey: _ref.activeKey || currentItemKey,
 				setCurrentItemIndex: setCurrentItemIndex,
 				setContextMenuInfo: setContextMenuInfo
 			});
