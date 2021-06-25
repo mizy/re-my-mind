@@ -20,7 +20,7 @@ class Keyboard{
 
     onKeyUp = (e)=>{
         // 同步鼠标状态
-        ['shiftKey','altKey','ctrlKey'].forEach(key=>{this[key] = e[key]})
+        ['shiftKey','altKey','ctrlKey','metaKey'].forEach(key=>{this[key] = e[key]})
     }
 
     onKeyDown = (e)=> {
@@ -28,7 +28,7 @@ class Keyboard{
             return;
         }
         // 同步鼠标状态
-        ['shiftKey','altKey','ctrlKey'].forEach(key=>{this[key] = e[key]})
+        ['shiftKey','altKey','ctrlKey','metaKey'].forEach(key=>{this[key] = e[key]})
         //只读模式
         if(this.remind.options.readonly){
             return;

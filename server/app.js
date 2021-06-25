@@ -12,6 +12,7 @@ server.listen(port, hostname, () => {
 
 const router = new Router(server);
 router.addStatic('/remind/',path.join(__dirname,'../dist'));
+router.addStatic('/reminds/',path.join(__dirname,'../reminds'));
 
 router.add('/remind-api/save',require('./Routes/save'),{
     method:"POST"

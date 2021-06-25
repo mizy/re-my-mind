@@ -66,7 +66,7 @@ class Router {
                 }
                 const mimeType = mime.lookup(filePath);
 
-                res.setHeader("Content-Type",`${mimeType}; charset=UTF-8`);
+                res.setHeader("Content-Type",`${mimeType||"application/octet-stream"};charset=UTF-8`);
                 res.setHeader("Cache-Control",'public,max-age=86400');
                 const stream = fs.createReadStream(file);
                 stream.pipe(res);

@@ -1,7 +1,6 @@
 import React, { PureComponent } from "react";
 import { Button, Dropdown, Icon } from "antd";
 import { SketchPicker } from "react-color";
-const MM = window.MM;
 /**
  * 文字编辑
  */

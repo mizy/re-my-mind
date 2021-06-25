@@ -8,7 +8,7 @@ module.exports = (req,res,router)=>{
     res.statusCode = 200;
     
     try{
-        const data = fs.readFileSync(path.resolve(params.path||'reminds/test.remind'),{
+        const data = fs.readFileSync(path.resolve(params.path||'reminds/main.remind'),{
             encoding:"utf-8"
         });
         res.end(JSON.stringify({

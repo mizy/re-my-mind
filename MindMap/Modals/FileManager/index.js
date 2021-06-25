@@ -9,10 +9,10 @@ class FileManager extends Component {
     state = {
         path: window.basePath
     }
-    show(callback,showName) {
+    show(callback,chooseDir) {
         this.callback = callback;
         this.queryData();
-        this.setState({ visible: true,showName })
+        this.setState({ visible: true,chooseDir,name:undefined })
     }
 
     queryData() {
@@ -48,7 +48,6 @@ class FileManager extends Component {
             if (item.type === 'folder') {
                 this.state.path = item.path;
                 this.queryData();
-                this.callback && this.callback(item);
             } else {
                 this.onClose();
                 this.callback && this.callback(item);
@@ -56,12 +55,24 @@ class FileManager extends Component {
             this.callback = undefined;
         } else {
             this.setState({
-                activeKey:item.name
+                activeItem:item
             })
             //singleclick
         }
         this.beforeDate = date;
-        console.log(date)
+    }
+
+    onOk=()=>{
+        if(this.state.chooseDir){
+            this.callback && this.callback({
+                fileName:this.state.name,
+                path:this.state.path
+            });
+        }else{
+            const item = this.state.activeItem;
+            this.callback && this.callback(item);
+        }
+        this.onClose();
     }
 
     changePath(paths, index) {
@@ -74,21 +85,25 @@ class FileManager extends Component {
     }
 
     render() {
-        const { visible, data = [], path,showName,activeKey } = this.state || {};
+        const { visible, data = [], path,chooseDir,name,activeItem = {} } = this.state || {};
         const paths = path.split("/");
+
         return <Modal className="file-manager" width={800} onCancel={this.onClose} visible={visible} 
+            onOk={this.onOk}
             title={<>
                 <span>我的文件
-                <Input size="small" placeholder="保存名称" style={{width:200,marginLeft:10}}></Input>
+                {chooseDir ? <Input onChange={(e)=>{this.setState({
+                    name:e.target.value
+                })}} value={name} size="small" placeholder="保存名称" style={{width:200,marginLeft:10}}></Input> : false}
 
                 </span>
-                <div>{paths.map((item, index) => (<span onClick={() => { this.changePath(paths, index) }}>{item}</span>))}</div>
+                <div>{paths.map((item, index) => (<span key={index} onClick={() => { this.changePath(paths, index) }}>{item}</span>))}</div>
             </>}
         >
-            <Disk activeKey={activeKey}>
+            <Disk activeKey={activeItem.name}>
                 {
-                    data.map(item => (
-                        <Item  onClick={() => { this.onClick(item) }} itemKey={item.name} type={item.type} subType={item.subType} title={item.name} ></Item>
+                    data.filter(item=>item.type === 'folder' || !chooseDir).map(item => (
+                        <Item  key={item.name} onClick={() => { this.onClick(item) }} empty={true} itemKey={item.name} type={item.type} subType={item.subType} title={item.name} ></Item>
                     ))
                 }
             </Disk>

@@ -1,23 +1,13 @@
 import { PureComponent, Fragment } from "react";
 import html2canvas from "html2canvas";
 import { saveAs } from "file-saver";
-import {
-	Popover,
-	Button,
-	Modal,
-	Menu,
-	Input,
-	Dropdown,
-	Divider,
-	message,
-	Tooltip
-} from "antd";
+import { Popover, Button, Modal, Menu, Input, Dropdown, Divider, message, Tooltip } from "antd";
 import { MoreOutlined, StarOutlined, HighlightOutlined, ZoomOutOutlined, ZoomInOutlined } from '@ant-design/icons'
 import CommandKey from "./Modals/CommandKey";
 import ImportFile from "./Import/ImportFile";
 import FileManager from './Modals/FileManager';
 // import History from "./Modals/History/index.js";
-import { MenuOutlined,LaptopOutlined , SaveOutlined, FullscreenOutlined, FolderOpenOutlined, FolderOutlined, FileImageOutlined, ImportOutlined, ExportOutlined, CloudDownloadOutlined, UploadOutlined } from '@ant-design/icons'
+import { LaptopOutlined , SaveOutlined, FullscreenOutlined, FolderOpenOutlined, FolderOutlined, FileImageOutlined, ImportOutlined, ExportOutlined, CloudDownloadOutlined, UploadOutlined } from '@ant-design/icons'
 
 class TopBar extends PureComponent {
 	state = {
@@ -80,7 +70,7 @@ class TopBar extends PureComponent {
 		if (this.props.readonly) return;
 		this.timeout && clearTimeout(this.timeout);
 		this.timeout = setTimeout(() => {
-			this.save(false);
+			if(this.nowPath)this.save(false);
 			this.startTimeout();
 		}, 30000);
 	}
@@ -93,7 +83,7 @@ class TopBar extends PureComponent {
 		const res = await fetch('/remind-api/save', {
 			method: "POST",
 			body: JSON.stringify({
-				path: 'reminds/main.remind',
+				path: this.nowPath,
 				data: JSON.stringify(data)
 			})
 		}).then(res => res.json()).then(res => {
@@ -278,7 +268,8 @@ class TopBar extends PureComponent {
 
 	openFile = (item)=>{
 		if(item.subType === 'mind'){
-			this.props.queryData(item.path)
+			this.props.mind.queryData(item.path);
+			this.nowPath = item.path;
 		}
 	}
 
@@ -286,8 +277,8 @@ class TopBar extends PureComponent {
 		this.fileManager.show(this.saveToDir,true)
 	}
 
-	saveToDir = (path)=>{
-		this.nowPath = path;
+	saveToDir = (item)=>{
+		this.nowPath = item.path + '/' + item.fileName + '.remind';
 		this.save();
 	}
 
@@ -328,7 +319,7 @@ class TopBar extends PureComponent {
 					<Fragment>
 
 						<div className="handle-button">
-							<Tooltip title="保存为版本">
+							<Tooltip title="保存">
 								<i
 									className="iconfont icon-editor-save"
 									onClick={() => {
@@ -399,48 +390,26 @@ class TopBar extends PureComponent {
 											this.state.selectedKeys
 										}
 									>
-										<Menu.Item key="map">
-											脑图
-											</Menu.Item>
-										<Menu.Item key="map-right">
-											脑图-右
-											</Menu.Item>
-										<Menu.Item key="map-left">
-											脑图-左
-											</Menu.Item>
+										<Menu.Item key="map"> 脑图 </Menu.Item>
+										<Menu.Item key="map-right"> 脑图-右</Menu.Item>
+										<Menu.Item key="map-left">脑图-左</Menu.Item>
 										<Menu.Divider />
-										<Menu.Item key="site-top">
-											架构图-上
-											</Menu.Item>
-										<Menu.Item key="site-bottom">
-											架构图-下
-											</Menu.Item>
+										<Menu.Item key="site-top">架构图-上</Menu.Item>
+										<Menu.Item key="site-bottom">架构图-下</Menu.Item>
 										<Menu.Divider />
-										<Menu.Item key="tree-right">
-											树图-右
-											</Menu.Item>
-										<Menu.Item key="tree-left">
-											树图-左
-											</Menu.Item>
-										<Menu.Item key="fish-right">
-											鱼骨图-右
-											</Menu.Item>
-										<Menu.Item key="fish-left">
-											鱼骨图-左
-											</Menu.Item>
+										<Menu.Item key="tree-right">树图-右</Menu.Item>
+										<Menu.Item key="tree-left">树图-左</Menu.Item>
+										<Menu.Item key="fish-right">鱼骨图-右</Menu.Item>
+										<Menu.Item key="fish-left">鱼骨图-左</Menu.Item>
 									</Menu>
-								}
-							>
+								}>
 								<i className="iconfont icon-editor-org"></i>
 							</Dropdown>
 						</div>
 					</Fragment>
 					<div className="handle-button">
 						<Tooltip title="归位">
-							<i
-								className="iconfont icon-guiwei"
-								onClick={this.format}
-							/>
+							<i className="iconfont icon-guiwei" onClick={this.format} />
 						</Tooltip>
 					</div>
 
@@ -476,8 +445,7 @@ class TopBar extends PureComponent {
 					</div>
 					<div className="handle-button">
 						<Tooltip title="全屏">
-							<i>
-								<FullscreenOutlined
+							<i><FullscreenOutlined
 									type={
 										!fullscreen
 											? "fullscreen"
@@ -485,8 +453,7 @@ class TopBar extends PureComponent {
 									}
 									onClick={this.fullScreen}
 									style={{ fontSize: 14 }}
-								/>
-							</i>
+								/></i>
 						</Tooltip>
 					</div>
 					<div className="handle-button">
@@ -534,50 +501,22 @@ class TopBar extends PureComponent {
 								className="more-options"
 								onClick={({ domEvent }) =>
 									domEvent.stopPropagation()
-								}
-							>
-								<Menu.Item onClick={() => { this.saveFile() }}>
-									<SaveOutlined />另存为
-								</Menu.Item>
-								<Menu.Item
-									onClick={() => {
-										this.export();
-									}}
-								>
-									<FileImageOutlined />
-									导出为图片
-								</Menu.Item>
-								{!readonly && <Menu.Item
-									onClick={() => {
-										this.importFile.show();
-									}}
-								>
-									<ImportOutlined />
-									从xmind文件导入
+								} >
+								<Menu.Item onClick={() => { this.saveFile() }}><SaveOutlined />另存为</Menu.Item>
+								<Menu.Item onClick={() => {this.export();}}><FileImageOutlined />导出为图片</Menu.Item>
+								{!readonly && <Menu.Item onClick={() => { this.importFile.show(); }} >
+									<ImportOutlined /> 从xmind文件导入
 								</Menu.Item>}
-								<Menu.Item
-									onClick={() => {
-										message.success("服务端完成")
-									}}
-								>
-									<ExportOutlined />
-									导出为xmind
+								<Menu.Item onClick={() => { message.success("服务端完成") }}><ExportOutlined /> 导出为xmind</Menu.Item>
+								<Menu.Item onClick={() => {
+										window.open(this.nowPath)
+								}}>
+									<CloudDownloadOutlined />下载
 								</Menu.Item>
-								<Menu.Item
-									onClick={() => {
+								<Menu.Item onClick={() => {
 										message.success("服务端完成")
-									}}
-								>
-									<CloudDownloadOutlined />
-									下载
-								</Menu.Item>
-								<Menu.Item
-									onClick={() => {
-										message.success("服务端完成")
-									}}
-								>
-									<UploadOutlined />
-									上传
+									}}>
+									<UploadOutlined />上传
 								</Menu.Item>
 							</Menu>
 						}

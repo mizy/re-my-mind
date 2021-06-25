@@ -108,19 +108,22 @@ const getAllCommands = (remind)=>{
     {
         name:"Save",
         keys:[
-            { keyCode: "s", ctrlKey: true, shiftKey: false },
-			{ keyCode: "s", metaKey: true, shiftKey: false }
+            { key: "s", ctrlKey: true, shiftKey: false },
+			{ key: "s", metaKey: true, shiftKey: false }
         ],
+        prevent:true,
         execute:function () {
+            console.log('save')
             remind.fire("save")
         }
     },
     {
         name:"Undo",
         keys:[
-            { keyCode: "z", ctrlKey: true, shiftKey: false },
-			{ keyCode: "z", metaKey: true, shiftKey: false }
+            { key: "z", ctrlKey: true, shiftKey: false },
+			{ key: "z", metaKey: true, shiftKey: false }
         ],
+        prevent:true,
         execute:function () {
             const {history} = remind;
             history.history[history.historyIndex - 1].undo();
@@ -134,6 +137,7 @@ const getAllCommands = (remind)=>{
             { keyCode: "z", ctrlKey: true, shiftKey: true },
 			{ keyCode: "z", metaKey: true, shiftKey: true }
         ],
+        prevent:true,
         execute:function () {
             const {history} = remind;
             history.history[history.historyIndex].perform();
