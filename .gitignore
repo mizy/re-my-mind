@@ -1,6 +1,5 @@
 *.iml
 .idea/
-dist
 .ipr
 .iws
 *~
