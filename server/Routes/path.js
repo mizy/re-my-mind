@@ -5,10 +5,10 @@ const path = require("path")
 module.exports = async (req,res)=>{
     const {url} = req;
     const params = qs.parse(url.split('?')[1]);
-
     res.statusCode = 200;
     try{
-        const files = fs.opendirSync(path.resolve(params.path));
+        const filePath = path.resolve(global.dataPath,params.path);
+        const files = fs.opendirSync(filePath);
         const data = [];
         for await(const each of files){
             data.push({

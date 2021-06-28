@@ -284,9 +284,7 @@ class TopBar extends PureComponent {
 
 	render() {
 		const { scale, fullscreen, foldStatus } = this.state;
-		const { type, app, mind, mindType = "mind", readonly, record = {} } = this.props;
-		const { book = {} } = record;
-		const { projectVersion = {} } = book;
+		const { type, app, mind, mindType = "mind", readonly} = this.props;
 		return (
 			<div className="minder-header">
 				<FileManager ref={ref=>{this.fileManager = ref}} />
@@ -492,7 +490,7 @@ class TopBar extends PureComponent {
 						>
 						</Button>
 					</Tooltip>}
-					{!readonly && <Tooltip title="格式">
+					{!readonly && <Tooltip title="文件">
 						<Button onClick={()=>{this.fileManager.show(this.openFile)}} icon={<LaptopOutlined style={{cursor:"pointer"}} />} />
 					</Tooltip>}
 					<Dropdown

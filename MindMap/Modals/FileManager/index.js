@@ -51,8 +51,8 @@ class FileManager extends Component {
             } else {
                 this.onClose();
                 this.callback && this.callback(item);
+                this.callback = undefined;
             }
-            this.callback = undefined;
         } else {
             this.setState({
                 activeItem:item

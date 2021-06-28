@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "etag": "^1.8.1",
+    "jsonwebtoken": "^8.5.1",
     "mime-types": "^2.1.31",
     "pm2": "^5.1.0",
     "qs": "^6.10.1"

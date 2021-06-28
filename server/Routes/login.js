@@ -1,6 +1,6 @@
-const fs = require("fs");
 const path = require("path")
-
+const password = process.argv[4];
+const jwt = require('jsonwebtoken');
 const save = async (req,res)=>{
     let body = ''; 
     req.setEncoding('utf8');
@@ -10,19 +10,17 @@ const save = async (req,res)=>{
     req.on('end', () => {
         try {
           // 响应信息给用户。
-          res.statusCode = 200;
+          res.statusCode = 301;
           const params = JSON.parse(body);
-          if(!params.path){
-              return res.end(JSON.stringify({
-                  success:false,
-                  message:"请选择合法路径"
-              }))
+          if(password===params.password){
+            const token = jwt.sign(params.name, global.secretOrPrivateKey, {
+                expiresIn: 60*60*24*30  // 1小时过期
+            });
+            res.writeHead(200, {
+                'Set-Cookie': `token=${token}`,
+            });
           }
-
-          const savePath = path.resolve(global.dataPath,params.path);
-          fs.writeFileSync(savePath,params.data,{
-            charset:"utf-8"
-          });
+          
           res.end(JSON.stringify({
               success:true,
               message:"保存成功"
