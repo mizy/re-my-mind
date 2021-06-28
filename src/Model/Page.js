@@ -186,7 +186,7 @@ class Page {
     }
 
     remember(){
-        const item = this.current;
+        const item = this.root;
         if(item){
             this.oldPosition = {
                 item,
