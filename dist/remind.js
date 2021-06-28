@@ -981,6 +981,33 @@ var getAllCommands = function getAllCommands(remind) {
   };
 
   return [{
+    name: "Finish",
+    keys: [{
+      keyCode: 13,
+      altKey: false,
+      ctrlKey: false,
+      shiftKey: false
+    }],
+    execute: function execute() {
+      var item = remind.page.current;
+      item.stopEdit();
+
+      if (!item.data.text) {
+        remind.action.execute('RemoveItem', item);
+        remind.fire("item-change", item);
+      }
+
+      if (item.data.text === item.oldText) {
+        return;
+      }
+
+      remind.action.execute('SetText', item, item.data.text, item.oldText);
+      remind.fire("item:change", item);
+    },
+    isValid: function isValid() {
+      return remind.page.editing;
+    }
+  }, {
     name: "InsertSibling",
     keys: [{
       keyCode: 13
@@ -1038,30 +1065,6 @@ var getAllCommands = function getAllCommands(remind) {
         selection.addRange(range);
         remind.page.current.startEdit();
       }
-    }
-  }, {
-    name: "Finish",
-    keys: [{
-      keyCode: 13,
-      altKey: false,
-      ctrlKey: false,
-      shiftKey: false
-    }],
-    execute: function execute() {
-      var item = remind.page.current;
-      item.stopEdit();
-
-      if (!item.data.text) {
-        remind.action.execute('RemoveItem', item);
-        remind.fire("item-change", item);
-      }
-
-      if (item.data.text === item.oldText) {
-        return;
-      }
-
-      remind.action.execute('SetText', item, item.data.text, item.oldText);
-      remind.fire("item:change", item);
     }
   }, {
     name: "Delete",
@@ -1160,7 +1163,7 @@ var Command = /*#__PURE__*/function () {
     _classCallCheck(this, Command);
 
     this.remind = remind;
-    var commandMap = new Map();
+    var commandMap = {};
     var Commands = Control_Commands(remind);
     Commands.forEach(function (item) {
       var command = _objectSpread({
@@ -1170,7 +1173,7 @@ var Command = /*#__PURE__*/function () {
       }, item); // copy，避免多个引用的remind冲突
 
 
-      commandMap.set(item.name, command);
+      commandMap[item.name] = command;
     });
     this.commandMap = commandMap;
   }
@@ -1178,7 +1181,7 @@ var Command = /*#__PURE__*/function () {
   _createClass(Command, [{
     key: "execute",
     value: function execute(name) {
-      var command = this.commandMap.get(name);
+      var command = this.commandMap[name];
 
       for (var _len = arguments.length, argus = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
         argus[_key - 1] = arguments[_key];
@@ -1237,9 +1240,12 @@ var Keyboard = function Keyboard(remind) {
     }
 
     var commandMap = _this.remind.command.commandMap;
-    commandMap.forEach(function (command) {
+
+    for (var key in commandMap) {
+      var command = commandMap[key];
+
       if (!command || !command.isValid()) {
-        return;
+        continue;
       }
 
       var keys = command.keys;
@@ -1248,10 +1254,10 @@ var Keyboard = function Keyboard(remind) {
         if (_this.checkKey(keys[j], e)) {
           command.prevent && e.preventDefault();
           command.execute(e);
-          return;
+          return true;
         }
       }
-    });
+    }
   };
 
   this.checkKey = function (key, e) {
@@ -2883,7 +2889,7 @@ var MapLayout = /*#__PURE__*/function () {
   return MapLayout;
 }();
 
-/* harmony default export */ const Layout_Map = (MapLayout);
+/* harmony default export */ const Map = (MapLayout);
 ;// CONCATENATED MODULE: ./src/Layout/Tree.js
 
 
@@ -3965,9 +3971,9 @@ var Page = /*#__PURE__*/function () {
     key: "initLayout",
     value: function initLayout() {
       this.layout = {
-        map: new Layout_Map(this),
-        'map-right': new Layout_Map(this, 'right'),
-        'map-left': new Layout_Map(this, 'left'),
+        map: new Map(this),
+        'map-right': new Map(this, 'right'),
+        'map-left': new Map(this, 'left'),
         site: new Site(this),
         'site-bottom': new Site(this, 'bottom'),
         'site-top': new Site(this, 'top'),
@@ -5273,6 +5279,7 @@ var Remind = /*#__PURE__*/function () {
   }, {
     key: "destroy",
     value: function destroy() {
+      this.keyboard.destroy();
       this.page.destroy();
       this.off();
       this.container.removeChild(this.remindDOM);

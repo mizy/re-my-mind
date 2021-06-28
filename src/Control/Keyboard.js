@@ -35,17 +35,19 @@ class Keyboard{
         }
         
         const {commandMap} = this.remind.command;
-        commandMap.forEach(command=>{
-            if (!command || !command.isValid()) { return; }
+        for( let key in commandMap){
+            const command = commandMap[key];
+            if (!command || !command.isValid()) { continue; }
             const keys = command.keys;
             for (let j = 0; j < keys.length; j++) {
                 if (this.checkKey(keys[j], e)) {
                     command.prevent && e.preventDefault();
                     command.execute(e);
-                    return;
+                    return true; 
                 }
             }
-        })
+        }
+        
     }
     
     checkKey = function (key, e) {

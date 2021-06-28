@@ -16,6 +16,27 @@ const getAllCommands = (remind)=>{
         return true;
     }
     return [
+        {
+            name:"Finish",
+            keys:[{ keyCode: 13, altKey: false, ctrlKey: false, shiftKey: false }],
+            execute : function(){
+                const item = remind.page.current;
+                item.stopEdit();
+                if(!item.data.text){
+                    remind.action.execute('RemoveItem',item);
+                    remind.fire("item-change", item);
+                }
+                if(item.data.text === item.oldText){
+                    return;
+                }
+                remind.action.execute('SetText',item, item.data.text, item.oldText);
+                remind.fire("item:change", item);
+                
+            },
+            isValid:function() {
+                return remind.page.editing
+            },
+        },
     {
         name:"InsertSibling",
         keys:[{ keyCode: 13 }],
@@ -38,6 +59,7 @@ const getAllCommands = (remind)=>{
             }
         }
     },
+   
     {
         name:'InsertChild',
         isValid,
@@ -70,23 +92,6 @@ const getAllCommands = (remind)=>{
                 selection.addRange(range)
                 remind.page.current.startEdit();
             }
-        }
-    },{
-        name:"Finish",
-        keys:[{ keyCode: 13, altKey: false, ctrlKey: false, shiftKey: false }],
-        execute : function(){
-            const item = remind.page.current;
-            item.stopEdit();
-            if(!item.data.text){
-                remind.action.execute('RemoveItem',item);
-                remind.fire("item-change", item);
-            }
-            if(item.data.text === item.oldText){
-                return;
-            }
-            remind.action.execute('SetText',item, item.data.text, item.oldText);
-            remind.fire("item:change", item);
-            
         }
     },{
         name:"Delete",
