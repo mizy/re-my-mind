@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<body>
+    <h1>用户登录</h1>
+    <form action="/remind-api/login" method="POST">
+        <div>
+            <label>用户名:</label>
+            <input name="username" value="admin" disable/>
+        </div>
+        <div>
+            <label>密码:</label>
+            <input name="password" type="password" />
+        </div>
+        <button style="margin-top:20px" type="submit">提交</button>
+    </form>
+    <style>
+        form{
+            height: 200px;
+            margin:50px auto;
+        }
+        form>div{
+            margin:0 auto;
+            display: flex;
+            margin-top:20px;
+        }
+        form>div>label{
+            width:100px
+        }
+    </style>
+</body>
