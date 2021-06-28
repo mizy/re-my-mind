@@ -65,7 +65,7 @@ class Minder extends PureComponent {
 		this.app = new Remind(this.appRef, {
 			data
 		});
-		window.remind = this.remind;
+		window.remind = this.app;
 		this.app.readonly = this.readonly;
 
 		this.setState({
