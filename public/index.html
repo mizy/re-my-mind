@@ -10,8 +10,40 @@
 </head>
 
 <body>
-	<div id="root" style="width:100%;height: 100%;position: absolute"></div>
+	<div id="root" style="width:100%;height:100vh"></div>
 	<script src="/index.js"></script>
 </body>
-	
+	<script>
+
+	const data = (()=>{
+		const data = {
+			root: {
+				text:'Root',
+				layout: 'map-right',
+				children:[]
+			}
+		} 
+		function make(item,number,depth,index){
+			let total = number;
+			while(number > 0){
+				const child = {
+					text:`${depth}-${index}-${number}`,
+					children:[]
+				}
+				item.children.push(child);
+				number--;
+				if(depth > 0){
+					make(child,total,depth - 1,item.children.length);
+				}
+			}
+		}
+		make(data.root,2,1,1);
+		return data;
+	})();
+	// data.root.children[0].side = 'top'
+
+	remind = new Remind(document.getElementById("root"),{
+		data
+	})
+    </script>
 </html>

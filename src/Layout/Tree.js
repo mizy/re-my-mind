@@ -1,121 +1,101 @@
-MM.Layout.Tree = Object.create(MM.Layout, {
-	SPACING_RANK: {value: 32},
-	childDirection: {value: ""}
-});
 
-MM.Layout.Tree.getChildDirection = function(child) {
-	return this.childDirection;
-}
-
-MM.Layout.Tree.create = function(direction, id, label) {
-	var layout = Object.create(this, {
-		childDirection: {value:direction},
-		id: {value:id},
-		label: {value:label}
-	});
-	MM.Layout.ALL.push(layout);
-	return layout;
-}
-
-MM.Layout.Tree.update = function(item) {
-	var side = this.childDirection;
-	if (!item.isRoot()) {
-		side = item.getParent().getLayout().getChildDirection(item);
+import Line from './Lines';
+class TreeLayout {
+    name = 'tree';
+	constructor(page,direction = 'right') {
+		this.page = page;
+        this.line =  {...Line,...Line.tree};
+		this.remind = page.remind;
+        this.direction = direction;
 	}
-	this._alignItem(item, side);
 
-	this._layoutItem(item, this.childDirection);
-	this._anchorCanvas(item);
-	this._drawLines(item, this.childDirection);
-	return this;
-}
-
-/**
- * Generic graph child layout routine. Updates item's orthogonal size according to the sum of its children.
- */
-MM.Layout.Tree._layoutItem = function(item, rankDirection) {
-	var dom = item.getDOM();
-
-	/* content size */
-	var contentSize = [MM.PolyDom.getOffset(dom.content,"width"), MM.PolyDom.getOffset(dom.content,"height")];
-
-	/* children size */
-	var bbox = this._computeChildrenBBox(item.getChildren(), 1);
-
-	/* node size */
-	var rankSize = contentSize[0];
-	var childSize = bbox[1] + contentSize[1];
-	if (bbox[0]) { 
-		rankSize = Math.max(rankSize, bbox[0] + this.SPACING_RANK); 
-		childSize += this.SPACING_CHILD;
+	update(item) {
+        if (!item.children || item.children.length < 1 || item.data.shrink) {
+			// 已经是最后一级的情况,容器bbox和item bbox相同
+			item.rect = item.contentRect;
+            item.relativePos = {x:0,y:0};
+            item.originPos = {x:0,y:0}
+			return false;
+		}
+		this.layoutItem(item, this.direction);
 	}
-	dom.node.style.width = rankSize + "px";
-	dom.node.style.height = childSize + "px";
+  
 
-	var offset = [this.SPACING_RANK, contentSize[1]+this.SPACING_CHILD];
-	if (rankDirection == "left") { offset[0] = rankSize - bbox[0] - this.SPACING_RANK; }
-	this._layoutChildren(item.getChildren(), rankDirection, offset, bbox);
+    getCenterY(children,bbox){
+        const firstChild = children[0];
+        const lastChild = children[children.length - 1];
+        const firstLineY = firstChild.getShape().indexOf('underline') > -1 ? firstChild.contentRect.height : firstChild.contentRect.height * 0.5;
+        const lastLineY = bbox.height - (lastChild.getShape().indexOf('underline') > -1 ? 0 : lastChild.contentRect.height * 0.5);
+        const centerY = (firstLineY + lastLineY) * 0.5;
+        return centerY;
+    }
 
-	/* label position */
-	var labelPos = 0;
-	if (rankDirection == "left") { labelPos = rankSize - contentSize[0]; }
-	dom.content.style.left = labelPos + "px";
-	dom.content.style.top = 0;
+    /**
+     * 计算出当前item的rect
+     * @param {*} item 
+     * @param {*} direction 
+     */
+	layoutItem(item, direction) {
+		const shape = item.getShape();
+		const bbox = this.getChildrenBBox(item.children,direction);
+		item.childrenBBox = bbox;
+		const { contentRect } = item;
+        const { spaceX = 20,dx,spaceY } = this.remind.options.tree;
 
-	return this;
-}
-
-MM.Layout.Tree._layoutChildren = function(children, rankDirection, offset, bbox) {
-	children.forEach(function(child, index) {
-		var node = child.getDOM().node;
-		var childSize = [MM.PolyDom.getOffset(node,"width"), MM.PolyDom.getOffset(node,"height")];
-		var left = offset[0];
-		if (rankDirection == "left") { left += (bbox[0] - childSize[0]); }
-
-		node.style.left = left + "px";
-		node.style.top = offset[1] + "px";
-
-		offset[1] += childSize[1] + this.SPACING_CHILD; /* offset for next child */
-	}, this);
-
-	return bbox;
-}
-
-MM.Layout.Tree._drawLines = function(item, side) {
-	var dom = item.getDOM();
-	var canvas = dom.canvas;
-
-	var R = this.SPACING_RANK/4;
-	var x = (side == "left" ? canvas.width - 2*R : 2*R) + 0.5;
-	this._anchorToggle(item, x, dom.content.offsetHeight, "bottom");
-
-	var children = item.getChildren();
-	if (children.length == 0 || item.isCollapsed()) { return; }
-
-	var ctx = canvas.getContext("2d");
-	ctx.strokeStyle = item.getColor();
-
-	var y1 = item.getShape().getVerticalAnchor(item);
-	var last = children[children.length-1];
-	var y2 = last.getShape().getVerticalAnchor(last) + MM.PolyDom.getOffset(last.getDOM().node,"top");
-
-	ctx.beginPath();
-	ctx.moveTo(x, y1);
-	ctx.lineTo(x, y2 - R);
-
-	/* rounded connectors */
-	for (var i=0; i<children.length; i++) {
-		var c = children[i];
-		var y = c.getShape().getVerticalAnchor(c) + MM.PolyDom.getOffset(c.getDOM().node,"top");
-		var anchor = this._getChildAnchor(c, side);
-
-		ctx.moveTo(x, y - R);
-		ctx.arcTo(x, y, anchor, y, R);
-		ctx.lineTo(anchor, y);
+        const itemDistanceX = dx + spaceX;
+        item.rect = {
+			width: Math.max(bbox.width + itemDistanceX,item.contentRect.width),
+			height: bbox.height + spaceY + item.contentRect.height,
+		};
+        item.originPos = {
+            x:direction === 'right' ? itemDistanceX : (item.rect.width - itemDistanceX),
+            y:contentRect.height + spaceY
+        } 
+        item.relativePos = {
+            x:direction === 'right' ? -itemDistanceX : -(item.contentRect.width - itemDistanceX),
+            y:-item.originPos.y
+        }
 	}
-	ctx.stroke();
-}
 
-MM.Layout.Tree.Left = MM.Layout.Tree.create("left", "tree-left", "Left");
-MM.Layout.Tree.Right = MM.Layout.Tree.create("right", "tree-right", "Right");
-export default MM.Layout.Tree;
+	/**
+	 * 以资源所第一个的左上角为原点建立相对坐标系
+	 * |————————> x
+	 * |[0,0]
+	 * |[0,height+spaceY]
+	 * |[]
+	 * |
+	 * |y
+	 * @param {*} items
+	 */
+	getChildrenBBox(items,direction = 'right') {
+		const { spaceY = 8 ,dx} = this.remind.options.tree;
+		const bbox = {
+			width: 0,
+			height: 0,
+		};
+		for (let i = 0; i < items.length; i++) {
+			const child = items[i];
+			const {rect} = child;
+			if (rect.width > bbox.width) {
+				bbox.width = rect.width;
+			}
+			// 计算子元素在父容器的相对坐标
+			child.position = {
+				x: direction === 'right' ? 0 : -rect.width,
+				y: bbox.height,
+			};
+			bbox.height += rect.height + spaceY;// 让父节点在整个局部范围内垂直居中
+		}
+		bbox.height -= spaceY;
+		return bbox;
+	}
+
+	updateLine(item) {
+        // 默认用bezier线
+        const drawFunction = this.line['bezier'];
+        drawFunction.call(this,item);
+    }
+
+
+}
+export default TreeLayout;

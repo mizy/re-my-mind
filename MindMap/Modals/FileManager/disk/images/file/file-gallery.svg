@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64px" height="49px" viewBox="0 0 64 49" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 57.1 (83088) - https://sketch.com -->
+    <title>矩形 4</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="62" height="46.5" rx="2"></rect>
+        <filter x="-2.4%" y="-3.2%" width="104.8%" height="106.5%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="0.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.262745098   0 0 0 0 0.298039216   0 0 0 0 0.403921569  0 0 0 1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="司南-项目管理-交互" transform="translate(-1173.000000, -291.000000)">
+            <g id="right" transform="translate(612.000000, 90.000000)">
+                <g id="图集" transform="translate(562.000000, 202.000000)">
+                    <g id="矩形-4">
+                        <g id="矩形">
+                            <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                            <use fill="#F5F7FD" fill-rule="evenodd" xlink:href="#path-1"></use>
+                        </g>
+                        <g id="编组" transform="translate(19.000000, 11.000000)" fill="#E89393">
+                            <g transform="translate(0.000000, 0.013225)" id="Fill-2">
+                                <path d="M6.81240845,17.2793662 L21.5162958,17.2793662 L21.5162958,2.52760563 L6.81240845,2.52760563 L6.81240845,17.2793662 Z M23.0487887,0.029028169 L5.27987324,0.029028169 C4.74857746,0.029028169 4.31383099,0.463774648 4.31383099,0.995112676 L4.31383099,18.8119014 C4.31383099,19.3431972 4.74857746,19.7779437 5.27987324,19.7779437 L23.0487887,19.7779437 C23.5800845,19.7779437 24.0148732,19.3431972 24.0148732,18.8119014 L24.0148732,0.995112676 C24.0148732,0.463774648 23.5800845,0.029028169 23.0487887,0.029028169 L23.0487887,0.029028169 Z M2.31571268,3.6336338 L2.31571268,20.912831 C2.31571268,21.2140563 2.74369859,21.6420423 3.04488169,21.6420423 L3.04488169,21.6420423 L21.4210648,21.6420423 L21.4210648,23.9577465 L3.04488169,23.9577465 C1.36581127,23.9577465 8.45070417e-06,22.5917746 8.45070417e-06,20.912831 L8.45070417e-06,20.912831 L8.45070417e-06,3.6336338 L2.31571268,3.6336338 Z M16.2902197,9.87624507 L20.104107,14.9508507 L8.25279718,14.9508507 L11.2156986,11.1476535 L13.3273606,13.6903437 L16.2902197,9.87624507 Z"></path>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

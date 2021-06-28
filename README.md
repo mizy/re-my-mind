@@ -1,8 +1,11 @@
 # [re-my-mind](https://mizy.github.io/re-my-mind/)
 
-* 基于 [my-mind](http://my-mind.github.io/) 改造优化的脑图编辑器框架
-* base on my-mind
-* 具体效果请查看 dist 下 index.html 的 demo
+ 由于基于my-mind的第一版本存在各种问题，所以完全推倒重来，全新开发了这个版本，对比原先的my-mind,有以下特点
+* canvas,svg双擎渲染
+* 支持docker部署，支持Nas部署
+* 不依赖浏览器布局能力，增强性能
+* 高拓展性，支持自定义节点和主题
+* 支持拓展性动画
 
 
 # demo
@@ -15,7 +18,7 @@
 # Install
 
 ```sh
-npm i re-my-mind --save
+npm i re-my-mind@2 --save
 ```
 
 # Usage
@@ -31,10 +34,9 @@ npm i re-my-mind --save
 # Start
 
 ```
-import 're-my-mind';
+import Remind from 're-my-mind';
 
-MM.App.init(document.getElementById("root"),{
-	rootName:"未命名",
+new Remind(document.getElementById("root"),{
 	data:{} // 数据
 })
 ```
@@ -42,22 +44,6 @@ MM.App.init(document.getElementById("root"),{
 # Export Data
 
 ```
-MM.App.map.toJSON();
+remind.page.toJSON()
 ```
-
-# 基于 My-Mind 改造部分
-
--   样式优化
--   改为对称居中布局
--   加入 map-right,map-left 布局
--   工程化结构改造
--   去除 UI 依赖
--   放大缩小改为 transform 方式
--   增加多行文本功能
--   增加xmind解析
--   优化1000节点以上的dom树性能
--   优化canvas绘制线逻辑
--   增加备注功能
--   增加节点布局模式
--   添加主题支持
--	增加部分事件和新API支持
+ 

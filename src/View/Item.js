@@ -1,727 +1,473 @@
-MM.Item = function (options) {
-	options = options || {};
-	this._parent = null;
-	this._children = [];
-	this._collapsed = false;
-	this._data = {};
-	this._layout = null;
-	this._shape = null;
-	this._autoShape = true;
-	this._color = options.color || null;
-	this._status = null;
-	this._side = null; /* side preference */
-	this._icon = {};
-	this._id = MM.generateId();
-	this._oldText = "";
-	this.style = {};
+import Nodes from './Nodes/Nodes'
+import Page from '../Model/Page';
+import { v4 as uuidv4 } from 'uuid';
+class Item {
+    children = [];
+    position = {
+        x:0,
+        y:0
+    }; // 当前节点作为整体时在父容器rect时的相对位置
+    relativePos = {
+        x:0,
+        y:0
+    } // 当前节点在 当前节点的rect中的位置
+    originPos = { // 坐标原点的偏移量
+        x:0,
+        y:0
+    }
+    globalPos = {
+        x:0,y:0
+    } // 节点及子元素rect 的全局偏移
+    x=0 // 节点当前全局坐标
+    y=0
 
-	this._computed = {
-		value: 0,
-		status: null
-	}
+    rect = undefined // 当前节点及下游所有节点的rect
+    contentRect = undefined // 当前节点内容dom的rect
+    constructor(page,option = {}){
+        const {
+            depth,
+            data = {
+            },
+            visible = true
+        } = option;
+        this.page = page;
+        this.depth = depth;
+        this.remind = page.remind;
+        this.visible = visible
 
-	this._dom = {
-		node: document.createElement("li"),
-		content: document.createElement("div"),
-		status: document.createElement("span"),
-		icon: document.createElement("ul"),
-		value: document.createElement("span"),
-		text: document.createElement("div"),
-		children: document.createElement("ul"),
-		toggle: document.createElement("div"),
-		canvas: document.createElement("canvas"),
-		note: document.createElement("i")
-	}
-	this._dom.node.classList.add("item");
-	this._dom.content.classList.add("content");
-	this._dom.status.classList.add("status");
-	this._dom.icon.classList.add("icon");
-	this._dom.text.classList.add("text");
-	this._dom.toggle.classList.add("toggle");
-	this._dom.children.classList.add("children");
-	this._dom.note.classList.add("note-button");
-	this._dom.note.innerHTML = "";
-	this._dom.note.addEventListener("click", () => {
-		this.startNote()
-	});
-	this._dom.content.appendChild(this._dom.text); /* status+value are appended in layout */
-	this._dom.node.appendChild(this._dom.canvas);
-	this._dom.node.appendChild(this._dom.content);
-	this._dom.content.insertBefore(this._dom.icon, this._dom.content.firstChild);
-	this._dom.toggle.addEventListener("click", this);
-}
+        if(data){
+            this.setData(data)
+        }
+    }
 
+    setData(data){
+        this.clear();
+        this.data = data;
+        if(!this.data.uuid){
+            this.data.uuid = uuidv4();
+        }
+        this.dom = document.createElement('div');
+        this.page.dom.appendChild(this.dom);
+        this.updateContent();
+        this.updateShape();
+        this.initToggle();
+        this.addEvents();
 
-MM.Item.COLOR = "#999999";
+        this.updateToggle();
+        if(this.data.layout){
+            this.setLayout(this.data.layout) 
+        } 
+        this.initChildren();
+    }
 
-/* RE explanation:
- *          _________________________________________________________________________ One of the three possible variants
- *           ____________________ scheme://x
- *                                ___________________________ aa.bb.cc
- *                                                            _______________________ aa.bb/
- *                                                                                    ______ path, search
- *                                                                                          __________________________ end with a non-forbidden char
- *                                                                                                                    ______ end of word or end of string
- */
-MM.Item.RE = /\b(([a-z][\w-]+:\/\/\w)|(([\w-]+\.){2,}[a-z][\w-]+)|([\w-]+\.[a-z][\w-]+\/))[^\s]*([^\s,.;:?!<>\(\)\[\]'"])?($|\b)/i;
+    setLayout(layout){
+        this.data.layout = layout;
+        this.layout = this.page.layout[this.data.layout];
+    }
 
-MM.Item.fromJSON = function (data) {
-	return new this().fromJSON(data);
-}
+    getData(){
+        const children = [];
+        this.children.forEach(item=>{
+            children.push(item.getData())
+        })
+        this.data.children = children;
+        return this.data;
+    }
 
-MM.Item.prototype.toJSON = function () {
-	var data = {
-		...this._data,
-		id: this._id,
-		text: this.getText()
-	}
+    addEvents(){
+        this.dom.addEventListener("mousedown",this.onMouseDown);
+        this.dom.addEventListener("click",this.onClick);
+        this.dom.addEventListener("contextmenu",this.onContextMenu)
+        this.dom.addEventListener("dblclick",this.onDoubleClick);
+       
+    }
 
-	if (this._side) { data.side = this._side; }
-	if (this._color) { data.color = this._color; }
-	if (this._icon) { data.icon = this._icon; }
+    onDoubleClick = ()=>{
+        this.remind.command.execute("Edit")
+    }
 
-	if (this._status) { data.status = this._status; }
-	if (this._layout) { data.layout = this._layout.id; }
-	if (!this._autoShape) { data.shape = this._shape.id; }
-	data.collapsed = this._collapsed;
-	data.note = this.note;
-	if (this._children.length) {
-		data.children = this._children.map(function (child) { return child.toJSON(); });
-	}else{
-		data.children = []
-	}
-	if (this.style && JSON.stringify(this.style) !== "{}") {
-		data.style = this.style;
-	}
-	const content = this.getDOM().content;
-	if (content.style.backgroundColor) {
-		data.backgroundColor = content.style.backgroundColor;
-	}
-	return data;
-}
+    onMouseDown=(event)=>{
+        if(event.button !== 0)return;
+        this.mouseStartEvent = event;
+        this.remind.remindDOM.addEventListener("mousemove",this.onMouseMove)
+    }
 
-/**
- * Only when creating a new item. To merge existing items, use .mergeWith().
- */
-MM.Item.prototype.fromJSON = function (data) {
-	if (data.id) { this._id = data.id; }
-	if (data.side) { this._side = data.side; }
-	if (data.color) { this._color = data.color; }
-	if (data.icon) { this._icon = data.icon; }
+    onMouseMove=(event)=>{
+        if(Math.abs(this.mouseStartEvent.clientX - event.clientX) > 10){//激活拖拽模式
+            event.preventDefault();
+            this.page.dragTool.startDrag(this.mouseStartEvent,event,this);
+            this.remind.remindDOM.removeEventListener("mousemove",this.onMouseMove)
+        }
+    }
 
-	if (data.status) {
-		this._status = data.status;
-		if (this._status == "maybe") { this._status = "computed"; }
-	}
-	if (data.collapsed) { this.collapse(); }
-	if (data.layout) { this._layout = MM.Layout.getById(data.layout); }
-	if (data.shape) { this.setShape(MM.Shape.getById(data.shape)); }
-	if (data.note) {
-		this.note = data.note;
-		this._dom.content.appendChild(this._dom.note);
-	}
-	if (data.style && JSON.stringify(data.style) !== "{}") {
-		this.setTextStyle(data.style);
-	}
-	(data.children || []).forEach(function (child) {
-		this.insertChild(MM.Item.fromJSON(child));
-	}, this);
-	this._data = data;
-	this.setText(data.text, false);// 不触发重绘
-	return this;
-}
+    onClick = (event)=>{
+        event.preventDefault();
+        event.stopPropagation();
+        this.remind.remindDOM.removeEventListener("mousemove",this.onMouseMove)
+        this.page.select(this);
+        this.remind.fire("item-click",this)
+    }
+    onContextMenu=(event)=>{
+        this.page.select(this)
+    }
 
-MM.Item.prototype.setTextStyle = function (style) {
-	const text = this._dom.text;
-	for (let name in style) {
-		text.style[name] = style[name];
-	}
-	this.style = style;
-}
+    initChildren(){
+        const {children = [],shrink} = this.data;
+        children.forEach(child=>{
+            const childItem = new Item(this.page,{
+                data:child,
+                depth:this.depth + 1,
+                visible:!shrink && this.visible
+            });
+            this.insertChild(childItem,undefined,false)
+        })
+    }
 
-MM.Item.prototype.mergeWith = function (data) {
-	var dirty = 0;
-	if (this.getText() != data.text && !this._dom.text.contentEditable) { this.setText(data.text); }
+    updateContent(){
+        const {type = 'default',active} = this.data;
+       
+        try{
+            Nodes.nodes[type](this,this.dom);
+            delete this.contentRect;
+        }catch(e){
+            console.warn("解析节点错误，请检查节点类型是否注册")
+            throw e;
+        }
+        if(active){
+            this.page.select(this)
+        }
+    }
 
-	if (this._side != data.side) {
-		this._side = data.side;
-		dirty = 1;
-	}
+    initToggle(){
+        const div = document.createElement('div');
+        div.innerHTML = `
+            <div class="toggle-on">+</div>
+            <div class="toggle-off">-</div>
+        `;
+        div.className = 'remind-toggle';
+        this.toggleDOM = div;
+        this.toggleDOM.addEventListener('click',this.onToggleClick);
+        if(this.data.shrink){
+            this.dom.appendChild(this.toggleDOM)
+        }
+    }
 
-	if (this._color != data.color) {
-		this._color = data.color;
-		dirty = 2;
-	}
+    onToggleClick =()=>{
+        this.remind.fire("item:beforeToggle",this)
+        this.data.shrink = !this.data.shrink;
+        this.updateToggle();
+        // this.page.rememberPosition(this);
+        if(!this.data.shrink){
+            this.updateVisible(this.children,true)
+            this.update();
+        }else{
+            this.updateVisible(this.children,false)
+            this.update();
+        }
+        this.remind.fire("item:afterToggle",this)
+    }
 
-	if (this._icon != data.icon) {
-		this._icon = data.icon;
-		dirty = 1;
-	}
+    updateVisible(children = [],visible){
+        children.forEach(child=>{
+            child.visible = visible;
+            if(!child.data.shrink){
+                this.updateVisible(child.children,visible)
+            }
+        })
+    }
 
-	if (this._status != data.status) {
-		this._status = data.status;
-		dirty = 1;
-	}
+    updateToggle(){
+        const {shrink = false} = this.data;
+        if(shrink){
+            this.toggleDOM.classList.add('toggled');
+        }else{
+            this.toggleDOM.classList.remove('toggled')
+        }
+    }
+    
+    expand(){
+        if(this.data.shrink){
+            this.onToggleClick();
+        }
+    }
 
-	if (this._collapsed != !!data.collapsed) { this[this._collapsed ? "expand" : "collapse"](); }
+     /**
+     * 更新样式
+     */
+    updateStyle(){
 
-	if (this.getOwnLayout() != data.layout) {
-		this._layout = MM.Layout.getById(data.layout);
-		dirty = 2;
-	}
+    }
 
-	var s = (this._autoShape ? null : this._shape.id);
-	if (s != data.shape) { this.setShape(MM.Shape.getById(data.shape)); }
+    /**
+     * 更新下属和自己节点的布局信息
+     */
+    updateSubtree(recurse = true,func){
+        this.children.forEach(item=>{
+            item.updateSubtree(false,func)
+        })
+        func ? this[func](recurse) : this.update(recurse);
+    }
+    
 
-	(data.children || []).forEach(function (child, index) {
-		if (index >= this._children.length) { /* new child */
-			this.insertChild(MM.Item.fromJSON(child));
-		} else { /* existing child */
-			var myChild = this._children[index];
-			if (myChild.getId() == child.id) { /* recursive merge */
-				myChild.mergeWith(child);
-			} else { /* changed; replace */
-				this.removeChild(this._children[index]);
-				this.insertChild(MM.Item.fromJSON(child), index);
-			}
-		}
-	}, this);
+    // bfs 更新依赖树结构的相关数据和样式
+    update(recurse = true){
+        this.updateShape();
+        if(!this.contentRect)this.updateContentRect();// 避免编辑新增节点初始化时没有contentRect
+        this.updateLayout();
+        if(recurse){
+            this.parent.update(recurse);
+        }
+    }
 
-	/* remove dead children */
-	var newLength = (data.children || []).length;
-	while (this._children.length > newLength) { this.removeChild(this._children[this._children.length - 1]); }
+    updateData(data){
+        if(data){
+            Object.assign(this.data,data)
+        }
+        this.updateContent();
+        this.update();
+    }
 
-	if (dirty == 1) { this.update(); }
-	if (dirty == 2) { this.updateSubtree(); }
-}
+    updateShape(){
+        this.dom.className = 'remind-item shape-' + this.getShape();
+    }
 
-MM.Item.prototype.clone = function () {
-	var data = this.toJSON();
+    updateLayout(){
+        this.getLayout().update(this);
+    }
 
-	var removeId = function (obj) {
-		delete obj.id;
-		obj.children && obj.children.forEach(removeId);
-	}
-	removeId(data);
+    updateContentRect(){
+        const rect = this.dom.getBoundingClientRect();
+        // 本体节点rect
+        this.contentRect = rect;
+    } 
 
-	return this.constructor.fromJSON(data);
-}
-MM.Item.prototype.getDepth = function(){
-	let depth = 0;
-	let node = this;
-	while (node && !node.isRoot()) {
-		depth++;
-		node = node.getParent();
-	}
-	return depth;
-}
+    updateLine(){
+        this.getLayout()?.updateLine(this)
+    }
+    // dfs
+    render(){
+        this.updatePosition();
+        this.dom.style.display = this.visible ? 'flex' : 'none';
+        // if(layout.direction === 'left'){
+        //     this.dom.style.right = this.page.root.rect.width - this.x - this.contentRect.width + 'px';
+        //     this.dom.style.left = 'auto'
+        //     this.dom.style.transform = `matrix(1, 0, 0, 1, 0,${this.y})`;
+        // }else{
+            this.dom.style.left = '0px'
+            this.dom.style.transform = `matrix(1, 0, 0, 1, ${this.x},${this.y})`;
+        // }   
+        this.children.forEach(child=>{
+            child.globalPos = {
+                x:this.globalPos.x + this.originPos.x + child.position.x,
+                y:this.globalPos.y + this.originPos.y + child.position.y
+            }
+           
+            child.render();
+        })
+        if(this.visible){
+            this.updateLine();
+        }
+    }
 
-MM.Item.prototype.select = function () {
-	this._dom.node.classList.add("current");
-	this.getMap().ensureItemVisibility(this);
-	MM.Clipboard.focus(); /* going to mode 2c */
-	MM.publish("item-select", this);
-}
+    updatePosition(){
+        const {globalPos} = this;
+        this.x = globalPos.x + this.relativePos.x + this.originPos.x;
+        this.y = globalPos.y + this.relativePos.y + this.originPos.y;
+    }
 
-MM.Item.prototype.deselect = function () {
-	if (MM.App.editing) {
-		MM.Command.Finish.execute();
-	}
-	this._dom.node.classList.remove("current");
-	MM.publish("item-deselect", this);
-}
+    getLayout(){
+        const layout =  this.layout || this.parent?.getLayout();
+        
+        return layout;
+    }
 
-MM.Item.prototype.update = function (doNotRecurse) {
-	var map = this.getMap();
-	if (!map || !map.isVisible()) { return this; }
-
-	if (this._autoShape) { /* check for changed auto-shape */
-		var autoShape = this._getAutoShape();
-		if (autoShape != this._shape) {
-			if (this._shape) { this._shape.unset(this); }
-			this._shape = autoShape;
-			this._shape.set(this);
-		}
-	}
-
-	this._updateIcon();
-	// this._updateStatus();
-	const contentWidth = MM.PolyDom.getOffset(this._dom.content, "width")
-	// 大于300则
-	if (contentWidth > 300) {
-		this.getDOM().content.style.width = "302px";
-		this.getDOM().text.className = "text multi-line";
-	} else {
-		this.getDOM().text.className = "text";
-	}
-
-	this.updateBackground();
-	this._dom.node.classList[this._collapsed ? "add" : "remove"]("collapsed");
-	this.getLayout().update(this);
-	this.getShape().update(this);
-	if (!this.isRoot() && !doNotRecurse) { this._parent.update(); }
-	if(this.isRoot()){
-		this._parent.updateRootWidth();
-	}
-	return this;
-}
-
-MM.Item.prototype.updateBackground = function () {
-	var data = this._data;
-	var content = this.getDOM().content;
-	if (data.backgroundColor)
-		content.style.backgroundColor = data.backgroundColor;
-	if (data.border) {
-		content.style.border = data.border;
-	}
-}
-/**
- * 更新子节点
- */
-MM.Item.prototype.updateSubtree = function (isSubChild) {
-	this._children.forEach(function (child) {
-		child.updateSubtree(true);
-	});
-	return this.update(isSubChild);
-}
-
-MM.Item.prototype.resetTheme = function () {
-	this._children.forEach(function (child) {
-		child.resetTheme();
-	});
-	this.clearStyle();
-	// if (reRender) {
-	this.clearOffset();
-	this.update(true);
-	// }
-}
-
-MM.Item.prototype.clearStyle = function () {
-	this._dom.content.style.backgroundColor = null;
-	delete this._data.backgroundColor;
-	if (this.style) {
-		for (let key in this.style) {
-			this.style[key] = null;
-			delete this.style[key]
-		}
-	}
-}
-
-MM.Item.prototype.setText = function (text, clear = true) {
-	if (this._dom.text.innerHTML === text) {
-		return;
-	}
-	this._dom.text.innerHTML = text;
-	this._findLinks(this._dom.text);
-	clear && this.clearOffset();
-	return this.update();
-}
-
-MM.Item.prototype.getId = function () {
-	return this._id;
-}
-
-MM.Item.prototype.getText = function () {
-	return this._dom.text.innerHTML;
-}
-
-MM.Item.prototype.collapse = function () {
-	// this.clearOffset();
-	if (this._collapsed) { return; }
-	this._collapsed = true;
-	MM.publish("beforecollapse",this);
-	clearTimeout(this.timeout)
-	this.timeout = setTimeout(()=>{
-		this.rememberPos();
-		this.update();
-		this.center();
-		MM.publish('aftercollapse', this);
-	}, 100);
-	return this;
-}
-MM.Item.prototype.expand = function () {
-	// this.clearOffset();
-	if (!this._collapsed) { return; }
-	this._collapsed = false;
-	MM.publish("beforeexpand",this);
-	clearTimeout(this.timeout);
-	this.timeout = setTimeout(()=>{
-		this.rememberPos();
-		this.update();
-		this.updateSubtree();
-		this.center();
-		MM.publish('afterexpand');
-	}, 100);
-	return 
-}
-
-MM.Item.prototype.rememberPos = function(){
-	this.beforePos = this.getDOM().content.getBoundingClientRect();
-}
-
-MM.Item.prototype.center = function(){
-	const {left,top} =  this.getDOM().content.getBoundingClientRect();
-	if(!this.beforePos){
-		this.beforePos = {
-			left:MM.App.container.clientWidth/2,
-			top:MM.App.container.clientHeight/2
-		}
-	}
-	MM.App.container.scrollLeft -= this.beforePos.left - left;
-	MM.App.container.scrollTop -= this.beforePos.top - top; 
-	this.beforePos = undefined
-
-}
-
-MM.Item.prototype.clearOffset = function () {
-	this._dom.content.style.width = "auto";
-	this._dom.content.style.height = "auto";
-}
-
-
-MM.Item.prototype.isCollapsed = function () {
-	return this._collapsed;
-}
+    getAutoShape(){
+        if(!this.depth){this.depth}
+        const {theme} = this.page;
+        switch (this.depth) {
+            case 0: return theme.main;
+            case 1: return theme.second;
+            default: return theme.node;
+        }
+    }
  
+    getShape(){
+        return this.data.shape || this.getAutoShape();
+    }
 
+    getLineShape(){
+        const {theme} = this.page;
+        return this.data.lineShape || theme.lineShape || "bezier";
+    }
 
-MM.Item.prototype.getComputedValue = function () {
-	return this._computed.value;
-}
+    getColor(child){
+        if(this.data.color){
+            return this.data.color;
+        }
+        if(this.isRoot() && child){
+            const index = this.children.indexOf(child);
+            const {theme:{colors}} = this.page;
+            child.data.color = colors[ index % colors.length];
+            return child.data.color;
+        }
+        return this.parent.getColor(this);
+    }
+  
 
-MM.Item.prototype.setStatus = function (status) {
-	this._status = status;
-	return this.update();
-}
-
-MM.Item.prototype.getStatus = function () {
-	return this._status;
-}
-
-MM.Item.prototype.setIcon = function (icon, type = 'default') {
-	const action = new MM.Action.SetIcon(this, icon, type);
-	MM.App.action(action);
-	MM.publish("item-change", this)
-}
-
-MM.Item.prototype.deleteIcon = function (type) {
-	// 删除icon
-	const action = new MM.Action.SetIcon(this, false, type);
-	MM.App.action(action);
-	MM.publish("item-change", this)
-
-}
-
-MM.Item.prototype.getIcon = function () {
-	return this._icon;
-}
-
-MM.Item.prototype.getComputedStatus = function () {
-	return this._computed.status;
-}
-
-MM.Item.prototype.setSide = function (side) {
-	this._side = side;
-	return this;
-}
-
-MM.Item.prototype.getSide = function () {
-	return this._side;
-}
-
-MM.Item.prototype.getChildren = function () {
-	return this._children;
-}
-
-MM.Item.prototype.setColor = function (color) {
-	this._color = color;
-	return this.updateSubtree();
-}
-
-MM.Item.prototype.getColor = function () {
-	return this._color || (this.isRoot() ? MM.Item.COLOR : this._parent.getColor());
-}
-
-MM.Item.prototype.getOwnColor = function () {
-	return this._color;
-}
-
-MM.Item.prototype.getLayout = function () {
-	return this._layout || this._parent.getLayout();
-}
-
-MM.Item.prototype.getOwnLayout = function () {
-	return this._layout;
-}
-/**
- * 设置layut
- */
-MM.Item.prototype.setLayout = function (layout) {
-	this._layout = layout;
-	return this.updateSubtree();
-}
-
-MM.Item.prototype.getShape = function () {
-	return this._shape;
-}
-
-MM.Item.prototype.getOwnShape = function () {
-	return (this._autoShape ? null : this._shape);
-}
-
-MM.Item.prototype.setShape = function (shape) {
-	if (this._shape) { this._shape.unset(this); }
-
-	if (shape) {
-		this._autoShape = false;
-		this._shape = shape;
-	} else {
-		this._autoShape = true;
-		this._shape = this._getAutoShape();
-	}
-
-	this._shape.set(this);
-	this.clearOffset();
-	return this.update();
-}
-
-MM.Item.prototype.getDOM = function () {
-	return this._dom;
-}
-
-MM.Item.prototype.getMap = function () {
-	var item = this._parent;
-	while (item) {
-		if (item instanceof MM.Map) { return item; }
-		item = item.getParent();
-	}
-	return null;
-}
-
-MM.Item.prototype.getParent = function () {
-	return this._parent;
-}
-
-MM.Item.prototype.isRoot = function () {
-	return (this._parent instanceof MM.Map);
-}
-
-MM.Item.prototype.setParent = function (parent) {
-	this._parent = parent;
-	return this.updateSubtree();
-}
-
-MM.Item.prototype.insertChild = function (child, index) {
-	/* Create or remove child as necessary. This must be done before computing the index (inserting own child) */
-	var newChild = false;
-	if (!child) {
-		child = new MM.Item();
-		newChild = true;
-	} else if (child.getParent() && child.getParent().removeChild) { /* only when the child has non-map parent */
-		child.getParent().removeChild(child);
-	}
-
-	if (!this._children.length) {
-		this._dom.node.appendChild(this._dom.toggle);
-		this._dom.node.appendChild(this._dom.children);
-	}
-
-	if (arguments.length < 2) { index = this._children.length; }
-
-	var next = null;
-	if (index < this._children.length) { next = this._children[index].getDOM().node; }
-	this._dom.children.insertBefore(child.getDOM().node, next);
-	this._children.splice(index, 0, child);
-
-	return child.setParent(this);
-}
-
-MM.Item.prototype.removeChild = function (child) {
-	var index = this._children.indexOf(child);
-	this._children.splice(index, 1);
-	var node = child.getDOM().node;
-	node.parentNode.removeChild(node);
-
-	child.setParent(null);
-
-	if (!this._children.length) {
-		this._dom.toggle.parentNode.removeChild(this._dom.toggle);
-		this._dom.children.parentNode.removeChild(this._dom.children);
-	}
-
-	return this.update();
-}
-
-MM.Item.prototype.startEditing = function () {
-	this._oldText = this.getText();
-	this._dom.text.contentEditable = true;
-	this._dom.text.focus(); /* switch to 2b */
-	document.execCommand("styleWithCSS", null, false);
-	this._dom.node.style.zIndex = "1000";
-	this._dom.text.addEventListener("input", this);
-	this._dom.text.addEventListener("keydown", this);
-	this._dom.text.addEventListener("blur", this);
-	this.clearContentWidth();
-	return this;
-}
-
-MM.Item.prototype.stopEditing = function () {
-	this._dom.text.removeEventListener("input", this);
-	this._dom.text.removeEventListener("keydown", this);
-	this._dom.text.removeEventListener("blur", this);
-	this._dom.node.style.zIndex = 0;
-	this._dom.text.blur();
-	this._dom.text.contentEditable = false;
-
-	var result = this._dom.text.innerHTML;
-	this.clearContentWidth();
-	this.update(); /* text changed */
-	this.getMap().ensureItemVisibility(this);
-
-	MM.Clipboard.focus();
-
-	return result;
-}
-
-MM.Item.prototype.startNote = function (text) {
-	this.clearOffset();
-	this._dom.content.appendChild(this._dom.note);
-	MM.App.note.show(this);
-	this.update();
-}
-
-MM.Item.prototype.endNote = function (text) {
-	if (text === this.note) return;
-	const action = new MM.Action.SetNote(this, text)
-	MM.App.action(action)
-}
-
-MM.Item.prototype.clearContentWidth = function () {
-	if (this._dom.text.clientHeight < 35) {// 先写死40像素，不同文字大小这个值不一样
-		this._dom.text.className = "text";
-		this._dom.content.style.width = "auto";
-	} else {
-		this._dom.content.style.width = "302px";
-	}
-	this._dom.content.style.height = "auto";
-}
-
-MM.Item.prototype.handleEvent = function (e) {
-	switch (e.type) {
-		case "input":
-			break;
-		case "keydown":
-			if (e.keyCode == 9) { e.preventDefault(); } /* TAB has a special meaning in this app, do not use it to change focus */
-			break;
-		case "blur": /* 3d */
-			MM.Command.Finish.execute();
-			break;
-		case "click":
-			if (this._collapsed) { this.expand(); } else { this.collapse(); }
-			MM.App.select(this);
-			e.stopPropagation();
-			break;
-	}
-}
-
-MM.Item.prototype._getAutoShape = function () {
-	const theme = MM.Theme.theme;
-	var depth = 0;
-	var node = this;
-	while (!node.isRoot() && depth < 2) {
-		depth++;
-		node = node.getParent();
-	}
-	this.depth = depth;
-	switch (depth) {
-		case 0: return MM.Shape[theme.main];
-		case 1: return MM.Shape[theme.second];
-		default: return MM.Shape[theme.node];
-	}
-}
-
-MM.Item.prototype._updateStatus = function () {
-	this._dom.status.className = "status";
-	this._dom.status.style.display = "";
-
-	var status = this._status;
-	if (this._status == "computed") {
-		var childrenStatus = this._children.every(function (child) {
-			return (child.getComputedStatus() !== false);
-		});
-		status = (childrenStatus ? "yes" : "no");
-	}
-
-	switch (status) {
-		case "yes":
-			this._dom.status.classList.add("yes");
-			this._computed.status = true;
-			break;
-		case "no":
-			this._dom.status.classList.add("no");
-			this._computed.status = false;
-			break;
-		default:
-			this._computed.status = null;
-			this._dom.status.style.display = "none";
-			break;
-	}
-}
-MM.Item.prototype._updateIcon = function () {
-	this._dom.icon.className = "re-mind-icon";
-	this._dom.icon.style.display = "";
-
-	var icon = this._icon;
-	if (JSON.stringify(icon) !== '{}') {
-		let iconList = '';
-		for (let key in icon) {
-			if (icon[key])
-				iconList += `<li class="${icon[key]}" data-key="${key}"></li>`;
-		}
-		this._dom.icon.innerHTML = iconList;
-		this._computed.icon = true;
-	} else {
-		this._dom.icon.innerHTML = null;
-		this._computed.icon = null;
-		this._dom.icon.style.display = "none";
-	}
-}
+    isVisible(){
+        const {x,y} = this;
+        const {remindRect,x:pageX,y:pageY} = this.page;
+        const {scrollLeft,scrollTop} = this.remind.remindDOM;
+        const globalX = x + pageX + this.contentRect.width / 2;
+        const globalY = y + pageY + this.contentRect.height / 2;
+        const right = scrollLeft + remindRect.width;
+        const bottom = scrollTop + remindRect.height;
+        if(globalX < right && globalX > scrollLeft && globalY > scrollTop && globalY < bottom){
+            return true;
+        }
+        return false;
+    }
  
+    startEdit=()=>{
+        this.oldText = this.data.text || '';
+        const {textDOM,dom} = this;
+        textDOM.contentEditable = true;
+        textDOM.focus();
+        if(!this.isVisible()){
+            this.center();
+        }
+        this.page.editing = true;
+        dom.style.zIndex = 1000;//不会被盖住 
+    }
 
-MM.Item.prototype._findLinks = function (node) {
+    stopEdit = ()=>{
+        this.page.editing = false;
+        const {textDOM,dom} = this;
+        textDOM.contentEditable = false;
+        dom.style.zIndex = 0;//不会被盖住 
+        this.data.text = textDOM.innerHTML;
+        textDOM.blur();
+    }
 
-	var children = [].slice.call(node.childNodes);
-	for (var i = 0; i < children.length; i++) {
-		var child = children[i];
-		switch (child.nodeType) {
-			case 1: /* element */
-				if (child.nodeName.toLowerCase() == "a") { continue; }
-				this._findLinks(child);
-				break;
+    startNote = function () {
+        if(!this.data.note)this.data.note = '';// 把undefind置为空，用来显示note图标
+        // 更新
+        this.updateContent();
+        this.remind.note.show(this)
+        this.update();
+    }
+    
+    endNote = function (text) {
+        if (text === this.data.note) return;
+        this.data.note = text === '' ? undefined : text;
+        if(this.data.note === undefined){
+            this.updateContent();
+            this.update();
+        }
+    }
 
-			case 3: /* text */
-				var result = child.nodeValue.match(this.constructor.RE);
-				if (result) {
-					var before = child.nodeValue.substring(0, result.index);
-					var after = child.nodeValue.substring(result.index + result[0].length);
-					var link = document.createElement("a");
-					link.innerHTML = link.href = result[0];
+    setText(text){
+        this.data.text = text;
+        this.updateContent();
+        this.updateContentRect();
+        this.update();
+    }
 
-					if (before) {
-						node.insertBefore(document.createTextNode(before), child);
-					}
+    onKeyDown=(e)=>{
+        if (e.keyCode == 9) { //tab
+            e.preventDefault(); 
+        }
+    }
 
-					node.insertBefore(link, child);
+    onBlur=()=>{
+        this.remind.command.execute("Finish")
+    }
 
-					if (after) {
-						child.nodeValue = after;
-						i--; /* re-try with the aftertext */
-					} else {
-						node.removeChild(child);
-					}
-				}
-				break;
-		}
-	}
+    center(){
+        const { remindRect,x,y } = this.page;
+        const pageX = x + this.x;
+        const pageY = y + this.y
+        this.remind.controller.translate( pageX + this.contentRect.width / 2 - remindRect.width / 2, pageY + this.contentRect.height / 2 - remindRect.height / 2,true) 
+    }
+
+    select(){
+        this.page.select(this)
+    }
+
+    get index(){
+        return (this.parent && this.parent.children) ? this.parent.children.indexOf(this) : undefined
+    }
+
+    insertChild(child,index,ifUpdate = true){
+        if(child.parent){
+            const oldParent = child.parent;
+            oldParent.removeChild(child,false);
+            oldParent.update(false)
+        }
+        if(index !== undefined){
+            this.children.splice(index,0,child)
+        }else{
+            this.children.push(child);
+        }
+        // 挂载父元素到子元素上
+        child.depth = this.depth + 1;
+        child.parent = this;
+        this.dom.appendChild(this.toggleDOM);
+        if(ifUpdate){
+            child.update();
+        }
+        return child;
+    }
+
+    removeChild(child,ifUpdate = true){
+        const index = this.children.indexOf(child);
+        child.depth = 0;
+        child.parent = undefined;
+        this.children.splice(index,1);
+        if(this.children.length < 1){
+            this.dom.removeChild(this.toggleDOM);
+        }
+        if(ifUpdate){
+            this.update();
+        }
+    }
+
+    clear(){
+        this.clearChildren();
+        this.clearEvents();
+        if(this.dom){
+            this.page.dom.removeChild(this.dom,false)
+            this.dom = undefined
+        }
+    }
+
+    clearEvents(){
+        if(this.dom){
+            this.dom.removeEventListener("click",this.onClick);
+            this.dom.removeEventListener("dblclick",this.onDoubleClick)
+            this.textDOM.removeEventListener("keydown",this.onKeyDown)
+            this.textDOM.removeEventListener("blur",this.onBlur)
+        }
+    }
+
+    clearChildren(){
+        let childrenCopy = [...this.children];
+        childrenCopy.forEach(item=>{
+            item.destroy(false);
+        })
+        this.children = [];
+    }
+
+    isRoot(){
+        return this.parent instanceof Page
+    }
+
+    destroy(){
+        if(this.parent){
+            this.parent.removeChild(this,false);
+        }
+        this.dom.parentElement && this.dom.parentElement.removeChild(this.dom);
+        this.clearChildren();
+    }
 }
-export default MM.Item;
+export default Item;

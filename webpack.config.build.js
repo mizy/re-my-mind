@@ -1,8 +1,9 @@
 let webpackConfig = {
-	entry: "./src/index.js",
+	entry: "./src/app.js",
+	mode:"production",
 	output: {
-		filename: "re-my-mind.js",
-		library: "MM",
+		filename: "remind.js",
+		library: "Remind",
 		libraryTarget: "umd",
 		libraryExport: "default" // 默认导出
 	},
@@ -42,7 +43,9 @@ let webpackConfig = {
 					{
 						loader: "less-loader",
 						options: {
-							javascriptEnabled: true
+							lessOptions:{
+								javascriptEnabled: true
+							}
 						}
 					}
 				]

@@ -54,7 +54,7 @@
     >.shortcut {
         font-size: 18px;
         position: absolute;
-        right: 150px;
+        right: 180px;
         cursor: pointer;
 
         &:hover {
@@ -92,7 +92,7 @@
             padding-top: 2px;
         }
 
-        >i {
+        >i,>.anticon {
             height: 32px;
             padding: 0 10px;
             line-height: 33px;
@@ -135,13 +135,16 @@
     display: flex;
 	background-repeat: no-repeat;
 	// 复写样式
-	.re-mind{
-		overflow: auto;
-		.item:hover{
-			>.toggle{
-				visibility:visible;
-			}
-		}
+	.remind{
+        .item-note{
+            font-family: 'iconfont';
+            &::before{
+                content:"\e605"
+            }
+        }
+        &::-webkit-scrollbar{
+            visibility: hidden;
+        }
 	}
 
     .text {
@@ -153,18 +156,22 @@
 		width:1000px;
 		margin:20px auto;
 		padding: 20px;
-		overflow: scroll;
+        overflow: auto;
 		.ant-tree li .ant-tree-node-content-wrapper{
 			height:auto;
 		}
 		.mainText-item-title{
 			display: flex;
-			margin:5px 0px;
 			h3,h2{
 				margin-left:5px;
 				margin-bottom: 0px;
 			}
 		}
+        .main-text-tree{
+            overflow: scroll;
+            height: calc(100vh - 180px);
+            margin:10px 0
+        }
 		.mind-icon{
 			font-size: 18px;
             display: inline-block;
@@ -187,6 +194,9 @@
 
         >.ant-tabs {
             width: 300px;
+            .ant-tabs-tab{
+                margin-left: 20px;
+            }
         }
 		.theme-save{
 			padding:20px;
@@ -276,10 +286,11 @@
     }
 
     .color-pick-demo {
+        cursor: pointer;
         transition: background 500ms ease;
         margin-right: 5px;
         width: 40px;
-        height: 28px;
+        height: 24px;
 		border-radius: 5px;
 		border:1px solid #efefef;
     }
@@ -312,31 +323,7 @@
         color: rgb(121, 140, 143);
     }
 
-    .re-mind-icon {
-        display: inline-flex;
-        flex-direction: row-reverse;
-        align-items: center;
-
-        >li {
-            font-size: 18px;
-            display: inline-block;
-            margin-left: -5px;
-            width: 24px;
-            height: 24px;
-            background-size: 20px;
-            border: 2px solid #fff;
-            border-radius: 24px;
-
-        }
-
-        >li:last-child {
-            margin-left: 0px;
-        }
-
-        >li:first-child {
-            margin-right: 5px;
-        }
-    }
+    
 }
 
 .mind-wrap {
@@ -347,10 +334,11 @@
 
 .key-list {
     padding: 20px;
-
+    
     >div {
         margin-bottom: 5px;
-        ;
+        display: flex;
+        align-items: center;
 
         >span {
             display: inline-block;
@@ -373,4 +361,11 @@
 .mind-history-list{
 	display: flex;
 	justify-content: space-between;
+}
+.more-options{
+    .ant-dropdown-menu-title-content{
+        >span{
+            margin-right: 5px;
+        }
+    }
 }

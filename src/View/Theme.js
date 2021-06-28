@@ -1,49 +1,37 @@
-MM.Theme = {
-	// 基本主题
+const theme = {
 	themes: {
-		"default": {
-			main: "Ellipse",
-			second: "Box",
+		default:{
+			main: "ellipse",
+			second: "box",
 			className: "default",
-			node: "Underline"
+			node: "underline",
+			lineShape:"taper",
+			lineShape2:"bezier",
+            colors: ['#fec936', '#f88b15', '#fe7e4d', '#ec6d7a', '#ef3224', '#9bc039', '#67c97e', '#00a7cd', '#40b5c6', '#2da4ff', '#956fe7', '#882e99', '#FF84BA']
 		},
-		"stright": {
-			background: {
-				color: "rgb(244, 249, 250)"
-			},
-			main: "Ellipse",
-			second: "Underline",
-			node: "Underline",
-			lineWidth: 2,
-			className: "stright"
+		stright:{
+			main: "ellipse",
+			second: "underline",
+			className: "stright",
+			node: "underline",
+			lineShape:"polyline",
+			lineShape2:"bezier",
+            colors: ['#fec936', '#f88b15', '#fe7e4d', '#ec6d7a', '#ef3224', '#9bc039', '#67c97e', '#00a7cd', '#40b5c6', '#2da4ff', '#956fe7', '#882e99', '#FF84BA']
 		},
-		"box": {
-			main: "Ellipse",
-			second: "Box",
-			colors: ["#5bd4ff", "#38b2ff", "#2589e5", "#1579b5"],
-			node: "Box",
+		box:{
+			main: "ellipse",
+			second: "box",
 			className: "box",
-			background: {
-				color: "rgb(31, 41, 52)"
-			},
-		},
-		"tree":{
-			main: "Box",
-			second: "Box",
-			colors: ["#5bd4ff", "#38b2ff", "#2589e5", "#1579b5"],
-			node: "Box",
-			className: "tree",
-			background: {
-				color: "rgb(31, 41, 52)"
-			},
+			node: "blank",
+			lineShape:"taper",
+			lineShape2:"bezier",
+            colors:  ["#5bd4ff", "#38b2ff", "#2589e5", "#1579b5"]
 		}
 	},
 
-	theme: {
-		main: "Ellipse",
-			second: "Box",
-			className: "default",
-			node: "Underline"
-	},
-
+	registe(name,options){
+		theme.themes[name] = Object.assign({},theme.themes.default,{className:name},options);
+	}
 }
+
+export default theme;

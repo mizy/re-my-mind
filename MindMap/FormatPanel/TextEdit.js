@@ -1,7 +1,6 @@
 import React, { PureComponent } from "react";
 import { Button, Dropdown, Icon } from "antd";
 import { SketchPicker } from "react-color";
-const MM = window.MM;
 /**
  * 文字编辑
  */
@@ -9,7 +8,7 @@ export default class StyleEdit extends PureComponent {
 	state = {};
 
 	componentDidMount() {
-		this.syncNowItem(MM.App.current);
+		this.syncNowItem(this.props.nowItem);
 	}
 
 	componentWillReceiveProps(props) {
@@ -28,17 +27,17 @@ export default class StyleEdit extends PureComponent {
 	}
 
 	execute = (command, data) => {
-		const nowItem = this.props.nowItem;
-		const text = nowItem.getDOM().text;
-		const { style = {} } = text;
-		if (style[command] !== data) {
-			style[command] = data;
-			nowItem.style[command] = data;
-		} else {
-			style[command] = "";
-			delete nowItem.style[command];
+		const nowItem = this.props.nowItem; 
+		if(!nowItem.data.textStyle){
+			nowItem.data.textStyle = {};
 		}
-
+		if(nowItem.data.textStyle[command] === data){
+			delete nowItem.data.textStyle[command] 
+		}else{
+			nowItem.data.textStyle[command] = data
+		}
+		nowItem.updateContent();
+		nowItem.update();
 	};
 
 	changeFontColor = e => {

@@ -1,67 +1,102 @@
-MM.Menu = {
-	_dom: {},
-	_port: null,
+/**
+ * @class
+ */
+class Menu {
 
-	open: function (x, y, target) {
-		this._dom.node.style.display = "";
-		var w = this._dom.node.offsetWidth;
-		var h = this._dom.node.offsetHeight;
-		const {left:containerX,top:containerY} = this.app.container.getBoundingClientRect();
-		var left = x - containerX;
-		var top = y - containerY;
+    constructor(remind){
+        this.init(remind);
+    } 
+    
+	init = function (remind) {
+        this.remind = remind;
+        this.options = remind.options;
+        this.initMenu(this.options.menuDOM)
 
-		if (left > (this.app.container.offsetWidth  - w)) { left -= w; }
-		if (top >  (this.app.container.offsetHeight -h)) { top -= h; }
-		this.nowTarget = target;
-		left = left+this.app.container.scrollLeft;
-		top = top +this.app.container.scrollTop;
+		this.dom.addEventListener("click", this.onClick);
+        this.remind.dom.addEventListener("click", this.onClick);
+        this.remind.dom.addEventListener("contextmenu", this.onShow);
+		this.close();
+	}
 
-		this._dom.node.style.transform = `translate(${left}px,${top}px)`; 
+	initMenu =function (dom) {
+        if(dom){
+            dom.className += "menu";
+            this.remind.dom.appendChild(dom);
+            this.dom = dom;
+            return ;
+        }
+		const _menu = document.createElement("div");
+		_menu.className = "menu";
+		_menu.innerHTML = `
+			<button data-command="InsertChild">插入节点</button>
+			<button data-command="InsertSibling">插入同级</button>
+			<button data-command="Delete">删除</button>
+			<button data-command="DeleteIcon" style="display:none">删除图标</button>
+			<span></span>
+			<button data-command="Edit">编辑</button>
+			<span></span>
+			<button data-command="Undo">撤销</button>
+			<button data-command="Redo">重做</button>
+			<button data-command="Center">居中</button>
+		`
+		this.remind.dom.appendChild(_menu);
+        this.dom = _menu;
+		return _menu
+	}
+
+	onShow = (e)=>{
+		e.preventDefault()
+		// const item = this.remind.page.getByEvent(e);
+
+		// if(item){
+		// const {x,y} = item.dom.getBoundingClientRect();
+		this.open(e.layerX,e.layerY,e.target)
+		// }
+	}
+
+    onClick = (e)=>{
+        if (e.currentTarget !== this.dom) {
+			this.close();
+			return;
+		}
+		e.stopPropagation();  
+		e.preventDefault(); 
+		let command = e.target.getAttribute("data-command");
+		if (!command) { return; }
+		command = this.remind.command.execute(command,this.remind.page.current);
+		this.close();
+    }
+    
+	/**
+	 * @param  {} x
+	 * @param  {} y
+	 * @param  {} target
+     * @public
+	 */
+	open = function (x, y, target) {
+		this.dom.style.display = 'block';
+		this.dom.style.transform = `translate(${x}px,${y}px)`; 
 		
-		const iconCommand = this._dom.node.querySelector("[data-command=DeleteIcon]");
+		const iconCommand = this.dom.querySelector("[data-command=DeleteIcon]");
 
 		if (!iconCommand) return;
 	
 		if (target.getAttribute("data-key")) {
-		  iconCommand.style.display = 'block';
+			iconCommand.style.display = 'block';
 		} else {
-		  iconCommand.style.display = 'none';
+			iconCommand.style.display = 'none';
 		}
-	},
-
-	close: function () {
-		this._dom.node.style.display = "none";
-	},
-
-	handleEvent: function (e) {
-		if (e.currentTarget != this._dom.node) {
-			this.close();
-			return;
-		}
-
-		e.stopPropagation(); /* no dragdrop, no blur of activeElement */
-		e.preventDefault(); /* we do not want to focus the button */
-
-		var command = e.target.getAttribute("data-command");
-		if (!command) { return; }
-
-		command = MM.Command[command];
-		if (!command.isValid()) { return; }
-
-		command.execute(this.nowTarget);
-		this.close();
-	},
-
-	init: function (app) {
-		this.app = app;
-		this._port =app._port;
-		this._dom.node = app._port.querySelector(".menu");
-		var buttons = this._dom.node.querySelectorAll("[data-command]");
-
-		this._port.addEventListener("click", this);
-		this._dom.node.addEventListener("click", this);
-		this.close();
 	}
+
+	close() {
+		this.dom.style.display = "none";
+	}
+     
+    destroy(){
+        this.dom.removeEventListener("click", this.onClick);
+        this.remind.dom.removeEventListener("click", this.onClick);
+        this.remind.dom.removeChild(this.dom)
+    }
 }
 
-export default MM.Menu;
+export default Menu

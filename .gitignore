@@ -37,3 +37,5 @@ components/**/*.jsx
 !components/**/__tests__/*.js
 !components/**/__tests__/*.js.snap
 /.history
+server/node_modules
+server/package-lock.json

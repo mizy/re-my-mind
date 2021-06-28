@@ -1,19 +1,19 @@
 import React, { PureComponent, Fragment } from "react";
-import { Tabs, Icon, message } from "antd";
+import { Tabs, message } from "antd";
 import TextEdit from "./FormatPanel/TextEdit";
 import CanvasEdit from "./FormatPanel/CanvasEdit";
 import ItemStyle from "./FormatPanel/ItemStyle";
 import iconList from "./icon";
+import {DeleteOutlined} from '@ant-design/icons'
 import ThemeEdit from "./FormatPanel/ThemeEdit";
 const { TabPane } = Tabs;
-const MM = window.MM;
 export default class Rightbar extends PureComponent {
 	state = {};
 
 	componentDidMount() {
-		MM.subscribe("item-select", (item) => {
+		this.props.app.on("item:select", () => {
 			this.setState({
-				nowItem: item
+				nowItem: this.props.app.page.current
 			});
 		});
 		this.generateCSS();
@@ -37,20 +37,21 @@ export default class Rightbar extends PureComponent {
 	}
 
 	onIconClick(key, item) {
-		if (!this.state.nowItem) {
+		const { app :{page:{current}}} = this.props.mind;
+		if (!current) {
 			return message.info("请先选择节点");
 		}
-		const { app } = this.props.mind;
-
-		app.current.setIcon(`mind-${key}-` + item[0], key);
+		current.data.icon = {...current.data.icon,[key]:`mind-${key}-` + item[0]};
+		current.updateContent();
+		current.update();
 	}
 
 	deleteIconClick(key) {
-		if (!this.state.nowItem) {
+		const { app } = this.props.mind;
+		if (!app.page.current) {
 			return message.info("请先选择节点");
 		}
-		const { app } = this.props.mind;
-		app.current.setIcon(false, key);
+		app.page.current.setIcon(false, key);
 	}
 
 	renderIconList() {
@@ -67,7 +68,7 @@ export default class Rightbar extends PureComponent {
 			const type = (
 				<div className="icon-item">
 					<span>
-						{iconItem.name} <Icon onClick={() => this.deleteIconClick(key)} type="delete" />
+						{iconItem.name} <DeleteOutlined  onClick={() => this.deleteIconClick(key)} type="delete" />
 					</span>
 					<div className="icon-list">{list}</div>
 				</div>
@@ -90,18 +91,18 @@ export default class Rightbar extends PureComponent {
 				<TabPane tab="样式" key="1">
 					{nowItem ?
 						<Fragment>
-							<TextEdit nowItem={nowItem} />
-							<ItemStyle nowItem={nowItem} />
+							<TextEdit app={this.props.app} nowItem={nowItem} />
+							<ItemStyle app={this.props.app} nowItem={nowItem} />
 						</Fragment> :
 						<div style={{ paddingTop: 100, textAlign: "center", color: "#bebebe" }}>
 							请先选择节点
 					</div>}
 				</TabPane>
 				<TabPane tab="画布" key="2">
-					<CanvasEdit mind={mind} />
+					<CanvasEdit  app={this.props.app} mind={mind} />
 				</TabPane>
 				<TabPane tab="主题" key="3">
-					<ThemeEdit mind={mind} nowItem={nowItem} />
+					<ThemeEdit app={this.props.app} mind={mind} nowItem={nowItem} />
 				</TabPane>
 			</Tabs>
 		);

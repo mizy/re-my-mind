@@ -1,173 +1,169 @@
 
+import Command from './Control/Command';
+import KeyBoard from './Control/Keyboard'
+
+import Page from './Model/Page';
+import Action from './Control/Action';
+import Menu from "./View/Menu";
+import History from './Control/History';
+import line from './Layout/Lines';
+import theme from './View/Theme';
+import Controller from './Control/Controller'
+import Note from './View/Note'
+
+import './index.less'
+// import MouseManager from './Control/Mou'
 /**
- * @namespace
+ * @class
  */
-MM.App = {
-	options: {
-		autoEdit:true,
-		disableDrag:false,
-		showHeadTitle:false,
-		disableEdit:false,// 阻止触发该Item或所有的MM.Command.Edit
-		headTitle: " - 脑图",
-		colors: ['#fec936', '#f88b15', '#fe7e4d', '#ec6d7a', '#ef3224', '#9bc039', '#67c97e', '#00a7cd', '#40b5c6', '#2da4ff', '#956fe7', '#882e99', '#FF84BA'],
-	},
-	keyboard: null,
-	current: null,
-	editing: false,
-	zoomRatio: 0.2,//每次缩放递进比例
-	scale: 1,//原始比例
-	history: [],
-	readonly:false,
-	historyIndex: 0,
-	portSize: [0, 0],
-	map: null,
-	ui: null,
-	io: null,
-	help: null,
-	_port: null,
-	_throbber: null,
-	_drag: {
-		pos: [0, 0],
-		item: null,
-		ghost: null
-	},
-	_fontSize: 100,
+class Remind {
+    constructor(container,options = {}){
+        if(container){
+            return this.init(container,options)
+        }
+    }
+    
+    /**
+     * @param  {} container
+     * @param  {} options={}
+     */
+    init(container,options = {}){
+        this.options = Object.assign({
+            autoEdit:true,
+            disableDrag:false,
+            showHeadTitle:false,
+            disableEdit:false,// 阻止触发该Item或所有的MM.Command.Edit
+            headTitle: " - 脑图",
+            showArrow:true,// 是否显示线的箭头
+            renderEngine:'svg',
+            readonly:false,
+            site:{
+                spaceX:8,
+                spaceY:60
+            },
+            map:{
+                spaceX:60,
+                spaceY:8
+            },
+            tree:{
+                spaceX:20,
+                spaceY:8,
+                dx:10
+            },
+            fish:{
+                minFishWidth: 300,
+                minFishHeight: 50,
+                fishTailWidth : 50,
+                headGap : 50,
+                angle:Math.PI / 3,
+                root:{
+                    spaceX:0,
+                    minLength:80
+                },
+                one:{
+                    minLength:80,
+                    spaceY:8,
+                    tailGap:10,
+                    headGap:10,
+                },
+                other:{
+                    spaceX:8,
+                    spaceY:4,
+                    tailGap:5,
+                    headGap:10,
+                    minLength:0
+                }
+            }
+        }, options);
+        this.container = container;
+        this.initDOM();
 
-	destroy() {
-		this.map.destroy();
-		this.note.destroy();
-		MM.Keyboard.destroy();
-		this._port.innerHTML = null;
-		this.map = null;
-		this.current = null;
-		this.scale = null;
-		this.history = [];
-		this._drag = {
-			pos: [0, 0],
-			item: null,
-			ghost: null
-		}
-		MM.clear();
-	},
+        this.command = new Command(this);
+        this.action = new Action(this);
+        this.history = new History(this);
+        this.menu = new Menu(this);
+        this.keyboard = new KeyBoard(this)
+        // this.clipManager = new ClipManager(this);
+        this.controller = new Controller(this);
+        this.page = new Page(this);
+        this.note = new Note(this);
 
-	action: function (action) {
-		MM.publish("onaction",action);
-		if(action.stop)return;
-		if (this.historyIndex < this.history.length) { /* remove undoed actions */
-			this.history.splice(this.historyIndex, this.history.length - this.historyIndex);
-		}
+        this.addEvents();
+		return this;  
+    }
 
-		this.history.push(action);
-		this.historyIndex++;
-		action.perform();
-		return this;
-	},
+    deselect(){
+        this.current.deselect();
+    }
+ 
+    initDOM(){
+        const remindDOM = document.createElement("div");
+        remindDOM.className = ` remind`;
+        this.remindDOM = remindDOM;
+        this.container.appendChild(remindDOM);
 
-	setMap: function (map) {
-		if (this.map) { this.map.destroy(); }
+        const dom = document.createElement("div");
+        remindDOM.appendChild(dom);
+		this.dom = dom;
+		this.dom.className += ` remind-scroll`;
+    }
 
-		this.history = [];
-		this.historyIndex = 0;
 
-		this.map = map;
-		this.map.show(this._port);
-	},
-
-	select: function (item) {
-		if (this.current && this.current != item) { this.current.deselect(); }
-		this.current = item;
-		this.current.select();
-	},
-
-	adjustFontSize: function (diff) {
-		this._fontSize = Math.max(30, this._fontSize + 10 * diff);
-		this._port.style.fontSize = this._fontSize + "%";
-		this.map.update();
-		this.map.ensureItemVisibility(this.current);
-	},
-
-	zoom(val) {
-		val = val * this.zoomRatio;
-		this.scale = this.scale * val;
-		const node = this.map.getRoot().getDOM().node;
-		node.style.transform = `scale(${this.scale})`;
-	},
-
-	handleEvent: function (e) {
-		switch (e.type) {
-			case "resize":
-				// this._syncPort();
-				break;
-			case "click":
-				break;
-			case "beforeunload":
-				e.preventDefault();
-				return "";
-				break;
-		}
-	},
-
-	setThrobber: function (visible) {
-		this._throbber.classList[visible ? "add" : "remove"]("visible");
-	},
-
-	initMenu: function () {
-		const _menu = document.createElement("div");
-		_menu.className = "menu";
-		_menu.innerHTML = `
-			<button data-command="InsertChild">插入节点</button>
-			<button data-command="InsertSibling">插入同级</button>
-			<button data-command="Delete">删除</button>
-			<button data-command="DeleteIcon" style="display:none">删除图标</button>
-			<span></span>
-			<button data-command="Edit">编辑</button>
-			<span></span>
-			<button data-command="Undo">撤销</button>
-			<button data-command="Redo">重置</button>
-			<button data-command="Center">调整布局</button>
-		`
-		this._port.appendChild(_menu)
-		return _menu
-	},
-
-	init: function (dom, options = {}) {
-		const container = document.createElement("div");
-		dom.appendChild(container);
-		dom.className+=` re-mind  ${MM.Theme.theme.className}`;
-		this.container = dom;
-		this._port = container;
-		this._port.className += ` re-mind-scroll`;
-		Object.assign(this.options, options);
-		this.readonly = options.readonly;
-		this._menu = options.menu || this.initMenu();
-		MM.Keyboard.init();
-		MM.Menu.init(this);
-		MM.Mouse.init(this._port);
-		MM.Clipboard.init();
-
-		window.addEventListener("resize", this);
-		window.addEventListener("click", this);
-		window.addEventListener("beforeunload", this);
+    addEvents(){
 		if(this.options.showHeadTitle){
-			MM.subscribe("item-change", (publisher) => {
+			this.on("item-change", (publisher) => {
 				if (publisher.isRoot() && publisher.getMap() == this.map) {
 					document.title = this.map.getName() + this.options.headTitle;
 				}
 			});
 		}
-		
-		this.setMap(new MM.Map(options || {}));
-		this.note = new MM.Note(this);
-		return this;
-	},
+        this.dom.addEventListener("click",()=>{
+            this.page.deselect()
+        })
+    }
+    
+    _subscribers= {}
 
-	repaint(){
-		// 重新渲染需要重新计算宽度
-		this.rendering = true;
-		this.map.update();
-		this.rendering = false;
-	},
+	clear(){
+		this._subscribers = {}
+	}
+    
+	/**
+	 * @param  {} message
+	 * @param  {} publisher
+	 * @param  {} data
+	 */
+	fire (message, publisher, data) {
+		var subscribers = this._subscribers[message] || [];
+		subscribers.forEach(function (subscriber) {
+			subscriber.handleMessage ? subscriber.handleMessage(message, publisher, data) : subscriber(publisher, data);
+		});
+	}
+	/**
+	 * @param  {} message
+	 * @param  {} subscriber
+	 */
+	on(message, subscriber) {
+		if (!(message in this._subscribers)) {
+			this._subscribers[message] = [];
+		}
+		var index = this._subscribers[message].indexOf(subscriber);
+		if (index == -1) { this._subscribers[message].push(subscriber); }
+	}
 
-	
+	/**
+	 * @param  {} message
+	 * @param  {} subscriber
+	 */
+	off(message, subscriber) {
+		if (!subscriber) {
+			return this._subscribers[message] = []
+		}
+		var index = this._subscribers[message].indexOf(subscriber);
+		if (index > -1) { this._subscribers[message].splice(index, 1); }
+	}
 }
-export default MM.App;
+window.Remind = Remind;
+Remind.theme = theme;
+Remind.line = line;// 暴露出去可用复写
+export default Remind;

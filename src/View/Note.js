@@ -1,6 +1,6 @@
 class Note {
 	constructor(app) {
-		this.app = app;
+		this.remind = app;
 		this.initDom();
 	}
 
@@ -8,51 +8,56 @@ class Note {
 		const note = document.createElement("div");
 		note.className = "mm-note hide";
 		note.innerHTML = `<div class="note-util">备注</div><div  class="note-content"><p /></div>`;
-		this.app._port.appendChild(note);
+		this.remind.page.dom.appendChild(note);
 		this.note = note;
+		this.content = this.note.querySelector(".note-content p")
+        this.remind.dom.addEventListener("click", this.onOutClick);
+	}
+
+	onOutClick=(e)=>{
+		if(e.path.indexOf(this.note) < 0){
+			this.hide();
+		}
 	}
 
 	show(item) {
-		this.status = "show";
-		const content = this.note.querySelector(".note-content p");
-		content.contentEditable = true;
-		content.innerHTML = decodeURIComponent(item.note || "");
-		const pos = item._dom.content.getBoundingClientRect();
-		this.x = pos.left;
-		this.y = pos.top - 60;
-		this.note.style.top = ((item._parent && item._parent._dom) ? 40 : 80) + this.y + this.app.container.scrollTop + "px";
-		this.note.style.left = this.x + this.app.container.scrollLeft+ "px";
+		this.status = "show"; 
+		this.note.style.top = item.y + item.contentRect.height + "px";
+		this.note.style.left = item.x + "px";
 		this.note.className = "mm-note";
+		this.content.setAttribute("contenteditable",true);
+		this.content.innerHTML = decodeURIComponent(item.data.note || '')
 		this.item = item;
-
+		
 		setTimeout(() => {
 			const selection = getSelection();
 			const range = selection.getRangeAt(0);
 			selection.removeAllRanges();
-			range.selectNodeContents(content);
-			// selection.addRange(range);
+			range.selectNodeContents(this.content);
+			selection.addRange(range);
 
-			content.focus();
+			this.content.focus();
 
 		}, 100)
 	}
 
 	hide() {
+		if(this.status === 'hide')return
 		this.status = "hide";
 		this.note.className = "mm-note hide";
-		const content = this.note.querySelector(".note-content p");
+		const content = this.content;
 		const note = encodeURIComponent(content.innerHTML);
+		if(!this.item)return;
 		this.item.endNote(note);
 		content.innerHTML = "";
-		MM.publish("item-change", this.item)
+		this.remind.fire("item-change", this.item)
 	}
 
 	destroy() {
-		this.app._port.removeChild(this.note);
-		this.app = null;
-		this.item = null
+		this.remind.page.dom.removeChild(this.note);
+		this.remind = undefined;
+		this.item = undefined
 	}
 
 }
-MM.Note = Note
 export default Note;

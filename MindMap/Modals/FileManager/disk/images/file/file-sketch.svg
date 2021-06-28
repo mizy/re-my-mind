@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64px" height="49px" viewBox="0 0 64 49" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 57.1 (83088) - https://sketch.com -->
+    <title>矩形 4</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="62" height="46.5" rx="2"></rect>
+        <filter x="-2.4%" y="-3.2%" width="104.8%" height="106.5%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="0.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.262745098   0 0 0 0 0.298039216   0 0 0 0 0.403921569  0 0 0 1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="司南-项目管理-交互" transform="translate(-1417.000000, -291.000000)">
+            <g id="right" transform="translate(612.000000, 90.000000)">
+                <g id="sketch" transform="translate(806.000000, 202.000000)">
+                    <g id="矩形-4">
+                        <g id="矩形">
+                            <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                            <use fill="#F5F7FD" fill-rule="evenodd" xlink:href="#path-1"></use>
+                        </g>
+                        <path d="M39.0088937,19.2142508 L38.6127232,11.7645438 L31.4364537,11 L39.0088937,19.2142508 Z M22.9765625,11.7645438 L22.8314732,14.4318499 L22.5747768,19.2086356 L30.1529367,11 L22.9765625,11.7645438 Z M22.8705357,19.6551339 L38.7187151,19.6551339 L34.1707938,14.7164481 L30.8002581,11.0558733 L22.8705357,19.6551339 Z M39.2042759,13.3269741 L39.5445731,19.6551339 L44.5836705,19.6551339 L39.6785366,13.0646624 L39.1540179,12.3615374 L39.2042759,13.3269741 Z M18.0324358,18.2655901 L17,19.6551339 L22.0502581,19.6551339 L22.4352679,12.3615374 L18.0324358,18.2655901 Z M31.988909,34.7723563 L44.5335519,20.168457 L39.4609724,20.168457 L39.4609724,20.1628767 L31.988909,34.7723563 Z M22.7031599,20.1628767 L25.0691616,24.7890276 L30.8002581,36 L38.8861607,20.1628767 L22.7031599,20.1628767 Z M17.0502581,20.168457 L29.6005162,34.7723563 L22.7589983,21.3961007 L22.1339286,20.168457 L17.0502581,20.168457 Z" id="Fill-1" fill="#F0B769"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,7 +1,7 @@
 const webpack = require("webpack");
 const path = require("path");
 let webpackConfig = {
-	entry: "./MindMap/index.js",
+	entry: "./src/app.js",
 	output: {
 		filename: "index.js",
 		publicPath: "/"
@@ -23,7 +23,6 @@ let webpackConfig = {
 		hot: true,
 		publicPath: "/"
 	},
-
 	module: {
 		rules: [
 			{
@@ -59,7 +58,9 @@ let webpackConfig = {
 					{
 						loader: "less-loader",
 						options: {
-							javascriptEnabled: true
+							lessOptions:{
+								javascriptEnabled: true
+							}
 						}
 					}
 				]

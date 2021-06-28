@@ -1,0 +1,28 @@
+.file-manager{
+    .ant-modal-header{
+        padding-bottom:10px;
+    }
+    .ant-modal-title{
+        >div{
+            font-size: 12px;
+            font-weight: 200;
+            color: #ababab;
+            display: flex;
+            >span{
+                cursor: pointer;
+                &::after{
+                    content:"/";
+                    margin:0 2px;
+                }
+                &:hover{
+                    color:blue
+                }
+            }
+            >span:last-child{
+                &::after{
+                    content: '';
+                }
+            }
+        }
+    }
+}

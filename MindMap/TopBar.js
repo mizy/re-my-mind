@@ -1,23 +1,13 @@
-import React, { PureComponent, Fragment } from "react";
-import { get } from "lodash";
+import { PureComponent, Fragment } from "react";
 import html2canvas from "html2canvas";
 import { saveAs } from "file-saver";
-import {
-	Icon,
-	Popover,
-	Button,
-	Modal,
-	Menu,
-	Input,
-	Dropdown,
-	Divider,
-	message,
-	Tooltip
-} from "antd";
+import { Popover, Button, Modal, Menu, Input, Dropdown, Divider, message, Tooltip } from "antd";
+import { MoreOutlined, StarOutlined, HighlightOutlined, ZoomOutOutlined, ZoomInOutlined } from '@ant-design/icons'
 import CommandKey from "./Modals/CommandKey";
 import ImportFile from "./Import/ImportFile";
-import History from "./Modals/History/index.js";
-const MM = window.MM;
+import FileManager from './Modals/FileManager';
+// import History from "./Modals/History/index.js";
+import { LaptopOutlined , SaveOutlined, FullscreenOutlined, FolderOpenOutlined, FolderOutlined, FileImageOutlined, ImportOutlined, ExportOutlined, CloudDownloadOutlined, UploadOutlined } from '@ant-design/icons'
 
 class TopBar extends PureComponent {
 	state = {
@@ -27,8 +17,9 @@ class TopBar extends PureComponent {
 	};
 
 	componentDidMount() {
-		this.oldData = JSON.stringify(this.props.nowData);
-		const { root = {} } = this.props.nowData || {};
+		const { nowData, app } = this.props;
+		this.oldData = JSON.stringify(nowData);
+		const { root = {} } = nowData || {};
 		const { children = [] } = root;
 		const noFold = children.find(item => item.collapsed !== 1);
 		if (!noFold) {
@@ -37,28 +28,36 @@ class TopBar extends PureComponent {
 			});
 		}
 		this.setState({
-			selectedKeys: [MM.App.current.getLayout().id]
+			selectedKeys: [app.page.root.getLayout().name]
 		});
-		MM.subscribe("item-select", item => {
+		app.on("item-select", item => {
 			this.setState({
-				selectedKeys: [item.getLayout().id]
+				selectedKeys: [item.getLayout().name]
 			});
 		});
-		MM.subscribe("redo", index => {
+		app.on("redo", index => {
 			this.setState({
 				historyIndex: index
 			});
 		});
-		MM.subscribe("undo", index => {
+		app.on("undo", index => {
 			console.log(index);
 			this.setState({
 				historyIndex: index
 			});
 		});
-		MM.subscribe("save", () => {
+		app.on("save", () => {
 			this.save();
 		});
+		app.on("zoom", (scale) => {
+			this.setState({ scale })
+		});
 
+		app.on("change", () => {
+			this.setState({
+				historyIndex: app.history.historyIndex
+			})
+		})
 		window.addEventListener("resize", this.resize);
 		this.startTimeout();
 	}
@@ -71,111 +70,95 @@ class TopBar extends PureComponent {
 		if (this.props.readonly) return;
 		this.timeout && clearTimeout(this.timeout);
 		this.timeout = setTimeout(() => {
-			this.save(false);
+			if(this.nowPath)this.save(false);
 			this.startTimeout();
-		}, 120000);
+		}, 30000);
 	}
 
-	save = async () => {
-		const { record = {} } = this.props;
-		let data = this.props.app.map.toJSON();
-		this.getBackgroundData(data);
-		const json = JSON.stringify(data);
-		// 一样的话直接保存
-		if (this.oldData === json) return message.success("保存成功");
-		this.oldData = json;
-
-
-		message.success("保存成功");
+	save = async (flag) => {
+		if(!this.nowPath){
+			return this.saveFile();
+		}
+		let data = this.props.app.page.toJSON();
+		const res = await fetch('/remind-api/save', {
+			method: "POST",
+			body: JSON.stringify({
+				path: this.nowPath,
+				data: JSON.stringify(data)
+			})
+		}).then(res => res.json()).then(res => {
+			if (!res.success) {
+				message.error("保存失败!", res.message);
+				return false;
+			}
+			return true;
+		}).catch(err => {
+			message.error(err.message)
+		});
+		if (flag !== false && res)
+			message.success("保存成功");
 	};
 
-	getBackgroundData(data) {
-		data.background = {
-			color: this.props.mind.state.backgroundColor,
-			image: this.props.mind.state.backgroundImage,
-			repeat: this.props.mind.state.backgroundRepeat,
-			size: this.props.mind.state.backgroundSize
-		};
-	}
-
 	undo = () => {
-		this.props.app.history[this.props.app.historyIndex - 1].undo();
-		this.props.app.historyIndex--;
+		const { history } = this.props.app;
+		history.history[history.historyIndex - 1].undo();
+		history.historyIndex--;
 		this.setState({
-			historyIndex: this.props.app.historyIndex
+			historyIndex: history.historyIndex
 		});
 	};
 
 	redo = () => {
-		this.props.app.history[this.props.app.historyIndex].perform();
-		this.props.app.historyIndex++;
+		const { history } = this.props.app;
+		history.history[history.historyIndex].perform();
+		history.historyIndex++;
 		this.setState({
-			historyIndex: this.props.app.historyIndex
+			historyIndex: history.historyIndex
 		});
 	};
 
 	add = () => {
-		const item = MM.App.current;
-		const action = new MM.Action.InsertNewItem(
-			item,
-			item.getChildren().length
-		);
-		this.props.app.action(action);
-		MM.Command.Edit.execute();
-		MM.publish("command-child");
+		const { app } = this.props;
+		if (!app.page.current) {
+			app.page.root.select()
+		}
+		app.command.execute("InsertChild")
+		app.fire("command-child");
 	};
 
 	addItem = () => {
-		var item = MM.App.current;
-		let action;
-		if (item.isRoot()) {
-			action = new MM.Action.InsertNewItem(
-				item,
-				item.getChildren().length
-			);
-		} else {
-			const parent = item.getParent();
-			const index = parent.getChildren().indexOf(item);
-			action = new MM.Action.InsertNewItem(parent, index + 1);
+		const { app } = this.props;
+		if (!app.page.current) {
+			app.page.root.select()
 		}
-		MM.App.action(action);
-		MM.Command.Edit.execute();
-		MM.publish("command-sibling");
+		app.command.execute("InsertSibling")
+		app.fire("command-sibling");
 	};
 
 	zoom = val => {
-		let { scale } = this.state;
+		let { app } = this.props;
+		let scale = app.controller.scale;
 		scale = scale * val;
 		if (scale < 0.05) return;
-		const node = this.props.app.map.getRoot().getDOM().node;
-		node.style.transition = "transform 0.3s ease-in";
-		node.style.transform = `scale(${scale})`;
-		clearTimeout(this.transitionTimeout);
-		this.transitionTimeout = setTimeout(() => {
-			node.style.transition = "";
-		}, 500);
+		app.controller.scale = scale;
+		app.controller.update();
 		this.setState({
 			scale
 		});
 	};
 
 	changeNodeType = (value, key) => {
-		const layout = MM.Layout.getById(value);
-		const action = new MM.Action.SetLayout(MM.App.current, layout);
-		MM.App.action(action);
+		const { app } = this.props;
+		const item = app.page.current || app.page.root;
+		app.action.execute('SetLayout', item, value)
 		this.setState({
 			selectedKeys: [value]
 		});
 	};
 
 	format = () => {
-		const root = MM.App.map.getRoot();
-		root._dom.node.style.transition = "left 0.3s ease-in,top 0.3s ease-in";
-		MM.App.map.center();
-		clearTimeout(this.transitionTimeout);
-		this.transitionTimeout = setTimeout(() => {
-			root._dom.node.style.transition = "";
-		}, 500);
+		const { app } = this.props;
+		app.page.center();
 	};
 
 	goback = () => {
@@ -189,17 +172,25 @@ class TopBar extends PureComponent {
 	};
 
 	export = () => {
-		html2canvas(document.querySelector(".re-mind .item"), {
+		html2canvas(document.querySelector(".remind-page"), {
 			useCORS: true
 		}).then(canvas => {
-			canvas.toBlob(blob => {
-				saveAs(blob, this.state.name + ".png");
+			const c = document.createElement("canvas");
+			const ctx = c.getContext("2d");
+			c.width = canvas.width / window.devicePixelRatio + 40;
+			c.height = canvas.height / window.devicePixelRatio + 40;
+			ctx.fillStyle = '#ffffff';
+			ctx.fillRect(0, 0, c.width, c.height);
+			ctx.drawImage(canvas, 20, 20, canvas.width / window.devicePixelRatio, canvas.height / window.devicePixelRatio);
+ 
+			c.toBlob(blob => {
+				saveAs(blob, (this.state.name || '脑图') + ".png");
 			});
 		});
 	};
 
 	addNote = () => {
-		MM.App.current.startNote();
+		this.props.app.page.current.startNote();
 	};
 
 	resize = () => {
@@ -258,13 +249,13 @@ class TopBar extends PureComponent {
 		this.props.mind.setState({
 			loading: true
 		});
+		const { app: remind } = this.props;
 		setTimeout(() => {
-			const children = MM.App.map.getRoot().getChildren();
+			const children = remind.page.root.children;
 			children.forEach(item => {
-				item._collapsed = !foldStatus;
-				item.update(true);
+				item.updateVisible(item.children, foldStatus)
 			});
-			MM.App.map.getRoot().update();
+			remind.page.root.updateSubtree()
 			this.format();
 			this.props.mind.setState({
 				loading: false
@@ -273,17 +264,30 @@ class TopBar extends PureComponent {
 				foldStatus: !foldStatus
 			});
 		}, 100);
+	}
 
+	openFile = (item)=>{
+		if(item.subType === 'mind'){
+			this.props.mind.queryData(item.path);
+			this.nowPath = item.path;
+		}
+	}
+
+	saveFile = ()=>{
+		this.fileManager.show(this.saveToDir,true)
+	}
+
+	saveToDir = (item)=>{
+		this.nowPath = item.path + '/' + item.fileName + '.remind';
+		this.save();
 	}
 
 	render() {
 		const { scale, fullscreen, foldStatus } = this.state;
-		const { type, mind, mindType = "mind", readonly, record = {} } = this.props;
-		const { book = {} } = record;
-		const { projectVersion = {} } = book;
+		const { type, app, mind, mindType = "mind", readonly} = this.props;
 		return (
 			<div className="minder-header">
-
+				<FileManager ref={ref=>{this.fileManager = ref}} />
 				<div className="main-mind-tab">
 					<Tooltip title="切换至思维导图">
 						<div
@@ -310,153 +314,125 @@ class TopBar extends PureComponent {
 				</div>
 
 				<div className="button-area">
-					{!readonly && (
-						<Fragment>
-							<div className="handle-button">
-								<Tooltip title="保存为版本">
-									<i
-										className="iconfont icon-editor-save"
-										onClick={() => {
-											this.save(true);
-										}}
-									></i>
-								</Tooltip>
-							</div>
-							<div className={"handle-button"}>
-								<i
-									className={`iconfont icon-editor-undo ${
-										MM.App.historyIndex > 0
-											? ""
-											: "disabled"
-										}`}
-									onClick={
-										MM.App.historyIndex > 0 && this.undo
-									}
-								/>
-							</div>
-							<div className={"handle-button "}>
-								<i
-									className={`iconfont icon-editor-redo ${
-										MM.App.historyIndex <
-											MM.App.history.length
-											? ""
-											: "disabled"
-										}`}
-									onClick={
-										MM.App.historyIndex <
-										MM.App.history.length && this.redo
-									}
-								/>
-							</div>
+					<Fragment>
 
-							<div className="handle-button">
-								<Tooltip title="插入子主题">
-									<i
-										className="iconfont icon-editor-insert-child"
-										onClick={this.add}
-									></i>
-								</Tooltip>
-							</div>
-							<div className="handle-button">
-								<Tooltip title="插入同级主题">
-									<i
-										className="iconfont icon-editor-insert-brother"
-										onClick={this.addItem}
-									></i>
-								</Tooltip>
-							</div>
-							<div className="handle-button">
-								<Tooltip title="备注">
-									<i
-										className="iconfont icon-biji"
-										onClick={this.addNote}
-									></i>
-								</Tooltip>
-							</div>
-							<div className="handle-button">
-								<Dropdown
-									overlayClassName="tnt-dropdown"
-									overlay={
-										<Menu
-											style={{ width: 120 }}
-											onClick={({ item, key }) => {
-												this.changeNodeType(key);
-											}}
-											selectedKeys={
-												this.state.selectedKeys
-											}
-										>
-											<Menu.Item key="map">
-												脑图
-											</Menu.Item>
-											<Menu.Item key="map-right">
-												脑图-右
-											</Menu.Item>
-											<Menu.Item key="map-left">
-												脑图-左
-											</Menu.Item>
-											<Menu.Divider />
-											<Menu.Item key="graph-top">
-												架构图-上
-											</Menu.Item>
-											<Menu.Item key="graph-bottom">
-												架构图-下
-											</Menu.Item>
-											<Menu.Item key="graph-left">
-												架构图-左
-											</Menu.Item>
-											<Menu.Item key="graph-right">
-												架构图-右
-											</Menu.Item>
-											<Menu.Divider />
-											<Menu.Item key="tree-right">
-												树图-右
-											</Menu.Item>
-											<Menu.Item key="tree-left">
-												树图-左
-											</Menu.Item>
-										</Menu>
-									}
-								>
-									<i className="iconfont icon-editor-org"></i>
-								</Dropdown>
-							</div>
-						</Fragment>
-					)}
+						<div className="handle-button">
+							<Tooltip title="保存">
+								<i
+									className="iconfont icon-editor-save"
+									onClick={() => {
+										this.save(true);
+									}}
+								></i>
+							</Tooltip>
+						</div>
+						<div className={"handle-button"}>
+							<i
+								className={`iconfont icon-editor-undo ${app.history.historyIndex > 0
+									? ""
+									: "disabled"
+									}`}
+								onClick={
+									app.history.historyIndex > 0 ? this.undo : undefined
+								}
+							/>
+						</div>
+						<div className={"handle-button "}>
+							<i
+								className={`iconfont icon-editor-redo ${app.history.historyIndex <
+									app.history.history.length
+									? ""
+									: "disabled"
+									}`}
+								onClick={
+									app.history.historyIndex <
+										app.history.history.length ? this.redo : undefined
+								}
+							/>
+						</div>
+
+						<div className="handle-button">
+							<Tooltip title="插入子主题">
+								<i
+									className="iconfont icon-editor-insert-child"
+									onClick={this.add}
+								></i>
+							</Tooltip>
+						</div>
+						<div className="handle-button">
+							<Tooltip title="插入同级主题">
+								<i
+									className="iconfont icon-editor-insert-brother"
+									onClick={this.addItem}
+								></i>
+							</Tooltip>
+						</div>
+						<div className="handle-button">
+							<Tooltip title="备注">
+								<i
+									className="iconfont icon-biji"
+									onClick={this.addNote}
+								></i>
+							</Tooltip>
+						</div>
+						<div className="handle-button">
+							<Dropdown
+								overlayClassName="tnt-dropdown"
+								overlay={
+									<Menu
+										style={{ width: 120 }}
+										onClick={({ item, key }) => {
+											this.changeNodeType(key);
+										}}
+										selectedKeys={
+											this.state.selectedKeys
+										}
+									>
+										<Menu.Item key="map"> 脑图 </Menu.Item>
+										<Menu.Item key="map-right"> 脑图-右</Menu.Item>
+										<Menu.Item key="map-left">脑图-左</Menu.Item>
+										<Menu.Divider />
+										<Menu.Item key="site-top">架构图-上</Menu.Item>
+										<Menu.Item key="site-bottom">架构图-下</Menu.Item>
+										<Menu.Divider />
+										<Menu.Item key="tree-right">树图-右</Menu.Item>
+										<Menu.Item key="tree-left">树图-左</Menu.Item>
+										<Menu.Item key="fish-right">鱼骨图-右</Menu.Item>
+										<Menu.Item key="fish-left">鱼骨图-左</Menu.Item>
+									</Menu>
+								}>
+								<i className="iconfont icon-editor-org"></i>
+							</Dropdown>
+						</div>
+					</Fragment>
 					<div className="handle-button">
 						<Tooltip title="归位">
-							<i
-								className="iconfont icon-guiwei"
-								onClick={this.format}
-							/>
+							<i className="iconfont icon-guiwei" onClick={this.format} />
 						</Tooltip>
 					</div>
 
 					<div className="handle-button">
-						<Tooltip title="放大">
-							<Icon
-								type="zoom-in"
-								onClick={() => {
-									this.zoom(1.2);
-								}}
-							/>
+						<Tooltip title="放大" >
+							<i onClick={() => {
+								this.zoom(1.1);
+							}}>
+								<ZoomInOutlined style={{ fontSize: 14 }} />
+							</i>
 						</Tooltip>
 					</div>
 					<div className="handle-button">
 						<Tooltip title="缩小">
-							<Icon
-								type="zoom-out"
-								onClick={() => {
-									this.zoom(0.8);
-								}}
-							/>
+							<i className="iconfont " onClick={() => {
+								this.zoom(0.9);
+							}}> <ZoomOutOutlined style={{ fontSize: 14 }} />
+							</i>
 						</Tooltip>
 					</div>
 					<div className="handle-button">
 						<Tooltip title="恢复成100%">
 							<i
 								className="iconfont "
-								style={{ fontSize: 14 }}
+								style={{ fontSize: 14, userSelect: "none" }}
 								onClick={() => {
 									this.zoom(1 / scale);
 								}}
@@ -467,88 +443,78 @@ class TopBar extends PureComponent {
 					</div>
 					<div className="handle-button">
 						<Tooltip title="全屏">
-							<Icon
-								type={
-									!fullscreen
-										? "fullscreen"
-										: "fullscreen-exit"
-								}
-								onClick={this.fullScreen}
-								style={{ fontSize: 14 }}
-							/>
+							<i><FullscreenOutlined
+									type={
+										!fullscreen
+											? "fullscreen"
+											: "fullscreen-exit"
+									}
+									onClick={this.fullScreen}
+									style={{ fontSize: 14 }}
+								/></i>
 						</Tooltip>
 					</div>
 					<div className="handle-button">
 						<Tooltip title="折叠2级节点">
-							<Icon
-								type={foldStatus ? "folder" : "folder-open"}
+							<i>{foldStatus ? <FolderOutlined
 								onClick={this.fold}
 								style={{ fontSize: 14 }}
-							/>
+							/> : <FolderOpenOutlined
+								onClick={this.fold}
+								style={{ fontSize: 14 }} />}</i>
 						</Tooltip>
 					</div>
 				</div>
+				
 				{!readonly && <CommandKey />}
+				
 				<Button.Group className="button-area-footer">
 					{!readonly && <Tooltip title="图标">
 						<Button
 							type={type === "icon" ? "primary" : "default"}
+							icon={<StarOutlined />}
 							onClick={() => {
 								this.props.mind.showRightPanel("icon");
 							}}
 						>
-							<Icon type="star" />
 						</Button>
 					</Tooltip>}
+
 					{!readonly && <Tooltip title="格式">
 						<Button
 							type={type === "format" ? "primary" : "default"}
+							icon={<HighlightOutlined />}
 							onClick={() => {
 								this.props.mind.showRightPanel("format");
 							}}
 						>
-							<Icon type="highlight" />
 						</Button>
+					</Tooltip>}
+					{!readonly && <Tooltip title="文件">
+						<Button onClick={()=>{this.fileManager.show(this.openFile)}} icon={<LaptopOutlined style={{cursor:"pointer"}} />} />
 					</Tooltip>}
 					<Dropdown
 						overlay={
 							<Menu
+								className="more-options"
 								onClick={({ domEvent }) =>
 									domEvent.stopPropagation()
-								}
-							>
-								{/* <Divider /> */}
-								<Menu.Item
-									onClick={() => {
-										this.export();
-									}}
-								>
-									<Icon type="export" />
-									导出为图片
-								</Menu.Item>
-								{!readonly && <Menu.Item
-									onClick={() => {
-										this.importFile.show();
-									}}
-								>
-									<Icon type="upload" />
-									从xmind文件导入
+								} >
+								<Menu.Item onClick={() => { this.saveFile() }}><SaveOutlined />另存为</Menu.Item>
+								<Menu.Item onClick={() => {this.export();}}><FileImageOutlined />导出为图片</Menu.Item>
+								{!readonly && <Menu.Item onClick={() => { this.importFile.show(); }} >
+									<ImportOutlined /> 从xmind文件导入
 								</Menu.Item>}
-								<Menu.Item
-									onClick={() => {
-										message.success("服务端完成")
-									}}
-								>
-									<Icon type="download" />
-									导出为xmind
+								<Menu.Item onClick={() => { message.success("服务端完成") }}><ExportOutlined /> 导出为xmind</Menu.Item>
+								<Menu.Item onClick={() => {
+										window.open(this.nowPath)
+								}}>
+									<CloudDownloadOutlined />下载
 								</Menu.Item>
-								<Menu.Item
-									onClick={() => {
-										this.history.show();
-									}}
-								>
-									<Icon type="history" />
-									历史记录
+								<Menu.Item onClick={() => {
+										message.success("服务端完成")
+									}}>
+									<UploadOutlined />上传
 								</Menu.Item>
 							</Menu>
 						}
@@ -556,17 +522,11 @@ class TopBar extends PureComponent {
 						overlayClassName="tnt-dropdown"
 						placement="bottomRight"
 					>
-						<Button icon="more" />
+						<Button icon={<MoreOutlined />} />
 					</Dropdown>
 				</Button.Group>
 				{readonly && <div className="read-only-bar">预览中</div>}
-				<History
-					mind={mind}
-					id={this.props.id}
-					ref={ref => {
-						this.history = ref;
-					}}
-				/>
+
 				<ImportFile
 					mind={mind}
 					id={this.props.id}

@@ -1,8 +1,8 @@
 import React, { PureComponent } from "react";
 import { Button, Dropdown, Icon, Select } from "antd";
 import { SketchPicker } from "react-color";
+import { BgColorsOutlined, DeleteOutlined } from '@ant-design/icons'
 const { Option } = Select;
-const MM = window.MM;
 /**
  * 背景样式
  */
@@ -12,7 +12,7 @@ export default class StyleEdit extends PureComponent {
 	};
 
 	componentDidMount() {
-		this.syncNowItem(MM.App.current);
+		this.syncNowItem(this.props.nowItem);
 	}
 
 	componentWillReceiveProps(props) {
@@ -24,48 +24,59 @@ export default class StyleEdit extends PureComponent {
 
 	// 同步数据
 	syncNowItem(item) {
-		const content = item.getDOM().content;
+		const content = item.dom;
 		this.setState({
 			color: content.style.backgroundColor || undefined
 		});
 		this.setState({
-			shape: item.getShape().id
+			shape: item.getShape()
 		});
 	}
 
 	changeBackGroundColor = e => {
+		const {nowItem} = this.props;
 		const rgb = e.rgb;
 		const color = `rgba(${rgb.r},${rgb.g},${rgb.b},${rgb.a})`;
 		this.setState({
 			color: color
 		});
-		MM.App.current.getDOM().content.style.backgroundColor = color;
+		if(!nowItem.data.style){
+			nowItem.data.style = {}
+		}
+		nowItem.data.style.backgroundColor = color;
+		nowItem.updateData();
 	};
 
 	changeShape = value => {
-		MM.App.current.setShape(MM.Shape.getById(value));
+		const { nowItem } = this.props;
+		nowItem.data.shape = value;
+		nowItem.update();
 		this.setState({
 			shape: value
 		});
 	};
 
 	clearColor = () => {
+		const {nowItem} = this.props;
+		if(nowItem.data.style)
+		delete nowItem.data.style.backgroundColor;
+		nowItem.updateData();
 		this.setState({
 			color: undefined
 		});
-		MM.App.current.getDOM().content.style.backgroundColor = null;
 	}
 
 	render() {
 		const { color, shape } = this.state;
 		return (
 			<div className="right-panel-card">
-				<div className="panel-title">背景</div>
+				<div className="panel-title">形状</div>
 				<div className="right-panel-card-children">
 					<Select
 						style={{ width: 100, marginRight: 20 }}
 						placeholder="样式"
 						value={shape}
+						size="small"
 						onChange={this.changeShape}>
 						<Option value="box">盒子</Option>
 						<Option value="underline">下划线</Option>
@@ -73,26 +84,21 @@ export default class StyleEdit extends PureComponent {
 					</Select>
 					{shape !== "underline" && (
 						<div className="right-panel-card-children">
-							<div
-								className="color-pick-demo"
-								style={{ backgroundColor: color }}></div>
-							<Button.Group>
-								<Dropdown
-									trigger="click"
-									overlay={
-										<SketchPicker
-											color={color}
-											onChangeComplete={this.changeBackGroundColor}
-										/>
-									}>
-									<Button>
-										<Icon fill={color} type="bg-colors" />
-									</Button>
-								</Dropdown>
-								<Button onClick={this.clearColor}>
-									<Icon type="delete" />
-								</Button>
-							</Button.Group>
+							<Dropdown
+								trigger="click"
+								overlay={
+									<SketchPicker
+										color={color}
+										onChangeComplete={this.changeBackGroundColor}
+									/>
+								}>
+								<div
+									className="color-pick-demo"
+									style={{ backgroundColor: color }}></div>
+							</Dropdown>
+							<div >
+								<DeleteOutlined onClick={this.deleteIcon} style={{ cursor: "pointer" }} />
+							</div>
 						</div>
 					)}
 				</div>

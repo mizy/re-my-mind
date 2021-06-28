@@ -1,0 +1,22 @@
+{
+    "extends": ["eslint:recommended", "plugin:react/recommended"],
+    "rules":{
+        "space-infix-ops":"warn",
+        "no-unused-vars":"warn",
+        "no-undef":"off",
+        "react/react-in-jsx-scope":"off",
+        "react/prop-types":"off",
+        "react/jsx-key":"off",
+        "react/no-direct-mutation-state":"off"
+    },
+    "parserOptions": {
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "parser": "@babel/eslint-parser",
+    "plugins": [
+        "react"
+    ]
+}

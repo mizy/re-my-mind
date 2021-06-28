@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="62px" height="50px" viewBox="0 0 62 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 57.1 (83088) - https://sketch.com -->
+    <title>icon</title>
+    <desc>Created with Sketch.</desc>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="司南-项目管理" transform="translate(-1418.000000, -170.000000)">
+            <g id="right" transform="translate(615.000000, 80.000000)">
+                <g id="编组-6" transform="translate(71.000000, 90.000000)">
+                    <g id="自定义二" transform="translate(732.000000, 0.000000)">
+                        <g id="icon" transform="translate(-0.000000, 0.000000)">
+                            <path d="M34.4615385,0 C36.6706775,-8.49901461e-16 38.4615385,1.790861 38.4615385,4 L38.461,5.384 L57.5384615,5.38461538 C59.7476005,5.38461538 61.5384615,7.17547639 61.5384615,9.38461538 L61.5384615,46 C61.5384615,48.209139 59.7476005,50 57.5384615,50 L4,50 C1.790861,50 2.705415e-16,48.209139 0,46 L0,9.38461538 L0,0 L34.4615385,0 Z" id="矩形-3" fill="#656D83"></path>
+                            <rect id="矩形" fill="#8C95B0" x="0" y="13.8461538" width="61.5384615" height="36.1538462" rx="4"></rect>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

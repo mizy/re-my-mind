@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64px" height="72px" viewBox="0 0 64 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 57.1 (83088) - https://sketch.com -->
+    <title>更新记录icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="62" height="69.75" rx="2"></rect>
+        <filter x="-2.4%" y="-2.2%" width="104.8%" height="104.3%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="0.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.448069108   0 0 0 0 0.482330986   0 0 0 0 0.585116621  0 0 0 1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="new" transform="translate(-1417.000000, -138.000000)">
+            <g id="right" transform="translate(615.000000, 70.000000)">
+                <g id="自定义一" transform="translate(803.000000, 69.000000)">
+                    <g id="更新记录icon">
+                        <g id="矩形-4备份-5">
+                            <g id="矩形">
+                                <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                                <use fill="#F5F7FD" fill-rule="evenodd" xlink:href="#path-1"></use>
+                            </g>
+                            <path d="M46,41.1034483 L46,43.0344828 L18,43.0344828 L18,41.1034483 L46,41.1034483 Z M46,36 L46,37.9310345 L18,37.9310345 L18,36 L46,36 Z M46,31 L46,32.9310345 L18,32.9310345 L18,31 L46,31 Z M46,26 L46,27.9310345 L18,27.9310345 L18,26 L46,26 Z M37.3103448,20 L37.3103448,21.9310345 L18,21.9310345 L18,20 L37.3103448,20 Z M34.4137931,15 L34.4137931,16.9310345 L18,16.9310345 L18,15 L34.4137931,15 Z" id="矩形-7" fill="#CBD0DF"></path>
+                        </g>
+                        <g id="更新" transform="translate(7.000000, 0.000000)" fill-rule="nonzero">
+                            <polygon id="路径" fill="#DEE4F5" points="1.33226815e-15 0 4 0 4 70 0 70"></polygon>
+                            <path d="M47.760487,56.6602856 C47.760487,56.6602856 45.7658249,61.7466794 39.0837139,59.2533479 L39.5823787,57.9568183 C39.5823787,57.9568183 40.0810434,56.7600226 38.4853153,57.0592212 L34.0970649,58.2560169 C34.0970649,58.2560169 33.0997355,58.5552154 33.5984002,59.4528126 L36.0917317,63.7413353 C36.0917317,63.7413353 36.8895966,64.4394662 37.2885274,63.5418691 L37.7871922,62.3450734 C37.7871922,62.2453404 45.9652958,65.3370587 47.760487,56.6602856 L47.760487,56.6602856 Z M33,54.9648321 C33,54.9648321 35.194133,49.9781778 41.7765007,52.5712369 L41.277836,53.8677665 C41.277836,53.8677665 40.7791712,55.0645622 42.3748993,54.865096 L46.7631497,53.7680326 C46.7631497,53.7680326 47.7604792,53.4688341 47.3615483,52.5712369 L44.9679601,48.2827142 C44.9679601,48.2827142 44.2698291,47.5845832 43.6714305,48.3824471 L43.1727657,49.5792428 C43.0730328,49.6789758 34.9946621,46.288059 33,54.9648321 L33,54.9648321 Z" id="形状" fill="#CBD0DF"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
