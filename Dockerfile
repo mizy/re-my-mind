@@ -1,10 +1,8 @@
 FROM node:14-alpine
-ENV PORT="7001"
-ENV SAVE_PATH="/reminds"
-ENV PASSWORD="admin"
-VOLUME $SAVE_PATH 
+VOLUME /reminds
 COPY dist /dist
 COPY server /server
 WORKDIR /server
+# RUN npm i
 EXPOSE 7001
-CMD node app.js $PORT $SAVE_PATH $PASSWORD
+CMD sh start.sh

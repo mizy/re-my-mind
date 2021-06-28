@@ -5271,6 +5271,13 @@ var Remind = /*#__PURE__*/function () {
       this.current.deselect();
     }
   }, {
+    key: "destroy",
+    value: function destroy() {
+      this.page.destroy();
+      this.off();
+      this.container.removeChild(this.remindDOM);
+    }
+  }, {
     key: "initDOM",
     value: function initDOM() {
       var remindDOM = document.createElement("div");

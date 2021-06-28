@@ -89,13 +89,20 @@ class Remind {
         this.note = new Note(this);
 
         this.addEvents();
-		return this;  
+		return this;
     }
 
     deselect(){
         this.current.deselect();
     }
  
+    destroy(){
+        this.keyboard.destroy();
+        this.page.destroy();
+        this.off();
+        this.container.removeChild(this.remindDOM)
+    }
+
     initDOM(){
         const remindDOM = document.createElement("div");
         remindDOM.className = ` remind`;
