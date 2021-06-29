@@ -17,12 +17,18 @@
 ```
 npm run start
 ```
+# Docker
+
+```
+docker run -d -v your_data_path:/reminds -p 7001:7001 mizydocker/remind
+```
 
 # Install
 
 ```sh
 npm i @tntx/remind --save
 ```
+
 
 # Usage
 
