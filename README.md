@@ -14,11 +14,14 @@
 
 ![snapshot](https://mizy.github.io/re-my-mind/snapshot.png)
 
+```
+npm run start
+```
 
 # Install
 
 ```sh
-npm i re-my-mind@2 --save
+npm i @tntx/remind --save
 ```
 
 # Usage
