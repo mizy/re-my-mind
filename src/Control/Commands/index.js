@@ -101,6 +101,7 @@ const getAllCommands = (remind)=>{
         },
         execute:function () {
             const item = remind.page.current;
+            if(item.isRoot())return;
             remind.action.execute('RemoveItem',item);
         }
     },{
@@ -148,6 +149,17 @@ const getAllCommands = (remind)=>{
             history.history[history.historyIndex].perform();
             history.historyIndex++;
             remind.fire("redo",history.historyIndex)
+        }
+    },
+    {
+        name:"DeleteIcon",
+        keys:[
+        ],
+        prevent:true,
+        execute:function (item,event) {
+            const key = event.target.getAttribute("data-key");
+            remind.action.execute('SetIcon',item, null,key);
+            remind.fire("item:change", item);
         }
     },
 ]

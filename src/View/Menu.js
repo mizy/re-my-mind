@@ -46,6 +46,7 @@ class Menu {
 
 	onShow = (e)=>{
 		e.preventDefault()
+		this.nowEvent = e;
 		// const item = this.remind.page.getByEvent(e);
 
 		// if(item){
@@ -63,7 +64,7 @@ class Menu {
 		e.preventDefault(); 
 		let command = e.target.getAttribute("data-command");
 		if (!command) { return; }
-		command = this.remind.command.execute(command,this.remind.page.current);
+		command = this.remind.command.execute(command,this.remind.page.current,this.nowEvent);
 		this.close();
     }
     

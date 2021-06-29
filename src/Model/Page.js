@@ -161,6 +161,9 @@ class Page {
     }
 
     center(){
+        if(!this.current){
+            return this.root.center();
+        }
         if(this.current !== this.root){
             return this.current.center();
         }

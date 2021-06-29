@@ -28,12 +28,6 @@ const getAllActions = (remind) => {
 		this._parent = parent;
 		this._index = index;
 		this.autoSelect = true;
-		const options = {};
-		//    const colors = MM.Theme.theme.colors || MM.App.options.colors;
-		//    let color = colors[index % colors.length];
-		//    if (parent.isRoot()) {
-		//        options.color = color;
-		//    }
 		this._item = new Item(remind.page);
 	};
 	Action.InsertNewItem.prototype = Object.create(Action.prototype);
@@ -191,25 +185,23 @@ const getAllActions = (remind) => {
 	};
 
 	Action.SetIcon = function (item, icon, type) {
-		this._item = item;
+		this.item = item;
 		if (icon) {
-			this._icon = Object.assign({}, item._icon, { [type]: icon });
+			this.icon = {...item.data.icon, [type]: icon };
 		} else {
-			this._icon = Object.assign({}, item._icon);
-			delete this._icon[type];
+			this.icon = {...item.data.icon}
+			delete this.icon[type];
 		}
-		this._oldIcon = item.getIcon();
+		this.oldIcon = item.data.icon;
 	};
 	Action.SetIcon.prototype = Object.create(Action.prototype);
 	Action.SetIcon.prototype.perform = function () {
-		this._item._icon = this._icon;
-		this._item.clearOffset();
-		this._item.update();
+		this.item.data.icon = this.icon;
+		this.item.updateData()
 	};
 	Action.SetIcon.prototype.undo = function () {
-		this._item._icon = this._oldIcon;
-		this._item.clearOffset();
-		this._item.update();
+		this.item.data.icon = this.oldIcon
+		this.item.updateData()
 	};
 
 	Action.SetSide = function (item, side) {

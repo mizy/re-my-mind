@@ -39,6 +39,9 @@ class Minder extends PureComponent {
 			if (data.success) {
 				this.app.page.setData(JSON.parse(data.data));
 				this.app.page.asyncShow();
+				this.setState({
+					nowData:this.app.page.data
+				})
 			} else {
 				throw new Error(data.message)
 			}

@@ -13,7 +13,7 @@
 		"build": " webpack --node-env production --config webpack.config.build.js",
 		"build:demo": "webpack --node-env production --config webpack.config.demo.js",
 		"doc": "jsdoc -d doc src/**/*.js",
-		"server":"nodemon -w server/ server/app.js"
+		"server": "nodemon -w server/ server/app.js"
 	},
 	"files": [
 		"dist/remind.js"
@@ -45,6 +45,7 @@
 		"file-saver": "^2.0.5",
 		"html-webpack-plugin": "^5.3.1",
 		"html2canvas": "^1.0.0-rc.7",
+		"jsdoc": "^3.6.7",
 		"less": "^4.1.1",
 		"less-loader": "^9.1.0",
 		"react": "^17.0.2",
