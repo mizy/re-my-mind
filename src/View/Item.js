@@ -177,8 +177,8 @@ class Item {
     }
 
     updateToggle(){
-        const {shrink = false} = this.data;
-        if(shrink){
+        const {shrink = false,children} = this.data;
+        if(shrink && children && children.length){
             this.toggleDOM.classList.add('toggled');
         }else{
             this.toggleDOM.classList.remove('toggled')
@@ -353,8 +353,10 @@ class Item {
         if(!this.data.note)this.data.note = '';// 把undefind置为空，用来显示note图标
         // 更新
         this.updateContent();
-        this.remind.note.show(this)
         this.update();
+        requestAnimationFrame(()=>{
+            this.remind.note.show(this)
+        })
     }
     
     endNote = function (text) {
@@ -384,10 +386,11 @@ class Item {
     }
 
     center(){
-        const { remindRect,x,y } = this.page;
-        const pageX = x + this.x;
-        const pageY = y + this.y
-        this.remind.controller.translate( pageX + this.contentRect.width / 2 - remindRect.width / 2, pageY + this.contentRect.height / 2 - remindRect.height / 2,true) 
+        const { remindRect,x,y,controller } = this.page;
+        const {scale} = controller;
+        const pageX = x + this.x * scale;
+        const pageY = y + this.y * scale
+        this.remind.controller.translate( pageX + this.contentRect.width * scale / 2 - remindRect.width / 2, pageY + this.contentRect.height * scale / 2 - remindRect.height / 2,true) 
     }
 
     select(){

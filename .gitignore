@@ -39,3 +39,4 @@ components/**/*.jsx
 /.history
 server/node_modules
 server/package-lock.json
+reminds

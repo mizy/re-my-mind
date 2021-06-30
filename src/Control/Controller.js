@@ -8,7 +8,7 @@ class Controller{
 
         this.addEvents(); 
     }
-
+ 
     addEvents(){
         const {remindDOM} = this.remind;
         remindDOM.addEventListener("mousewheel",(e)=>{
@@ -17,9 +17,18 @@ class Controller{
 				let { scale } = this;
 				scale = scale * (1 - e.deltaY / 50);
 				if (scale < 0.05 || scale > 10) return;
-				this.scale = scale;
-                this.update();
-                this.remind.fire("zoom",this.scale)
+                const originDis = {
+                    x:e.layerX - this.remind.page.x,
+                    y:e.layerY - this.remind.page.y
+                };
+                const scaleDis = scale / this.scale;
+                const newOriginDis = {
+                    x:originDis.x * scaleDis - originDis.x,
+                    y:originDis.y * scaleDis - originDis.y
+                }
+                this.x += newOriginDis.x ;
+                this.y += newOriginDis.y;
+                this.setScale(scale)
 				return;
 			}
         })
@@ -40,6 +49,12 @@ class Controller{
                 this.y = remindDOM.scrollTop;
             },1)
         })
+    }
+
+    setScale(scale){
+        this.scale = scale;
+        this.update();
+        this.remind.fire("zoom",this.scale)
     }
 
     startMove=(event)=>{

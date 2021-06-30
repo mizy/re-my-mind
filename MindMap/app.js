@@ -37,6 +37,7 @@ class Minder extends PureComponent {
 		this.path = path;
 		axios.get("/remind-api/get?path=" + path).then(({ data }) => {
 			if (data.success) {
+				this.app.controller.setScale(1);
 				this.app.page.setData(JSON.parse(data.data));
 				this.app.page.asyncShow();
 				this.setState({

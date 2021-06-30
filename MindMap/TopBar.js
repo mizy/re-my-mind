@@ -142,6 +142,7 @@ class TopBar extends PureComponent {
 		if (scale < 0.05) return;
 		app.controller.scale = scale;
 		app.controller.update();
+		app.page.center();
 		this.setState({
 			scale
 		});
@@ -245,6 +246,7 @@ class TopBar extends PureComponent {
 	};
 
 	fold = () => {
+
 		const { foldStatus } = this.state;
 		this.props.mind.setState({
 			loading: true
@@ -253,8 +255,13 @@ class TopBar extends PureComponent {
 		setTimeout(() => {
 			const children = remind.page.root.children;
 			children.forEach(item => {
+				item.data.shrink = !foldStatus;
+				item.updateToggle();
 				item.updateVisible(item.children, foldStatus)
 			});
+			if(!foldStatus)
+			remind.page.select(remind.page.root);
+
 			remind.page.root.updateSubtree()
 			this.format();
 			this.props.mind.setState({
@@ -456,11 +463,10 @@ class TopBar extends PureComponent {
 					</div>
 					<div className="handle-button">
 						<Tooltip title="折叠2级节点">
-							<i>{foldStatus ? <FolderOutlined
-								onClick={this.fold}
+							<i  onClick={this.fold} >{foldStatus ? <FolderOutlined
 								style={{ fontSize: 14 }}
 							/> : <FolderOpenOutlined
-								onClick={this.fold}
+
 								style={{ fontSize: 14 }} />}</i>
 						</Tooltip>
 					</div>
