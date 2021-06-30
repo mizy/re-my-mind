@@ -3,6 +3,10 @@
  */
 class Menu {
 
+	/**
+	 * 
+	 * @param {Remind} remind 
+	 */
     constructor(remind){
         this.init(remind);
     } 
@@ -18,6 +22,11 @@ class Menu {
 		this.close();
 	}
 
+	/**
+	 * 初始化右键菜单
+	 * @param {HTMLElement} dom 
+	 * @returns {undefined}
+	 */
 	initMenu =function (dom) {
         if(dom){
             dom.className += "menu";
@@ -69,10 +78,10 @@ class Menu {
     }
     
 	/**
-	 * @param  {} x
-	 * @param  {} y
-	 * @param  {} target
-     * @public
+	 * 打开右键菜单
+	 * @param  {Number} x
+	 * @param  {Number} y
+	 * @param  {HTMLElement} target
 	 */
 	open = function (x, y, target) {
 		this.dom.style.display = 'block';
@@ -80,19 +89,26 @@ class Menu {
 		
 		const iconCommand = this.dom.querySelector("[data-command=DeleteIcon]");
 
-		if (!iconCommand) return;
+		if (!iconCommand) return target; 
 	
 		if (target.getAttribute("data-key")) {
 			iconCommand.style.display = 'block';
 		} else {
 			iconCommand.style.display = 'none';
 		}
+		return target
 	}
 
+	/**
+	 * 关闭右键菜单
+	 */
 	close() {
 		this.dom.style.display = "none";
 	}
      
+	/**
+	 * 销毁
+	 */
     destroy(){
         this.dom.removeEventListener("click", this.onClick);
         this.remind.dom.removeEventListener("click", this.onClick);

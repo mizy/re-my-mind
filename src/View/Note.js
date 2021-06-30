@@ -1,5 +1,15 @@
+/**
+ * @class
+ */
 class Note {
+	/**
+	 * 
+	 * @param {Remind} app 
+	 */
 	constructor(app) {
+		/**
+		 * @prop {Remind}
+		 */
 		this.remind = app;
 		this.initDom();
 	}
@@ -20,6 +30,10 @@ class Note {
 		}
 	}
 
+	/**
+	 * 展示某个节点的note
+	 * @param {Item} item 
+	 */
 	show(item) {
 		this.status = "show"; 
 		this.note.style.top = item.y + item.contentRect.height + "px";
@@ -41,6 +55,10 @@ class Note {
 		}, 100)
 	}
 
+	/**
+	 * 隐藏Note
+	 * @returns {undefined}
+	 */
 	hide() {
 		if(this.status === 'hide')return
 		this.status = "hide";
@@ -53,6 +71,9 @@ class Note {
 		this.remind.fire("item-change", this.item)
 	}
 
+	/**
+	 * 销毁
+	 */
 	destroy() {
 		this.remind.page.dom.removeChild(this.note);
 		this.remind = undefined;

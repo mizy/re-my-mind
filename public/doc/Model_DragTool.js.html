@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Model/DragTool.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Model/DragTool.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import Item from '../View/Item';
+/**
+ * @class
+ */
+class DragTool{
+    constructor(page){
+        this.page = page;
+        this.initGhost();//初始化一个用来拖拽的GhostItem
+    }
+
+    initGhost(){
+        this.ghost = new Item(this.page,{
+            data:{
+                text:'ghost',
+                type:"ghost"
+            },
+            visible:false
+        });
+        this.ghost.render()
+    }   
+
+    startDrag =(startEvent,event,item)=>{
+        if(item.isRoot())return;
+        this.startEvent = startEvent;
+        this.item = item;
+        item.updateVisible(item.children,false);
+        item.update();
+        item.parent.removeChild(item);
+        item.dom.style.opacity = 0.5;
+        this.pageStartPos = {
+            x:this.page.x,
+            y:this.page.y
+        }
+        this.ghost.visible = true;
+        this.ghost.data.text  = item.data.text;
+        this.ghost.updateContent();
+        this.ghost.render();
+         
+        this.page.dom.addEventListener("mousemove",this.onDragMove);
+        window.addEventListener("mouseup",this.onDrop)
+    }
+
+    onDragMove = (e)=>{
+        e.preventDefault();
+        if(this.timeout)return;
+
+        const{item} = this;
+        const x = e.layerX - this.page.x ;
+        const y = e.layerY - this.page.y;
+        this.item.dom.style.transform = `matrix(1, 0, 0, 1, ${x - item.contentRect.width / 2},${y - item.contentRect.height / 2})`;
+        const closetItem = this.findDropItem(x,y);
+        if(!closetItem || closetItem.data.type === 'ghost' || closetItem.isRoot()){
+            return;
+        }
+        // 计算父容器和序号
+        const layout = closetItem.getLayout();
+        const direction = closetItem.data.side || layout.direction;
+         
+        let index = closetItem.index;
+        let parent = closetItem.parent;
+        if(direction === 'right' || direction === 'left'){
+            const shape = closetItem.getShape();
+            const isUnderline = shape.indexOf("underline") > -1;
+            if((x > (closetItem.x + closetItem.contentRect.width) &amp;&amp; direction === 'right') || (x &lt; closetItem.x &amp;&amp; direction === 'left')){
+                parent = closetItem;
+                index = 0;
+            }else{
+                if(y > (closetItem.y + closetItem.contentRect.height * (isUnderline ? 1 : 0.5))){
+                    index++;
+                }
+            }
+        }else{
+            if((y > (closetItem.y + closetItem.contentRect.height) &amp;&amp; direction === 'bottom') || (y &lt; closetItem.y &amp;&amp; direction === 'top')){
+                parent = closetItem;
+                index = 0;
+            }else if(x > (closetItem.x + closetItem.contentRect.width / 2)){
+                index++;
+            }
+        }
+        if(this.ghost.parent === parent &amp;&amp; this.ghost.index &lt; index){
+            index--
+        }
+        parent.insertChild(this.ghost,index,true);
+        this.parent = parent;
+        this.index = index;
+        this.timeout = 1;
+
+        setTimeout(()=>{
+            this.timeout = undefined;//拖动改成30帧
+        },30)
+    }
+
+    /**
+     * 通过坐标找到需要插入的父节点和位置
+     * 判断坐标是否在item.childrenBBox中来确定是否要下钻到下一级
+     * @param {*}} x 
+     * @param {*} y 
+     * @returns {Item}
+     */
+    findDropItem(x,y){
+        const {page} = this;
+        let closetItem,minDistance = Infinity,direction,res;
+        const dfs = (item)=>{
+            // 元素中心点
+            const center = {
+                x:item.x + item.contentRect.width / 2,
+                y:item.y + item.contentRect.height / 2
+            }
+            // 是否在元素内部
+            if(this.isInBBox(x,y,{
+                ...item.contentRect,
+                x:item.x,
+                y:item.y
+            })){
+                res = true;
+                closetItem = item;//在元素内部则直接就是它了
+                return true;
+            }
+            const distance = Math.pow(x - center.x,2) + Math.pow(y - center.y,2);
+            if(distance &lt;= minDistance){
+                minDistance = distance;
+                closetItem = item;
+            }
+            for(let i = 0;i &lt; item.children.length;i++){
+                const child = item.children[i];
+                if(!res){
+                    dfs(child)
+                }
+            }
+        }
+        dfs(page.root);
+        return closetItem;
+    }
+
+    /**
+     * 是否坐标在bbox中
+     * @param {Number} x 
+     * @param {Number} y 
+     * @param {SVGBBox} bbox 
+     */
+    isInBBox(x,y,bbox){
+        if(x > bbox.x &amp;&amp; x &lt; (bbox.x + bbox.width) &amp;&amp; y > bbox.y &amp;&amp; y &lt; (bbox.y + bbox.height)){
+            return true;
+        }
+        return false;
+    }
+
+    // 重新挂载父节点
+    moveDragItem(){
+        
+    }
+
+    onDrop = (e)=>{
+        this.item.dom.style.opacity = 1;
+        this.ghost.parent.removeChild(this.ghost);
+        this.ghost.visible = false;
+        this.ghost.render();
+        this.item.updateVisible(this.item.children,true);
+        this.parent.insertChild(this.item,this.index);
+        this.item = undefined;
+        this.parent = undefined;
+        this.index = undefined;
+        this.page.dom.removeEventListener("mousemove",this.onDragMove);
+        window.removeEventListener("mouseup",this.onDrop)
+    }
+
+    /**
+     * 销毁
+     */
+    destroy(){
+        this.page = undefined;
+        this.ghost.destroy();
+    }
+}
+export default DragTool;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Remind.html">Remind</a></li></ul><h3>Classes</h3><ul><li><a href="Action.html">Action</a></li><li><a href="Command.html">Command</a></li><li><a href="Controller.html">Controller</a></li><li><a href="DragTool.html">DragTool</a></li><li><a href="History.html">History</a></li><li><a href="Item.html">Item</a></li><li><a href="Keyboard.html">Keyboard</a></li><li><a href="Menu.html">Menu</a></li><li><a href="MM.Clipboard.html">Clipboard</a></li><li><a href="Note.html">Note</a></li><li><a href="Page.html">Page</a></li><li><a href="Remind.html">Remind</a></li></ul><h3>Events</h3><ul><li><a href="Remind.html#event:item:afterToggle">item:afterToggle</a></li><li><a href="Remind.html#event:item:beforeToggle">item:beforeToggle</a></li><li><a href="Remind.html#event:item:click">item:click</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Wed Jun 30 2021 20:02:23 GMT+0800 (中国标准时间)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

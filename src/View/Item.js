@@ -1,28 +1,70 @@
 import Nodes from './Nodes/Nodes'
 import Page from '../Model/Page';
 import { v4 as uuidv4 } from 'uuid';
+/**
+ * 节点类
+ */
 class Item {
+    /**
+     * @prop {Array} 子节点数组
+     */
     children = [];
+    /**
+     * 当前节点作为整体时在父容器rect时的相对位置
+     * @prop {Object} 
+     */
     position = {
         x:0,
         y:0
-    }; // 当前节点作为整体时在父容器rect时的相对位置
+    };
+    /**
+     * 当前节点在 当前节点的rect中的位置
+     * @prop {Object}
+     */
     relativePos = {
         x:0,
         y:0
-    } // 当前节点在 当前节点的rect中的位置
-    originPos = { // 坐标原点的偏移量
+    } 
+    /**
+     * 坐标原点的偏移量
+     * @prop {Object}
+     */
+    originPos = { 
         x:0,
         y:0
     }
+    /**
+     * 节点及子元素rect 的全局偏移
+     * @prop {Object}
+     */
     globalPos = {
         x:0,y:0
-    } // 节点及子元素rect 的全局偏移
-    x=0 // 节点当前全局坐标
+    } 
+    /**
+     * 节点当前全局坐标 x
+     * @prop {Number}
+     */
+    x=0 
+    /**
+     * 节点当前全局坐标 y
+     * @prop {Number}
+     */
     y=0
-
-    rect = undefined // 当前节点及下游所有节点的rect
-    contentRect = undefined // 当前节点内容dom的rect
+    /**
+     * 当前节点及下游所有节点的rect
+     * @prop {Rect}
+     */
+    rect = undefined 
+     /**
+     * 当前节点内容dom的rect
+     * @prop {Rect}
+     */
+    contentRect = undefined 
+    /**
+     * @constructor
+     * @param {Page} page 
+     * @param {Object} option 
+     */
     constructor(page,option = {}){
         const {
             depth,
@@ -40,6 +82,10 @@ class Item {
         }
     }
 
+    /**
+     * 设置脑图数据，和dom节点
+     * @param {TreeData} data 
+     */
     setData(data){
         this.clear();
         this.data = data;
@@ -60,11 +106,19 @@ class Item {
         this.initChildren();
     }
 
+    /**
+     * 设置布局
+     * @param {String} layout 
+     */
     setLayout(layout){
         this.data.layout = layout;
         this.layout = this.page.layout[this.data.layout];
     }
 
+    /**
+     * 返回当前节点数据
+     * @returns {Object}
+     */
     getData(){
         const children = [];
         this.children.forEach(item=>{
@@ -105,12 +159,20 @@ class Item {
         event.stopPropagation();
         this.remind.remindDOM.removeEventListener("mousemove",this.onMouseMove)
         this.page.select(this);
-        this.remind.fire("item-click",this)
+        /**
+         * 节点被单击事件
+         * @event Remind#item:click 
+         * @type {Item}
+         */
+        this.remind.fire("item:click",this)
     }
     onContextMenu=(event)=>{
         this.page.select(this)
     }
 
+    /**
+     * 初始化子节点
+     */
     initChildren(){
         const {children = [],shrink} = this.data;
         children.forEach(child=>{
@@ -123,6 +185,9 @@ class Item {
         })
     }
 
+    /**
+     * 用最新的节点数据更新节点DOM
+     */
     updateContent(){
         const {type = 'default',active} = this.data;
        
@@ -153,6 +218,11 @@ class Item {
     }
 
     onToggleClick =()=>{
+        /**
+         * 点击收缩前
+         * @event Remind#item:beforeToggle
+         * @type {Item} 
+         */
         this.remind.fire("item:beforeToggle",this)
         this.data.shrink = !this.data.shrink;
         this.updateToggle();
@@ -164,9 +234,19 @@ class Item {
             this.updateVisible(this.children,false)
             this.update();
         }
+        /**
+         * 点击收缩后
+         * @event Remind#item:afterToggle
+         * @type {Item}
+         */
         this.remind.fire("item:afterToggle",this)
     }
 
+    /**
+     * 递归更新子节点是否可见
+     * @param {Array} children 
+     * @param {boolean} visible 
+     */
     updateVisible(children = [],visible){
         children.forEach(child=>{
             child.visible = visible;
@@ -176,6 +256,9 @@ class Item {
         })
     }
 
+    /**
+     * 更新伸缩按钮样式
+     */
     updateToggle(){
         const {shrink = false,children} = this.data;
         if(shrink && children && children.length){
@@ -185,21 +268,19 @@ class Item {
         }
     }
     
+    /**
+     * 展开当前节点
+     */
     expand(){
         if(this.data.shrink){
             this.onToggleClick();
         }
     }
-
-     /**
-     * 更新样式
-     */
-    updateStyle(){
-
-    }
-
+   
     /**
-     * 更新下属和自己节点的布局信息
+     * 先更新所有下属，然后update
+     * @param {Boolean} [recurse=true] recurse 是否递归向上更新
+     * @param {Function} [func=undefined] func 子节点执行完后的递归回调函数
      */
     updateSubtree(recurse = true,func){
         this.children.forEach(item=>{
@@ -208,8 +289,10 @@ class Item {
         func ? this[func](recurse) : this.update(recurse);
     }
     
-
-    // bfs 更新依赖树结构的相关数据和样式
+    /**
+     * 更新节点自身的样式和布局数据,递归向上
+     * @param {Boolean} [recurse=true] recurse 是否递归向上更新
+     */
     update(recurse = true){
         this.updateShape();
         if(!this.contentRect)this.updateContentRect();// 避免编辑新增节点初始化时没有contentRect
@@ -219,6 +302,10 @@ class Item {
         }
     }
 
+    /**
+     * 更新数据后重新渲染该节点，递归向上更新
+     * @param {Object|undefined} data 
+     */
     updateData(data){
         if(data){
             Object.assign(this.data,data)
@@ -227,24 +314,39 @@ class Item {
         this.update();
     }
 
+    /**
+     * 更新节点dom的classname
+     */
     updateShape(){
         this.dom.className = 'remind-item shape-' + this.getShape();
     }
 
+    /**
+     * 更新当前节点布局数据
+     */
     updateLayout(){
         this.getLayout().update(this);
     }
 
+    /**
+     * 跟下节点本身的Rect
+     */
     updateContentRect(){
         const rect = this.dom.getBoundingClientRect();
         // 本体节点rect
         this.contentRect = rect;
     } 
 
+    /**
+     * 更新下属的连接线
+     */
     updateLine(){
         this.getLayout()?.updateLine(this)
     }
-    // dfs
+    
+    /**
+     * 利用已有布局数据渲染该节点及其下属节点
+     */
     render(){
         this.updatePosition();
         this.dom.style.display = this.visible ? 'flex' : 'none';
@@ -275,12 +377,20 @@ class Item {
         this.y = globalPos.y + this.relativePos.y + this.originPos.y;
     }
 
+    /**
+     * 获取当前的布局类型
+     * @returns {String} 
+     */
     getLayout(){
         const layout =  this.layout || this.parent?.getLayout();
         
         return layout;
     }
 
+    /**
+     * 根据主题获取当前的节点按照规则形状
+     * @returns {String}
+     */
     getAutoShape(){
         if(!this.depth){this.depth}
         const {theme} = this.page;
@@ -291,15 +401,28 @@ class Item {
         }
     }
  
+    /**
+     * 获取当前节点形状
+     * @returns {String}
+     */
     getShape(){
         return this.data.shape || this.getAutoShape();
     }
 
+    /**
+     * 获取线的形状
+     * @returns {String} 
+     */
     getLineShape(){
         const {theme} = this.page;
         return this.data.lineShape || theme.lineShape || "bezier";
     }
-
+    
+    /**
+     * 获取子节点应该有的颜色，如果没有颜色，会自动生成到子节点数据中
+     * @param {Item} child 
+     * @returns {String}
+     */
     getColor(child){
         if(this.data.color){
             return this.data.color;
@@ -313,7 +436,9 @@ class Item {
         return this.parent.getColor(this);
     }
   
-
+    /**
+     * @returns {Boolean}
+     */
     isVisible(){
         const {x,y} = this;
         const {remindRect,x:pageX,y:pageY} = this.page;
@@ -328,6 +453,9 @@ class Item {
         return false;
     }
  
+    /**
+     * 开始进入编辑态
+     */
     startEdit=()=>{
         this.oldText = this.data.text || '';
         const {textDOM,dom} = this;
@@ -340,6 +468,9 @@ class Item {
         dom.style.zIndex = 1000;//不会被盖住 
     }
 
+     /**
+     * 退出编辑态
+     */
     stopEdit = ()=>{
         this.page.editing = false;
         const {textDOM,dom} = this;
@@ -349,6 +480,9 @@ class Item {
         textDOM.blur();
     }
 
+    /**
+     * 进入备注态
+     */
     startNote = function () {
         if(!this.data.note)this.data.note = '';// 把undefind置为空，用来显示note图标
         // 更新
@@ -359,6 +493,10 @@ class Item {
         })
     }
     
+     /**
+     * 结束备注态
+     * @param {String} text
+     */
     endNote = function (text) {
         if (text === this.data.note) return;
         this.data.note = text === '' ? undefined : text;
@@ -368,6 +506,10 @@ class Item {
         }
     }
 
+    /**
+     * 设置节点的文本并且更新
+     * @param {Stirng} text 
+     */
     setText(text){
         this.data.text = text;
         this.updateContent();
@@ -385,6 +527,9 @@ class Item {
         this.remind.command.execute("Finish")
     }
 
+    /**
+     * 居中当前节点
+     */
     center(){
         const { remindRect,x,y,controller } = this.page;
         const {scale} = controller;
@@ -393,14 +538,27 @@ class Item {
         this.remind.controller.translate( pageX + this.contentRect.width * scale / 2 - remindRect.width / 2, pageY + this.contentRect.height * scale / 2 - remindRect.height / 2,true) 
     }
 
+    /**
+     * 选中当前节点
+     */
     select(){
         this.page.select(this)
     }
 
+    /**
+     * 获取在父节点中的索引位置
+     */
     get index(){
         return (this.parent && this.parent.children) ? this.parent.children.indexOf(this) : undefined
     }
 
+    /**
+     * 插入子节点
+     * @param {Item} child 子节点实例
+     * @param {Number} index 插入位置
+     * @param {Boolean} ifUpdate 是否立即更新样式
+     * @returns {Item} 子节点
+     */
     insertChild(child,index,ifUpdate = true){
         if(child.parent){
             const oldParent = child.parent;
@@ -422,6 +580,11 @@ class Item {
         return child;
     }
 
+    /**
+     * 删除节点
+     * @param {Item} child 
+     * @param {Boolean} ifUpdate 
+     */
     removeChild(child,ifUpdate = true){
         const index = this.children.indexOf(child);
         child.depth = 0;
@@ -435,6 +598,9 @@ class Item {
         }
     }
 
+    /**
+     * 清空当前节点的数据,便于重新setData
+     */
     clear(){
         this.clearChildren();
         this.clearEvents();
@@ -453,6 +619,9 @@ class Item {
         }
     }
 
+    /**
+     * 清空所有子节点
+     */
     clearChildren(){
         let childrenCopy = [...this.children];
         childrenCopy.forEach(item=>{
@@ -461,16 +630,22 @@ class Item {
         this.children = [];
     }
 
+    /**
+     * 是否为根节点
+     * @returns {Boolean}
+     */
     isRoot(){
         return this.parent instanceof Page
     }
 
+    /**
+     * 销毁
+     */
     destroy(){
         if(this.parent){
             this.parent.removeChild(this,false);
         }
-        this.dom.parentElement && this.dom.parentElement.removeChild(this.dom);
-        this.clearChildren();
+        this.clear();
     }
 }
 export default Item;

@@ -1,10 +1,23 @@
+/**
+ * @class
+ */
 class History{
+	/**
+	 * @prop {Array} history 历史action栈
+	 */
     history= []
+	/**
+	 * @prop {Number} historyIndex 当前堆栈指针
+	 */
     historyIndex= 0
     constructor(remind){
         this.remind = remind;
     }
     
+	/**
+	 * 执行操作事务
+	 * @param {Action} action 
+	 */
 	action(action) {
 		this.remind.fire("action",action);
 		if(action.stop)return;
@@ -17,6 +30,9 @@ class History{
 		return this;
 	}
 
+	/**
+	 * 清空
+	 */
     clear(){
         this.history = [];
         this.historyIndex = 0;

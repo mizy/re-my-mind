@@ -1,6 +1,15 @@
 export default {
+    /**
+     * 节点渲染器，默认为default
+     */
     nodes:{
-        // 支持icon，note的节点
+        /**
+         * 支持icon，note的节点
+         * @name Remind.nodes#default
+         * @function
+         * @param {Item} item 
+         * @param {HTMLElement} container 
+         */
         default:(item,container)=>{
             container.innerHTML = '';
             const {data} = item;
@@ -52,7 +61,12 @@ export default {
             container.appendChild(text); 
         },
     },
-    
+  
+    /**
+     * @name Remind.nodes#registerNode
+     * @param {String} type 
+     * @param {Function} func 
+     */
     registerNode:(type,func)=>{
         this.nodes[type] = func
     }

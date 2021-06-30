@@ -3,17 +3,54 @@ import {MapLayout,SiteLayout,TreeLayout,FishLayout} from '../Layout';
 import theme from '../View/Theme';
 import DragTool from "./DragTool";
 
+/**
+ * 页面管理器
+ */
 class Page {
+    /**
+     * @prop {Array} lines 渲染线数据
+     */
     lines=[];
+    /**
+     * @prop {Number} x page画布偏移距离
+     */
     x=0;
+    /**
+     * @prop {Number} y page画布偏移距离
+     */
     y=0;
+    /**
+     * @constructor
+     * @param {Remind} remind 
+     */
     constructor(remind){
+        /**
+         * @instance 
+         */
         this.remind = remind;
+         /**
+         * @instance 
+         */
         this.page = remind.page;
+         /**
+         * @instance 
+         */
         this.options = remind.options;
+         /**
+         * @instance 
+         */
         this.root = null;
+         /**
+         * @instance 
+         */
         this.visible = false;
+         /**
+         * @instance 
+         */
         this.position = [0, 0]; 
+         /**
+         * @instance 
+         */
         this.controller = remind.controller;
         this.initDOM();
         this.initLayout();
@@ -31,9 +68,15 @@ class Page {
         }
         // 延时进行操作
         this.asyncShow();
+        /**
+         * @instance DragTool
+         */
         this.dragTool = new DragTool(this);
     }
 
+    /**
+     * 延迟渲染，设置数据后调用，可以提高性能
+     */
     asyncShow(){
         requestAnimationFrame(()=>{
             this.show();
@@ -81,6 +124,10 @@ class Page {
         this.svgConatiner = g;
     } 
 
+    /**
+     *  设置数据，更新dom样式，但不渲染
+     * @param {Object} data 
+     */
     setData(data){
         this.root && this.root.destroy();
         this.data = data;
@@ -94,29 +141,28 @@ class Page {
         this.root.parent = this;
     }
 
+    /**
+     * 更新容器的样式通过data.style
+     */
     updateContainerStyle(){
         if(this.data.style)
         Object.assign(this.remind.remindDOM.style,this.data.style);
     }
 
+    /**
+     * 设置主题
+     * @param {String} value 
+     */
     setTheme(value = 'default'){
         this.theme = theme.themes[value];
         this.remind.remindDOM.className = `remind theme-${value}`;
         this.data.theme = value;
     }
 
-    onMouseDown(event){
-        const onMouseUp = ()=>{
-            window.removeEventListener("mousemove",onMouseMove);
-            window.removeEventListener('mouseup',onMouseUp)
-        }
-        const onMouseMove = (event)=>{
-            // const disX = 
-        }
-        window.addEventListener("mousemove",onMouseMove);
-        window.addEventListener('mouseup',onMouseUp)
-    }
-
+    /**
+     * 选中节点
+     * @param {Item} item 
+     */
     select(item){
         this.deselect();
         if(item === this.current){
@@ -128,6 +174,9 @@ class Page {
         this.remind.fire("item:select")
     }
 
+    /**
+     * 取消选中
+     */
     deselect(){
         if(!this.current)return;
         this.current.dom.classList.remove('active');
@@ -136,12 +185,20 @@ class Page {
         this.remind.fire("item:deselect")
     }
 
+    /**
+     * 无颜色时获取根节点颜色
+     * @returns {String}
+     */
     getColor(){
         const {theme:{colors}} = this;
         
         return '#999'
     }
  
+    /**
+     * 获取脑图数据
+     * @returns {Object}
+     */
     toJSON(){
         const {root,...others} = this.data;
         const data = {
@@ -151,6 +208,9 @@ class Page {
         return data;
     }
 
+    /**
+     * 重新初始化渲染并居中展示
+     */
     show(){
         this.updateSubtree(false);// 统一更新
         this.update();
@@ -159,7 +219,9 @@ class Page {
         this.center();
         return this;
     }
-
+    /**
+     * 居中
+     */
     center(){
         if(!this.current){
             return this.root.center();
@@ -174,12 +236,17 @@ class Page {
         }
     }
 
-    // 更新节点树信息
+   /**
+    * 更新节点树信息
+    * @param {Function} [func=undefined] func  回调
+    */
     updateSubtree(func){
         this.root.updateSubtree(false,func);
     }
 
-    // 渲染
+    /**
+     * 重绘更新容器数据
+     */
     update(){
         this.lines = [];
         this.remember();
@@ -219,7 +286,9 @@ class Page {
         return this.oldPosition = undefined
     }
 
-    // 更新根节点宽高
+    /**
+     * 更新根节点宽高
+     */
     updateRootWidth() {
         const rect = this.root.rect;
         const remindRect = this.remind.container.getBoundingClientRect();
@@ -241,6 +310,9 @@ class Page {
         return;
     }
 
+    /**
+     * 重绘样式
+     */
     render(){
         this.updateCanvasStyle();
         this.root.render();
@@ -308,6 +380,11 @@ class Page {
         this.paths.splice(end,this.paths.length - end)
     }
 
+    /**
+     * 通过事件获取节点
+     * @param {UIEvent} e 
+     * @returns {Item}
+     */
     getByEvent(e){
         let item = e.target;
         while(item && item.className.indexOf("remind-item") === -1){
@@ -329,6 +406,11 @@ class Page {
         return res;
     }
 
+    /**
+     * 根据uuid去查节点
+     * @param {string} uuid 
+     * @returns {Item}
+     */
     getItemByUUID(uuid){
         let res ;
         function dfs(now){
@@ -345,19 +427,18 @@ class Page {
         return res; 
     }
 
-    resetTheme(reRender) {
-        this.root.resetTheme();
-        return this;
-    }
-
     removeChild(){
         this.root = undefined;
     }
-    
 
+    /**
+     * 销毁
+     */
     destroy(){
+        this.dragTool.destroy();
         this.root.destroy();
-        this.remind.dom.removeEventListener("click",this.onClickPage)
+        this.dom.remove();
+        this.root = undefined;
     }
 
 }

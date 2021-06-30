@@ -1,4 +1,8 @@
+
 const theme = {
+	/**
+	 * @name Remind.theme.themes
+	 */
 	themes: {
 		default:{
 			main: "ellipse",
@@ -29,9 +33,13 @@ const theme = {
 		}
 	},
 
+	/**
+	 * @name Remind.theme.themes
+	 * @param {String} name 注册主题名
+	 * @param {Object} options 主题配置，默认继承default主题
+	 */
 	registe(name,options){
 		theme.themes[name] = Object.assign({},theme.themes.default,{className:name},options);
 	}
-}
-
+} 
 export default theme;

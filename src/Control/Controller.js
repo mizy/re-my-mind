@@ -1,11 +1,25 @@
+/**
+ * @class
+ */
 class Controller{
     constructor(remind){
         this.remind = remind;
+        /**
+         * @prop {Number}
+         */
         this.scale = 1;
+        /**
+         * @prop {Number}
+         */
         this.x = 0;
+        /**
+         * @prop {Number}
+         */
         this.y = 0;
-        this.stat
-
+         /**
+         * @prop {String} 状态
+         */
+        this.status = 'normal'
         this.addEvents(); 
     }
  
@@ -51,6 +65,10 @@ class Controller{
         })
     }
 
+    /**
+     * 设置缩放并实施
+     * @param {Number} scale 
+     */
     setScale(scale){
         this.scale = scale;
         this.update();
@@ -81,6 +99,12 @@ class Controller{
         window.document.removeEventListener("mouseup",this.onEndMove)
     }
 
+    /**
+     * 移动到指定位置
+     * @param {Number} x 
+     * @param {Number} y 
+     * @param {Boolean} animate 是否动画
+     */
     translate(x,y,animate){
         if(!animate || !this.x || !this.y){
             this.x = x;
@@ -107,6 +131,9 @@ class Controller{
         update()
     }
 
+    /**
+     * 根据数据进行移动
+     */
     update(){
         const {scale,x,y} = this;
         this.remind.remindDOM.scrollLeft = x;

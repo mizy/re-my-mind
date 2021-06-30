@@ -10,13 +10,20 @@ import line from './Layout/Lines';
 import theme from './View/Theme';
 import Controller from './Control/Controller'
 import Note from './View/Note'
+import Nodes from './View/Nodes/Nodes'
 
 import './index.less'
 // import MouseManager from './Control/Mou'
 /**
- * @class
+ * 入口类
  */
 class Remind {
+    /**
+     * @constructor
+     * @param {*} container 
+     * @param {*} options 
+     * @returns {Remind}
+     */
     constructor(container,options = {}){
         if(container){
             return this.init(container,options)
@@ -100,7 +107,8 @@ class Remind {
         this.keyboard.destroy();
         this.page.destroy();
         this.off();
-        this.container.removeChild(this.remindDOM)
+        this.remindDOM.remove();
+        this.remindDOM = undefined;
     }
 
     initDOM(){
@@ -131,14 +139,17 @@ class Remind {
     
     _subscribers= {}
 
+    /**
+     * 
+     */
 	clear(){
 		this._subscribers = {}
 	}
     
 	/**
-	 * @param  {} message
-	 * @param  {} publisher
-	 * @param  {} data
+	 * @param  {String} message 事件名
+	 * @param  {Object} publisher 数据1
+	 * @param  {Object} data 数据2
 	 */
 	fire (message, publisher, data) {
 		var subscribers = this._subscribers[message] || [];
@@ -147,8 +158,8 @@ class Remind {
 		});
 	}
 	/**
-	 * @param  {} message
-	 * @param  {} subscriber
+	 * @param  {String} message 事件名
+	 * @param  {Function} subscriber 箭头函数
 	 */
 	on(message, subscriber) {
 		if (!(message in this._subscribers)) {
@@ -170,7 +181,11 @@ class Remind {
 		if (index > -1) { this._subscribers[message].splice(index, 1); }
 	}
 }
-window.Remind = Remind;
+window.Remind = Remind; 
 Remind.theme = theme;
+Remind.nodes = Nodes;
 Remind.line = line;// 暴露出去可用复写
+/**
+ * @exports Remind
+ */
 export default Remind;

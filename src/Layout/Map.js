@@ -1,5 +1,5 @@
 
-import Line from './Lines';
+import Line from './Lines'; 
 class MapLayout {
     LINE_THICKNESS = 8;
     name = 'map';

@@ -1,5 +1,5 @@
 
-import Line from './Lines';
+import Line from './Lines'; 
 class TreeLayout {
     name = 'tree';
 	constructor(page,direction = 'right') {

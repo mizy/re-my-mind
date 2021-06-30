@@ -1,4 +1,7 @@
 import Item from '../View/Item';
+/**
+ * @class
+ */
 class DragTool{
     constructor(page){
         this.page = page;
@@ -92,7 +95,7 @@ class DragTool{
      * 判断坐标是否在item.childrenBBox中来确定是否要下钻到下一级
      * @param {*}} x 
      * @param {*} y 
-     * @returns 
+     * @returns {Item}
      */
     findDropItem(x,y){
         const {page} = this;
@@ -129,6 +132,12 @@ class DragTool{
         return closetItem;
     }
 
+    /**
+     * 是否坐标在bbox中
+     * @param {Number} x 
+     * @param {Number} y 
+     * @param {SVGBBox} bbox 
+     */
     isInBBox(x,y,bbox){
         if(x > bbox.x && x < (bbox.x + bbox.width) && y > bbox.y && y < (bbox.y + bbox.height)){
             return true;
@@ -155,6 +164,12 @@ class DragTool{
         window.removeEventListener("mouseup",this.onDrop)
     }
 
-
+    /**
+     * 销毁
+     */
+    destroy(){
+        this.page = undefined;
+        this.ghost.destroy();
+    }
 }
 export default DragTool;
