@@ -495,7 +495,7 @@ function bezier(item) {
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".remind.theme-stright {\n  background-color: #f4f9fa;\n}\n.remind.theme-stright .remind-page .shape-ellipse {\n  border-radius: 10px;\n  background-color: #ff383e !important;\n  border: 3px solid #ff8d8f;\n  padding: 20px;\n}\n.remind.theme-stright .remind-page .shape-ellipse .item-text {\n  font-size: 28px;\n}\n.remind.theme-box {\n  background-color: #1f2934;\n}\n.remind.theme-box .remind-scroll .remind-page .shape-ellipse {\n  background-color: #1f2934;\n  border: 3px solid #20a5a1;\n  font-size: 48px;\n  padding: 20px;\n  color: #20a5a1;\n}\n.remind.theme-box .remind-scroll .remind-page .shape-ellipse .item-text {\n  color: #20a5a1;\n  font-size: 28px;\n}\n.remind.theme-box .remind-scroll .remind-page .shape-box {\n  background-color: #20a5a1;\n  color: #000;\n  padding: 10px 20px;\n  border-radius: 10px;\n}\n.remind.theme-box .remind-scroll .remind-page .shape-box > .children .shape-box > .content {\n  background-color: transparent;\n  border: none;\n  color: #20a5a1;\n  padding: 5px;\n  font-size: 22px;\n}\n.remind.theme-box .remind-scroll .remind-page .shape-blank {\n  background-color: transparent;\n  border: none;\n  color: #20a5a1;\n  padding: 5px;\n  font-size: 22px;\n}\n.remind {\n  overflow: scroll;\n  width: 100%;\n  height: 100%;\n  transition: background 400ms ease-out;\n}\n.remind * {\n  box-sizing: border-box;\n}\n.remind ul,\n.remind li {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n}\n.remind ul li,\n.remind li li {\n  list-style: none;\n}\n.remind .remind-scroll {\n  position: relative;\n}\n.remind .remind-scroll .remind-page {\n  position: absolute;\n  left: 0;\n  top: 0;\n}\n.remind .remind-scroll .remind-page .remind-canvas {\n  position: absolute;\n  left: 0;\n  top: 0;\n}\n.remind .remind-scroll .remind-page .remind-selection {\n  position: absolute;\n  left: 0;\n  top: 0;\n  z-index: 1;\n  display: none;\n  transition: all 100ms ease-out;\n  pointer-events: none;\n}\n.remind .remind-scroll .remind-page .remind-selection:after {\n  transition: all 100ms ease-out;\n  content: ' ';\n  display: block;\n  width: calc(100% + 6px);\n  height: calc(100% + 6px);\n  position: absolute;\n  left: -5px;\n  top: -5px;\n  border: 2px solid blue;\n}\n.remind .remind-scroll .remind-page .remind-item {\n  position: absolute;\n  top: 0;\n  left: 0;\n  padding: 4px 10px;\n  color: #123;\n  border-radius: 3px;\n  cursor: pointer;\n  user-select: none;\n  align-items: center;\n}\n.remind .remind-scroll .remind-page .remind-item::after {\n  content: ' ';\n  z-index: -1;\n  transition: all;\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  top: -4px;\n  left: -4px;\n  padding: 2px;\n  display: none;\n  box-sizing: content-box;\n}\n.remind .remind-scroll .remind-page .remind-item .item-text {\n  display: inline-block;\n  border: none;\n  outline: none;\n  white-space: nowrap;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-icon {\n  display: inline-flex;\n  flex-direction: row-reverse;\n  align-items: center;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-icon > li {\n  font-size: 18px;\n  display: inline-block;\n  margin-left: -5px;\n  width: 24px;\n  height: 24px;\n  background-size: 20px;\n  border: 2px solid #fff;\n  border-radius: 24px;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-icon > li:last-child {\n  margin-left: 0px;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-icon > li:first-child {\n  margin-right: 5px;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle {\n  position: absolute;\n  right: -15px;\n  top: calc(50% - 6px);\n  display: none;\n  cursor: pointer;\n  padding-left: 4px;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle > div {\n  width: 12px;\n  height: 12px;\n  border: 1px solid #4a90e2;\n  border-radius: 6px;\n  text-align: center;\n  display: inline-block;\n  background: #fff;\n  color: black;\n  font-size: 12px;\n  line-height: 8px;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle > .toggle-off {\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle > .toggle-on {\n  display: none;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle:hover {\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle.toggled {\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle.toggled > .toggle-off {\n  display: none;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle.toggled > .toggle-on {\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item:hover .remind-toggle {\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item:hover::after {\n  border: 2px solid #779ecc;\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item.active .remind-toggle {\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item.active::after {\n  border: 2px solid #0775f3;\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item .item-note::before {\n  content: \"\\1f4dd\";\n}\n.remind .remind-scroll .remind-page .shape-box {\n  background-color: #4a90e2;\n  color: #fff;\n}\n.remind .remind-scroll .remind-page .shape-underline {\n  padding: 4px 5px;\n}\n.remind .remind-scroll .remind-page .shape-ellipse {\n  padding: 10px 10px;\n  color: #fff;\n  background-color: #39ac03;\n}\n.remind .remind-scroll .remind-page .item-ghost {\n  opacity: 0.15;\n}\n.remind .remind-scroll .remind-page .mm-note {\n  display: flex;\n  flex-direction: column;\n  position: absolute;\n  top: 80px;\n  left: 0px;\n  z-index: 2;\n  background: #fff;\n  transition: opacity, height 300ms ease-in;\n  overflow: hidden;\n  width: 300px;\n  border: 1px solid #efefef;\n  border-radius: 3px;\n  box-shadow: 2px 2px 20px 1px rgba(0, 0, 0, 0.2);\n}\n.remind .remind-scroll .remind-page .mm-note .note-util {\n  height: 30px;\n  width: 100%;\n  border-bottom: 1px solid #efefef;\n  padding-left: 10px;\n  padding-top: 4px;\n}\n.remind .remind-scroll .remind-page .mm-note .note-content {\n  height: 300px;\n  width: 100%;\n  overflow: scroll;\n  outline: none;\n}\n.remind .remind-scroll .remind-page .mm-note .note-content p {\n  white-space: pre-line;\n  padding: 10px;\n  outline: none;\n  height: 300px;\n  width: 100%;\n}\n.remind .remind-scroll .remind-page .mm-note.hide {\n  height: 0;\n  opacity: 0;\n}\n.remind .remind-scroll .menu {\n  outline: none;\n  margin: 0;\n  padding: 5px 0;\n  list-style: none;\n  position: absolute;\n  left: 0;\n  top: 0;\n  z-index: 2;\n  background: #fff;\n  -webkit-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);\n  border-radius: 2px;\n  width: 200px;\n}\n.remind .remind-scroll .menu > button {\n  height: 32px;\n  line-height: 32px;\n  padding: 0 20px;\n  color: #666;\n  font-size: 13px;\n  font-weight: 400;\n  cursor: pointer;\n  -webkit-transition: all 0.3s;\n  transition: all 0.3s;\n  white-space: nowrap;\n  display: block;\n  background-color: transparent;\n  border: none;\n  margin: 0;\n  width: 100%;\n  text-align: left;\n}\n.remind .remind-scroll .menu > button:hover {\n  background: #efefef;\n}\n.remind .remind-scroll .menu span {\n  display: block;\n  border-top: 1px solid #eee;\n  margin-top: 4px;\n  padding-top: 4px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".remind.theme-stright {\n  background-color: #f4f9fa;\n}\n.remind.theme-stright .remind-page .shape-ellipse {\n  border-radius: 10px;\n  background-color: #ff383e !important;\n  border: 3px solid #ff8d8f;\n  padding: 20px;\n}\n.remind.theme-stright .remind-page .shape-ellipse .item-text {\n  font-size: 28px;\n}\n.remind.theme-box {\n  background-color: #1f2934;\n}\n.remind.theme-box .remind-scroll .remind-page .shape-ellipse {\n  background-color: #1f2934;\n  border: 3px solid #20a5a1;\n  font-size: 48px;\n  padding: 20px;\n  color: #20a5a1;\n}\n.remind.theme-box .remind-scroll .remind-page .shape-ellipse .item-text {\n  color: #20a5a1;\n  font-size: 28px;\n}\n.remind.theme-box .remind-scroll .remind-page .shape-box {\n  background-color: #20a5a1;\n  color: #000;\n  padding: 10px 20px;\n  border-radius: 10px;\n}\n.remind.theme-box .remind-scroll .remind-page .shape-box > .children .shape-box > .content {\n  background-color: transparent;\n  border: none;\n  color: #20a5a1;\n  padding: 5px;\n  font-size: 22px;\n}\n.remind.theme-box .remind-scroll .remind-page .shape-blank {\n  background-color: transparent;\n  border: none;\n  color: #20a5a1;\n  padding: 5px;\n  font-size: 22px;\n}\n.remind {\n  overflow: scroll;\n  width: 100%;\n  height: 100%;\n  transition: background 400ms ease-out;\n}\n.remind * {\n  box-sizing: border-box;\n}\n.remind ul,\n.remind li {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n}\n.remind ul li,\n.remind li li {\n  list-style: none;\n}\n.remind .remind-scroll {\n  position: relative;\n}\n.remind .remind-scroll .remind-page {\n  position: absolute;\n  left: 0;\n  top: 0;\n  transform-origin: 0% 0%;\n}\n.remind .remind-scroll .remind-page .remind-canvas {\n  position: absolute;\n  left: 0;\n  top: 0;\n}\n.remind .remind-scroll .remind-page .remind-selection {\n  position: absolute;\n  left: 0;\n  top: 0;\n  z-index: 1;\n  display: none;\n  transition: all 100ms ease-out;\n  pointer-events: none;\n}\n.remind .remind-scroll .remind-page .remind-selection:after {\n  transition: all 100ms ease-out;\n  content: ' ';\n  display: block;\n  width: calc(100% + 6px);\n  height: calc(100% + 6px);\n  position: absolute;\n  left: -5px;\n  top: -5px;\n  border: 2px solid blue;\n}\n.remind .remind-scroll .remind-page .remind-item {\n  position: absolute;\n  top: 0;\n  left: 0;\n  padding: 4px 10px;\n  color: #123;\n  border-radius: 3px;\n  cursor: pointer;\n  user-select: none;\n  align-items: center;\n}\n.remind .remind-scroll .remind-page .remind-item::after {\n  content: ' ';\n  z-index: -1;\n  transition: all;\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  top: -4px;\n  left: -4px;\n  padding: 2px;\n  display: none;\n  box-sizing: content-box;\n}\n.remind .remind-scroll .remind-page .remind-item .item-text {\n  display: inline-block;\n  border: none;\n  outline: none;\n  white-space: nowrap;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-icon {\n  display: inline-flex;\n  flex-direction: row-reverse;\n  align-items: center;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-icon > li {\n  font-size: 18px;\n  display: inline-block;\n  margin-left: -5px;\n  width: 24px;\n  height: 24px;\n  background-size: 20px;\n  border: 2px solid #fff;\n  border-radius: 24px;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-icon > li:last-child {\n  margin-left: 0px;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-icon > li:first-child {\n  margin-right: 5px;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle {\n  position: absolute;\n  right: -15px;\n  top: calc(50% - 6px);\n  display: none;\n  cursor: pointer;\n  padding-left: 4px;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle > div {\n  width: 12px;\n  height: 12px;\n  border: 1px solid #4a90e2;\n  border-radius: 6px;\n  text-align: center;\n  display: inline-block;\n  background: #fff;\n  color: black;\n  font-size: 12px;\n  line-height: 8px;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle > .toggle-off {\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle > .toggle-on {\n  display: none;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle:hover {\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle.toggled {\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle.toggled > .toggle-off {\n  display: none;\n}\n.remind .remind-scroll .remind-page .remind-item .remind-toggle.toggled > .toggle-on {\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item:hover .remind-toggle {\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item:hover::after {\n  border: 2px solid #779ecc;\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item.active .remind-toggle {\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item.active::after {\n  border: 2px solid #0775f3;\n  display: block;\n}\n.remind .remind-scroll .remind-page .remind-item .item-note::before {\n  content: \"\\1f4dd\";\n}\n.remind .remind-scroll .remind-page .shape-box {\n  background-color: #4a90e2;\n  color: #fff;\n}\n.remind .remind-scroll .remind-page .shape-underline {\n  padding: 4px 5px;\n}\n.remind .remind-scroll .remind-page .shape-ellipse {\n  padding: 10px 10px;\n  color: #fff;\n  background-color: #39ac03;\n}\n.remind .remind-scroll .remind-page .item-ghost {\n  opacity: 0.15;\n}\n.remind .remind-scroll .remind-page .mm-note {\n  display: flex;\n  flex-direction: column;\n  position: absolute;\n  top: 80px;\n  left: 0px;\n  z-index: 2;\n  background: #fff;\n  transition: opacity, height 300ms ease-in;\n  overflow: hidden;\n  width: 300px;\n  border: 1px solid #efefef;\n  border-radius: 3px;\n  box-shadow: 2px 2px 20px 1px rgba(0, 0, 0, 0.2);\n}\n.remind .remind-scroll .remind-page .mm-note .note-util {\n  height: 30px;\n  width: 100%;\n  border-bottom: 1px solid #efefef;\n  padding-left: 10px;\n  padding-top: 4px;\n}\n.remind .remind-scroll .remind-page .mm-note .note-content {\n  height: 300px;\n  width: 100%;\n  overflow: scroll;\n  outline: none;\n}\n.remind .remind-scroll .remind-page .mm-note .note-content p {\n  white-space: pre-line;\n  padding: 10px;\n  outline: none;\n  height: 300px;\n  width: 100%;\n}\n.remind .remind-scroll .remind-page .mm-note.hide {\n  height: 0;\n  opacity: 0;\n}\n.remind .remind-scroll .menu {\n  outline: none;\n  margin: 0;\n  padding: 5px 0;\n  list-style: none;\n  position: absolute;\n  left: 0;\n  top: 0;\n  z-index: 2;\n  background: #fff;\n  -webkit-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);\n  border-radius: 2px;\n  width: 200px;\n}\n.remind .remind-scroll .menu > button {\n  height: 32px;\n  line-height: 32px;\n  padding: 0 20px;\n  color: #666;\n  font-size: 13px;\n  font-weight: 400;\n  cursor: pointer;\n  -webkit-transition: all 0.3s;\n  transition: all 0.3s;\n  white-space: nowrap;\n  display: block;\n  background-color: transparent;\n  border: none;\n  margin: 0;\n  width: 100%;\n  text-align: left;\n}\n.remind .remind-scroll .menu > button:hover {\n  background: #efefef;\n}\n.remind .remind-scroll .menu span {\n  display: block;\n  border-top: 1px solid #eee;\n  margin-top: 4px;\n  padding-top: 4px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1624,12 +1624,16 @@ var Item = /*#__PURE__*/function () {
     };
 
     this.startNote = function () {
+      var _this2 = this;
+
       if (!this.data.note) this.data.note = ''; // 把undefind置为空，用来显示note图标
       // 更新
 
       this.updateContent();
-      this.remind.note.show(this);
       this.update();
+      requestAnimationFrame(function () {
+        _this2.remind.note.show(_this2);
+      });
     };
 
     this.endNote = function (text) {
@@ -1719,20 +1723,20 @@ var Item = /*#__PURE__*/function () {
   }, {
     key: "initChildren",
     value: function initChildren() {
-      var _this2 = this;
+      var _this3 = this;
 
       var _this$data = this.data,
           _this$data$children = _this$data.children,
           children = _this$data$children === void 0 ? [] : _this$data$children,
           shrink = _this$data.shrink;
       children.forEach(function (child) {
-        var childItem = new Item(_this2.page, {
+        var childItem = new Item(_this3.page, {
           data: child,
-          depth: _this2.depth + 1,
-          visible: !shrink && _this2.visible
+          depth: _this3.depth + 1,
+          visible: !shrink && _this3.visible
         });
 
-        _this2.insertChild(childItem, undefined, false);
+        _this3.insertChild(childItem, undefined, false);
       });
     }
   }, {
@@ -1771,7 +1775,7 @@ var Item = /*#__PURE__*/function () {
   }, {
     key: "updateVisible",
     value: function updateVisible() {
-      var _this3 = this;
+      var _this4 = this;
 
       var children = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
       var visible = arguments.length > 1 ? arguments[1] : undefined;
@@ -1779,17 +1783,19 @@ var Item = /*#__PURE__*/function () {
         child.visible = visible;
 
         if (!child.data.shrink) {
-          _this3.updateVisible(child.children, visible);
+          _this4.updateVisible(child.children, visible);
         }
       });
     }
   }, {
     key: "updateToggle",
     value: function updateToggle() {
-      var _this$data$shrink = this.data.shrink,
-          shrink = _this$data$shrink === void 0 ? false : _this$data$shrink;
+      var _this$data3 = this.data,
+          _this$data3$shrink = _this$data3.shrink,
+          shrink = _this$data3$shrink === void 0 ? false : _this$data3$shrink,
+          children = _this$data3.children;
 
-      if (shrink) {
+      if (shrink && children && children.length) {
         this.toggleDOM.classList.add('toggled');
       } else {
         this.toggleDOM.classList.remove('toggled');
@@ -1875,7 +1881,7 @@ var Item = /*#__PURE__*/function () {
   }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.updatePosition();
       this.dom.style.display = this.visible ? 'flex' : 'none'; // if(layout.direction === 'left'){
@@ -1889,8 +1895,8 @@ var Item = /*#__PURE__*/function () {
 
       this.children.forEach(function (child) {
         child.globalPos = {
-          x: _this4.globalPos.x + _this4.originPos.x + child.position.x,
-          y: _this4.globalPos.y + _this4.originPos.y + child.position.y
+          x: _this5.globalPos.x + _this5.originPos.x + child.position.x,
+          y: _this5.globalPos.y + _this5.originPos.y + child.position.y
         };
         child.render();
       });
@@ -1998,10 +2004,12 @@ var Item = /*#__PURE__*/function () {
       var _this$page2 = this.page,
           remindRect = _this$page2.remindRect,
           x = _this$page2.x,
-          y = _this$page2.y;
-      var pageX = x + this.x;
-      var pageY = y + this.y;
-      this.remind.controller.translate(pageX + this.contentRect.width / 2 - remindRect.width / 2, pageY + this.contentRect.height / 2 - remindRect.height / 2, true);
+          y = _this$page2.y,
+          controller = _this$page2.controller;
+      var scale = controller.scale;
+      var pageX = x + this.x * scale;
+      var pageY = y + this.y * scale;
+      this.remind.controller.translate(pageX + this.contentRect.width * scale / 2 - remindRect.width / 2, pageY + this.contentRect.height * scale / 2 - remindRect.height / 2, true);
     }
   }, {
     key: "select",
@@ -4993,11 +5001,19 @@ var Controller = /*#__PURE__*/function () {
           var scale = _this2.scale;
           scale = scale * (1 - e.deltaY / 50);
           if (scale < 0.05 || scale > 10) return;
-          _this2.scale = scale;
+          var originDis = {
+            x: e.layerX - _this2.remind.page.x,
+            y: e.layerY - _this2.remind.page.y
+          };
+          var scaleDis = scale / _this2.scale;
+          var newOriginDis = {
+            x: originDis.x * scaleDis - originDis.x,
+            y: originDis.y * scaleDis - originDis.y
+          };
+          _this2.x += newOriginDis.x;
+          _this2.y += newOriginDis.y;
 
-          _this2.update();
-
-          _this2.remind.fire("zoom", _this2.scale);
+          _this2.setScale(scale);
 
           return;
         }
@@ -5021,6 +5037,13 @@ var Controller = /*#__PURE__*/function () {
           _this2.y = remindDOM.scrollTop;
         }, 1);
       });
+    }
+  }, {
+    key: "setScale",
+    value: function setScale(scale) {
+      this.scale = scale;
+      this.update();
+      this.remind.fire("zoom", this.scale);
     }
   }, {
     key: "translate",
