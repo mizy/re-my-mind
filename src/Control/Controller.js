@@ -4,6 +4,9 @@
 class Controller{
     constructor(remind){
         this.remind = remind;
+        this.option = Object.assign({
+            animationFrame:14
+        },remind.options.controller)
         /**
          * @prop {Number}
          */
@@ -19,7 +22,7 @@ class Controller{
          /**
          * @prop {String} 状态
          */
-        this.status = 'normal'
+        this.status = 'normal';
         this.addEvents(); 
     }
  
@@ -106,28 +109,43 @@ class Controller{
      * @param {Boolean} animate 是否动画
      */
     translate(x,y,animate){
+        const {animationFrame = 14} = this.option;
         if(!animate || !this.x || !this.y){
             this.x = x;
             this.y = y ;
+            cancelAnimationFrame(this.animating);
             this.update();
             return
         }
-        const disX = (x - this.x) / 14;
-        const disY = (y - this.y) / 14;
-        const update = ()=>requestAnimationFrame(()=>{
-            this.x += disX;
-            this.y += disY;
-            if((disX > 0 && this.x > x) || (disX < 0 && this.x < x)){
-                this.x = x;
-            }
-            if((disY > 0 && this.y > y) || (disY < 0 && this.y < y)){
-                this.y = y;
-            }
-            this.update();
-            if(this.x !== x || this.y !== y){
-                update();
-            }
-        })
+        console.log('comming',this,this.animating)
+        if(this.animating){// 动画中的话要先停止现在的动画
+            cancelAnimationFrame(this.animating);
+            /**
+             * @prop {Number} animating 是否正在动画
+             */
+            this.animating = 0;
+        }
+        const disX = (x - this.x) / animationFrame;
+        const disY = (y - this.y) / animationFrame;
+        const update = ()=>{
+            this.animating = requestAnimationFrame(()=>{
+                this.x += disX;
+                this.y += disY;
+                if((disX > 0 && this.x > x) || (disX < 0 && this.x < x)){
+                    this.x = x;
+                }
+                if((disY > 0 && this.y > y) || (disY < 0 && this.y < y)){
+                    this.y = y;
+                }
+                this.update();
+                if(this.x !== x || this.y !== y){
+                    update();
+                }else{
+                    this.animating = 0;
+                }
+            })
+            console.log('made',this,this.animating)
+        }
         update()
     }
 

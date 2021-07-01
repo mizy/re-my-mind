@@ -178,7 +178,7 @@ class Page {
      * 取消选中
      */
     deselect(){
-        if(!this.current)return;
+        if(!this.current || !this.current.dom)return;
         this.current.dom.classList.remove('active');
         delete this.current.data.active;
         this.current = undefined;

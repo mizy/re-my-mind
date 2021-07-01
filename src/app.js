@@ -31,8 +31,58 @@ class Remind {
     }
     
     /**
-     * @param  {} container
-     * @param  {} options={}
+     * @param  {HTMLElement} container
+     * @param  {Object} options - 
+     * {
+     *      autoEdit:true,
+            disableDrag:false,
+            showHeadTitle:false,
+            disableEdit:false,// 阻止触发该Item或所有的MM.Command.Edit
+            headTitle: " - 脑图",
+            showArrow:true,// 是否显示线的箭头
+            renderEngine:'svg',
+            readonly:false,
+            controller:{
+                animationFrame:14
+            },
+            site:{
+                spaceX:8,
+                spaceY:60
+            },
+            map:{
+                spaceX:60,
+                spaceY:8
+            },
+            tree:{
+                spaceX:20,
+                spaceY:8,
+                dx:10
+            },
+            fish:{
+                minFishWidth: 300,
+                minFishHeight: 50,
+                fishTailWidth : 50,
+                headGap : 50,
+                angle:Math.PI / 3,
+                root:{
+                    spaceX:0,
+                    minLength:80
+                },
+                one:{
+                    minLength:80,
+                    spaceY:8,
+                    tailGap:10,
+                    headGap:10,
+                },
+                other:{
+                    spaceX:8,
+                    spaceY:4,
+                    tailGap:5,
+                    headGap:10,
+                    minLength:0
+                }
+            }
+        }
      */
     init(container,options = {}){
         this.options = Object.assign({
@@ -44,6 +94,9 @@ class Remind {
             showArrow:true,// 是否显示线的箭头
             renderEngine:'svg',
             readonly:false,
+            controller:{
+                animationFrame:14
+            },
             site:{
                 spaceX:8,
                 spaceY:60

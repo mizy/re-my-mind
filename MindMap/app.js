@@ -43,6 +43,7 @@ class Minder extends PureComponent {
 				this.setState({
 					nowData:this.app.page.data
 				})
+				
 			} else {
 				throw new Error(data.message)
 			}
