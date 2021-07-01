@@ -1185,8 +1185,18 @@ var Command = /*#__PURE__*/function () {
 
       commandMap[item.name] = command;
     });
+    /**
+     * @instance
+     */
+
     this.commandMap = commandMap;
   }
+  /**
+   * 执行对应的命令
+   * @param {String} name 
+   * @param  {...any} argus 
+   */
+
 
   _createClass(Command, [{
     key: "execute",
@@ -1373,8 +1383,17 @@ function _toConsumableArray(arr) {
 var _this = undefined;
 
 /* harmony default export */ const Nodes = ({
+  /**
+   * 节点渲染器，默认为default
+   */
   nodes: {
-    // 支持icon，note的节点
+    /**
+     * 支持icon，note的节点
+     * @name Remind.nodes#default
+     * @function
+     * @param {Item} item 
+     * @param {HTMLElement} container 
+     */
     "default": function _default(item, container) {
       container.innerHTML = '';
       var data = item.data; // 生成icon
@@ -1427,6 +1446,12 @@ var _this = undefined;
       container.appendChild(text);
     }
   },
+
+  /**
+   * @name Remind.nodes#registerNode
+   * @param {String} type 
+   * @param {Function} func 
+   */
   registerNode: function registerNode(type, func) {
     _this.nodes[type] = func;
   }
@@ -1501,14 +1526,60 @@ function v4(options, buf, offset) {
 
 
 
+/**
+ * 节点类
+ */
 
 var Item = /*#__PURE__*/function () {
-  // 当前节点作为整体时在父容器rect时的相对位置
-  // 当前节点在 当前节点的rect中的位置
-  // 节点及子元素rect 的全局偏移
-  // 节点当前全局坐标
-  // 当前节点及下游所有节点的rect
-  // 当前节点内容dom的rect
+  /**
+   * @prop {Array} 子节点数组
+   */
+
+  /**
+   * 当前节点作为整体时在父容器rect时的相对位置
+   * @prop {Object} 
+   */
+
+  /**
+   * 当前节点在 当前节点的rect中的位置
+   * @prop {Object}
+   */
+
+  /**
+   * 坐标原点的偏移量
+   * @prop {Object}
+   */
+
+  /**
+   * 节点及子元素rect 的全局偏移
+   * @prop {Object}
+   */
+
+  /**
+   * 节点当前全局坐标 x
+   * @prop {Number}
+   */
+
+  /**
+   * 节点当前全局坐标 y
+   * @prop {Number}
+   */
+
+  /**
+   * 当前节点及下游所有节点的rect
+   * @prop {Rect}
+   */
+
+  /**
+  * 当前节点内容dom的rect
+  * @prop {Rect}
+  */
+
+  /**
+   * @constructor
+   * @param {Page} page 
+   * @param {Object} option 
+   */
   function Item(page) {
     var _this = this;
 
@@ -1526,7 +1597,6 @@ var Item = /*#__PURE__*/function () {
       y: 0
     };
     this.originPos = {
-      // 坐标原点的偏移量
       x: 0,
       y: 0
     };
@@ -1568,8 +1638,14 @@ var Item = /*#__PURE__*/function () {
       _this.remind.remindDOM.removeEventListener("mousemove", _this.onMouseMove);
 
       _this.page.select(_this);
+      /**
+       * 节点被单击事件
+       * @event Remind#item:click 
+       * @type {Item}
+       */
 
-      _this.remind.fire("item-click", _this);
+
+      _this.remind.fire("item:click", _this);
     };
 
     this.onContextMenu = function (event) {
@@ -1577,6 +1653,11 @@ var Item = /*#__PURE__*/function () {
     };
 
     this.onToggleClick = function () {
+      /**
+       * 点击收缩前
+       * @event Remind#item:beforeToggle
+       * @type {Item} 
+       */
       _this.remind.fire("item:beforeToggle", _this);
 
       _this.data.shrink = !_this.data.shrink;
@@ -1593,6 +1674,12 @@ var Item = /*#__PURE__*/function () {
 
         _this.update();
       }
+      /**
+       * 点击收缩后
+       * @event Remind#item:afterToggle
+       * @type {Item}
+       */
+
 
       _this.remind.fire("item:afterToggle", _this);
     };
@@ -1671,6 +1758,11 @@ var Item = /*#__PURE__*/function () {
       this.setData(data);
     }
   }
+  /**
+   * 设置脑图数据，和dom节点
+   * @param {TreeData} data 
+   */
+
 
   _createClass(Item, [{
     key: "setData",
@@ -1696,12 +1788,22 @@ var Item = /*#__PURE__*/function () {
 
       this.initChildren();
     }
+    /**
+     * 设置布局
+     * @param {String} layout 
+     */
+
   }, {
     key: "setLayout",
     value: function setLayout(layout) {
       this.data.layout = layout;
       this.layout = this.page.layout[this.data.layout];
     }
+    /**
+     * 返回当前节点数据
+     * @returns {Object}
+     */
+
   }, {
     key: "getData",
     value: function getData() {
@@ -1722,7 +1824,11 @@ var Item = /*#__PURE__*/function () {
     }
   }, {
     key: "initChildren",
-    value: function initChildren() {
+    value:
+    /**
+     * 初始化子节点
+     */
+    function initChildren() {
       var _this3 = this;
 
       var _this$data = this.data,
@@ -1739,6 +1845,10 @@ var Item = /*#__PURE__*/function () {
         _this3.insertChild(childItem, undefined, false);
       });
     }
+    /**
+     * 用最新的节点数据更新节点DOM
+     */
+
   }, {
     key: "updateContent",
     value: function updateContent() {
@@ -1774,7 +1884,13 @@ var Item = /*#__PURE__*/function () {
     }
   }, {
     key: "updateVisible",
-    value: function updateVisible() {
+    value:
+    /**
+     * 递归更新子节点是否可见
+     * @param {Array} children 
+     * @param {boolean} visible 
+     */
+    function updateVisible() {
       var _this4 = this;
 
       var children = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
@@ -1787,6 +1903,10 @@ var Item = /*#__PURE__*/function () {
         }
       });
     }
+    /**
+     * 更新伸缩按钮样式
+     */
+
   }, {
     key: "updateToggle",
     value: function updateToggle() {
@@ -1801,6 +1921,10 @@ var Item = /*#__PURE__*/function () {
         this.toggleDOM.classList.remove('toggled');
       }
     }
+    /**
+     * 展开当前节点
+     */
+
   }, {
     key: "expand",
     value: function expand() {
@@ -1809,14 +1933,9 @@ var Item = /*#__PURE__*/function () {
       }
     }
     /**
-    * 更新样式
-    */
-
-  }, {
-    key: "updateStyle",
-    value: function updateStyle() {}
-    /**
-     * 更新下属和自己节点的布局信息
+     * 先更新所有下属，然后update
+     * @param {Boolean} [recurse=true] recurse 是否递归向上更新
+     * @param {Function} [func=undefined] func 子节点执行完后的递归回调函数
      */
 
   }, {
@@ -1828,7 +1947,11 @@ var Item = /*#__PURE__*/function () {
         item.updateSubtree(false, func);
       });
       func ? this[func](recurse) : this.update(recurse);
-    } // bfs 更新依赖树结构的相关数据和样式
+    }
+    /**
+     * 更新节点自身的样式和布局数据,递归向上
+     * @param {Boolean} [recurse=true] recurse 是否递归向上更新
+     */
 
   }, {
     key: "update",
@@ -1843,6 +1966,11 @@ var Item = /*#__PURE__*/function () {
         this.parent.update(recurse);
       }
     }
+    /**
+     * 更新数据后重新渲染该节点，递归向上更新
+     * @param {Object|undefined} data 
+     */
+
   }, {
     key: "updateData",
     value: function updateData(data) {
@@ -1853,16 +1981,28 @@ var Item = /*#__PURE__*/function () {
       this.updateContent();
       this.update();
     }
+    /**
+     * 更新节点dom的classname
+     */
+
   }, {
     key: "updateShape",
     value: function updateShape() {
       this.dom.className = 'remind-item shape-' + this.getShape();
     }
+    /**
+     * 更新当前节点布局数据
+     */
+
   }, {
     key: "updateLayout",
     value: function updateLayout() {
       this.getLayout().update(this);
     }
+    /**
+     * 跟下节点本身的Rect
+     */
+
   }, {
     key: "updateContentRect",
     value: function updateContentRect() {
@@ -1870,13 +2010,20 @@ var Item = /*#__PURE__*/function () {
 
       this.contentRect = rect;
     }
+    /**
+     * 更新下属的连接线
+     */
+
   }, {
     key: "updateLine",
     value: function updateLine() {
       var _this$getLayout;
 
       (_this$getLayout = this.getLayout()) === null || _this$getLayout === void 0 ? void 0 : _this$getLayout.updateLine(this);
-    } // dfs
+    }
+    /**
+     * 利用已有布局数据渲染该节点及其下属节点
+     */
 
   }, {
     key: "render",
@@ -1912,6 +2059,11 @@ var Item = /*#__PURE__*/function () {
       this.x = globalPos.x + this.relativePos.x + this.originPos.x;
       this.y = globalPos.y + this.relativePos.y + this.originPos.y;
     }
+    /**
+     * 获取当前的布局类型
+     * @returns {String} 
+     */
+
   }, {
     key: "getLayout",
     value: function getLayout() {
@@ -1920,6 +2072,11 @@ var Item = /*#__PURE__*/function () {
       var layout = this.layout || ((_this$parent = this.parent) === null || _this$parent === void 0 ? void 0 : _this$parent.getLayout());
       return layout;
     }
+    /**
+     * 根据主题获取当前的节点按照规则形状
+     * @returns {String}
+     */
+
   }, {
     key: "getAutoShape",
     value: function getAutoShape() {
@@ -1940,17 +2097,33 @@ var Item = /*#__PURE__*/function () {
           return theme.node;
       }
     }
+    /**
+     * 获取当前节点形状
+     * @returns {String}
+     */
+
   }, {
     key: "getShape",
     value: function getShape() {
       return this.data.shape || this.getAutoShape();
     }
+    /**
+     * 获取线的形状
+     * @returns {String} 
+     */
+
   }, {
     key: "getLineShape",
     value: function getLineShape() {
       var theme = this.page.theme;
       return this.data.lineShape || theme.lineShape || "bezier";
     }
+    /**
+     * 获取子节点应该有的颜色，如果没有颜色，会自动生成到子节点数据中
+     * @param {Item} child 
+     * @returns {String}
+     */
+
   }, {
     key: "getColor",
     value: function getColor(child) {
@@ -1967,6 +2140,10 @@ var Item = /*#__PURE__*/function () {
 
       return this.parent.getColor(this);
     }
+    /**
+     * @returns {Boolean}
+     */
+
   }, {
     key: "isVisible",
     value: function isVisible() {
@@ -1990,9 +2167,18 @@ var Item = /*#__PURE__*/function () {
 
       return false;
     }
+    /**
+     * 开始进入编辑态
+     */
+
   }, {
     key: "setText",
-    value: function setText(text) {
+    value:
+    /**
+     * 设置节点的文本并且更新
+     * @param {Stirng} text 
+     */
+    function setText(text) {
       this.data.text = text;
       this.updateContent();
       this.updateContentRect();
@@ -2000,7 +2186,11 @@ var Item = /*#__PURE__*/function () {
     }
   }, {
     key: "center",
-    value: function center() {
+    value:
+    /**
+     * 居中当前节点
+     */
+    function center() {
       var _this$page2 = this.page,
           remindRect = _this$page2.remindRect,
           x = _this$page2.x,
@@ -2011,16 +2201,32 @@ var Item = /*#__PURE__*/function () {
       var pageY = y + this.y * scale;
       this.remind.controller.translate(pageX + this.contentRect.width * scale / 2 - remindRect.width / 2, pageY + this.contentRect.height * scale / 2 - remindRect.height / 2, true);
     }
+    /**
+     * 选中当前节点
+     */
+
   }, {
     key: "select",
     value: function select() {
       this.page.select(this);
     }
+    /**
+     * 获取在父节点中的索引位置
+     */
+
   }, {
     key: "index",
     get: function get() {
       return this.parent && this.parent.children ? this.parent.children.indexOf(this) : undefined;
     }
+    /**
+     * 插入子节点
+     * @param {Item} child 子节点实例
+     * @param {Number} index 插入位置
+     * @param {Boolean} ifUpdate 是否立即更新样式
+     * @returns {Item} 子节点
+     */
+
   }, {
     key: "insertChild",
     value: function insertChild(child, index) {
@@ -2049,6 +2255,12 @@ var Item = /*#__PURE__*/function () {
 
       return child;
     }
+    /**
+     * 删除节点
+     * @param {Item} child 
+     * @param {Boolean} ifUpdate 
+     */
+
   }, {
     key: "removeChild",
     value: function removeChild(child) {
@@ -2066,6 +2278,10 @@ var Item = /*#__PURE__*/function () {
         this.update();
       }
     }
+    /**
+     * 清空当前节点的数据,便于重新setData
+     */
+
   }, {
     key: "clear",
     value: function clear() {
@@ -2087,6 +2303,10 @@ var Item = /*#__PURE__*/function () {
         this.textDOM.removeEventListener("blur", this.onBlur);
       }
     }
+    /**
+     * 清空所有子节点
+     */
+
   }, {
     key: "clearChildren",
     value: function clearChildren() {
@@ -2097,11 +2317,20 @@ var Item = /*#__PURE__*/function () {
       });
       this.children = [];
     }
+    /**
+     * 是否为根节点
+     * @returns {Boolean}
+     */
+
   }, {
     key: "isRoot",
     value: function isRoot() {
       return this.parent instanceof Model_Page;
     }
+    /**
+     * 销毁
+     */
+
   }, {
     key: "destroy",
     value: function destroy() {
@@ -2109,8 +2338,7 @@ var Item = /*#__PURE__*/function () {
         this.parent.removeChild(this, false);
       }
 
-      this.dom.parentElement && this.dom.parentElement.removeChild(this.dom);
-      this.clearChildren();
+      this.clear();
     }
   }]);
 
@@ -3681,6 +3909,9 @@ var FishLayout = /*#__PURE__*/function () {
 
 ;// CONCATENATED MODULE: ./src/View/Theme.js
 var theme = {
+  /**
+   * @name Remind.theme.themes
+   */
   themes: {
     "default": {
       main: "ellipse",
@@ -3710,6 +3941,12 @@ var theme = {
       colors: ["#5bd4ff", "#38b2ff", "#2589e5", "#1579b5"]
     }
   },
+
+  /**
+   * @name Remind.theme.themes
+   * @param {String} name 注册主题名
+   * @param {Object} options 主题配置，默认继承default主题
+   */
   registe: function registe(name, options) {
     theme.themes[name] = Object.assign({}, theme.themes["default"], {
       className: name
@@ -3727,6 +3964,9 @@ function DragTool_ownKeys(object, enumerableOnly) { var keys = Object.keys(objec
 function DragTool_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { DragTool_ownKeys(Object(source), true).forEach(function (key) { (0,defineProperty/* default */.Z)(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { DragTool_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 
+/**
+ * @class
+ */
 
 var DragTool = /*#__PURE__*/function () {
   function DragTool(page) {
@@ -3858,7 +4098,7 @@ var DragTool = /*#__PURE__*/function () {
      * 判断坐标是否在item.childrenBBox中来确定是否要下钻到下一级
      * @param {*}} x 
      * @param {*} y 
-     * @returns 
+     * @returns {Item}
      */
     function findDropItem(x, y) {
       var _this2 = this;
@@ -3905,6 +4145,13 @@ var DragTool = /*#__PURE__*/function () {
       dfs(page.root);
       return closetItem;
     }
+    /**
+     * 是否坐标在bbox中
+     * @param {Number} x 
+     * @param {Number} y 
+     * @param {SVGBBox} bbox 
+     */
+
   }, {
     key: "isInBBox",
     value: function isInBBox(x, y, bbox) {
@@ -3918,6 +4165,16 @@ var DragTool = /*#__PURE__*/function () {
   }, {
     key: "moveDragItem",
     value: function moveDragItem() {}
+  }, {
+    key: "destroy",
+    value:
+    /**
+     * 销毁
+     */
+    function destroy() {
+      this.page = undefined;
+      this.ghost.destroy();
+    }
   }]);
 
   return DragTool;
@@ -3939,8 +4196,27 @@ function Page_objectSpread(target) { for (var i = 1; i < arguments.length; i++) 
 
 
 
+/**
+ * 页面管理器
+ */
 
 var Page = /*#__PURE__*/function () {
+  /**
+   * @prop {Array} lines 渲染线数据
+   */
+
+  /**
+   * @prop {Number} x page画布偏移距离
+   */
+
+  /**
+   * @prop {Number} y page画布偏移距离
+   */
+
+  /**
+   * @constructor
+   * @param {Remind} remind 
+   */
   function Page(remind) {
     _classCallCheck(this, Page);
 
@@ -3948,12 +4224,40 @@ var Page = /*#__PURE__*/function () {
     this.x = 0;
     this.y = 0;
     this.paths = [];
+
+    /**
+     * @instance 
+     */
     this.remind = remind;
+    /**
+    * @instance 
+    */
+
     this.page = remind.page;
+    /**
+    * @instance 
+    */
+
     this.options = remind.options;
+    /**
+    * @instance 
+    */
+
     this.root = null;
+    /**
+    * @instance 
+    */
+
     this.visible = false;
+    /**
+    * @instance 
+    */
+
     this.position = [0, 0];
+    /**
+    * @instance 
+    */
+
     this.controller = remind.controller;
     this.initDOM();
     this.initLayout();
@@ -3973,8 +4277,16 @@ var Page = /*#__PURE__*/function () {
 
 
     this.asyncShow();
+    /**
+     * @instance DragTool
+     */
+
     this.dragTool = new Model_DragTool(this);
   }
+  /**
+   * 延迟渲染，设置数据后调用，可以提高性能
+   */
+
 
   _createClass(Page, [{
     key: "asyncShow",
@@ -4025,6 +4337,11 @@ var Page = /*#__PURE__*/function () {
       this.svg.classList.add("remind-canvas");
       this.svgConatiner = g;
     }
+    /**
+     *  设置数据，更新dom样式，但不渲染
+     * @param {Object} data 
+     */
+
   }, {
     key: "setData",
     value: function setData(data) {
@@ -4038,11 +4355,20 @@ var Page = /*#__PURE__*/function () {
       this.root = root;
       this.root.parent = this;
     }
+    /**
+     * 更新容器的样式通过data.style
+     */
+
   }, {
     key: "updateContainerStyle",
     value: function updateContainerStyle() {
       if (this.data.style) Object.assign(this.remind.remindDOM.style, this.data.style);
     }
+    /**
+     * 设置主题
+     * @param {String} value 
+     */
+
   }, {
     key: "setTheme",
     value: function setTheme() {
@@ -4051,20 +4377,11 @@ var Page = /*#__PURE__*/function () {
       this.remind.remindDOM.className = "remind theme-".concat(value);
       this.data.theme = value;
     }
-  }, {
-    key: "onMouseDown",
-    value: function onMouseDown(event) {
-      var onMouseUp = function onMouseUp() {
-        window.removeEventListener("mousemove", onMouseMove);
-        window.removeEventListener('mouseup', onMouseUp);
-      };
+    /**
+     * 选中节点
+     * @param {Item} item 
+     */
 
-      var onMouseMove = function onMouseMove(event) {// const disX = 
-      };
-
-      window.addEventListener("mousemove", onMouseMove);
-      window.addEventListener('mouseup', onMouseUp);
-    }
   }, {
     key: "select",
     value: function select(item) {
@@ -4079,21 +4396,35 @@ var Page = /*#__PURE__*/function () {
       this.current.dom.classList.add('active');
       this.remind.fire("item:select");
     }
+    /**
+     * 取消选中
+     */
+
   }, {
     key: "deselect",
     value: function deselect() {
-      if (!this.current) return;
+      if (!this.current || !this.current.dom) return;
       this.current.dom.classList.remove('active');
       delete this.current.data.active;
       this.current = undefined;
       this.remind.fire("item:deselect");
     }
+    /**
+     * 无颜色时获取根节点颜色
+     * @returns {String}
+     */
+
   }, {
     key: "getColor",
     value: function getColor() {
       var colors = this.theme.colors;
       return '#999';
     }
+    /**
+     * 获取脑图数据
+     * @returns {Object}
+     */
+
   }, {
     key: "toJSON",
     value: function toJSON() {
@@ -4107,6 +4438,10 @@ var Page = /*#__PURE__*/function () {
 
       return data;
     }
+    /**
+     * 重新初始化渲染并居中展示
+     */
+
   }, {
     key: "show",
     value: function show() {
@@ -4117,6 +4452,10 @@ var Page = /*#__PURE__*/function () {
       this.center();
       return this;
     }
+    /**
+     * 居中
+     */
+
   }, {
     key: "center",
     value: function center() {
@@ -4133,13 +4472,20 @@ var Page = /*#__PURE__*/function () {
       } else {
         this.root.center();
       }
-    } // 更新节点树信息
+    }
+    /**
+     * 更新节点树信息
+     * @param {Function} [func=undefined] func  回调
+     */
 
   }, {
     key: "updateSubtree",
     value: function updateSubtree(func) {
       this.root.updateSubtree(false, func);
-    } // 渲染
+    }
+    /**
+     * 重绘更新容器数据
+     */
 
   }, {
     key: "update",
@@ -4186,7 +4532,10 @@ var Page = /*#__PURE__*/function () {
       this.y -= disY;
       this.controller.translate(Math.floor(scrollLeft), Math.floor(scrollTop));
       return this.oldPosition = undefined;
-    } // 更新根节点宽高
+    }
+    /**
+     * 更新根节点宽高
+     */
 
   }, {
     key: "updateRootWidth",
@@ -4211,6 +4560,10 @@ var Page = /*#__PURE__*/function () {
       this.dom.style.transform = "matrix(1, 0, 0, 1, ".concat(this.x, ",").concat(this.y, ")");
       return;
     }
+    /**
+     * 重绘样式
+     */
+
   }, {
     key: "render",
     value: function render() {
@@ -4317,6 +4670,12 @@ var Page = /*#__PURE__*/function () {
       this.svgConatiner.innerHTML = allStr;
       this.paths.splice(end, this.paths.length - end);
     }
+    /**
+     * 通过事件获取节点
+     * @param {UIEvent} e 
+     * @returns {Item}
+     */
+
   }, {
     key: "getByEvent",
     value: function getByEvent(e) {
@@ -4345,6 +4704,12 @@ var Page = /*#__PURE__*/function () {
       dfs([this.root]);
       return res;
     }
+    /**
+     * 根据uuid去查节点
+     * @param {string} uuid 
+     * @returns {Item}
+     */
+
   }, {
     key: "getItemByUUID",
     value: function getItemByUUID(uuid) {
@@ -4365,21 +4730,21 @@ var Page = /*#__PURE__*/function () {
       return res;
     }
   }, {
-    key: "resetTheme",
-    value: function resetTheme(reRender) {
-      this.root.resetTheme();
-      return this;
-    }
-  }, {
     key: "removeChild",
     value: function removeChild() {
       this.root = undefined;
     }
+    /**
+     * 销毁
+     */
+
   }, {
     key: "destroy",
     value: function destroy() {
+      this.dragTool.destroy();
       this.root.destroy();
-      this.remind.dom.removeEventListener("click", this.onClickPage);
+      this.dom.remove();
+      this.root = undefined;
     }
   }]);
 
@@ -4770,6 +5135,12 @@ var Action = /*#__PURE__*/function () {
     this.remind = remind;
     this.actions = Actions(remind);
   }
+  /**
+   * 需要执行的命令名
+   * @param {String} name 
+   * @param  {...any} others 入参
+   */
+
 
   _createClass(Action, [{
     key: "execute",
@@ -4806,6 +5177,10 @@ var Action = /*#__PURE__*/function () {
  * @class
  */
 var Menu = /*#__PURE__*/function () {
+  /**
+   * 
+   * @param {Remind} remind 
+   */
   function Menu(_remind) {
     var _this = this;
 
@@ -4872,13 +5247,15 @@ var Menu = /*#__PURE__*/function () {
       this.dom.style.display = 'block';
       this.dom.style.transform = "translate(".concat(x, "px,").concat(y, "px)");
       var iconCommand = this.dom.querySelector("[data-command=DeleteIcon]");
-      if (!iconCommand) return;
+      if (!iconCommand) return target;
 
       if (target.getAttribute("data-key")) {
         iconCommand.style.display = 'block';
       } else {
         iconCommand.style.display = 'none';
       }
+
+      return target;
     };
 
     this.init(_remind);
@@ -4886,9 +5263,17 @@ var Menu = /*#__PURE__*/function () {
 
   _createClass(Menu, [{
     key: "close",
-    value: function close() {
+    value:
+    /**
+     * 关闭右键菜单
+     */
+    function close() {
       this.dom.style.display = "none";
     }
+    /**
+     * 销毁
+     */
+
   }, {
     key: "destroy",
     value: function destroy() {
@@ -4906,7 +5291,17 @@ var Menu = /*#__PURE__*/function () {
 
 
 
+/**
+ * @class
+ */
 var History = /*#__PURE__*/function () {
+  /**
+   * @prop {Array} history 历史action栈
+   */
+
+  /**
+   * @prop {Number} historyIndex 当前堆栈指针
+   */
   function History(remind) {
     _classCallCheck(this, History);
 
@@ -4914,6 +5309,11 @@ var History = /*#__PURE__*/function () {
     this.historyIndex = 0;
     this.remind = remind;
   }
+  /**
+   * 执行操作事务
+   * @param {Action} action 
+   */
+
 
   _createClass(History, [{
     key: "action",
@@ -4932,6 +5332,10 @@ var History = /*#__PURE__*/function () {
 
       return this;
     }
+    /**
+     * 清空
+     */
+
   }, {
     key: "clear",
     value: function clear() {
@@ -4948,6 +5352,9 @@ var History = /*#__PURE__*/function () {
 
 
 
+/**
+ * @class
+ */
 var Controller = /*#__PURE__*/function () {
   function Controller(remind) {
     var _this = this;
@@ -4981,10 +5388,29 @@ var Controller = /*#__PURE__*/function () {
     };
 
     this.remind = remind;
+    this.option = Object.assign({
+      animationFrame: 14
+    }, remind.options.controller);
+    /**
+     * @prop {Number}
+     */
+
     this.scale = 1;
+    /**
+     * @prop {Number}
+     */
+
     this.x = 0;
+    /**
+     * @prop {Number}
+     */
+
     this.y = 0;
-    this.stat;
+    /**
+    * @prop {String} 状态
+    */
+
+    this.status = 'normal';
     this.addEvents();
   }
 
@@ -5038,6 +5464,11 @@ var Controller = /*#__PURE__*/function () {
         }, 1);
       });
     }
+    /**
+     * 设置缩放并实施
+     * @param {Number} scale 
+     */
+
   }, {
     key: "setScale",
     value: function setScale(scale) {
@@ -5047,21 +5478,44 @@ var Controller = /*#__PURE__*/function () {
     }
   }, {
     key: "translate",
-    value: function translate(x, y, animate) {
+    value:
+    /**
+     * 移动到指定位置
+     * @param {Number} x 
+     * @param {Number} y 
+     * @param {Boolean} animate 是否动画
+     */
+    function translate(x, y, animate) {
       var _this3 = this;
+
+      var _this$option$animatio = this.option.animationFrame,
+          animationFrame = _this$option$animatio === void 0 ? 14 : _this$option$animatio;
 
       if (!animate || !this.x || !this.y) {
         this.x = x;
         this.y = y;
+        cancelAnimationFrame(this.animating);
         this.update();
         return;
       }
 
-      var disX = (x - this.x) / 14;
-      var disY = (y - this.y) / 14;
+      console.log('comming', this, this.animating);
+
+      if (this.animating) {
+        // 动画中的话要先停止现在的动画
+        cancelAnimationFrame(this.animating);
+        /**
+         * @prop {Number} animating 是否正在动画
+         */
+
+        this.animating = 0;
+      }
+
+      var disX = (x - this.x) / animationFrame;
+      var disY = (y - this.y) / animationFrame;
 
       var update = function update() {
-        return requestAnimationFrame(function () {
+        _this3.animating = requestAnimationFrame(function () {
           _this3.x += disX;
           _this3.y += disY;
 
@@ -5077,12 +5531,19 @@ var Controller = /*#__PURE__*/function () {
 
           if (_this3.x !== x || _this3.y !== y) {
             update();
+          } else {
+            _this3.animating = 0;
           }
         });
+        console.log('made', _this3, _this3.animating);
       };
 
       update();
     }
+    /**
+     * 根据数据进行移动
+     */
+
   }, {
     key: "update",
     value: function update() {
@@ -5104,7 +5565,14 @@ var Controller = /*#__PURE__*/function () {
 
 
 
+/**
+ * @class
+ */
 var Note = /*#__PURE__*/function () {
+  /**
+   * 
+   * @param {Remind} app 
+   */
   function Note(app) {
     var _this = this;
 
@@ -5116,6 +5584,9 @@ var Note = /*#__PURE__*/function () {
       }
     };
 
+    /**
+     * @prop {Remind}
+     */
     this.remind = app;
     this.initDom();
   }
@@ -5133,7 +5604,12 @@ var Note = /*#__PURE__*/function () {
     }
   }, {
     key: "show",
-    value: function show(item) {
+    value:
+    /**
+     * 展示某个节点的note
+     * @param {Item} item 
+     */
+    function show(item) {
       var _this2 = this;
 
       this.status = "show";
@@ -5153,6 +5629,11 @@ var Note = /*#__PURE__*/function () {
         _this2.content.focus();
       }, 100);
     }
+    /**
+     * 隐藏Note
+     * @returns {undefined}
+     */
+
   }, {
     key: "hide",
     value: function hide() {
@@ -5166,6 +5647,10 @@ var Note = /*#__PURE__*/function () {
       content.innerHTML = "";
       this.remind.fire("item-change", this.item);
     }
+    /**
+     * 销毁
+     */
+
   }, {
     key: "destroy",
     value: function destroy() {
@@ -5211,13 +5696,20 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 
 
+
  // import MouseManager from './Control/Mou'
 
 /**
- * @class
+ * 入口类
  */
 
 var Remind = /*#__PURE__*/function () {
+  /**
+   * @constructor
+   * @param {*} container 
+   * @param {*} options 
+   * @returns {Remind}
+   */
   function Remind(container) {
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
@@ -5230,8 +5722,58 @@ var Remind = /*#__PURE__*/function () {
     }
   }
   /**
-   * @param  {} container
-   * @param  {} options={}
+   * @param  {HTMLElement} container
+   * @param  {Object} options - 
+   * {
+   *      autoEdit:true,
+          disableDrag:false,
+          showHeadTitle:false,
+          disableEdit:false,// 阻止触发该Item或所有的MM.Command.Edit
+          headTitle: " - 脑图",
+          showArrow:true,// 是否显示线的箭头
+          renderEngine:'svg',
+          readonly:false,
+          controller:{
+              animationFrame:14
+          },
+          site:{
+              spaceX:8,
+              spaceY:60
+          },
+          map:{
+              spaceX:60,
+              spaceY:8
+          },
+          tree:{
+              spaceX:20,
+              spaceY:8,
+              dx:10
+          },
+          fish:{
+              minFishWidth: 300,
+              minFishHeight: 50,
+              fishTailWidth : 50,
+              headGap : 50,
+              angle:Math.PI / 3,
+              root:{
+                  spaceX:0,
+                  minLength:80
+              },
+              one:{
+                  minLength:80,
+                  spaceY:8,
+                  tailGap:10,
+                  headGap:10,
+              },
+              other:{
+                  spaceX:8,
+                  spaceY:4,
+                  tailGap:5,
+                  headGap:10,
+                  minLength:0
+              }
+          }
+      }
    */
 
 
@@ -5250,6 +5792,9 @@ var Remind = /*#__PURE__*/function () {
         // 是否显示线的箭头
         renderEngine: 'svg',
         readonly: false,
+        controller: {
+          animationFrame: 14
+        },
         site: {
           spaceX: 8,
           spaceY: 60
@@ -5313,7 +5858,8 @@ var Remind = /*#__PURE__*/function () {
       this.keyboard.destroy();
       this.page.destroy();
       this.off();
-      this.container.removeChild(this.remindDOM);
+      this.remindDOM.remove();
+      this.remindDOM = undefined;
     }
   }, {
     key: "initDOM",
@@ -5346,13 +5892,17 @@ var Remind = /*#__PURE__*/function () {
     }
   }, {
     key: "clear",
-    value: function clear() {
+    value:
+    /**
+     * 
+     */
+    function clear() {
       this._subscribers = {};
     }
     /**
-     * @param  {} message
-     * @param  {} publisher
-     * @param  {} data
+     * @param  {String} message 事件名
+     * @param  {Object} publisher 数据1
+     * @param  {Object} data 数据2
      */
 
   }, {
@@ -5364,8 +5914,8 @@ var Remind = /*#__PURE__*/function () {
       });
     }
     /**
-     * @param  {} message
-     * @param  {} subscriber
+     * @param  {String} message 事件名
+     * @param  {Function} subscriber 箭头函数
      */
 
   }, {
@@ -5406,7 +5956,12 @@ var Remind = /*#__PURE__*/function () {
 
 window.Remind = Remind;
 Remind.theme = Theme;
+Remind.nodes = Nodes;
 Remind.line = Lines; // 暴露出去可用复写
+
+/**
+ * @exports Remind
+ */
 
 /* harmony default export */ const app = (Remind);
 })();
