@@ -7,4 +7,4 @@ WORKDIR /server
 COPY server ./
 RUN npm i
 EXPOSE 7001
-CMD ["node app.js $PORT $DATA_PATH"]
+CMD ["node","app.js","7001","/reminds"]
