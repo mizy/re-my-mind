@@ -1004,18 +1004,14 @@ var getAllCommands = function getAllCommands(remind) {
       remind.action.execute('SetText', item, item.data.text, item.oldText);
       remind.fire("item:change", item);
     },
-    isValid: function isValid() {
-      return remind.page.editing;
-    }
+    isValid: _isValid
   }, {
     name: "InsertSibling",
     keys: [{
       keyCode: 13
     }],
     prevent: true,
-    isValid: function isValid() {
-      return _isValid() && !remind.options.readonly;
-    },
+    isValid: _isValid,
     execute: function execute() {
       var item = remind.page.current;
 
@@ -1088,7 +1084,8 @@ var getAllCommands = function getAllCommands(remind) {
     }],
     execute: function execute() {
       (remind.page.current || remind.page.root).center();
-    }
+    },
+    isValid: _isValid
   }, {
     name: "Save",
     keys: [{
@@ -1116,6 +1113,7 @@ var getAllCommands = function getAllCommands(remind) {
       metaKey: true,
       shiftKey: false
     }],
+    isValid: _isValid,
     prevent: true,
     execute: function execute() {
       var history = remind.history;
@@ -1135,6 +1133,7 @@ var getAllCommands = function getAllCommands(remind) {
       shiftKey: true
     }],
     prevent: true,
+    isValid: _isValid,
     execute: function execute() {
       var history = remind.history;
       history.history[history.historyIndex].perform();

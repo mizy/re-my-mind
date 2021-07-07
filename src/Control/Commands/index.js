@@ -33,17 +33,13 @@ const getAllCommands = (remind)=>{
                 remind.fire("item:change", item);
                 
             },
-            isValid:function() {
-                return remind.page.editing
-            },
+            isValid
         },
     {
         name:"InsertSibling",
         keys:[{ keyCode: 13 }],
         prevent:true,
-        isValid:()=>{
-            return isValid() && !remind.options.readonly
-        },
+        isValid,
         execute : function () {
             const item = remind.page.current;
             if (item.isRoot()) {
@@ -109,7 +105,8 @@ const getAllCommands = (remind)=>{
         keys:[{ key: 'c' }],
         execute:function () {
             (remind.page.current || remind.page.root).center()
-        }
+        },
+        isValid
     },
     {
         name:"Save",
@@ -129,6 +126,7 @@ const getAllCommands = (remind)=>{
             { key: "z", ctrlKey: true, shiftKey: false },
 			{ key: "z", metaKey: true, shiftKey: false }
         ],
+        isValid,
         prevent:true,
         execute:function () {
             const {history} = remind;
@@ -144,6 +142,7 @@ const getAllCommands = (remind)=>{
 			{ keyCode: "z", metaKey: true, shiftKey: true }
         ],
         prevent:true,
+        isValid,
         execute:function () {
             const {history} = remind;
             history.history[history.historyIndex].perform();

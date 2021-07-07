@@ -517,11 +517,6 @@ class TopBar extends PureComponent {
 								}}>
 									<CloudDownloadOutlined />下载
 								</Menu.Item>
-								<Menu.Item onClick={() => {
-										message.success("服务端完成")
-									}}>
-									<UploadOutlined />上传
-								</Menu.Item>
 							</Menu>
 						}
 						class="project-action-more"
