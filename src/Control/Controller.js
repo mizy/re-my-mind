@@ -117,7 +117,6 @@ class Controller{
             this.update();
             return
         }
-        console.log('comming',this,this.animating)
         if(this.animating){// 动画中的话要先停止现在的动画
             cancelAnimationFrame(this.animating);
             /**
@@ -144,7 +143,6 @@ class Controller{
                     this.animating = 0;
                 }
             })
-            console.log('made',this,this.animating)
         }
         update()
     }

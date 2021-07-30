@@ -7,9 +7,10 @@ import MainText from "./MainText";
 import TopBar from "./TopBar";
 import RightBar from "./Rightbar";
 import axios from 'axios'
-
+const data = require("./json.json");
 window.updateTimes = 0;
 window.layoutItemTimes = 0;
+
 class Minder extends PureComponent {
 	scale = 1;
 	colors = ["#2da4ff", "#9bc039", "#882e99", "#FF84BA", "#f88b15", "#00a7cd", "#fe7e4d", "#ec6d7a", "#fec936", "#67c97e", "#ef3224", "#40b5c6", "#956fe7"];
@@ -24,16 +25,16 @@ class Minder extends PureComponent {
 	readonly = false
 
 	componentDidMount() {
-		this.init({
+		this.init( {
 			root: {
 				text: "Remind",
-				layout:"map"
+				layout: "map"
 			},
 			theme: "default"
 		});
 	}
 
-	queryData(path = "reminds/main.remind"){
+	queryData(path = "reminds/main.remind") {
 		this.path = path;
 		axios.get("/remind-api/get?path=" + path).then(({ data }) => {
 			if (data.success) {
@@ -41,9 +42,9 @@ class Minder extends PureComponent {
 				this.app.page.setData(JSON.parse(data.data));
 				this.app.page.asyncShow();
 				this.setState({
-					nowData:this.app.page.data
+					nowData: this.app.page.data
 				})
-				
+
 			} else {
 				throw new Error(data.message)
 			}
@@ -58,7 +59,7 @@ class Minder extends PureComponent {
 			loading: false,
 			nowData: data
 		});
-		
+
 	}
 
 	init(data) {
@@ -147,6 +148,7 @@ class Minder extends PureComponent {
 		} = this.state;
 		return (
 			<Spin spinning={loading} tip="正在加载中...">
+
 				<div className={"mind-wrap"} >
 					{this.app && (
 						<TopBar id={id} readonly={this.readonly} record={record} nowData={nowData}
@@ -187,7 +189,7 @@ class Minder extends PureComponent {
 	}
 
 	componentWillUnmount() {
-
+		clearTimeout(this.changeTimeout)
 		this.app && this.app.destroy();
 	}
 }

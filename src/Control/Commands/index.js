@@ -33,7 +33,15 @@ const getAllCommands = (remind)=>{
                 remind.fire("item:change", item);
                 
             },
-            isValid
+            isValid:()=>{
+                if (remind.note.status === "show") {
+                    return false;
+                }
+                if(!remind.page.editing){
+                    return false;
+                }
+                return true;
+            }
         },
     {
         name:"InsertSibling",
