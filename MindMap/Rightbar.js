@@ -62,7 +62,7 @@ export default class Rightbar extends PureComponent {
 			const iconItem = iconList[key];
 			const list = iconItem.icons.map(item => {
 				return (
-					<i onClick={() => {
+					<i key={key} onClick={() => {
 						this.onIconClick(key, item);
 					}} className={`mind-${key}-${item[0]}`} />
 				);

@@ -535,6 +535,9 @@ class TopBar extends PureComponent {
 						this.importFile = ref;
 					}}
 				/>
+				<a onClick={()=>{
+					this.props.app.destroy()
+				}}>销毁测试</a>
 			</div>
 		);
 	}

@@ -2279,7 +2279,7 @@ var Item = /*#__PURE__*/function () {
       child.parent = undefined;
       this.children.splice(index, 1);
 
-      if (this.children.length < 1) {
+      if (this.children.length < 1 && this.toggleDOM.parentElement) {
         this.dom.removeChild(this.toggleDOM);
       }
 
