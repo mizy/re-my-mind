@@ -41,9 +41,10 @@ export default class Rightbar extends PureComponent {
 		if (!current) {
 			return message.info("请先选择节点");
 		}
-		current.data.icon = {...current.data.icon,[key]:`mind-${key}-` + item[0]};
-		current.updateContent();
-		current.update();
+		this.props.app.action.execute("SetIcon",current,`mind-${key}-` + item[0],key)
+		// current.data.icon = {...current.data.icon,[key]:`mind-${key}-` + item[0]};
+		// current.updateContent();
+		// current.update();
 	}
 
 	deleteIconClick(key) {

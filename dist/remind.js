@@ -1887,7 +1887,7 @@ var Item = /*#__PURE__*/function () {
       this.toggleDOM = div;
       this.toggleDOM.addEventListener('click', this.onToggleClick);
 
-      if (this.data.shrink) {
+      if (this.data.shrink || this.children.length) {
         this.dom.appendChild(this.toggleDOM);
       }
     }
@@ -1988,6 +1988,8 @@ var Item = /*#__PURE__*/function () {
       }
 
       this.updateContent();
+      this.updateShape();
+      this.initToggle();
       this.update();
     }
     /**

@@ -212,7 +212,7 @@ class Item {
         div.className = 'remind-toggle';
         this.toggleDOM = div;
         this.toggleDOM.addEventListener('click',this.onToggleClick);
-        if(this.data.shrink){
+        if(this.data.shrink || this.children.length){
             this.dom.appendChild(this.toggleDOM)
         }
     }
@@ -311,6 +311,8 @@ class Item {
             Object.assign(this.data,data)
         }
         this.updateContent();
+        this.updateShape();    
+        this.initToggle();
         this.update();
     }
 
