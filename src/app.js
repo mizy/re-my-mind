@@ -179,7 +179,7 @@ class Remind {
 
     addEvents(){
 		if(this.options.showHeadTitle){
-			this.on("item-change", (publisher) => {
+			this.on("item:change", (publisher) => {
 				if (publisher.isRoot() && publisher.getMap() == this.map) {
 					document.title = this.map.getName() + this.options.headTitle;
 				}

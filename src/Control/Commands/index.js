@@ -24,13 +24,11 @@ const getAllCommands = (remind)=>{
                 item.stopEdit();
                 if(!item.data.text){
                     remind.action.execute('RemoveItem',item);
-                    remind.fire("item-change", item);
                 }
                 if(item.data.text === item.oldText){
                     return;
                 }
                 remind.action.execute('SetText',item, item.data.text, item.oldText);
-                remind.fire("item:change", item);
                 
             },
             isValid:()=>{
@@ -124,7 +122,6 @@ const getAllCommands = (remind)=>{
         ],
         prevent:true,
         execute:function () {
-            console.log('save')
             remind.fire("save")
         }
     },
@@ -166,7 +163,6 @@ const getAllCommands = (remind)=>{
         execute:function (item,event) {
             const key = event.target.getAttribute("data-key");
             remind.action.execute('SetIcon',item, null,key);
-            remind.fire("item:change", item);
         }
     },
 ]

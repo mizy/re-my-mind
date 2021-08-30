@@ -197,7 +197,7 @@ const getAllActions = (remind) => {
 	Action.SetIcon.prototype = Object.create(Action.prototype);
 	Action.SetIcon.prototype.perform = function () {
 		this.item.data.icon = this.icon;
-		this.item.updateData()
+		this.item.updateData();
 	};
 	Action.SetIcon.prototype.undo = function () {
 		this.item.data.icon = this.oldIcon
