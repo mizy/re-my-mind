@@ -994,7 +994,6 @@ var getAllCommands = function getAllCommands(remind) {
 
       if (!item.data.text) {
         remind.action.execute('RemoveItem', item);
-        remind.fire("item-change", item);
       }
 
       if (item.data.text === item.oldText) {
@@ -1002,7 +1001,6 @@ var getAllCommands = function getAllCommands(remind) {
       }
 
       remind.action.execute('SetText', item, item.data.text, item.oldText);
-      remind.fire("item:change", item);
     },
     isValid: function isValid() {
       if (remind.note.status === "show") {
@@ -1109,7 +1107,6 @@ var getAllCommands = function getAllCommands(remind) {
     }],
     prevent: true,
     execute: function execute() {
-      console.log('save');
       remind.fire("save");
     }
   }, {
@@ -1157,7 +1154,6 @@ var getAllCommands = function getAllCommands(remind) {
     execute: function execute(item, event) {
       var key = event.target.getAttribute("data-key");
       remind.action.execute('SetIcon', item, null, key);
-      remind.fire("item:change", item);
     }
   }];
 };
@@ -5166,7 +5162,7 @@ var Action = /*#__PURE__*/function () {
       var action = _construct(ActionConstructor, others);
 
       this.remind.history.action(action);
-      this.remind.fire("change", action);
+      this.remind.fire("item:change", action);
       return action;
     }
   }, {
@@ -5653,7 +5649,7 @@ var Note = /*#__PURE__*/function () {
       if (!this.item) return;
       this.item.endNote(note);
       content.innerHTML = "";
-      this.remind.fire("item-change", this.item);
+      this.remind.fire("item:change", this.item);
     }
     /**
      * 销毁
@@ -5887,7 +5883,7 @@ var Remind = /*#__PURE__*/function () {
       var _this = this;
 
       if (this.options.showHeadTitle) {
-        this.on("item-change", function (publisher) {
+        this.on("item:change", function (publisher) {
           if (publisher.isRoot() && publisher.getMap() == _this.map) {
             document.title = _this.map.getName() + _this.options.headTitle;
           }
