@@ -82,7 +82,6 @@ const getAllCommands = (remind)=>{
     },{
         name:"Edit",
         keys:[
-			{ keyCode: 32 },
 			{ keyCode: 113 }
 		],
         execute : function(){

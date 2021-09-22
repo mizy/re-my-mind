@@ -29,6 +29,7 @@ const getAllActions = (remind) => {
 		this._index = index;
 		this.autoSelect = true;
 		this._item = new Item(remind.page);
+        this._item.show();
 	};
 	Action.InsertNewItem.prototype = Object.create(Action.prototype);
 	Action.InsertNewItem.prototype.perform = function () {
@@ -38,6 +39,7 @@ const getAllActions = (remind) => {
 	};
 	Action.InsertNewItem.prototype.undo = function () {
 		this._parent.removeChild(this._item);
+        this._item.hide();
 		remind.page.select(this._parent)
 	};
 
@@ -63,17 +65,13 @@ const getAllActions = (remind) => {
 	};
 	Action.RemoveItem.prototype = Object.create(Action.prototype);
 	Action.RemoveItem.prototype.perform = function () {
-		this._parent.removeChild(this._item);
-		this._item.destroy();
+        this._item.hide();
+        this._parent.removeChild(this._item);
 		remind.page.select(this._parent);
 	};
 	Action.RemoveItem.prototype.undo = function () {
-		const childItem = new Item(remind.page,{
-			data:this.data,
-			depth:this._parent.depth + 1,
-			visible:!this._parent.data.shrink && this._parent.visible
-		});
-		this._parent.insertChild(childItem, this._index);
+        this._item.show();
+		this._parent.insertChild(this._item, this._index);
 		remind.page.select(this._item);
 	};
 

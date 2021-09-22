@@ -239,7 +239,13 @@ class Item {
          * @event Remind#item:afterToggle
          * @type {Item}
          */
-        this.remind.fire("item:afterToggle",this)
+        this.remind.fire("item:afterToggle",this);
+        /**
+         * 触发数据变化
+         * @event Remind#item:change
+         * @type {Item}
+         */
+        this.remind.fire("item:change",this);
     }
 
     /**
@@ -545,6 +551,20 @@ class Item {
      */
     select(){
         this.page.select(this)
+    }
+
+    hide(){
+        this.dom.style.display = "none";
+        this.children.forEach(item=>{
+            item.hide();
+        })
+    }
+
+    show(){
+        this.dom.style.display = "flex";
+        this.children.forEach(item=>{
+            item.show();
+        })
     }
 
     /**

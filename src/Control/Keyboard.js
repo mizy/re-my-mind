@@ -24,7 +24,7 @@ class Keyboard{
     }
 
     onKeyDown = (e)=> {
-        if (["TEXTAREA", "INPUT"].indexOf(document.activeElement.tagName) > -1 && document.activeElement.className !== "remind-clip") {
+        if (["TEXTAREA", "INPUT"].indexOf(e.target.tagName) > -1 ) {
             return;
         }
         // 同步鼠标状态

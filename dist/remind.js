@@ -1056,8 +1056,6 @@ var getAllCommands = function getAllCommands(remind) {
   }, {
     name: "Edit",
     keys: [{
-      keyCode: 32
-    }, {
       keyCode: 113
     }],
     execute: function execute() {
@@ -1251,7 +1249,7 @@ var Keyboard = function Keyboard(remind) {
   };
 
   this.onKeyDown = function (e) {
-    if (["TEXTAREA", "INPUT"].indexOf(document.activeElement.tagName) > -1 && document.activeElement.className !== "remind-clip") {
+    if (["TEXTAREA", "INPUT"].indexOf(e.target.tagName) > -1) {
       return;
     } // 同步鼠标状态
 
@@ -1687,6 +1685,14 @@ var Item = /*#__PURE__*/function () {
 
 
       _this.remind.fire("item:afterToggle", _this);
+      /**
+       * 触发数据变化
+       * @event Remind#item:change
+       * @type {Item}
+       */
+
+
+      _this.remind.fire("item:change", _this);
     };
 
     this.startEdit = function () {
@@ -2216,6 +2222,22 @@ var Item = /*#__PURE__*/function () {
     key: "select",
     value: function select() {
       this.page.select(this);
+    }
+  }, {
+    key: "hide",
+    value: function hide() {
+      this.dom.style.display = "none";
+      this.children.forEach(function (item) {
+        item.hide();
+      });
+    }
+  }, {
+    key: "show",
+    value: function show() {
+      this.dom.style.display = "flex";
+      this.children.forEach(function (item) {
+        item.show();
+      });
     }
     /**
      * 获取在父节点中的索引位置
@@ -4839,6 +4861,8 @@ var getAllActions = function getAllActions(remind) {
     this._index = index;
     this.autoSelect = true;
     this._item = new View_Item(remind.page);
+
+    this._item.show();
   };
 
   Action.InsertNewItem.prototype = Object.create(Action.prototype);
@@ -4852,6 +4876,8 @@ var getAllActions = function getAllActions(remind) {
 
   Action.InsertNewItem.prototype.undo = function () {
     this._parent.removeChild(this._item);
+
+    this._item.hide();
 
     remind.page.select(this._parent);
   };
@@ -4885,21 +4911,17 @@ var getAllActions = function getAllActions(remind) {
   Action.RemoveItem.prototype = Object.create(Action.prototype);
 
   Action.RemoveItem.prototype.perform = function () {
-    this._parent.removeChild(this._item);
+    this._item.hide();
 
-    this._item.destroy();
+    this._parent.removeChild(this._item);
 
     remind.page.select(this._parent);
   };
 
   Action.RemoveItem.prototype.undo = function () {
-    var childItem = new View_Item(remind.page, {
-      data: this.data,
-      depth: this._parent.depth + 1,
-      visible: !this._parent.data.shrink && this._parent.visible
-    });
+    this._item.show();
 
-    this._parent.insertChild(childItem, this._index);
+    this._parent.insertChild(this._item, this._index);
 
     remind.page.select(this._item);
   };
