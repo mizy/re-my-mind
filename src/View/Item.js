@@ -245,7 +245,7 @@ class Item {
          * @event Remind#item:change
          * @type {Item}
          */
-        this.remind.fire("item:change",this);
+        this.remind.fire("item:change",this,'toggle');
     }
 
     /**

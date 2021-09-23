@@ -93,7 +93,7 @@ class Minder extends PureComponent {
 			clearTimeout(this.changeTimeout);
 			this.changeTimeout = setTimeout(() => {
 				this.setState({
-					message: "历史记录" + this.app.historyIndex,
+					message: "历史:" + this.app.history.historyIndex,
 					flag: !this.state.flag,
 					nowData: this.app.page.toJSON()
 				});

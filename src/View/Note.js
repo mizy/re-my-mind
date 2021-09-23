@@ -68,7 +68,7 @@ class Note {
 		if(!this.item)return;
 		this.item.endNote(note);
 		content.innerHTML = "";
-		this.remind.fire("item:change", this.item)
+		this.remind.fire("item:change", this.item,'hide-note')
 	}
 
 	/**
