@@ -4,7 +4,7 @@ const path = require("path");
 let webpackConfig = {
 	entry: "./MindMap/index.js",
 	output: {
-		filename: "[name].js",
+		filename: "[name].[chunkhash].js",
 		publicPath: "/"
 	},
 	mode:  process.env.NODE_ENV ?? 'development',
@@ -14,6 +14,19 @@ let webpackConfig = {
 			"@": path.join(__dirname, "src")
 		}
 	},
+	devtool: process.env.NODE_ENV === "production" ? false : "inline-source-map",
+	devServer: {
+		port: 777,
+		open: true,
+		host: "0.0.0.0",
+		contentBase: "./public",
+		// openPage: "./index.html",
+		hot: true,
+		publicPath: "/",
+		proxy:{
+			'/remind-api':'http://0.0.0.0:7001'
+		}
+	},
 	optimization: {
         runtimeChunk: 'single',
         splitChunks: {
@@ -21,6 +34,7 @@ let webpackConfig = {
               vendor: {
                 test: /[\\/]node_modules[\\/]/,
                 name: 'vendors',
+				maxSize:400000,
                 chunks: 'all'
               }
             }
@@ -64,9 +78,9 @@ let webpackConfig = {
 	},
 	plugins: [
         new HtmlWebpackPlugin({
-            filename: 'demo.html',
+            filename: 'index.html',
             template: './public/demo.html',
-            publicPath: './'
+            publicPath: process.env.NODE_ENV === 'production' ? '/remind' : '/' 
         }),
         new webpack.ProvidePlugin({
             React: 'react'
