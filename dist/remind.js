@@ -1692,7 +1692,7 @@ var Item = /*#__PURE__*/function () {
        */
 
 
-      _this.remind.fire("item:change", _this);
+      _this.remind.fire("item:change", _this, 'toggle');
     };
 
     this.startEdit = function () {
@@ -5184,7 +5184,7 @@ var Action = /*#__PURE__*/function () {
       var action = _construct(ActionConstructor, others);
 
       this.remind.history.action(action);
-      this.remind.fire("item:change", action);
+      this.remind.fire("item:change", action, name);
       return action;
     }
   }, {
@@ -5671,7 +5671,7 @@ var Note = /*#__PURE__*/function () {
       if (!this.item) return;
       this.item.endNote(note);
       content.innerHTML = "";
-      this.remind.fire("item:change", this.item);
+      this.remind.fire("item:change", this.item, 'hide-note');
     }
     /**
      * 销毁
