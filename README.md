@@ -10,7 +10,7 @@ remind是一个支持渲染树结构数据，并对其进行各种布局类型�
 
 # demo
 
-[完整DEMO](https://mizy.github.io/re-my-mind/dist/index.html)
+[完整DEMO](https://mizy.github.io/re-my-mind/dist/demo.html)
 
 [base](https://mizy.github.io/re-my-mind/public/base.html)
 
