@@ -1,4 +1,4 @@
-# [re-my-mind](https://mizy.github.io/re-my-mind/)
+# [remind-editor](https://mizy.github.io/re-my-mind/)
 
 remind是一个支持渲染树结构数据，并对其进行各种布局类型渲染和编辑的可视化框架
 * 支持canvas,svg双擎渲染，提升渲染性能
@@ -37,17 +37,17 @@ npm i @tntx/remind --save
 # Usage
 
 ```html
-<script src="https://unpkg.com/re-my-mind@${version}/dist/re-my-mind.js"></script>
+<script src="https://unpkg.com/remind-editor@${version}/dist/remind.js"></script>
 ```
 ```sh
-npm i @tntx/remind --save
-import Remind from '@tntx/remind'
+npm i remind-editor --save
+import Remind from 'remind-editor'
 ```
 
 # Start
 
 ```
-import Remind from '@tntx/remind';
+import Remind from 'remind-editor';
 
 new Remind(document.getElementById("root"),{
 	data:{} // 数据
