@@ -30,7 +30,7 @@ docker run -d -v your_data_path:/reminds -p 7001:7001 mizydocker/remind
 # Install安装
 
 ```sh
-npm i @tntx/remind --save
+npm i remind-editor --save
 ```
 
 
