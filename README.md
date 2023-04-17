@@ -1,28 +1,30 @@
 # [remind-editor](https://mizy.github.io/re-my-mind/)
 
-Remind is a visual framework that supports rendering and editing tree-structured data with various layout types. 
+Remind is a visual framework that supports rendering and editing tree-structured data in various layout types.
 
-* It provides dual render engines of Canvas and SVG to improve rendering performance.
-* It supports Docker deployment and NAS deployment.
-* It is highly performant due to its independence from the layout ability of browsers, and can quickly load large files.
-* It is highly extensible, supporting custom nodes and themes.
-* It supports animated extensions.
+* Supports Canvas and SVG dual-engine rendering to improve rendering performance.
+* Supports Docker deployment and NAS deployment.
+* Does not rely on browser layout capabilities to enhance performance, large files open in seconds.
+* Highly extensible, supports custom nodes and themes.
+* Supports extensible animations.
+
+[查看中文版本](remind-zh.md)
 
 # Demo
 
-[Full Demo](https://mizy.github.io/re-my-mind/dist/demo.html)
+[Complete DEMO](https://mizy.github.io/re-my-mind/dist/demo.html)
 
-[Base](https://mizy.github.io/re-my-mind/public/base.html)
+[base](https://mizy.github.io/re-my-mind/public/base.html)
 
-![Snapshot](https://mizy.github.io/re-my-mind/snapshot.png)
+![snapshot](https://mizy.github.io/re-my-mind/snapshot.png)
 
-![Snapshot](https://mizy.github.io/re-my-mind/snapshot1.png)
+![snapshot](https://mizy.github.io/re-my-mind/snapshot1.png)
 
 ```
 npm run start
 ```
 
-# Docker Startup
+# Docker Start
 
 ```
 docker run -d -v your_data_path:/reminds -p 7001:7001 mizydocker/remind
@@ -43,17 +45,16 @@ npm i remind-editor --save
 
 ```sh
 npm i remind-editor --save
-
 import Remind from 'remind-editor'
 ```
 
-# Startup
+# Start
 
 ```
 import Remind from 'remind-editor';
 
 new Remind(document.getElementById("root"),{
-	data:{} // Data
+	data:{} // data
 })
 ```
 
@@ -62,3 +63,5 @@ new Remind(document.getElementById("root"),{
 ```
 remind.page.toJSON()
 ```
+
+[查看中文版本](remind-zh.md)
