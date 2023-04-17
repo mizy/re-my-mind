@@ -8,7 +8,7 @@ Remind is a visual framework that supports rendering and editing tree-structured
 * Highly extensible, supports custom nodes and themes.
 * Supports extensible animations.
 
-[查看中文版本](remind-zh.md)
+[查看中文版本](readme-zh.md)
 
 # Demo
 
@@ -64,4 +64,4 @@ new Remind(document.getElementById("root"),{
 remind.page.toJSON()
 ```
 
-[查看中文版本](remind-zh.md)
+[查看中文版本](readme-zh.md)
